@@ -1,0 +1,20 @@
+{
+    "name": "SOS.SubstanceExtensions.Editor",
+    "rootNamespace": "SOS.SubstanceExtensionsEditor",
+    "references": [
+        "GUID:cedc11e2794ad3849821c494089f6e9d",
+        "GUID:0322a29457affe94ab4ade0a1555000f",
+        "GUID:b5520fe70c6e8e046b4383b7dd2c75c8"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

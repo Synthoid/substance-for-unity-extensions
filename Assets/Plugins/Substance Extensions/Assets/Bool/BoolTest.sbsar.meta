@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 2a74c48398f955a45b5f868b6c8854f9
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 265457f9ee7f21548b6d59fa73798479, type: 2}
+  _assetPath: Assets/Plugins/Substance Extensions/Assets/Bool/BoolTest.sbsar

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 53dc21849622023479e418fedc21bb21
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: bb3308689c61a3e4cb76ed857fc1ad63, type: 2}
+  _assetPath: Assets/Plugins/Substance Extensions/Assets/Float/FloatTest.sbsar

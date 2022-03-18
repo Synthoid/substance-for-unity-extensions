@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: ed6b50cacc108a44f8bdf4abac0c94bc
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 7d7af2fe610eba54099c409598cfafdf, type: 2}
+  _assetPath: Assets/Plugins/Substance Extensions/Assets/String/StringTest.sbsar

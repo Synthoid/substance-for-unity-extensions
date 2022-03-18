@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 36ac22edb688bc044809d1f3ce8f5ef1
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: ba1c07167931aa04eaa7853831e476dd, type: 2}
+  _assetPath: Assets/Plugins/Substance Extensions/Assets/Subgraphs/SubGraphTest.sbsar

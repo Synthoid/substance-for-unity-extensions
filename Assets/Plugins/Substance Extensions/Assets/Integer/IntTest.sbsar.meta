@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b8cbc333d1f88e04f9801ccb5c95668d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 98bad7050b10e9f4cb407d623e0d625c, type: 2}
+  _assetPath: Assets/Plugins/Substance Extensions/Assets/Integer/IntTest.sbsar
