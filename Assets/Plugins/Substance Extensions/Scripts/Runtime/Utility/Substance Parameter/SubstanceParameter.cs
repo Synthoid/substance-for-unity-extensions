@@ -17,6 +17,11 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private string name;
         /// <summary>
+        /// Index for the graph associated with this parameter.
+        /// </summary>
+        [SerializeField]
+        private int graphId;
+        /// <summary>
         /// Index for the target parameter.
         /// </summary>
         [SerializeField]
@@ -31,14 +36,39 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         [SerializeField]
         private SubstanceWidgetType widgetType;
+        /// <summary>
+        /// Min value for float sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
+        /// </summary>
+        [SerializeField]
+        private Vector4 rangeMin;
+        /// <summary>
+        /// Max value for float sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
+        /// </summary>
+        [SerializeField]
+        private Vector4 rangeMax;
+        /// <summary>
+        /// Min value for int sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
+        /// </summary>
+        [SerializeField]
+        private Vector4Int rangeIntMin;
+        /// <summary>
+        /// Max value for int sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
+        /// </summary>
+        [SerializeField]
+        private Vector4Int rangeIntMax;
 
-        public SubstanceParameter(int index, SubstanceValueType type, string name="", string guid="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget)
+        public SubstanceParameter(int index, SubstanceValueType type, string name="", int graphId=0, string guid="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget, Vector4 sliderMin=default, Vector4 sliderMax=default, Vector4Int sliderIntMin=default, Vector4Int sliderIntMax=default)
         {
             this.guid = guid;
             this.name = name;
+            this.graphId = graphId;
             this.index = index;
             this.type = type;
             this.widgetType = widgetType;
+            this.rangeMin = sliderMin;
+            this.rangeMax = sliderMax;
+            this.rangeIntMin = sliderIntMin;
+            this.rangeIntMax = sliderIntMax;
         }
 
         public string GUID
@@ -50,6 +80,12 @@ namespace SOS.SubstanceExtensions
         public string Name
         {
             get { return name; }
+        }
+
+
+        public int GraphId
+        {
+            get { return graphId; }
         }
 
 
@@ -66,6 +102,26 @@ namespace SOS.SubstanceExtensions
         public SubstanceWidgetType WidgetType
         {
             get { return widgetType; }
+        }
+
+        public Vector4 RangeMin
+        {
+            get { return rangeMin; }
+        }
+
+        public Vector4 RangeMax
+        {
+            get { return rangeMax; }
+        }
+
+        public Vector4Int RangeIntMin
+        {
+            get { return rangeIntMin; }
+        }
+
+        public Vector4Int RangeIntMax
+        {
+            get { return rangeIntMax; }
         }
     }
 }

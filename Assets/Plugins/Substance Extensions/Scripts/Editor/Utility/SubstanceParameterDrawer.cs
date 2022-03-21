@@ -55,6 +55,10 @@ namespace SOS.SubstanceExtensionsEditor
                     property.FindPropertyRelative("index").intValue = 0;
                     property.FindPropertyRelative("type").intValue = (int)SubstanceValueType.Float;
                     property.FindPropertyRelative("widgetType").intValue = (int)SubstanceWidgetType.NoWidget;
+                    property.FindPropertyRelative("rangeMin").vector4Value = Vector4.zero;
+                    property.FindPropertyRelative("rangeMax").vector4Value = Vector4.zero;
+                    property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(Vector4Int.zero);
+                    property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(Vector4Int.zero);
                 }
                 else
                 {
@@ -64,6 +68,10 @@ namespace SOS.SubstanceExtensionsEditor
                     property.FindPropertyRelative("index").intValue = inputs[index].index;
                     property.FindPropertyRelative("type").intValue = (int)inputs[index].type;
                     property.FindPropertyRelative("widgetType").intValue = (int)inputs[index].widget;
+                    property.FindPropertyRelative("rangeMin").vector4Value = inputs[index].rangeMin;
+                    property.FindPropertyRelative("rangeMax").vector4Value = inputs[index].rangeMax;
+                    property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(inputs[index].rangeIntMin);
+                    property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(inputs[index].rangeIntMax);
                 }
             }
         }
