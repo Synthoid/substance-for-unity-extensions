@@ -12,9 +12,7 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private SubstanceParameterValue paramValue = new SubstanceParameterValue();
         [SerializeField]
-        private Vector4 vector = Vector4.zero;
-        [SerializeField]
-        private Vector4Int vectorInt = Vector4Int.zero;
+        private SubstanceOutput output = new SubstanceOutput();
 
 
         private void UpdateSubstance()

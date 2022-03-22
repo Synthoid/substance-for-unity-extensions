@@ -107,7 +107,7 @@ MonoBehaviour:
       identifier=\"$outputsize\" uid=\"2406112811\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://ColorTest\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"2406112811\" type=\"8\" value=\"9,9\" />\n 
-      <presetinput identifier=\"color\" uid=\"3867945481\" type=\"3\" value=\"1,0,0,1\"
+      <presetinput identifier=\"color\" uid=\"3867945481\" type=\"3\" value=\"1,1,1,1\"
       />\n </sbspreset>\n"
     IsRuntimeOnly: 0
   RefreshMaterial: 1
@@ -174,7 +174,7 @@ MonoBehaviour:
       data:
         _Index: 2
         _GraphID: 0
-        _Data: {x: 1, y: 0, z: 0, w: 1}
+        _Data: {x: 1, y: 1, z: 1, w: 1}
         _isVisible: 1
         _Description:
           Identifier: color

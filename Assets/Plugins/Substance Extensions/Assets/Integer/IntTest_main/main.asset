@@ -106,7 +106,8 @@ MonoBehaviour:
     DefaultPreset: " <sbspreset pkgurl=\"pkg://IntTest\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"461500834\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://IntTest\" label=\"\" >\n  <presetinput
-      identifier=\"$outputsize\" uid=\"461500834\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+      identifier=\"$outputsize\" uid=\"461500834\" type=\"8\" value=\"10,10\" />\n
+      </sbspreset>\n"
     IsRuntimeOnly: 0
   RefreshMaterial: 1
   Name: main

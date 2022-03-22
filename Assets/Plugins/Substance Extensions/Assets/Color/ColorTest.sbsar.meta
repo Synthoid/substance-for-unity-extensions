@@ -10,4 +10,5 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
   _instancesCopy:
   - {fileID: 11400000, guid: 6968c921bf6c567438f869190f5f2084, type: 2}
+  - {fileID: 11400000, guid: b332018f81aaf0a458895d37c37534b6, type: 2}
   _assetPath: Assets/Plugins/Substance Extensions/Assets/Color/ColorTest.sbsar

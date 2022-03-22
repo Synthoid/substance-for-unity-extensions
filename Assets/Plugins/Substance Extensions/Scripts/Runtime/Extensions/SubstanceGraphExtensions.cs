@@ -124,20 +124,46 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static void SetInputAndRender(this SubstanceMaterialInstanceSO graph, string name, SubstanceParameterValue value, int subgraphIndex=0)
-        {
-            SetInputAndRender(graph, GetInputIndex(graph, name, subgraphIndex), value, subgraphIndex);
-        }
-
-
-        public static void SetInputAndRender(this SubstanceMaterialInstanceSO graph, int index, SubstanceParameterValue value, int subgraphIndex=0)
+        public static void SetInputAndRender(this SubstanceMaterialInstanceSO graph, SubstanceParameterValue value)
         {
             using(SubstanceNativeHandler handler = Engine.OpenFile(graph.RawData.FileContent))
             {
+                for(int i=0; i < graph.Graphs.Count; i++)
+                {
+                    graph.Graphs[i].RuntimeInitialize(handler);
+                }
+
                 value.SetValue(handler);
 
-                IntPtr result = handler.Render(subgraphIndex);
-                graph.Graphs[subgraphIndex].UpdateOutputTextures(result);
+                IntPtr result = handler.Render(value.GraphId);
+                graph.Graphs[value.GraphId].UpdateOutputTextures(result);
+            }
+        }
+
+
+        public static void SetInputsAndRender(this SubstanceMaterialInstanceSO graph, IList<SubstanceParameterValue> values)
+        {
+            using(SubstanceNativeHandler handler = Engine.OpenFile(graph.RawData.FileContent))
+            {
+                for(int i = 0; i < graph.Graphs.Count; i++)
+                {
+                    graph.Graphs[i].RuntimeInitialize(handler);
+                }
+
+                List<int> renderIndexes = new List<int>();
+
+                for(int i = 0; i < values.Count; i++)
+                {
+                    if(!renderIndexes.Contains(values[i].GraphId)) renderIndexes.Add(values[i].GraphId);
+
+                    values[i].SetValue(handler);
+                }
+
+                for(int i=0; i < renderIndexes.Count; i++)
+                {
+                    IntPtr result = handler.Render(renderIndexes[i]);
+                    graph.Graphs[renderIndexes[i]].UpdateOutputTextures(result);
+                }
             }
         }
 

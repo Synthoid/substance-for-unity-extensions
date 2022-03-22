@@ -50,7 +50,7 @@ MonoBehaviour:
         Index: 0
         Type: 8
         Channel: baseColor
-      OutputTexture: {fileID: 2800000, guid: e05303b3f0968df4180762d53dfdfc1f, type: 3}
+      OutputTexture: {fileID: 0}
       sRGB: 1
       IsVirtual: 0
       IsStandardOutput: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
         Index: 1
         Type: 8
         Channel: normal
-      OutputTexture: {fileID: 2800000, guid: 9dbec1fed834475468108d03bc75b698, type: 3}
+      OutputTexture: {fileID: 0}
       sRGB: 0
       IsVirtual: 0
       IsStandardOutput: 1
@@ -104,7 +104,7 @@ MonoBehaviour:
         Index: 3
         Type: 8
         Channel: metallic
-      OutputTexture: {fileID: 2800000, guid: 6bc94adb9f95667499ced7b0885e011c, type: 3}
+      OutputTexture: {fileID: 0}
       sRGB: 0
       IsVirtual: 0
       IsStandardOutput: 1
@@ -122,12 +122,15 @@ MonoBehaviour:
     GenerateAllOutputs: 0
     GenerateAllMipmaps: 0
     DefaultPreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n  <presetinput
-      identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n
-      </sbspreset>\n"
+      identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n 
       <presetinput identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\"
-      />\n </sbspreset>\n"
-    IsRuntimeOnly: 0
+      />\n  <presetinput identifier=\"inputInt\" uid=\"2260075232\" type=\"4\" value=\"0\"
+      />\n  <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\"
+      value=\"1,1,1,0\" />\n  <presetinput identifier=\"inputString\" uid=\"2260106579\"
+      type=\"6\" value=\"Hello\" />\n  <presetinput identifier=\"color\" uid=\"2260105661\"
+      type=\"3\" value=\"1,1,1,1\" />\n </sbspreset>\n"
+    IsRuntimeOnly: 1
   RefreshMaterial: 1
   Name: main_1
   IsRoot: 0
@@ -227,7 +230,7 @@ MonoBehaviour:
           Type: 4
           WidgetType: 5
         _Index: 3
-        _Data: 5
+        _Data: 1
         _isVisible: 1
         _GraphID: 0
         _NumericalDescription:
@@ -264,7 +267,7 @@ MonoBehaviour:
           Type: 4
           WidgetType: 1
         _Index: 4
-        _Data: 1
+        _Data: 0
         _isVisible: 1
         _GraphID: 0
         _NumericalDescription:
@@ -460,7 +463,7 @@ MonoBehaviour:
           Type: 9
           WidgetType: 0
         _Index: 12
-        _Data: Test
+        _Data: Hello
         _GraphID: 0
         _isVisible: 1
         _HasChanged: 0
@@ -469,7 +472,7 @@ MonoBehaviour:
       data:
         _Index: 13
         _GraphID: 0
-        _Data: {x: 1, y: 0, z: 0, w: 1}
+        _Data: {x: 1, y: 1, z: 1, w: 1}
         _isVisible: 1
         _Description:
           Identifier: color
@@ -629,7 +632,7 @@ MonoBehaviour:
         _Index: 19
         _GraphID: 0
         _isVisible: 1
-        _Data: {fileID: 0}
+        _Data: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
         _HasChanged: 0
     - rid: 8356817484606341140
       type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
@@ -646,5 +649,5 @@ MonoBehaviour:
         _Index: 20
         _GraphID: 0
         _isVisible: 1
-        _Data: {fileID: 0}
+        _Data: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
         _HasChanged: 0

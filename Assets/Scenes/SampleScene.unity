@@ -217,6 +217,241 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &808107634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808107637}
+  - component: {fileID: 808107636}
+  - component: {fileID: 808107635}
+  - component: {fileID: 808107638}
+  m_Layer: 0
+  m_Name: Substance Runtime Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &808107635
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808107634}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 57b3d230717d54f47b8ca6a99004e0f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &808107636
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808107634}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &808107637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808107634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &808107638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808107634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe5ee0e79a3812c48a4db73ec0bb42b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderKey: 32
+  substance: {fileID: 11400000, guid: cce0f0b8c380f6f4fa582aa762e99c11, type: 2}
+  targetParameter:
+    parameter:
+      guid: b332018f81aaf0a458895d37c37534b6
+      name: color
+      graphId: 0
+      index: 2
+      type: 3
+      widgetType: 3
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 1, y: 0, z: 0, w: 1}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  targetParameters:
+  - parameter:
+      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      name: textColor
+      graphId: 0
+      index: 14
+      type: 3
+      widgetType: 3
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0.13491178, z: 1, w: 0.56078434}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  - parameter:
+      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      name: inputEnum
+      graphId: 0
+      index: 3
+      type: 4
+      widgetType: 5
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  - parameter:
+      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      name: inputString
+      graphId: 0
+      index: 12
+      type: 9
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: Temp
+    textureValue: {fileID: 0}
+  - parameter:
+      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      name: textMetallic
+      graphId: 0
+      index: 18
+      type: 0
+      widgetType: 1
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 1, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: Temp
+    textureValue: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &2135540464
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -459,9 +694,8 @@ MonoBehaviour:
       w: 0
     stringValue: Pretty cool.
     textureValue: {fileID: 2800000, guid: f582f763e5df3c241b43ca4f4eac7f4c, type: 3}
-  vector: {x: 0, y: 0, z: 0, w: 0}
-  vectorInt:
-    x: 0
-    y: 0
-    z: 0
-    w: 0
+  output:
+    guid: f24f6394d9309114d91449f5c8adb17f
+    name: basecolor
+    graphId: 0
+    index: 0
