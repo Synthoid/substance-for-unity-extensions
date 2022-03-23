@@ -1,5 +1,6 @@
 using UnityEngine;
 using Adobe.Substance;
+using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions
 {
@@ -129,39 +130,104 @@ namespace SOS.SubstanceExtensions
             set { textureValue = value; }
         }
 
-        public bool SetValue(SubstanceNativeHandler graphHandler)
+        /// <summary>
+        /// Returns the input on the given <see cref="SubstanceMaterialInstanceSO"/> targeted by this parameter.
+        /// </summary>
+        /// <param name="graph"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
+        public ISubstanceInput GetInput(SubstanceMaterialInstanceSO graph)
+        {
+            return graph.Graphs[GraphId].Input[Index];
+        }
+
+        /// <summary>
+        /// Returns the input on the given <see cref="SubstanceMaterialInstanceSO"/> targeted by this parameter.
+        /// </summary>
+        /// <typeparam name="T">Expected type for the input data.</typeparam>
+        /// <param name="graph"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
+        public T GetInput<T>(SubstanceMaterialInstanceSO graph) where T : ISubstanceInput
+        {
+            return (T)GetInput(graph);
+        }
+
+
+        public bool SetValue(SubstanceNativeHandler handler)
         {
             switch(Type)
             {
                 case SubstanceValueType.Float:
-                    graphHandler.SetInputFloat(FloatValue, Index, GraphId);
+                    handler.SetInputFloat(FloatValue, Index, GraphId);
                     break;
                 case SubstanceValueType.Float2:
-                    graphHandler.SetInputFloat2(Float2Value, Index, GraphId);
+                    handler.SetInputFloat2(Float2Value, Index, GraphId);
                     break;
                 case SubstanceValueType.Float3:
-                    graphHandler.SetInputFloat3(Float3Value, Index, GraphId);
+                    handler.SetInputFloat3(Float3Value, Index, GraphId);
                     break;
                 case SubstanceValueType.Float4:
-                    graphHandler.SetInputFloat4(Float4Value, Index, GraphId);
+                    handler.SetInputFloat4(Float4Value, Index, GraphId);
                     break;
                 case SubstanceValueType.Int:
-                    graphHandler.SetInputInt(IntValue, Index, GraphId);
+                    handler.SetInputInt(IntValue, Index, GraphId);
                     break;
                 case SubstanceValueType.Int2:
-                    graphHandler.SetInputInt2(Int2Value, Index, GraphId);
+                    handler.SetInputInt2(Int2Value, Index, GraphId);
                     break;
                 case SubstanceValueType.Int3:
-                    graphHandler.SetInputInt3(Int3Value, Index, GraphId);
+                    handler.SetInputInt3(Int3Value, Index, GraphId);
                     break;
                 case SubstanceValueType.Int4:
-                    graphHandler.SetInputInt4(Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w, Index, GraphId);
+                    handler.SetInputInt4(Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w, Index, GraphId);
                     break;
                 case SubstanceValueType.String:
-                    graphHandler.SetInputString(StringValue, Index, GraphId);
+                    handler.SetInputString(StringValue, Index, GraphId);
                     break;
                 case SubstanceValueType.Image:
-                    graphHandler.SetInputTexture2D(TextureValue, Index, GraphId);
+                    handler.SetInputTexture2D(TextureValue, Index, GraphId);
+                    break;
+            }
+
+            return false;
+        }
+
+
+        public bool SetValue(SubstanceMaterialInstanceSO substance)
+        {
+            ISubstanceInput input = substance.GetInput(Index, GraphId);
+
+            switch(input)
+            {
+                case SubstanceInputFloat floatInput:
+                    floatInput.Data = FloatValue;
+                    break;
+                case SubstanceInputFloat2 float2Input:
+                    float2Input.Data = Float2Value;
+                    break;
+                case SubstanceInputFloat3 float3Input:
+                    float3Input.Data = Float3Value;
+                    break;
+                case SubstanceInputFloat4 float4Input:
+                    float4Input.Data = Float4Value;
+                    break;
+                case SubstanceInputInt intInput:
+                    intInput.Data = IntValue;
+                    break;
+                case SubstanceInputInt2 int2Input:
+                    int2Input.Data = Int2Value;
+                    break;
+                case SubstanceInputInt3 int3Input:
+                    int3Input.Data = Int3Value;
+                    break;
+                case SubstanceInputInt4 int4Input:
+                    int4Input._Data0 = Int4Value.x;
+                    int4Input._Data1 = Int4Value.y;
+                    int4Input._Data2 = Int4Value.z;
+                    int4Input._Data3 = Int4Value.w;
+                    break;
+                case SubstanceInputString stringInput:
+                    stringInput.Data = StringValue;
+                    break;
+                case SubstanceInputTexture textureInput:
+                    textureInput.Data = TextureValue;
                     break;
             }
 
