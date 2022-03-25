@@ -32,6 +32,7 @@ namespace SOS.SubstanceExtensionsEditor
             public static readonly GUIContent Float4ColorLabel = new GUIContent("Value", "Color value for the parameter. (This is a convenience wrapper for a Float4 parameter)");
             public static readonly GUIContent StringLabel = new GUIContent("Value", "String value for the parameter.");
             public static readonly GUIContent TextureLabel = new GUIContent("Value", "Texture value for the parameter.");
+            //Default
             public static readonly GUIContent DefaultEnumLabel = new GUIContent("Value", "<No Enum>\nThis parameter is an enum with no values...");
             //Vector
             public static readonly GUIContent XLabel = new GUIContent("X");
@@ -40,6 +41,10 @@ namespace SOS.SubstanceExtensionsEditor
             public static readonly GUIContent WLabel = new GUIContent("W");
             //Random Seed
             public static readonly GUIContent ReseedButtonLabel = new GUIContent("Reseed");
+            //Output Size
+            public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance.");
+            public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Linked").image, "Width and Height are linked together and will be the same.");
+            public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Unlinked").image, "Width and Height are unlinked and can be the different.");
         }
 
         private class Defaults
@@ -48,7 +53,30 @@ namespace SOS.SubstanceExtensionsEditor
             public static readonly int[] DefaultEnumLabelValues = new int[1] { 0 };
         }
 
+        private class Values
+        {
+            public static readonly GUIContent[] ResolutionPopupLabels = new GUIContent[9]
+            {
+                new GUIContent("16", "True value: 4"),
+                new GUIContent("32", "True value: 5"),
+                new GUIContent("64", "True value: 6"),
+                new GUIContent("128", "True value: 7"),
+                new GUIContent("256", "True value: 8"),
+                new GUIContent("512", "True value: 9"),
+                new GUIContent("1024 (1K)", "True value: 10"),
+                new GUIContent("2048 (2K)", "True value: 11"),
+                new GUIContent("4096 (4K)", "True value: 12")
+            };
+
+            public static readonly int[] ResolutionPopupValues = new int[9]
+            {
+                4, 5, 6, 7, 8, 9, 10, 11, 12
+            };
+        }
+
+        private const string NAME_OUTPUT_SIZE = "$outputsize";
         private const string NAME_RANDOM_SEED = "$randomseed";
+        private const float LINK_WIDTH = 24f;
 
         private Dictionary<string, Dictionary<int, Dictionary<int, GUIContent[]>>> EnumLabels = new Dictionary<string, Dictionary<int, Dictionary<int, GUIContent[]>>>();
         private Dictionary<string, Dictionary<int, Dictionary<int, int[]>>> EnumValues = new Dictionary<string, Dictionary<int, Dictionary<int, int[]>>>();
@@ -87,6 +115,12 @@ namespace SOS.SubstanceExtensionsEditor
                         }
                         break;
                     case SubstanceValueType.Int2:
+                        if(property.FindPropertyRelative("parameter.name").stringValue == NAME_OUTPUT_SIZE)
+                        {
+                            height += EditorGUIUtility.singleLineHeight;
+                            break;
+                        }
+
                         if(property.FindPropertyRelative("vectorIntValue").isExpanded)
                         {
                             height += EditorGUIUtility.singleLineHeight * 3f;
@@ -148,6 +182,10 @@ namespace SOS.SubstanceExtensionsEditor
             position.height = EditorGUIUtility.singleLineHeight;
 
             //TODO: Menu option to reset to default value?
+            //TODO: Label should be the property name and value when in an array, and unchanged otherwise.
+            //TODO: Need IsArrayElement() extension method to check.
+            //Cache label GUIContent and set it to null when changing anything so it properly refreshes?
+            //ie $outputsize (Int2) : (16, 16), color (Float4) : <color=#FF0000>RGBA(1, 0, 0, 1)</color>, etc
             property.isExpanded = EditorGUI.BeginFoldoutHeaderGroup(position, property.isExpanded, label);
             EditorGUI.EndFoldoutHeaderGroup();
 
@@ -175,7 +213,7 @@ namespace SOS.SubstanceExtensionsEditor
 
                         EditorGUI.BeginChangeCheck();
 
-                        if(widgetType == SubstanceWidgetType.Slider) //TODO: Slider only if parameter is clamped?
+                        if(widgetType == SubstanceWidgetType.Slider)
                         {
                             float floatMin = property.FindPropertyRelative("parameter.rangeMin.x").floatValue;
                             float floatMax = property.FindPropertyRelative("parameter.rangeMax.x").floatValue;
@@ -403,9 +441,52 @@ namespace SOS.SubstanceExtensionsEditor
 
                         SerializedProperty int2Property = property.FindPropertyRelative("vectorIntValue");
 
+                        //$outputsize specific check
+                        if(property.FindPropertyRelative("parameter.name").stringValue == NAME_OUTPUT_SIZE)
+                        {
+                            bool isLinked = int2Property.FindPropertyRelative("x").isExpanded;
+                            float width = position.width+ EditorGUIUtility.singleLineHeight;
+                            position.Set(position.x - EditorGUIUtility.singleLineHeight, position.y, EditorGUIUtility.labelWidth, position.height);
+
+                            Vector2Int indexes = (Vector2Int)int2Property.GetVector4IntValue();
+
+                            EditorGUI.PrefixLabel(position, Labels.OutputSizeLabel);
+
+                            position.Set(position.x + position.width, position.y, ((width - position.width) * 0.5f) - (LINK_WIDTH * 0.5f) - EditorGUIUtility.standardVerticalSpacing, position.height);
+
+                            //Resolution popups
+                            EditorGUI.BeginChangeCheck();
+                            indexes.x = EditorGUI.IntPopup(position, indexes.x, Values.ResolutionPopupLabels, Values.ResolutionPopupValues);
+                            if(EditorGUI.EndChangeCheck())
+                            {
+                                property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(indexes.x, isLinked ? indexes.x : indexes.y));
+                            }
+                            position.x += position.width + LINK_WIDTH + (EditorGUIUtility.standardVerticalSpacing * 2f);
+                            EditorGUI.BeginChangeCheck();
+                            indexes.y = EditorGUI.IntPopup(position, indexes.y, Values.ResolutionPopupLabels, Values.ResolutionPopupValues);
+                            if(EditorGUI.EndChangeCheck())
+                            {
+                                property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(isLinked ? indexes.y : indexes.x, indexes.y));
+                            }
+                            position.Set(position.x - (LINK_WIDTH + EditorGUIUtility.standardVerticalSpacing), position.y, LINK_WIDTH, position.height);
+
+                            //Link button
+                            EditorGUI.BeginChangeCheck();
+                            isLinked = SubstanceExtensionsEditorUtility.DrawLinkedButton(position, isLinked, Labels.LinkedLabel, Labels.UnlinkedLabel);
+                            if(EditorGUI.EndChangeCheck())
+                            {
+                                int2Property.FindPropertyRelative("x").isExpanded = isLinked;
+
+                                if(isLinked == true)
+                                {
+                                    property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(indexes.x, indexes.x));
+                                }
+                            }
+                            break;
+                        }
+
                         int2Property.isExpanded = EditorGUI.BeginFoldoutHeaderGroup(position, int2Property.isExpanded, Labels.Int2Label);
                         EditorGUI.EndFoldoutHeaderGroup();
-
                         if(int2Property.isExpanded)
                         {
                             position.y += position.height + EditorGUIUtility.standardVerticalSpacing;
@@ -431,7 +512,7 @@ namespace SOS.SubstanceExtensionsEditor
 
                             if(EditorGUI.EndChangeCheck())
                             {
-                                property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(int2Val.x, int2Val.y, 0, 0));
+                                property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(int2Val.x, int2Val.y));
                             }
                         }
                         break;

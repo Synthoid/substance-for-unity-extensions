@@ -57,7 +57,7 @@ MonoBehaviour:
       IsAlphaAssignable: 1
       AlphaChannel: 
       InvertAssignedAlpha: 0
-      BGRATexture: 0
+      BGRATexture: 1
       Flags: 0
     - Index: 1
       VirtualOutputIndex: 5
@@ -75,7 +75,7 @@ MonoBehaviour:
       IsAlphaAssignable: 0
       AlphaChannel: 
       InvertAssignedAlpha: 0
-      BGRATexture: 0
+      BGRATexture: 1
       Flags: 0
     - Index: 2
       VirtualOutputIndex: 6
@@ -111,7 +111,7 @@ MonoBehaviour:
       IsAlphaAssignable: 1
       AlphaChannel: roughness
       InvertAssignedAlpha: 1
-      BGRATexture: 0
+      BGRATexture: 1
       Flags: 0
     RenderTextures: 0
     OutputRemaped: 0
@@ -124,10 +124,9 @@ MonoBehaviour:
     DefaultPreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n 
-      <presetinput identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\"
-      />\n  <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\"
-      value=\"1,1,1,0\" />\n  <presetinput identifier=\"inputString\" uid=\"2260106579\"
-      type=\"6\" value=\"Hello\" />\n  <presetinput identifier=\"color\" uid=\"2260105661\"
+      <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\" value=\"1,1,1,0\"
+      />\n  <presetinput identifier=\"inputString\" uid=\"2260106579\" type=\"6\"
+      value=\"Hello\" />\n  <presetinput identifier=\"color\" uid=\"2260105661\"
       type=\"3\" value=\"1,0,0,1\" />\n </sbspreset>\n"
     IsRuntimeOnly: 0
   RefreshMaterial: 1
@@ -152,7 +151,7 @@ MonoBehaviour:
           WidgetType: 0
         _Index: 0
         _GraphID: 0
-        _Data: {x: 10, y: 10}
+        _Data: {x: 8, y: 8}
         _isVisible: 1
         _NumericalDescription:
           _DefaultValue: {x: 8, y: 8}

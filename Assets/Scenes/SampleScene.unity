@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -315,34 +315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderKey: 32
   substance: {fileID: 11400000, guid: cce0f0b8c380f6f4fa582aa762e99c11, type: 2}
-  targetParameter:
-    parameter:
-      guid: b332018f81aaf0a458895d37c37534b6
-      name: color
-      graphId: 0
-      index: 2
-      type: 3
-      widgetType: 3
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 1, y: 0, z: 0, w: 1}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
   targetParameters:
   - parameter:
       guid: cce0f0b8c380f6f4fa582aa762e99c11
@@ -448,6 +420,33 @@ MonoBehaviour:
     vectorIntValue:
       x: 0
       y: 0
+      z: 0
+      w: 0
+    stringValue: Temp
+    textureValue: {fileID: 0}
+  - parameter:
+      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      name: $outputsize
+      graphId: 0
+      index: 0
+      type: 5
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 1
+        y: 1
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 11
+      y: 11
       z: 0
       w: 0
     stringValue: Temp

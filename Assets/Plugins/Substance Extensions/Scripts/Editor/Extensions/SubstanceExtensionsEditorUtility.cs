@@ -8,6 +8,19 @@ namespace SOS.SubstanceExtensionsEditor
 {
     public static class SubstanceExtensionsEditorUtility
     {
+        #region Temp
+
+        public class Labels
+        {
+            public class Controls
+            {
+                public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Linked").image);
+                public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Unlinked").image);
+            }
+        }
+
+        #endregion
+
         #region SerializedProperty
 
         public static Vector4Int GetVector4IntValue(this SerializedProperty vectorProperty)
@@ -37,6 +50,33 @@ namespace SOS.SubstanceExtensionsEditor
             if(string.IsNullOrEmpty(guid)) return null;
 
             return AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(guid));
+        }
+
+        #endregion
+
+        #region Controls
+
+
+        public static bool DrawLinkedButton(Rect position, bool isLinked)
+        {
+            return DrawLinkedButton(position, isLinked, Labels.Controls.LinkedLabel, Labels.Controls.UnlinkedLabel);
+        }
+
+
+        public static bool DrawLinkedButton(Rect position, bool isLinked, GUIContent linkedLabel, GUIContent unlinkedLabel)
+        {
+            Color cachedGUI = GUI.backgroundColor;
+
+            GUI.color *= isLinked ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
+
+            if(GUI.Button(position, isLinked ? linkedLabel : unlinkedLabel))
+            {
+                isLinked = !isLinked;
+            }
+
+            GUI.color = cachedGUI;
+
+            return isLinked;
         }
 
         #endregion
