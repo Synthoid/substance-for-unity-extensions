@@ -17,7 +17,19 @@ namespace SOS.SubstanceExtensions
         private void RenderSubstance()
         {
             //substance.SetInputAndRender(targetParameter);
-            substance.SetInputsAndRender(targetParameters);
+            //substance.SetInputsAndRender(targetParameters);
+
+            /*SubstanceNativeHandler handler = substance.BeginEditingSubstance();
+            substance.SetInputs(targetParameters);
+            substance.Render(handler);
+            substance.EndEditingSubstance(handler);*/
+
+            //TODO: Seems like directly setting parameters on the substance updates (semi) correctly.
+            //But the below doesn't...
+            SubstanceNativeHandler handler = substance.BeginEditingSubstance();
+            substance.SetInputs(handler, targetParameters);
+            substance.Render(handler);
+            substance.EndEditingSubstance(handler);
         }
 
 

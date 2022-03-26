@@ -24,6 +24,8 @@ namespace SOS.SubstanceExtensions
         [InspectorName("2048 (2K)")]
         _2048 = 11,
         [InspectorName("4096 (4K)")]
-        _4096 = 12
+        _4096 = 12,
+        [InspectorName("8192 (8K)")]
+        _8192 = 13,
     }
 }

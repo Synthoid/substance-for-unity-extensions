@@ -10,6 +10,9 @@ namespace SOS.SubstanceExtensions
 {
     public static class SubstanceMaterialInstanceExtensions
     {
+        public const string PARAM_OUTPUT_SIZE = "$outputsize";
+        public const string PARAM_RANDOM_SEED = "$randomseed";
+
         public static List<ISubstanceInput> GetInputs(this SubstanceMaterialInstanceSO substance)
         {
             List<ISubstanceInput> inputs = new List<ISubstanceInput>();
@@ -23,27 +26,27 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static ISubstanceInput GetInput(this SubstanceMaterialInstanceSO substance, string name, int subgraphIndex=0)
+        public static ISubstanceInput GetInput(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
         {
-            return GetInput(substance, GetInputIndex(substance, name, subgraphIndex), subgraphIndex);
+            return GetInput(substance, GetInputIndex(substance, name, graphId), graphId);
         }
 
 
-        public static ISubstanceInput GetInput(this SubstanceMaterialInstanceSO substance, int index, int subgraphIndex=0)
+        public static ISubstanceInput GetInput(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
         {
-            return substance.Graphs[subgraphIndex].Input[index];
+            return substance.Graphs[graphId].Input[index];
         }
 
 
-        public static T GetInput<T>(this SubstanceMaterialInstanceSO substance, string name, int subgraphIndex=0) where T : ISubstanceInput
+        public static T GetInput<T>(this SubstanceMaterialInstanceSO substance, string name, int graphId=0) where T : ISubstanceInput
         {
-            return GetInput<T>(substance, GetInputIndex(substance, name, subgraphIndex), subgraphIndex);
+            return GetInput<T>(substance, GetInputIndex(substance, name, graphId), graphId);
         }
 
 
-        public static T GetInput<T>(this SubstanceMaterialInstanceSO substance, int index, int subgraphIndex=0) where T : ISubstanceInput
+        public static T GetInput<T>(this SubstanceMaterialInstanceSO substance, int index, int graphId=0) where T : ISubstanceInput
         {
-            return (T)substance.Graphs[subgraphIndex].Input[index];
+            return (T)substance.Graphs[graphId].Input[index];
         }
 
 
@@ -64,11 +67,11 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static int GetInputIndex(this SubstanceMaterialInstanceSO substance, string name, int subgraphIndex=0)
+        public static int GetInputIndex(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
         {
-            for(int i=0; i < substance.Graphs[subgraphIndex].Input.Count; i++)
+            for(int i=0; i < substance.Graphs[graphId].Input.Count; i++)
             {
-                if(substance.Graphs[subgraphIndex].Input[i].Description.Identifier == name)
+                if(substance.Graphs[graphId].Input[i].Description.Identifier == name)
                 {
                     return i;
                 }
@@ -77,50 +80,348 @@ namespace SOS.SubstanceExtensions
             return -1;
         }
 
-        public static bool GetBool(this SubstanceMaterialInstanceSO substance, string name, int subgraphIndex=0)
+        /// <summary>
+        /// Initialize a substance for runtime and return a handler to begin editing it. Note, the returned handler must be disposed when you are done with it.
+        /// </summary>
+        /// <param name="substance">Substance to begin editing.</param>
+        /// <param name="graphId"></param>
+        /// <returns><see cref="SubstanceNativeHandler"/> controlling the substance editing.</returns>
+        public static SubstanceNativeHandler BeginEditingSubstance(this SubstanceMaterialInstanceSO substance)
         {
-            return GetBool(substance, GetInputIndex(substance, name, subgraphIndex), subgraphIndex);
+            SubstanceNativeHandler handler = Engine.OpenFile(substance.RawData.FileContent);
+
+            for(int i = 0; i < substance.Graphs.Count; i++)
+            {
+                substance.Graphs[i].RuntimeInitialize(handler);
+            }
+
+            return handler;
         }
 
 
-        public static bool GetBool(this SubstanceMaterialInstanceSO substance, int index, int subgraphIndex=0) //TODO: Should return true if the bool was found, and assign the value with an out parameter?
+        public static void EndEditingSubstance(this SubstanceMaterialInstanceSO substance, SubstanceNativeHandler handler)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, subgraphIndex);
+            handler.Dispose();
+        }
 
-            if(input != null) return input.Data != 0;
+        #region Get/Set Values
 
-            return false;
+        #region Texture
+
+        public static Texture2D GetTexture(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetTexture(substance, GetInputIndex(substance, name, graphId), graphId);
         }
 
 
-        public static float GetFloat(this SubstanceMaterialInstanceSO substance, string name, int subgraphIndex=0)
+        public static Texture2D GetTexture(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
         {
-            return GetFloat(substance, GetInputIndex(substance, name, subgraphIndex), subgraphIndex);
+            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphId);
+
+            return input == null ? null : input.Data;
+        }
+
+        #endregion
+
+        #region String
+
+        public static string GetString(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetString(substance, GetInputIndex(substance, name, graphId), graphId);
         }
 
 
-        public static float GetFloat(this SubstanceMaterialInstanceSO substance, int index, int subgraphIndex=0)
+        public static string GetString(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
         {
-            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, subgraphIndex);
+            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphId);
 
-            if(input != null) return input.Data;
-
-            return 0f;
+            return input == null ? string.Empty : input.Data;
         }
 
-        public static Vector2 GetFloat2(this SubstanceMaterialInstanceSO substance, string name, int subgraphIndex=0)
+        #endregion
+
+        #region Float
+
+        public static float GetFloat(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
         {
-            return GetFloat2(substance, GetInputIndex(substance, name, subgraphIndex), subgraphIndex);
+            return GetFloat(substance, GetInputIndex(substance, name, graphId), graphId);
         }
 
 
-        public static Vector2 GetFloat2(this SubstanceMaterialInstanceSO substance, int index, int subgraphIndex=0)
+        public static float GetFloat(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
         {
-            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, subgraphIndex);
+            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphId);
 
-            if(input != null) return input.Data;
+            return input == null ? 0f : input.Data;
+        }
 
-            return Vector2.zero;
+        #endregion
+
+        #region Float2
+
+        public static Vector2 GetFloat2(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetFloat2(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static Vector2 GetFloat2(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphId);
+
+            return input == null ? Vector2.zero : input.Data;
+        }
+
+        #endregion
+
+        #region Float3
+
+        public static Vector3 GetFloat3(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetFloat3(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static Vector3 GetFloat3(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphId);
+
+            return input == null ? Vector3.zero : input.Data;
+        }
+
+        #endregion
+
+        #region Float4
+
+        public static Vector4 GetFloat4(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetFloat4(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static Vector4 GetFloat4(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphId);
+
+            return input == null ? Vector4.zero : input.Data;
+        }
+
+        #endregion
+
+        #region Int
+
+        public static int GetRandomSeed(this SubstanceMaterialInstanceSO substance, int graphId=0)
+        {
+            return GetInt(substance, PARAM_RANDOM_SEED, graphId);
+        }
+
+
+        public static bool GetBool(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetBool(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static bool GetBool(this SubstanceMaterialInstanceSO substance, int index, int graphId = 0) //TODO: Should return true if the bool was found, and assign the value with an out parameter?
+        {
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+
+            return input == null ? false : input.Data != 0;
+        }
+
+
+        public static int GetInt(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetInt(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static int GetInt(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+
+            return input == null ? 0 : input.Data;
+        }
+
+        #endregion
+
+        #region Int2
+
+        public static Vector2Int GetOutputSize(this SubstanceMaterialInstanceSO substance, int graphId=0)
+        {
+            return GetInt2(substance, PARAM_OUTPUT_SIZE, graphId);
+        }
+
+
+        public static void GetOutputSize(this SubstanceMaterialInstanceSO substance, out SbsOutputSize width, out SbsOutputSize height, int graphId=0)
+        {
+            Vector2Int value = GetOutputSize(substance, graphId);
+
+            width = (SbsOutputSize)value.x;
+            height = (SbsOutputSize)value.y;
+        }
+
+        /// <summary>
+        /// Set the $outputsize parameter on the given substance.
+        /// </summary>
+        /// <param name="substance">Substance to set the output size on.</param>
+        /// <param name="size">Width and height of the size.</param>
+        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceMaterialInstanceSO substance, SbsOutputSize size, int graphId=0)
+        {
+            SetOutputSize(substance, new Vector2Int((int)size, (int)size), graphId);
+        }
+
+        /// <summary>
+        /// Set the $outputsize parameter on the given substance.
+        /// </summary>
+        /// <param name="substance">Substance to set the output size on.</param>
+        /// <param name="width">Width of the size value.</param>
+        /// <param name="height">Height of the size value.</param>
+        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceMaterialInstanceSO substance, SbsOutputSize width, SbsOutputSize height, int graphId=0)
+        {
+            SetOutputSize(substance, new Vector2Int((int)width, (int)height), graphId);
+        }
+
+        /// <summary>
+        /// Set the $outputsize parameter on the given substance.
+        /// </summary>
+        /// <param name="substance">Substance to set the output size on.</param>
+        /// <param name="width">Width of the size value. Note that this value isn't the resolution in pixels, but specific int values associated with sizes. See <see cref="SbsOutputSize"/> for coresponding resolutions and ints.</param>
+        /// <param name="height">Height of the size value. Note that this value isn't the resolution in pixels, but specific int values associated with sizes. See <see cref="SbsOutputSize"/> for coresponding resolutions and ints.</param>
+        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceMaterialInstanceSO substance, int width, int height, int graphId=0)
+        {
+            SetOutputSize(substance, new Vector2Int(width, height), graphId);
+        }
+
+        /// <summary>
+        /// Set the $outputsize parameter on the given substance.
+        /// </summary>
+        /// <param name="substance">Substance to set the output size on.</param>
+        /// <param name="size">Width and height values of the size. Note that this value isn't the resolution in pixels, but specific int values associated with sizes. See <see cref="SbsOutputSize"/> for coresponding resolutions and ints.</param>
+        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceMaterialInstanceSO substance, Vector2Int size, int graphId=0)
+        {
+            SetInt2(substance, PARAM_OUTPUT_SIZE, size, graphId);
+        }
+
+
+        public static Vector2Int GetInt2(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetInt2(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static Vector2Int GetInt2(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphId);
+
+            return input == null ? Vector2Int.zero : input.Data;
+        }
+
+
+
+        public static void SetInt2(this SubstanceMaterialInstanceSO substance, string name, Vector2Int value, int graphId=0)
+        {
+            SetInt2(substance, GetInputIndex(substance, name, graphId), value, graphId);
+        }
+
+
+        public static void SetInt2(this SubstanceMaterialInstanceSO substance, int index, Vector2Int value, int graphId=0)
+        {
+            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphId);
+
+            if(input != null) input.Data = value;
+        }
+
+        #endregion
+
+        #region Int3
+
+        public static Vector3Int GetInt3(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetInt3(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static Vector3Int GetInt3(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphId);
+
+            return input == null ? Vector3Int.zero : input.Data;
+        }
+
+        #endregion
+
+        #region Int4
+
+        public static Vector4Int GetInt4(this SubstanceMaterialInstanceSO substance, string name, int graphId=0)
+        {
+            return GetInt4(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static Vector4Int GetInt4(this SubstanceMaterialInstanceSO substance, int index, int graphId=0)
+        {
+            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphId);
+
+            return input == null ? Vector4Int.zero : new Vector4Int(input._Data0, input._Data1, input._Data2, input._Data3);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Rendering
+
+        public static void RuntimeInitialize(this SubstanceMaterialInstanceSO substance, SubstanceNativeHandler handler)
+        {
+            for(int i=0; i < substance.Graphs.Count; i++)
+            {
+                substance.Graphs[i].RuntimeInitialize(handler);
+            }
+        }
+
+
+        public static void SetInputs(this SubstanceMaterialInstanceSO substance, IList<SubstanceParameterValue> values)
+        {
+            for(int i=0; i < values.Count; i++)
+            {
+                values[i].SetValue(substance);
+            }
+        }
+
+
+        public static void SetInputs(this SubstanceMaterialInstanceSO substance, SubstanceNativeHandler handler, IList<SubstanceParameterValue> values)
+        {
+            for(int i = 0; i < values.Count; i++)
+            {
+                values[i].SetValue(handler);
+            }
+        }
+
+
+        public static void Render(this SubstanceMaterialInstanceSO substance, int graphId=0)
+        {
+            using(SubstanceNativeHandler handler = Engine.OpenFile(substance.RawData.FileContent))
+            {
+                for(int i=0; i < substance.Graphs.Count; i++)
+                {
+                    substance.Graphs[i].RuntimeInitialize(handler);
+                }
+
+                IntPtr result = handler.Render(graphId);
+                substance.Graphs[graphId].UpdateOutputTextures(result);
+            }
+        }
+
+
+        public static void Render(this SubstanceMaterialInstanceSO substance, SubstanceNativeHandler handler, int graphId=0)
+        {
+            IntPtr result = handler.Render(graphId);
+            substance.Graphs[graphId].UpdateOutputTextures(result);
         }
 
 
@@ -137,15 +438,6 @@ namespace SOS.SubstanceExtensions
 
                 IntPtr result = handler.Render(value.GraphId);
                 substance.Graphs[value.GraphId].UpdateOutputTextures(result);
-            }
-        }
-
-
-        public static void SetInputs(this SubstanceMaterialInstanceSO substance, IList<SubstanceParameterValue> values)
-        {
-            for(int i = 0; i < values.Count; i++)
-            {
-                values[i].SetValue(substance);
             }
         }
 
@@ -256,5 +548,7 @@ namespace SOS.SubstanceExtensions
 
             return tcs.Task;
         }*/
+
+        #endregion
     }
 }

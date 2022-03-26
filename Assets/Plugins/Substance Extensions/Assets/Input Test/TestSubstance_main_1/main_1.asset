@@ -57,7 +57,7 @@ MonoBehaviour:
       IsAlphaAssignable: 1
       AlphaChannel: 
       InvertAssignedAlpha: 0
-      BGRATexture: 0
+      BGRATexture: 1
       Flags: 0
     - Index: 1
       VirtualOutputIndex: 5
@@ -75,7 +75,7 @@ MonoBehaviour:
       IsAlphaAssignable: 0
       AlphaChannel: 
       InvertAssignedAlpha: 0
-      BGRATexture: 0
+      BGRATexture: 1
       Flags: 0
     - Index: 2
       VirtualOutputIndex: 6
@@ -111,7 +111,7 @@ MonoBehaviour:
       IsAlphaAssignable: 1
       AlphaChannel: roughness
       InvertAssignedAlpha: 1
-      BGRATexture: 0
+      BGRATexture: 1
       Flags: 0
     RenderTextures: 0
     OutputRemaped: 0
@@ -124,14 +124,15 @@ MonoBehaviour:
     DefaultPreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n 
-      <presetinput identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\"
+      <presetinput identifier=\"inputEnum\" uid=\"2624423695\" type=\"4\" value=\"0\"
       />\n  <presetinput identifier=\"inputInt\" uid=\"2260075232\" type=\"4\" value=\"0\"
       />\n  <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\"
       value=\"1,1,1,0\" />\n  <presetinput identifier=\"inputString\" uid=\"2260106579\"
       type=\"6\" value=\"Hello\" />\n  <presetinput identifier=\"color\" uid=\"2260105661\"
-      type=\"3\" value=\"1,1,1,1\" />\n  <presetinput identifier=\"textRough\" uid=\"2260105705\"
-      type=\"0\" value=\"0\" />\n  <presetinput identifier=\"textMetallic\" uid=\"2260105769\"
-      type=\"0\" value=\"0\" />\n </sbspreset>\n"
+      type=\"3\" value=\"1,1,1,1\" />\n  <presetinput identifier=\"textColor\" uid=\"2260105645\"
+      type=\"3\" value=\"0,0.134912,1,0.560784\" />\n  <presetinput identifier=\"textRough\"
+      uid=\"2260105705\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"textMetallic\"
+      uid=\"2260105769\" type=\"0\" value=\"0\" />\n </sbspreset>\n"
     IsRuntimeOnly: 1
   RefreshMaterial: 1
   Name: main_1
@@ -155,7 +156,7 @@ MonoBehaviour:
           WidgetType: 0
         _Index: 0
         _GraphID: 0
-        _Data: {x: 10, y: 10}
+        _Data: {x: 8, y: 8}
         _isVisible: 1
         _NumericalDescription:
           _DefaultValue: {x: 8, y: 8}
@@ -232,7 +233,7 @@ MonoBehaviour:
           Type: 4
           WidgetType: 5
         _Index: 3
-        _Data: 1
+        _Data: 0
         _isVisible: 1
         _GraphID: 0
         _NumericalDescription:
@@ -499,7 +500,7 @@ MonoBehaviour:
       data:
         _Index: 14
         _GraphID: 0
-        _Data: {x: 1, y: 1, z: 1, w: 1}
+        _Data: {x: 0, y: 0.13491178, z: 1, w: 0.56078434}
         _isVisible: 1
         _Description:
           Identifier: textColor

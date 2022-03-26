@@ -43,8 +43,8 @@ namespace SOS.SubstanceExtensionsEditor
             public static readonly GUIContent ReseedButtonLabel = new GUIContent("Reseed");
             //Output Size
             public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance.");
-            public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Linked").image, "Width and Height are linked together and will be the same.");
-            public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Unlinked").image, "Width and Height are unlinked and can be the different.");
+            public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Linked").image, "Width and Height are linked and will be the same.");
+            public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Unlinked").image, "Width and Height are unlinked and can be different.");
         }
 
         private class Defaults
@@ -55,7 +55,7 @@ namespace SOS.SubstanceExtensionsEditor
 
         private class Values
         {
-            public static readonly GUIContent[] ResolutionPopupLabels = new GUIContent[9]
+            public static readonly GUIContent[] ResolutionPopupLabels = new GUIContent[10]
             {
                 new GUIContent("16", "True value: 4"),
                 new GUIContent("32", "True value: 5"),
@@ -65,12 +65,13 @@ namespace SOS.SubstanceExtensionsEditor
                 new GUIContent("512", "True value: 9"),
                 new GUIContent("1024 (1K)", "True value: 10"),
                 new GUIContent("2048 (2K)", "True value: 11"),
-                new GUIContent("4096 (4K)", "True value: 12")
+                new GUIContent("4096 (4K)", "True value: 12"),
+                new GUIContent("8192 (8K)", "True value: 13")
             };
 
-            public static readonly int[] ResolutionPopupValues = new int[9]
+            public static readonly int[] ResolutionPopupValues = new int[10]
             {
-                4, 5, 6, 7, 8, 9, 10, 11, 12
+                4, 5, 6, 7, 8, 9, 10, 11, 12, 13
             };
         }
 
