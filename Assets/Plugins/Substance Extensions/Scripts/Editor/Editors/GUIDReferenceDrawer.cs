@@ -1,17 +1,19 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 namespace SOS.SubstanceExtensionsEditor
 {
     /// <summary>
     /// Base class for property drawers of classes that display values based on asset references.
+    /// This stores the asset reference as a GUID string, so the asset will not needlessly be included in builds and does not need to be loaded until the property drawer is actually drawn.
     /// </summary>
     public abstract class GUIDReferenceDrawer : PropertyDrawer
     {
         protected const float FIELD_WIDTH = 36f;
 
         /// <summary>
-        /// Name for the asset guid property.
+        /// Name for the asset guid string property.
         /// </summary>
         public abstract string AssetField { get; }
         /// <summary>
@@ -47,9 +49,15 @@ namespace SOS.SubstanceExtensionsEditor
         }
     }
 
-
+    /// <summary>
+    /// Base class for property drawers of classes that display values based on asset references of a specific type.
+    /// This stores the asset reference as a GUID string, so the asset will not needlessly be included in builds and does not need to be loaded until the property drawer is actually drawn.
+    /// </summary>
+    /// <typeparam name="T">Desired type for asset that will be referenced.</typeparam>
     public abstract class GUIDReferenceDrawer<T> : GUIDReferenceDrawer where T : Object
     {
+        protected Dictionary<string, T> loadedAssets = new Dictionary<string, T>();
+
         public override System.Type AssetType
         {
             get { return typeof(T); }
@@ -74,7 +82,7 @@ namespace SOS.SubstanceExtensionsEditor
             }
             else
             {
-                asset = AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(assetGuid));
+                asset = GetAsset(assetGuid);
                 float width = position.width;
 
                 EditorGUI.PrefixLabel(position, label);
@@ -92,6 +100,25 @@ namespace SOS.SubstanceExtensionsEditor
 
                 DrawValueField(position, property, assetProperty, GetValueProperty(property));
             }
+        }
+
+        /// <summary>
+        /// Load an asset with the target guid. This caches loaded assets for better performance.
+        /// </summary>
+        /// <param name="assetGuid">GUID for the target asset to load.</param>
+        /// <returns>Asset of the target type for this drawer.</returns>
+        protected T GetAsset(string assetGuid)
+        {
+            bool success = loadedAssets.TryGetValue(assetGuid, out T asset);
+
+            if(!success)
+            {
+                asset = AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(assetGuid));
+
+                loadedAssets.Add(assetGuid, asset);
+            }
+
+            return asset;
         }
     }
 }

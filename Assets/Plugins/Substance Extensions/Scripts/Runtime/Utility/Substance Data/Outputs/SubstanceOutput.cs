@@ -3,6 +3,9 @@ using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions
 {
+    /// <summary>
+    /// Convenience struct for selecting substance output textures in the inspector.
+    /// </summary>
     [System.Serializable]
     public struct SubstanceOutput
     {
@@ -27,21 +30,33 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private int index;
 
+        /// <summary>
+        /// [Editor Only] GUID for the <see cref="SubstanceMaterialInstanceSO"/> asset containing the target output. Primarily used for editor tooling, not used at runtime.
+        /// </summary>
         public string GUID
         {
             get { return guid; }
         }
 
+        /// <summary>
+        /// Name for the target output.
+        /// </summary>
         public string Name
         {
             get { return name; }
         }
 
+        /// <summary>
+        /// Index for the graph associated with this output.
+        /// </summary>
         public int GraphId
         {
             get { return graphId; }
         }
 
+        /// <summary>
+        /// Index for the target output.
+        /// </summary>
         public int Index
         {
             get { return index; }

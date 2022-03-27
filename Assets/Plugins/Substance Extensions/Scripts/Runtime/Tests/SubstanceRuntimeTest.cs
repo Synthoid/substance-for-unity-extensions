@@ -33,6 +33,7 @@ namespace SOS.SubstanceExtensions
             substance.Render(handler);
             substance.EndEditingSubstance(handler);*/
 
+            //TODO: This causes a crash!
             if(cachedHandler == null) cachedHandler = substance.BeginRuntimeEditing();
 
             substance.SetInputsAndRender(targetParameters, cachedHandler);

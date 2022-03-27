@@ -512,21 +512,23 @@ namespace SOS.SubstanceExtensions
                 }
 
                 Task[] tasks = new Task[renderIndexes.Count];
+                IntPtr[] pointers = new IntPtr[tasks.Length];
+                string[] errors = new string[tasks.Length];
 
                 for(int i = 0; i < renderIndexes.Count; i++)
                 {
+                    int index = i;
                     //TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
 
-                    tasks[i] = Task.Run(() =>
+                    tasks[index] = Task.Run(() =>
                     {
                         try
                         {
-                            IntPtr result = handler.Render(renderIndexes[i]);
-                            return true;
+                            pointers[index] = handler.Render(renderIndexes[index]);
                         }
                         catch(Exception e)
                         {
-                            return false;
+                            errors[index] = e.Message;
                         }
                     });
 
@@ -550,6 +552,16 @@ namespace SOS.SubstanceExtensions
                 await Task.WhenAll(tasks);
 
                 //TODO: Need to get the result ptr and call substance.Graphs[renderIndexes[i]].UpdateOutputTextures(result);
+                for(int i=0; i < tasks.Length; i++)
+                {
+                    if(!string.IsNullOrEmpty(errors[i]))
+                    {
+                        Debug.LogError(string.Format("Could not render graph at index [{0}]:\n{1}", renderIndexes[i], errors[i]));
+                        continue;
+                    }
+
+                    substance.Graphs[renderIndexes[i]].UpdateOutputTextures(pointers[i]);
+                }
             }
         }
 
