@@ -14,6 +14,8 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private SubstanceParameterValue[] targetParameters = new SubstanceParameterValue[0];
 
+        private SubstanceNativeHandler cachedHandler = null;
+
         private void RenderSubstance()
         {
             //substance.SetInputAndRender(targetParameter);
@@ -26,10 +28,20 @@ namespace SOS.SubstanceExtensions
 
             //TODO: Seems like directly setting parameters on the substance updates (semi) correctly.
             //But the below doesn't...
-            SubstanceNativeHandler handler = substance.BeginEditingSubstance();
+            /*SubstanceNativeHandler handler = substance.BeginRuntimeEditing();
             substance.SetInputs(handler, targetParameters);
             substance.Render(handler);
-            substance.EndEditingSubstance(handler);
+            substance.EndEditingSubstance(handler);*/
+
+            if(cachedHandler == null) cachedHandler = substance.BeginRuntimeEditing();
+
+            substance.SetInputsAndRender(targetParameters, cachedHandler);
+        }
+
+
+        private void OnDestroy()
+        {
+            if(cachedHandler != null) cachedHandler.Dispose();
         }
 
 

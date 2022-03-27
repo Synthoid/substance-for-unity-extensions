@@ -86,7 +86,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance">Substance to begin editing.</param>
         /// <param name="graphId"></param>
         /// <returns><see cref="SubstanceNativeHandler"/> controlling the substance editing.</returns>
-        public static SubstanceNativeHandler BeginEditingSubstance(this SubstanceMaterialInstanceSO substance)
+        public static SubstanceNativeHandler BeginRuntimeEditing(this SubstanceMaterialInstanceSO substance)
         {
             SubstanceNativeHandler handler = Engine.OpenFile(substance.RawData.FileContent);
 
@@ -99,7 +99,7 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static void EndEditingSubstance(this SubstanceMaterialInstanceSO substance, SubstanceNativeHandler handler)
+        public static void EndRuntimeEditing(this SubstanceMaterialInstanceSO substance, SubstanceNativeHandler handler)
         {
             handler.Dispose();
         }
@@ -465,6 +465,30 @@ namespace SOS.SubstanceExtensions
                     IntPtr result = handler.Render(renderIndexes[i]);
                     substance.Graphs[renderIndexes[i]].UpdateOutputTextures(result);
                 }
+            }
+        }
+
+
+        public static void SetInputsAndRender(this SubstanceMaterialInstanceSO substance, IList<SubstanceParameterValue> values, SubstanceNativeHandler handler)
+        {
+            for(int i = 0; i < substance.Graphs.Count; i++)
+            {
+                substance.Graphs[i].RuntimeInitialize(handler); //TODO: This is rendering output textures... Need a custom one...
+            }
+
+            List<int> renderIndexes = new List<int>();
+
+            for(int i = 0; i < values.Count; i++)
+            {
+                if(!renderIndexes.Contains(values[i].GraphId)) renderIndexes.Add(values[i].GraphId);
+
+                values[i].SetValue(handler);
+            }
+
+            for(int i = 0; i < renderIndexes.Count; i++)
+            {
+                IntPtr result = handler.Render(renderIndexes[i]);
+                substance.Graphs[renderIndexes[i]].UpdateOutputTextures(result);
             }
         }
 
