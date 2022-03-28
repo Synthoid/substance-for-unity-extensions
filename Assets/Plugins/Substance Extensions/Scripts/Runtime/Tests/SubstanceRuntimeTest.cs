@@ -14,35 +14,35 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private SubstanceParameterValue[] targetParameters = new SubstanceParameterValue[0];
 
-        private SubstanceNativeHandler cachedHandler = null;
+        //private SubstanceNativeHandler cachedHandler = null;
 
         private void RenderSubstance()
         {
             //substance.SetInputAndRender(targetParameter);
             //substance.SetInputsAndRender(targetParameters);
 
-            /*SubstanceNativeHandler handler = substance.BeginEditingSubstance();
+            SubstanceNativeHandler handler = substance.BeginRuntimeEditing();
             substance.SetInputs(targetParameters);
             substance.Render(handler);
-            substance.EndEditingSubstance(handler);*/
+            substance.EndRuntimeEditing(handler);
 
             //TODO: Seems like directly setting parameters on the substance updates (semi) correctly.
             //But the below doesn't...
             /*SubstanceNativeHandler handler = substance.BeginRuntimeEditing();
             substance.SetInputs(handler, targetParameters);
             substance.Render(handler);
-            substance.EndEditingSubstance(handler);*/
+            substance.EndRuntimeEditing(handler);*/
 
             //TODO: This causes a crash!
-            if(cachedHandler == null) cachedHandler = substance.BeginRuntimeEditing();
+            /*if(cachedHandler == null) cachedHandler = substance.BeginRuntimeEditing();
 
-            substance.SetInputsAndRender(targetParameters, cachedHandler);
+            substance.SetInputsAndRender(targetParameters, cachedHandler);*/
         }
 
 
         private void OnDestroy()
         {
-            if(cachedHandler != null) cachedHandler.Dispose();
+            //if(cachedHandler != null) cachedHandler.Dispose();
         }
 
 
