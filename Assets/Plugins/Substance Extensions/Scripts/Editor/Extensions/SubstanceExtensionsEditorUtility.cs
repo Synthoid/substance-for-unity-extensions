@@ -15,8 +15,8 @@ namespace SOS.SubstanceExtensionsEditor
         {
             public class Controls
             {
-                public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Linked").image);
-                public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Unlinked").image);
+                public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Linked" : "Linked").image);
+                public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Unlinked" : "Linked").image);
             }
         }
 
@@ -261,16 +261,16 @@ namespace SOS.SubstanceExtensionsEditor
 
         public static bool DrawLinkedButton(Rect position, bool isLinked, GUIContent linkedLabel, GUIContent unlinkedLabel)
         {
-            Color cachedGUI = GUI.backgroundColor;
+            //Color cachedGUI = GUI.backgroundColor;
 
-            GUI.color *= isLinked ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
+            //GUI.color *= isLinked ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
 
-            if(GUI.Button(position, isLinked ? linkedLabel : unlinkedLabel))
+            if(GUI.Button(position, isLinked ? linkedLabel : unlinkedLabel, EditorStyles.iconButton))
             {
                 isLinked = !isLinked;
             }
 
-            GUI.color = cachedGUI;
+            //GUI.color = cachedGUI;
 
             return isLinked;
         }

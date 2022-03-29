@@ -43,8 +43,8 @@ namespace SOS.SubstanceExtensionsEditor
             public static readonly GUIContent ReseedButtonLabel = new GUIContent("Reseed");
             //Output Size
             public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance.");
-            public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Linked").image, "Width and Height are linked and will be the same.");
-            public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent("d_Unlinked").image, "Width and Height are unlinked and can be different.");
+            public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Linked" : "Linked").image, "Width and Height are linked and will be the same.");
+            public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Unlinked" : "Unlinked").image, "Width and Height are unlinked and can be different.");
         }
 
         private class Defaults
@@ -77,11 +77,12 @@ namespace SOS.SubstanceExtensionsEditor
 
         private const string NAME_OUTPUT_SIZE = "$outputsize";
         private const string NAME_RANDOM_SEED = "$randomseed";
-        private const float LINK_WIDTH = 24f;
+        private const float LINK_WIDTH = 20f;
 
         private Dictionary<string, Dictionary<int, Dictionary<int, GUIContent[]>>> EnumLabels = new Dictionary<string, Dictionary<int, Dictionary<int, GUIContent[]>>>();
         private Dictionary<string, Dictionary<int, Dictionary<int, int[]>>> EnumValues = new Dictionary<string, Dictionary<int, Dictionary<int, int[]>>>();
         private Dictionary<string, Dictionary<int, Dictionary<int, GUIContent>>> EnumFieldLabels = new Dictionary<string, Dictionary<int, Dictionary<int, GUIContent>>>();
+        private Dictionary<string, GUIContent> ArrayLabels = new Dictionary<string, GUIContent>();
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -182,6 +183,11 @@ namespace SOS.SubstanceExtensionsEditor
         {
             position.height = EditorGUIUtility.singleLineHeight;
 
+
+            if(property.IsArrayElement())
+            {
+
+            }
             //TODO: Menu option to reset to default value?
             //TODO: Label should be the property name and value when in an array, and unchanged otherwise.
             //TODO: Need IsArrayElement() extension method to check.
@@ -469,7 +475,7 @@ namespace SOS.SubstanceExtensionsEditor
                             {
                                 property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(isLinked ? indexes.y : indexes.x, indexes.y));
                             }
-                            position.Set(position.x - (LINK_WIDTH + EditorGUIUtility.standardVerticalSpacing), position.y, LINK_WIDTH, position.height);
+                            position.Set(position.x - (LINK_WIDTH /*+ EditorGUIUtility.standardVerticalSpacing*/), position.y, LINK_WIDTH, position.height);
 
                             //Link button
                             EditorGUI.BeginChangeCheck();
@@ -614,10 +620,12 @@ namespace SOS.SubstanceExtensionsEditor
             }
         }
 
+
         private Tuple<GUIContent, GUIContent[], int[]> GetEnumLabels(SerializedProperty parameterProperty)
         {
             return GetEnumLabels(parameterProperty.FindPropertyRelative("guid").stringValue, parameterProperty.FindPropertyRelative("graphId").intValue, parameterProperty.FindPropertyRelative("index").intValue);
         }
+
 
         private Tuple<GUIContent, GUIContent[], int[]> GetEnumLabels(string guid, int graphIndex, int parameterIndex)
         {
@@ -703,6 +711,23 @@ namespace SOS.SubstanceExtensionsEditor
             }
 
             return Tuple.Create(label, labels, enumLabelValues);
+        }
+
+
+        private GUIContent GetArrayLabel(string propertyPath, GUIContent currentLabel)
+        {
+            bool success = ArrayLabels.TryGetValue(propertyPath, out GUIContent label);
+
+            if(!success)
+            {
+                label = new GUIContent(currentLabel);
+
+                //TODO: Get parameter name and type. Maybe append info to tooltip as well? ie (Name (Type), Original Tooltip\n\nInput description?)
+
+                ArrayLabels.Add(propertyPath, label);
+            }
+
+            return label;
         }
     }
 }

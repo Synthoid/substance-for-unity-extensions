@@ -9,8 +9,8 @@ namespace SOS.SubstanceExtensions
         private KeyCode renderKey = KeyCode.Space;
         [SerializeField]
         private SubstanceMaterialInstanceSO substance = null;
-        //[SerializeField]
-        //private SubstanceParameterValue targetParameter = new SubstanceParameterValue();
+        [SerializeField]
+        private SubstanceParameterValue targetParameter = new SubstanceParameterValue();
         [SerializeField]
         private SubstanceParameterValue[] targetParameters = new SubstanceParameterValue[0];
 
