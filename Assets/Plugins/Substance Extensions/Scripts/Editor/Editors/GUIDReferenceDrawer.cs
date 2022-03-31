@@ -96,7 +96,7 @@ namespace SOS.SubstanceExtensionsEditor
                     assetProperty.stringValue = asset != null ? AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset)) : "";
                 }
 
-                position.Set(position.x - (width - EditorGUIUtility.labelWidth - FIELD_WIDTH), position.y, (width - EditorGUIUtility.labelWidth) - FIELD_WIDTH, position.height);
+                position.Set(position.x - (width - EditorGUIUtility.labelWidth - FIELD_WIDTH), position.y, (width - EditorGUIUtility.labelWidth) - (FIELD_WIDTH + EditorGUIUtility.standardVerticalSpacing), position.height);
 
                 DrawValueField(position, property, assetProperty, GetValueProperty(property));
             }

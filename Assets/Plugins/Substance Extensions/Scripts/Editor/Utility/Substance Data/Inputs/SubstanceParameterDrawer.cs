@@ -82,13 +82,13 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(labels == null)
             {
-                SubstanceMaterialInstanceSO graph = AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+                SubstanceMaterialInstanceSO substance = AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
                 List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
                 List<SubstanceParameterData> parameters = new List<SubstanceParameterData>() { new SubstanceParameterData() };
 
-                for(int i=0; i < graph.Graphs.Count; i++)
+                for(int i=0; i < substance.Graphs.Count; i++)
                 {
-                    List<ISubstanceInput> inputs = graph.Graphs[i].Input;
+                    List<ISubstanceInput> inputs = substance.Graphs[i].Input;
 
                     for(int j=0; j < inputs.Count; j++)
                     {
@@ -108,7 +108,6 @@ namespace SOS.SubstanceExtensionsEditor
                         }
                     }
                 }
-
 
                 labels = newLabels.ToArray();
 

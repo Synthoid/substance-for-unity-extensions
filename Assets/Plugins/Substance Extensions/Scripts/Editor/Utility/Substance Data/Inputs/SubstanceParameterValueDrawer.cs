@@ -42,7 +42,7 @@ namespace SOS.SubstanceExtensionsEditor
             //Random Seed
             public static readonly GUIContent ReseedButtonLabel = new GUIContent("Reseed");
             //Output Size
-            public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance.");
+            public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance Note that resolution values are not number of pixes, but an integer value associated with specific resolutions:\n\n16 : 4\n32 : 5\n64 : 6\n128 : 7\n256 : 8\n512 : 9\n1024 : 10\n2048 : 11\n4096 : 12\n8192 : 13");
             public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Linked" : "Linked").image, "Width and Height are linked and will be the same.");
             public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Unlinked" : "Unlinked").image, "Width and Height are unlinked and can be different.");
         }
@@ -183,10 +183,9 @@ namespace SOS.SubstanceExtensionsEditor
         {
             position.height = EditorGUIUtility.singleLineHeight;
 
-
             if(property.IsArrayElement())
             {
-
+                label = GetArrayLabel(property, label);
             }
             //TODO: Menu option to reset to default value?
             //TODO: Label should be the property name and value when in an array, and unchanged otherwise.
@@ -205,7 +204,7 @@ namespace SOS.SubstanceExtensionsEditor
                 EditorGUI.PropertyField(position, property.FindPropertyRelative("parameter"));
                 if(EditorGUI.EndChangeCheck())
                 {
-                    
+                    ClearArrayLabel(property.propertyPath);
                 }
 
                 if(string.IsNullOrEmpty(property.FindPropertyRelative("parameter.name").stringValue)) return;
@@ -714,20 +713,50 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
 
-        private GUIContent GetArrayLabel(string propertyPath, GUIContent currentLabel)
+        private GUIContent GetArrayLabel(SerializedProperty property, GUIContent currentLabel)
         {
+            string propertyPath = property.propertyPath;
             bool success = ArrayLabels.TryGetValue(propertyPath, out GUIContent label);
 
             if(!success)
             {
                 label = new GUIContent(currentLabel);
 
+                string parameterName = property.FindPropertyRelative("parameter.name").stringValue;
+
+                if(!string.IsNullOrEmpty(parameterName))
+                {
+                    string guid = property.FindPropertyRelative("parameter.guid").stringValue;
+                    SubstanceMaterialInstanceSO substance = string.IsNullOrEmpty(guid) ? null : AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(guid));
+                    SubstanceValueType type;
+
+                    if(substance != null)
+                    {
+                        ISubstanceInput input = substance.GetInput(property.FindPropertyRelative("parameter.index").intValue, property.FindPropertyRelative("parameter.graphId").intValue);
+                        type = input.ValueType;
+
+                        label.text = string.Format("{0} ({1} - {2})", input.Description.Label, input.Description.Identifier, type);
+                        label.tooltip = string.Format("{0}{1}{2}", (string.IsNullOrEmpty(label.tooltip) ? "" : string.Format("{0}\n\n", label.tooltip)), parameterName, string.IsNullOrEmpty(input.Description.GuiDescription) ? "" : string.Format("\n{0}", input.Description.GuiDescription));
+                    }
+                    else
+                    {
+                        type = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
+
+                        label.text = string.Format("{0} ({1}", parameterName, type);
+                    }
+                }
                 //TODO: Get parameter name and type. Maybe append info to tooltip as well? ie (Name (Type), Original Tooltip\n\nInput description?)
 
                 ArrayLabels.Add(propertyPath, label);
             }
 
             return label;
+        }
+
+
+        private void ClearArrayLabel(string propertyPath)
+        {
+            ArrayLabels.Remove(propertyPath);
         }
     }
 }

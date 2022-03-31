@@ -11,7 +11,7 @@ namespace SOS.SubstanceExtensions
         private SubstanceMaterialInstanceSO substance = null;
         [SerializeField]
         private SubstanceParameterValue targetParameter = new SubstanceParameterValue();
-        [SerializeField]
+        [SerializeField, Tooltip("Test Tooltip")]
         private SubstanceParameterValue[] targetParameters = new SubstanceParameterValue[0];
 
         //private SubstanceNativeHandler cachedHandler = null;

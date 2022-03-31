@@ -315,6 +315,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderKey: 32
   substance: {fileID: 11400000, guid: cce0f0b8c380f6f4fa582aa762e99c11, type: 2}
+  targetParameter:
+    parameter:
+      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      name: $outputsize
+      graphId: 0
+      index: 0
+      type: 5
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 1
+        y: 1
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 13
+      y: 13
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
   targetParameters:
   - parameter:
       guid: cce0f0b8c380f6f4fa582aa762e99c11
@@ -426,10 +454,10 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   - parameter:
       guid: cce0f0b8c380f6f4fa582aa762e99c11
-      name: $outputsize
+      name: 
       graphId: 0
       index: 0
-      type: 5
+      type: 0
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -439,14 +467,14 @@ MonoBehaviour:
         z: 0
         w: 0
       rangeIntMax:
-        x: 1
-        y: 1
+        x: 0
+        y: 0
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
     vectorIntValue:
-      x: 10
-      y: 10
+      x: 4
+      y: 4
       z: 0
       w: 0
     stringValue: Temp
