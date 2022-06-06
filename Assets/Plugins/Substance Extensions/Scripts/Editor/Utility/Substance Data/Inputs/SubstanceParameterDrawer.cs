@@ -22,13 +22,17 @@ namespace SOS.SubstanceExtensionsEditor
         {
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
-            GUIContent[] labels = GetLabels(assetProperty.stringValue);
             int index = -1;
+            int graphId = property.FindPropertyRelative("graphId").intValue;
+            string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
+            GUIContent[] labels = GetLabels(assetProperty.stringValue);
+            SubstanceParameterData[] inputs = GetParameters(assetGuid);
 
             for(int i=0; i < labels.Length; i++)
             {
-                if(labels[i].tooltip == currentValue)
+                //Get current label index, accounting for for labels with the same values across multiple graphs, ie $outputSize
+                if(labels[i].tooltip == currentValue && inputs[i].graphIndex == graphId)
                 {
                     index = i;
                     break;
@@ -39,6 +43,7 @@ namespace SOS.SubstanceExtensionsEditor
             {
                 index = 0;
                 valueProperty.stringValue = labels[index].tooltip;
+                ResetParameterProperty(property);
             }
 
             EditorGUI.BeginChangeCheck();
@@ -49,20 +54,10 @@ namespace SOS.SubstanceExtensionsEditor
 
                 if(index == 0)
                 {
-                    property.FindPropertyRelative("graphId").intValue = 0;
-                    property.FindPropertyRelative("index").intValue = 0;
-                    property.FindPropertyRelative("type").intValue = (int)SubstanceValueType.Float;
-                    property.FindPropertyRelative("widgetType").intValue = (int)SubstanceWidgetType.NoWidget;
-                    property.FindPropertyRelative("rangeMin").vector4Value = Vector4.zero;
-                    property.FindPropertyRelative("rangeMax").vector4Value = Vector4.zero;
-                    property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(Vector4Int.zero);
-                    property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(Vector4Int.zero);
+                    ResetParameterProperty(property);
                 }
                 else
                 {
-                    string assetGuid = assetProperty.stringValue;
-                    SubstanceParameterData[] inputs = GetParameters(assetGuid);
-
                     property.FindPropertyRelative("graphId").intValue = inputs[index].graphIndex;
                     property.FindPropertyRelative("index").intValue = inputs[index].index;
                     property.FindPropertyRelative("type").intValue = (int)inputs[index].type;
@@ -73,6 +68,19 @@ namespace SOS.SubstanceExtensionsEditor
                     property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(inputs[index].rangeIntMax);
                 }
             }
+        }
+
+
+        private void ResetParameterProperty(SerializedProperty property)
+        {
+            property.FindPropertyRelative("graphId").intValue = 0;
+            property.FindPropertyRelative("index").intValue = 0;
+            property.FindPropertyRelative("type").intValue = (int)SubstanceValueType.Float;
+            property.FindPropertyRelative("widgetType").intValue = (int)SubstanceWidgetType.NoWidget;
+            property.FindPropertyRelative("rangeMin").vector4Value = Vector4.zero;
+            property.FindPropertyRelative("rangeMax").vector4Value = Vector4.zero;
+            property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(Vector4Int.zero);
+            property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(Vector4Int.zero);
         }
 
 
@@ -96,15 +104,15 @@ namespace SOS.SubstanceExtensionsEditor
                         {
                             int index = j;
 
-                            GUIContent label = new GUIContent(string.Format("{0}{1}/{2} ({3})", i.ToString("00"),
+                            GUIContent label = new GUIContent(string.Format("{0}{1}/{2} ({3})",
+                                substance.Instances[i].Name,
                                 string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("/{0}", inputs[index].Description.GuiGroup),
                                 inputs[index].Description.Label,
                                 inputs[index].Description.Type),
                                 inputs[index].Description.Identifier);
                             
                             newLabels.Add(label);
-                            parameters.Add(new SubstanceParameterData(inputs[index])); //TODO: This will break for labels with the same values, ie $outputSize
-                            //TODO: Need a way of associating labels with parameters that accounts for possible duplicate names and indexes across sub-graphs...
+                            parameters.Add(new SubstanceParameterData(inputs[index]));
                         }
                     }
                 }

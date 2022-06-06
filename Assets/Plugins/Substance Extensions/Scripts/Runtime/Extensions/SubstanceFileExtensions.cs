@@ -8,7 +8,7 @@ using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions
 {
-    public static class SubstanceMaterialInstanceExtensions
+    public static class SubstanceFileExtensions
     {
         public const string PARAM_OUTPUT_SIZE = "$outputsize";
         public const string PARAM_RANDOM_SEED = "$randomseed";
@@ -50,30 +50,6 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static ISubstanceInput GetInput(this SubstanceGraphSO substance, string name)
-        {
-            return GetInput(substance, GetInputIndex(substance, name));
-        }
-
-
-        public static ISubstanceInput GetInput(this SubstanceGraphSO substance, int index)
-        {
-            return substance.Input[index];
-        }
-
-
-        public static T GetInput<T>(this SubstanceGraphSO substance, string name) where T : ISubstanceInput
-        {
-            return GetInput<T>(substance, GetInputIndex(substance, name));
-        }
-
-
-        public static T GetInput<T>(this SubstanceGraphSO substance, int index) where T : ISubstanceInput
-        {
-            return (T)substance.Input[index];
-        }
-
-
         public static Tuple<int, int> GetGraphAndInputIndexes(this SubstanceFileSO substance, string name)
         {
             for(int i=0; i < substance.Instances.Count; i++)
@@ -102,46 +78,6 @@ namespace SOS.SubstanceExtensions
             }
 
             return -1;
-        }
-
-
-        public static int GetInputIndex(this SubstanceGraphSO substance, string name)
-        {
-            for(int i = 0; i < substance.Input.Count; i++)
-            {
-                if(substance.Input[i].Description.Identifier == name)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Initialize a substance for runtime and return a handler to begin editing it. Note, the returned handler must be disposed when you are done with it.
-        /// </summary>
-        /// <param name="substance">Substance to begin editing.</param>
-        /// <param name="graphId"></param>
-        /// <returns><see cref="SubstanceNativeHandler"/> controlling the substance editing.</returns>
-        public static SubstanceNativeHandler BeginRuntimeEditing(this SubstanceGraphSO substance)
-        {
-            SubstanceNativeHandler handler = Engine.OpenFile(substance.RawData.FileContent);
-
-            substance.RuntimeInitialize(handler, true);
-
-            /*for(int i = 0; i < substance.Instances.Count; i++)
-            {
-                substance.Instances[i].RuntimeInitialize(handler);
-            }*/
-
-            return handler;
-        }
-
-
-        public static void EndRuntimeEditing(this SubstanceFileSO substance, SubstanceNativeHandler handler)
-        {
-            handler.Dispose();
         }
 
         #region Get/Set Values

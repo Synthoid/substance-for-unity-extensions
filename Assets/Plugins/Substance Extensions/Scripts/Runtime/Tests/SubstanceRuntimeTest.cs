@@ -24,7 +24,7 @@ namespace SOS.SubstanceExtensions
             SubstanceNativeHandler handler = substance.Instances[0].BeginRuntimeEditing();
             substance.SetInputs(targetParameters);
             substance.Render(handler);
-            substance.EndRuntimeEditing(handler);
+            substance.Instances[0].EndRuntimeEditing(handler);
 
             //TODO: Seems like directly setting parameters on the substance updates (semi) correctly.
             //But the below doesn't...

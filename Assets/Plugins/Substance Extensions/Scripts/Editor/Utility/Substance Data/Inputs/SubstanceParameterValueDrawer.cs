@@ -42,7 +42,7 @@ namespace SOS.SubstanceExtensionsEditor
             //Random Seed
             public static readonly GUIContent ReseedButtonLabel = new GUIContent("Reseed");
             //Output Size
-            public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance Note that resolution values are not number of pixes, but an integer value associated with specific resolutions:\n\n16 : 4\n32 : 5\n64 : 6\n128 : 7\n256 : 8\n512 : 9\n1024 : 10\n2048 : 11\n4096 : 12\n8192 : 13");
+            public static readonly GUIContent OutputSizeLabel = new GUIContent("Value", "Output resoltion for the target substance Note that resolution values are not number of pixels, but an integer value associated with specific resolutions:\n\n16 : 4\n32 : 5\n64 : 6\n128 : 7\n256 : 8\n512 : 9\n1024 : 10\n2048 : 11\n4096 : 12\n8192 : 13");
             public static readonly GUIContent LinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Linked" : "Linked").image, "Width and Height are linked and will be the same.");
             public static readonly GUIContent UnlinkedLabel = new GUIContent(EditorGUIUtility.IconContent(EditorGUIUtility.isProSkin ? "d_Unlinked" : "Unlinked").image, "Width and Height are unlinked and can be different.");
         }
@@ -649,13 +649,8 @@ namespace SOS.SubstanceExtensionsEditor
             if(!containsEnum)
             {
                 SubstanceFileSO targetSubstance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
-                ISubstanceInput input = targetSubstance.Instances[graphIndex].Input[parameterIndex];
 
-                bool numericSuccess = input.TryGetNumericalDescription(out ISubstanceInputDescNumerical numericDescription);
-
-                if(!input.IsNumeric ||
-                    !(numericDescription is SubstanceInputDescNumericalInt) ||
-                    ((SubstanceInputDescNumericalInt)numericDescription).EnumValueCount == 0)
+                if(targetSubstance == null)
                 {
                     labels = Defaults.DefaultEnumLabels;
                     enumLabelValues = Defaults.DefaultEnumLabelValues;
@@ -663,19 +658,34 @@ namespace SOS.SubstanceExtensionsEditor
                 }
                 else
                 {
-                    SubstanceInputDescNumericalInt desc = (SubstanceInputDescNumericalInt)numericDescription;
-                    labels = new GUIContent[desc.EnumValueCount];
-                    enumLabelValues = new int[labels.Length];
-                    StringBuilder tooltip = new StringBuilder("Enum value for the parameter. (This is a convenience wrapper for an Int property)\n");
+                    ISubstanceInput input = targetSubstance.Instances[graphIndex].Input[parameterIndex];
 
-                    for(int i = 0; i < desc.EnumValueCount; i++)
+                    bool numericSuccess = input.TryGetNumericalDescription(out ISubstanceInputDescNumerical numericDescription);
+
+                    if(!input.IsNumeric ||
+                        !(numericDescription is SubstanceInputDescNumericalInt) ||
+                        ((SubstanceInputDescNumericalInt)numericDescription).EnumValueCount == 0)
                     {
-                        labels[i] = new GUIContent(desc.EnumValues[i].Label);
-                        enumLabelValues[i] = desc.EnumValues[i].Value;
-                        tooltip.Append(string.Format("\n{0} : {1}", labels[i], enumLabelValues[i]));
+                        labels = Defaults.DefaultEnumLabels;
+                        enumLabelValues = Defaults.DefaultEnumLabelValues;
+                        label = Labels.DefaultEnumLabel;
                     }
+                    else
+                    {
+                        SubstanceInputDescNumericalInt desc = (SubstanceInputDescNumericalInt)numericDescription;
+                        labels = new GUIContent[desc.EnumValueCount];
+                        enumLabelValues = new int[labels.Length];
+                        StringBuilder tooltip = new StringBuilder("Enum value for the parameter. (This is a convenience wrapper for an Int property)\n");
 
-                    label = new GUIContent("Value", tooltip.ToString());
+                        for(int i = 0; i < desc.EnumValueCount; i++)
+                        {
+                            labels[i] = new GUIContent(desc.EnumValues[i].Label);
+                            enumLabelValues[i] = desc.EnumValues[i].Value;
+                            tooltip.Append(string.Format("\n{0} : {1}", labels[i], enumLabelValues[i]));
+                        }
+
+                        label = new GUIContent("Value", tooltip.ToString());
+                    }
                 }
 
                 indexes.Add(parameterIndex, labels);

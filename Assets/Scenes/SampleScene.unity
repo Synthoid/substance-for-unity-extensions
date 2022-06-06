@@ -314,25 +314,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderKey: 32
-  substance: {fileID: 6013892654665635331, guid: d3ef0b08098e44e529e67d128c448a8a, type: 3}
+  substance: {fileID: 6013892654665635331, guid: 9307f27bb5da44530b7989023af589af, type: 3}
   targetParameter:
     parameter:
       guid: 9307f27bb5da44530b7989023af589af
-      name: 
-      graphId: 0
-      index: 11
-      type: 3
-      widgetType: 1
+      name: $outputsize
+      graphId: 1
+      index: 0
+      type: 5
+      widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 1, y: 1, z: 1, w: 1}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
       rangeIntMin:
         x: 0
         y: 0
         z: 0
         w: 0
       rangeIntMax:
-        x: 0
-        y: 0
+        x: 1
+        y: 1
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
