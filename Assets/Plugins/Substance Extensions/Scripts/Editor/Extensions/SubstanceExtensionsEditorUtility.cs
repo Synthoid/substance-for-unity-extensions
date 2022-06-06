@@ -53,11 +53,11 @@ namespace SOS.SubstanceExtensionsEditor
         //TODO: Move this section to a runtime script...
         #region Plugin Loading
 
-        [MenuItem("Window/SOS/Test")]
+       /*[MenuItem("Window/SOS/Test")]
         private static void Test()
         {
             Debug.Log($"Engine (absolute): {GetEnginePath()}\nEngine (local): {GetEngineLocalPath()}\nPlugin (absolute): {GetPluginPath()}\bPlugin (local): {GetPluginLocalPath()}");
-        }
+        }*/
         
 
         public static string GetEngineName()
@@ -236,16 +236,16 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
         /// <summary>
-        /// Get the <see cref="SubstanceMaterialInstanceSO"/> referenced by a <see cref="SubstanceParameter"/> field.
+        /// Get the <see cref="SubstanceFileSO"/> referenced by a <see cref="SubstanceParameter"/> field.
         /// </summary>
         /// <param name="property"><see cref="SubstanceParameter"/> property to get the target reference for.</param>
-        public static SubstanceMaterialInstanceSO GetGUIDReferenceSubstance(this SerializedProperty property)
+        public static SubstanceFileSO GetGUIDReferenceSubstance(this SerializedProperty property)
         {
             string guid = property.FindPropertyRelative("guid").stringValue;
 
             if(string.IsNullOrEmpty(guid)) return null;
 
-            return AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(guid));
+            return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
         }
 
 #endregion

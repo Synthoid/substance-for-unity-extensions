@@ -224,9 +224,9 @@ namespace SOS.SubstanceExtensions
         /// Returns the input on the given <see cref="SubstanceMaterialInstanceSO"/> targeted by this parameter.
         /// </summary>
         /// <param name="substance"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
-        public ISubstanceInput GetInput(SubstanceMaterialInstanceSO substance)
+        public ISubstanceInput GetInput(SubstanceFileSO substance)
         {
-            return substance.Graphs[GraphId].Input[Index];
+            return substance.Instances[GraphId].Input[Index];
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <typeparam name="T">Expected type for the input data.</typeparam>
         /// <param name="substance"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
-        public T GetInput<T>(SubstanceMaterialInstanceSO substance) where T : ISubstanceInput
+        public T GetInput<T>(SubstanceFileSO substance) where T : ISubstanceInput
         {
             return (T)GetInput(substance);
         }

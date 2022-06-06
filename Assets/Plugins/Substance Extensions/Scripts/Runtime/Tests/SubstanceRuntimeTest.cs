@@ -8,7 +8,7 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private KeyCode renderKey = KeyCode.Space;
         [SerializeField]
-        private SubstanceMaterialInstanceSO substance = null;
+        private SubstanceFileSO substance = null;
         [SerializeField]
         private SubstanceParameterValue targetParameter = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test Tooltip")]
@@ -21,7 +21,7 @@ namespace SOS.SubstanceExtensions
             //substance.SetInputAndRender(targetParameter);
             //substance.SetInputsAndRender(targetParameters);
 
-            SubstanceNativeHandler handler = substance.BeginRuntimeEditing();
+            SubstanceNativeHandler handler = substance.Instances[0].BeginRuntimeEditing();
             substance.SetInputs(targetParameters);
             substance.Render(handler);
             substance.EndRuntimeEditing(handler);

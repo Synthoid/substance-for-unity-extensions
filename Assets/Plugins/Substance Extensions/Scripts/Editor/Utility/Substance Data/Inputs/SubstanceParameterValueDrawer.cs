@@ -648,12 +648,14 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(!containsEnum)
             {
-                SubstanceMaterialInstanceSO targetSubstance = AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(guid));
-                ISubstanceInput input = targetSubstance.Graphs[graphIndex].Input[parameterIndex];
+                SubstanceFileSO targetSubstance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
+                ISubstanceInput input = targetSubstance.Instances[graphIndex].Input[parameterIndex];
+
+                bool numericSuccess = input.TryGetNumericalDescription(out ISubstanceInputDescNumerical numericDescription);
 
                 if(!input.IsNumeric ||
-                    !(input.NumericalDescription is SubstanceInputDescNumericalInt) ||
-                    ((SubstanceInputDescNumericalInt)input.NumericalDescription).EnumValueCount == 0)
+                    !(numericDescription is SubstanceInputDescNumericalInt) ||
+                    ((SubstanceInputDescNumericalInt)numericDescription).EnumValueCount == 0)
                 {
                     labels = Defaults.DefaultEnumLabels;
                     enumLabelValues = Defaults.DefaultEnumLabelValues;
@@ -661,7 +663,7 @@ namespace SOS.SubstanceExtensionsEditor
                 }
                 else
                 {
-                    SubstanceInputDescNumericalInt desc = (SubstanceInputDescNumericalInt)input.NumericalDescription;
+                    SubstanceInputDescNumericalInt desc = (SubstanceInputDescNumericalInt)numericDescription;
                     labels = new GUIContent[desc.EnumValueCount];
                     enumLabelValues = new int[labels.Length];
                     StringBuilder tooltip = new StringBuilder("Enum value for the parameter. (This is a convenience wrapper for an Int property)\n");
@@ -727,7 +729,7 @@ namespace SOS.SubstanceExtensionsEditor
                 if(!string.IsNullOrEmpty(parameterName))
                 {
                     string guid = property.FindPropertyRelative("parameter.guid").stringValue;
-                    SubstanceMaterialInstanceSO substance = string.IsNullOrEmpty(guid) ? null : AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(guid));
+                    SubstanceFileSO substance = string.IsNullOrEmpty(guid) ? null : AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
                     SubstanceValueType type;
 
                     if(substance != null)

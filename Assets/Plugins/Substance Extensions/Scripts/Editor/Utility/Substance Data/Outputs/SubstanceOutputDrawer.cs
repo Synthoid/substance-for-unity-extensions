@@ -8,7 +8,7 @@ using Adobe.Substance.Input;
 namespace SOS.SubstanceExtensionsEditor
 {
     [CustomPropertyDrawer(typeof(SubstanceOutput))]
-    public class SubstanceOutputDrawer : GUIDReferenceDrawer<SubstanceMaterialInstanceSO>
+    public class SubstanceOutputDrawer : GUIDReferenceDrawer<SubstanceFileSO>
     {
         private static readonly SubstanceOutputData[] DefaultOutputs = new SubstanceOutputData[0];
 
@@ -70,13 +70,13 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(labels == null)
             {
-                SubstanceMaterialInstanceSO graph = AssetDatabase.LoadAssetAtPath<SubstanceMaterialInstanceSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+                SubstanceFileSO graph = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
                 List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
                 List<SubstanceOutputData> parameters = new List<SubstanceOutputData>() { new SubstanceOutputData() };
 
-                for(int i=0; i < graph.Graphs.Count; i++)
+                for(int i=0; i < graph.Instances.Count; i++)
                 {
-                    List<SubstanceOutputTexture> outputs = graph.Graphs[i].Output;
+                    List<SubstanceOutputTexture> outputs = graph.Instances[i].Output;
 
                     for(int j=0; j < outputs.Count; j++)
                     {

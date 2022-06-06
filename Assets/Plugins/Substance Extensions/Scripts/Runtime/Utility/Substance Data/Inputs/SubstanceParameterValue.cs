@@ -308,9 +308,9 @@ namespace SOS.SubstanceExtensions
         /// Returns the input on the given <see cref="SubstanceMaterialInstanceSO"/> targeted by this parameter.
         /// </summary>
         /// <param name="substance"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
-        public ISubstanceInput GetInput(SubstanceMaterialInstanceSO substance)
+        public ISubstanceInput GetInput(SubstanceFileSO substance)
         {
-            return substance.Graphs[GraphId].Input[Index];
+            return substance.Instances[GraphId].Input[Index];
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <typeparam name="T">Expected type for the input data.</typeparam>
         /// <param name="substance"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
-        public T GetInput<T>(SubstanceMaterialInstanceSO substance) where T : ISubstanceInput
+        public T GetInput<T>(SubstanceFileSO substance) where T : ISubstanceInput
         {
             return (T)GetInput(substance);
         }
@@ -360,7 +360,8 @@ namespace SOS.SubstanceExtensions
                     handler.SetInputString(StringValue, Index, GraphId);
                     return true;
                 case SubstanceValueType.Image:
-                    handler.SetInputTexture2D(TextureValue, Index, GraphId);
+                    Debug.LogWarning("Broken in 0.0.100...");
+                    //handler.SetInputTexture2D(TextureValue, Index, GraphId);
                     return true;
             }
 
@@ -372,7 +373,7 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance">Substance to update values on.</param>
         /// <returns>True if the substance has the target parameter set.</returns>
-        public bool SetValue(SubstanceMaterialInstanceSO substance)
+        public bool SetValue(SubstanceFileSO substance)
         {
             ISubstanceInput input = substance.GetInput(Index, GraphId);
 
@@ -400,16 +401,17 @@ namespace SOS.SubstanceExtensions
                     int3Input.Data = Int3Value;
                     return true;
                 case SubstanceInputInt4 int4Input:
-                    int4Input._Data0 = Int4Value.x;
-                    int4Input._Data1 = Int4Value.y;
-                    int4Input._Data2 = Int4Value.z;
-                    int4Input._Data3 = Int4Value.w;
+                    int4Input.Data0 = Int4Value.x;
+                    int4Input.Data1 = Int4Value.y;
+                    int4Input.Data2 = Int4Value.z;
+                    int4Input.Data3 = Int4Value.w;
                     return true;
                 case SubstanceInputString stringInput:
                     stringInput.Data = StringValue;
                     return true;
                 case SubstanceInputTexture textureInput:
-                    textureInput.Data = TextureValue;
+                    Debug.LogWarning("Broken in 0.0.100...");
+                    //textureInput.Data = TextureValue;
                     return true;
             }
 

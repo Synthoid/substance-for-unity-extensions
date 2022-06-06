@@ -31,7 +31,9 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(input.IsNumeric)
             {
-                switch(input.NumericalDescription)
+                input.TryGetNumericalDescription(out ISubstanceInputDescNumerical numericalDescription);
+
+                switch(numericalDescription)
                 {
                     case SubstanceInputDescNumericalFloat floatDesc:
                         rangeMin = new Vector4(floatDesc.MinValue, 0f, 0f, 0f);

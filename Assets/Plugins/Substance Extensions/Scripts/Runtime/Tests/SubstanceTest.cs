@@ -6,7 +6,7 @@ namespace SOS.SubstanceExtensions
     public class SubstanceTest : MonoBehaviour
     {
         [SerializeField]
-        private SubstanceMaterialInstanceSO substanceGraph = null;
+        private SubstanceFileSO substanceGraph = null;
         [SerializeField]
         private SubstanceParameter parameter = new SubstanceParameter();
         [SerializeField]

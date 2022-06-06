@@ -256,7 +256,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 57b3d230717d54f47b8ca6a99004e0f7, type: 2}
+  - {fileID: 2100000, guid: f264dde0fdfad44cf92a8d48c661bbb6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -314,38 +314,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderKey: 32
-  substance: {fileID: 11400000, guid: cce0f0b8c380f6f4fa582aa762e99c11, type: 2}
+  substance: {fileID: 6013892654665635331, guid: d3ef0b08098e44e529e67d128c448a8a, type: 3}
   targetParameter:
     parameter:
-      guid: cce0f0b8c380f6f4fa582aa762e99c11
-      name: $outputsize
+      guid: 9307f27bb5da44530b7989023af589af
+      name: 
       graphId: 0
-      index: 0
-      type: 5
-      widgetType: 0
+      index: 11
+      type: 3
+      widgetType: 1
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 1, y: 1, z: 1, w: 1}
       rangeIntMin:
         x: 0
         y: 0
         z: 0
         w: 0
       rangeIntMax:
-        x: 1
-        y: 1
+        x: 0
+        y: 0
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
     vectorIntValue:
-      x: 13
-      y: 13
+      x: 10
+      y: 10
       z: 0
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
   targetParameters:
   - parameter:
-      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      guid: 
       name: textColor
       graphId: 0
       index: 14
@@ -372,7 +372,7 @@ MonoBehaviour:
     stringValue: 
     textureValue: {fileID: 0}
   - parameter:
-      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      guid: 
       name: inputEnum
       graphId: 0
       index: 3
@@ -399,7 +399,7 @@ MonoBehaviour:
     stringValue: 
     textureValue: {fileID: 0}
   - parameter:
-      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      guid: 
       name: inputString
       graphId: 0
       index: 12
@@ -426,7 +426,7 @@ MonoBehaviour:
     stringValue: Temp
     textureValue: {fileID: 0}
   - parameter:
-      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      guid: 
       name: textMetallic
       graphId: 0
       index: 18
@@ -453,7 +453,7 @@ MonoBehaviour:
     stringValue: Temp
     textureValue: {fileID: 0}
   - parameter:
-      guid: cce0f0b8c380f6f4fa582aa762e99c11
+      guid: 
       name: 
       graphId: 0
       index: 0
@@ -686,7 +686,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87f379e62f85ea348af5f0a4940a1540, type: 2}
+  - {fileID: 2100000, guid: f264dde0fdfad44cf92a8d48c661bbb6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
