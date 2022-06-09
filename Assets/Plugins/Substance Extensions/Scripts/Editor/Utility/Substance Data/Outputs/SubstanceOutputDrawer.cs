@@ -105,22 +105,22 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(labels == null)
             {
-                SubstanceFileSO graph = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+                SubstanceFileSO substance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
                 List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
                 List<SubstanceOutputData> parameters = new List<SubstanceOutputData>() { new SubstanceOutputData() };
 
-                if(graph != null)
+                if(substance != null)
                 {
-                    for(int i = 0; i < graph.Instances.Count; i++)
+                    for(int i = 0; i < substance.Instances.Count; i++)
                     {
-                        List<SubstanceOutputTexture> outputs = graph.Instances[i].Output;
+                        List<SubstanceOutputTexture> outputs = substance.Instances[i].Output;
 
                         for(int j = 0; j < outputs.Count; j++)
                         {
                             int index = j;
 
                             GUIContent label = new GUIContent(string.Format("{0}/{1} ({2})",
-                                graph.Instances[i].Name,
+                                substance.Instances[i].Name,
                                 outputs[index].Description.Label,
                                 outputs[index].Description.Channel),
                                 outputs[index].Description.Identifier);

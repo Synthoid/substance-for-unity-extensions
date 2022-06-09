@@ -118,7 +118,6 @@ namespace SOS.SubstanceExtensionsEditor
             if(labels == null)
             {
                 SubstanceFileSO substance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
-
                 List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
                 List<SubstanceParameterData> parameters = new List<SubstanceParameterData>() { new SubstanceParameterData() };
 
