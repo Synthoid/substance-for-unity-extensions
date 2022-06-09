@@ -1,6 +1,10 @@
 using UnityEngine;
 using Adobe.Substance;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace SOS.SubstanceExtensions
 {
     /// <summary>
@@ -61,5 +65,15 @@ namespace SOS.SubstanceExtensions
         {
             get { return index; }
         }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// [Editor Only] <see cref="SubstanceFileSO"/> asset referenced for output values.
+        /// </summary>
+        public SubstanceFileSO EditorAsset
+        {
+            get { return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid)); }
+        }
+#endif
     }
 }

@@ -10,6 +10,7 @@ namespace SOS.SubstanceExtensionsEditor
     [CustomPropertyDrawer(typeof(SubstanceOutput))]
     public class SubstanceOutputDrawer : GUIDReferenceDrawer<SubstanceFileSO>
     {
+        private static readonly GUIContent SearchWindowTitle = new GUIContent("Substance Outputs");
         private static readonly SubstanceOutputData[] DefaultOutputs = new SubstanceOutputData[0];
 
         private Dictionary<string, GUIContent[]> outputLabels = new Dictionary<string, GUIContent[]>();
@@ -22,13 +23,16 @@ namespace SOS.SubstanceExtensionsEditor
         {
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
-            GUIContent[] labels = GetLabels(assetProperty.stringValue);
             int index = -1;
+            int graphId = property.FindPropertyRelative("graphId").intValue;
+            string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
+            GUIContent[] labels = GetLabels(assetGuid);
+            SubstanceOutputData[] outputs = GetOutputs(assetGuid);
 
             for(int i = 0; i < labels.Length; i++)
             {
-                if(labels[i].tooltip == currentValue)
+                if(labels[i].tooltip == currentValue && outputs[i].graphIndex == graphId)
                 {
                     index = i;
                     break;
@@ -39,9 +43,33 @@ namespace SOS.SubstanceExtensionsEditor
             {
                 index = 0;
                 valueProperty.stringValue = labels[index].tooltip;
+                ResetOutputProperty(property);
             }
 
-            EditorGUI.BeginChangeCheck();
+            SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, index, labels, (int selectionIndex) =>
+            {
+                if(index == selectionIndex) return;
+
+                valueProperty.stringValue = labels[selectionIndex].tooltip;
+
+                if(selectionIndex == 0)
+                {
+                    ResetOutputProperty(property);
+                }
+                else
+                {
+                    string assetGuid = assetProperty.stringValue;
+                    SubstanceOutputData[] outputs = GetOutputs(assetGuid);
+
+                    property.FindPropertyRelative("graphId").intValue = outputs[selectionIndex].graphIndex;
+                    property.FindPropertyRelative("index").intValue = outputs[selectionIndex].index;
+                }
+
+                property.serializedObject.ApplyModifiedProperties();
+            },
+            SearchWindowTitle);
+
+            /*EditorGUI.BeginChangeCheck();
             index = EditorGUI.Popup(position, GUIContent.none, index, labels);
             if(EditorGUI.EndChangeCheck())
             {
@@ -60,7 +88,14 @@ namespace SOS.SubstanceExtensionsEditor
                     property.FindPropertyRelative("graphId").intValue = outputs[index].graphIndex;
                     property.FindPropertyRelative("index").intValue = outputs[index].index;
                 }
-            }
+            }*/
+        }
+
+
+        private void ResetOutputProperty(SerializedProperty property)
+        {
+            property.FindPropertyRelative("graphId").intValue = 0;
+            property.FindPropertyRelative("index").intValue = 0;
         }
 
 
@@ -84,7 +119,8 @@ namespace SOS.SubstanceExtensionsEditor
                         {
                             int index = j;
 
-                            GUIContent label = new GUIContent(string.Format("{0}/{1} ({2})", i.ToString("00"),
+                            GUIContent label = new GUIContent(string.Format("{0}/{1} ({2})",
+                                graph.Instances[i].Name,
                                 outputs[index].Description.Label,
                                 outputs[index].Description.Channel),
                                 outputs[index].Description.Identifier);

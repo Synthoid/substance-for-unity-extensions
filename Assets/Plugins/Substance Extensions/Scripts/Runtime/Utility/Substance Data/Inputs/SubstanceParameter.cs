@@ -2,6 +2,10 @@ using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace SOS.SubstanceExtensions
 {
     /// <summary>
@@ -98,6 +102,17 @@ namespace SOS.SubstanceExtensions
         {
             get { return index; }
         }
+
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// [Editor Only] <see cref="SubstanceFileSO"/> asset referenced for input parameters.
+        /// </summary>
+        public SubstanceFileSO EditorAsset
+        {
+            get { return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid)); }
+        }
+#endif
 
         /// <summary>
         /// Value type for the parameter.

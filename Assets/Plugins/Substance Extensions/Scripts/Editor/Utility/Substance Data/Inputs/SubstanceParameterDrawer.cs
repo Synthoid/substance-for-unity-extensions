@@ -27,7 +27,7 @@ namespace SOS.SubstanceExtensionsEditor
             int graphId = property.FindPropertyRelative("graphId").intValue;
             string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
-            GUIContent[] labels = GetLabels(assetProperty.stringValue);
+            GUIContent[] labels = GetLabels(assetGuid);
             SubstanceParameterData[] inputs = GetParameters(assetGuid);
 
             for(int i=0; i < labels.Length; i++)

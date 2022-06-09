@@ -318,10 +318,10 @@ MonoBehaviour:
   targetParameter:
     parameter:
       guid: 5f19ac5cee01e440a9b4a0625f3b0930
-      name: 
+      name: $outputsize
       graphId: 0
       index: 0
-      type: 0
+      type: 5
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -331,8 +331,8 @@ MonoBehaviour:
         z: 0
         w: 0
       rangeIntMax:
-        x: 0
-        y: 0
+        x: 1
+        y: 1
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
@@ -744,11 +744,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   substanceGraph: {fileID: 0}
   parameter:
-    guid: ba1c07167931aa04eaa7853831e476dd
-    name: 
+    guid: 5f19ac5cee01e440a9b4a0625f3b0930
+    name: $randomseed
     graphId: 0
-    index: 0
-    type: 0
+    index: 1
+    type: 4
     widgetType: 0
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -758,18 +758,18 @@ MonoBehaviour:
       z: 0
       w: 0
     rangeIntMax:
-      x: 0
+      x: 1
       y: 0
       z: 0
       w: 0
   paramValue:
     parameter:
       guid: f24f6394d9309114d91449f5c8adb17f
-      name: color
+      name: 
       graphId: 0
-      index: 13
-      type: 3
-      widgetType: 3
+      index: 0
+      type: 0
+      widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
       rangeIntMin:
@@ -791,7 +791,7 @@ MonoBehaviour:
     stringValue: Pretty cool.
     textureValue: {fileID: 2800000, guid: f582f763e5df3c241b43ca4f4eac7f4c, type: 3}
   output:
-    guid: f24f6394d9309114d91449f5c8adb17f
-    name: 
+    guid: 9307f27bb5da44530b7989023af589af
+    name: basecolor
     graphId: 0
     index: 0
