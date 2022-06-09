@@ -3,6 +3,14 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.1.1] - 2022-06-08
+
+### Unreleased
+
+### Fixed
+- Index out of range exception when changing targeted Substance asset on SubstanceParameterValue fields to an asset with less graphs or inputs than the previous value.
+- Null reference exception when SubstanceParameter and SubstanceParameterValue are viewed after their target substance is destroyed.
+
 ## [0.1.0] - 2022-06-6
 
 ### Added

@@ -345,12 +345,12 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   targetParameters:
   - parameter:
-      guid: 
-      name: textColor
+      guid: 9307f27bb5da44530b7989023af589af
+      name: $outputsize
       graphId: 0
-      index: 14
-      type: 3
-      widgetType: 3
+      index: 0
+      type: 5
+      widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
       rangeIntMin:
@@ -359,20 +359,20 @@ MonoBehaviour:
         z: 0
         w: 0
       rangeIntMax:
-        x: 0
-        y: 0
+        x: 1
+        y: 1
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0.13491178, z: 1, w: 0.56078434}
     vectorIntValue:
-      x: 0
-      y: 0
+      x: 11
+      y: 11
       z: 0
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
   - parameter:
-      guid: 
+      guid: 5f19ac5cee01e440a9b4a0625f3b0930
       name: inputEnum
       graphId: 0
       index: 3

@@ -94,7 +94,7 @@ namespace SOS.SubstanceExtensionsEditor
                 height += EditorGUIUtility.standardVerticalSpacing * 2f;
 
                 if(string.IsNullOrEmpty(property.FindPropertyRelative("parameter.name").stringValue)) return height;
-                if(string.IsNullOrEmpty(property.FindPropertyRelative("parameter.guid").stringValue)) return height;
+                if(string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(property.FindPropertyRelative("parameter.guid").stringValue))) return height;
 
                 SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
 
@@ -189,7 +189,6 @@ namespace SOS.SubstanceExtensionsEditor
             }
             //TODO: Menu option to reset to default value?
             //TODO: Label should be the property name and value when in an array, and unchanged otherwise.
-            //TODO: Need IsArrayElement() extension method to check.
             //Cache label GUIContent and set it to null when changing anything so it properly refreshes?
             //ie $outputsize (Int2) : (16, 16), color (Float4) : <color=#FF0000>RGBA(1, 0, 0, 1)</color>, etc
             property.isExpanded = EditorGUI.BeginFoldoutHeaderGroup(position, property.isExpanded, label);
@@ -208,6 +207,7 @@ namespace SOS.SubstanceExtensionsEditor
                 }
 
                 if(string.IsNullOrEmpty(property.FindPropertyRelative("parameter.name").stringValue)) return;
+                if(string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(property.FindPropertyRelative("parameter.guid").stringValue))) return;
 
                 SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
 
@@ -744,7 +744,24 @@ namespace SOS.SubstanceExtensionsEditor
 
                     if(substance != null)
                     {
-                        ISubstanceInput input = substance.GetInput(property.FindPropertyRelative("parameter.index").intValue, property.FindPropertyRelative("parameter.graphId").intValue);
+                        //Validate parameters in case of index or graphId conflict after swapping target substances.
+                        int index = property.FindPropertyRelative("parameter.index").intValue;
+                        int graphId = property.FindPropertyRelative("parameter.graphId").intValue;
+
+                        if(graphId >= substance.Instances.Count)
+                        {
+                            property.FindPropertyRelative("parameter.graphId").intValue = 0;
+                            graphId = 0;
+                        }
+
+                        //TODO: Test this with a Substance containing no graphs...
+                        if(index >= substance.Instances[graphId].Input.Count)
+                        {
+                            property.FindPropertyRelative("parameter.index").intValue = 0;
+                            index = 0;
+                        }
+
+                        ISubstanceInput input = substance.GetInput(index, graphId);
                         type = input.ValueType;
 
                         label.text = string.Format("{0} ({1} - {2})", input.Description.Label, input.Description.Identifier, type);
