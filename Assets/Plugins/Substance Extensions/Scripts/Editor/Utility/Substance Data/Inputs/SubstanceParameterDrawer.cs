@@ -91,30 +91,38 @@ namespace SOS.SubstanceExtensionsEditor
             if(labels == null)
             {
                 SubstanceFileSO substance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+
                 List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
                 List<SubstanceParameterData> parameters = new List<SubstanceParameterData>() { new SubstanceParameterData() };
 
-                for(int i=0; i < substance.Instances.Count; i++)
+                if(substance != null)
                 {
-                    List<ISubstanceInput> inputs = substance.Instances[i].Input;
-
-                    for(int j=0; j < inputs.Count; j++)
+                    for(int i=0; i < substance.Instances.Count; i++)
                     {
-                        if(inputs[j].IsValid)
-                        {
-                            int index = j;
+                        List<ISubstanceInput> inputs = substance.Instances[i].Input;
 
-                            GUIContent label = new GUIContent(string.Format("{0}{1}/{2} ({3})",
-                                substance.Instances[i].Name,
-                                string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("/{0}", inputs[index].Description.GuiGroup),
-                                inputs[index].Description.Label,
-                                inputs[index].Description.Type),
-                                inputs[index].Description.Identifier);
-                            
-                            newLabels.Add(label);
-                            parameters.Add(new SubstanceParameterData(inputs[index]));
+                        for(int j=0; j < inputs.Count; j++)
+                        {
+                            if(inputs[j].IsValid)
+                            {
+                                int index = j;
+
+                                GUIContent label = new GUIContent(string.Format("{0}{1}/{2} ({3})",
+                                    substance.Instances[i].Name,
+                                    string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("/{0}", inputs[index].Description.GuiGroup),
+                                    inputs[index].Description.Label,
+                                    inputs[index].Description.Type),
+                                    inputs[index].Description.Identifier);
+
+                                newLabels.Add(label);
+                                parameters.Add(new SubstanceParameterData(inputs[index]));
+                            }
                         }
                     }
+                }
+                else
+                {
+                    newLabels[0].text = "None <No Substance>";
                 }
 
                 labels = newLabels.ToArray();

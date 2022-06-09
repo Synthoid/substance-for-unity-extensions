@@ -74,22 +74,29 @@ namespace SOS.SubstanceExtensionsEditor
                 List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
                 List<SubstanceOutputData> parameters = new List<SubstanceOutputData>() { new SubstanceOutputData() };
 
-                for(int i=0; i < graph.Instances.Count; i++)
+                if(graph != null)
                 {
-                    List<SubstanceOutputTexture> outputs = graph.Instances[i].Output;
-
-                    for(int j=0; j < outputs.Count; j++)
+                    for(int i = 0; i < graph.Instances.Count; i++)
                     {
-                        int index = j;
+                        List<SubstanceOutputTexture> outputs = graph.Instances[i].Output;
 
-                        GUIContent label = new GUIContent(string.Format("{0}/{1} ({2})", i.ToString("00"),
-                            outputs[index].Description.Label,
-                            outputs[index].Description.Channel),
-                            outputs[index].Description.Identifier);
+                        for(int j = 0; j < outputs.Count; j++)
+                        {
+                            int index = j;
 
-                        newLabels.Add(label);
-                        parameters.Add(new SubstanceOutputData(outputs[index])); //TODO: This will break for labels with the same values, ie $outputSize
+                            GUIContent label = new GUIContent(string.Format("{0}/{1} ({2})", i.ToString("00"),
+                                outputs[index].Description.Label,
+                                outputs[index].Description.Channel),
+                                outputs[index].Description.Identifier);
+
+                            newLabels.Add(label);
+                            parameters.Add(new SubstanceOutputData(outputs[index])); //TODO: This will break for labels with the same values, ie $outputSize
+                        }
                     }
+                }
+                else
+                {
+                    newLabels[0].text = "None <No Substance>";
                 }
 
                 labels = newLabels.ToArray();
