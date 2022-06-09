@@ -67,27 +67,6 @@ namespace SOS.SubstanceExtensionsEditor
                 property.serializedObject.ApplyModifiedProperties();
             },
             SearchWindowTitle);
-
-            /*EditorGUI.BeginChangeCheck();
-            index = EditorGUI.Popup(position, GUIContent.none, index, labels);
-            if(EditorGUI.EndChangeCheck())
-            {
-                valueProperty.stringValue = labels[index].tooltip;
-
-                if(index == 0)
-                {
-                    property.FindPropertyRelative("graphId").intValue = 0;
-                    property.FindPropertyRelative("index").intValue = 0;
-                }
-                else
-                {
-                    string assetGuid = assetProperty.stringValue;
-                    SubstanceOutputData[] outputs = GetOutputs(assetGuid);
-
-                    property.FindPropertyRelative("graphId").intValue = outputs[index].graphIndex;
-                    property.FindPropertyRelative("index").intValue = outputs[index].index;
-                }
-            }*/
         }
 
 

@@ -3,16 +3,16 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## Unreleased
-
 ## [0.1.1] - 2022-06-09
 
 ### Added
 - SubstanceParameter, SubstanceParameterValue, and SubstanceOutput structs now have an EditorAsset property for convenient access to targeted SubstanceFileSO asset in the editor.
+- SubstanceExtensionsRuntimeUtility for containing runtime utility and convenience methods.
 
 ### Changed
 - SubstanceParameter and SubstanceOutput now use a popup search window when selecting values.
 - SubstanceOutput now displays graph instance names instead of index values for its labels' root section (ie "graph_01/Test" vs "01/Test").
+- Moved engine and plugin name, guid, and path retrieval methods from SubstanceExtensionsEditorUtility to new SubstanceExtensionsRuntimeUtilty class.
 
 ### Fixed
 - Index out of range exception when changing targeted Substance asset on SubstanceParameterValue fields to an asset with less graphs or inputs than the previous value.

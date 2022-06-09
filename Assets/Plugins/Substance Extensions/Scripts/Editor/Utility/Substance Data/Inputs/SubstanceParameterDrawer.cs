@@ -72,29 +72,6 @@ namespace SOS.SubstanceExtensionsEditor
                 valueProperty.serializedObject.ApplyModifiedProperties();
             },
             SearchWindowTitle);
-
-            /*EditorGUI.BeginChangeCheck();
-            index = EditorGUI.Popup(position, GUIContent.none, index, labels);
-            if(EditorGUI.EndChangeCheck())
-            {
-                valueProperty.stringValue = labels[index].tooltip;
-
-                if(index == 0)
-                {
-                    ResetParameterProperty(property);
-                }
-                else
-                {
-                    property.FindPropertyRelative("graphId").intValue = inputs[index].graphIndex;
-                    property.FindPropertyRelative("index").intValue = inputs[index].index;
-                    property.FindPropertyRelative("type").intValue = (int)inputs[index].type;
-                    property.FindPropertyRelative("widgetType").intValue = (int)inputs[index].widget;
-                    property.FindPropertyRelative("rangeMin").vector4Value = inputs[index].rangeMin;
-                    property.FindPropertyRelative("rangeMax").vector4Value = inputs[index].rangeMax;
-                    property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(inputs[index].rangeIntMin);
-                    property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(inputs[index].rangeIntMax);
-                }
-            }*/
         }
 
 
