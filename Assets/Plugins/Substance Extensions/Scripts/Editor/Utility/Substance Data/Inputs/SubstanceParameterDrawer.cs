@@ -10,6 +10,7 @@ namespace SOS.SubstanceExtensionsEditor
     [CustomPropertyDrawer(typeof(SubstanceParameter))]
     public class SubstanceParameterDrawer : GUIDReferenceDrawer<SubstanceFileSO>
     {
+        private static readonly GUIContent SearchWindowTitle = new GUIContent("Substance Inputs");
         private static readonly SubstanceParameterData[] DefaultParameters = new SubstanceParameterData[0];
 
         private Dictionary<string, GUIContent[]> parameterLabels = new Dictionary<string, GUIContent[]>();
@@ -46,7 +47,33 @@ namespace SOS.SubstanceExtensionsEditor
                 ResetParameterProperty(property);
             }
 
-            EditorGUI.BeginChangeCheck();
+            SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, index, labels, (int selectionIndex) =>
+            {
+                if(index == selectionIndex) return;
+
+                valueProperty.stringValue = labels[selectionIndex].tooltip;
+
+                if(selectionIndex == 0)
+                {
+                    ResetParameterProperty(property);
+                }
+                else
+                {
+                    property.FindPropertyRelative("graphId").intValue = inputs[selectionIndex].graphIndex;
+                    property.FindPropertyRelative("index").intValue = inputs[selectionIndex].index;
+                    property.FindPropertyRelative("type").intValue = (int)inputs[selectionIndex].type;
+                    property.FindPropertyRelative("widgetType").intValue = (int)inputs[selectionIndex].widget;
+                    property.FindPropertyRelative("rangeMin").vector4Value = inputs[selectionIndex].rangeMin;
+                    property.FindPropertyRelative("rangeMax").vector4Value = inputs[selectionIndex].rangeMax;
+                    property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(inputs[selectionIndex].rangeIntMin);
+                    property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(inputs[selectionIndex].rangeIntMax);
+                }
+
+                valueProperty.serializedObject.ApplyModifiedProperties();
+            },
+            SearchWindowTitle);
+
+            /*EditorGUI.BeginChangeCheck();
             index = EditorGUI.Popup(position, GUIContent.none, index, labels);
             if(EditorGUI.EndChangeCheck())
             {
@@ -67,7 +94,7 @@ namespace SOS.SubstanceExtensionsEditor
                     property.FindPropertyRelative("rangeIntMin").SetVector4IntValue(inputs[index].rangeIntMin);
                     property.FindPropertyRelative("rangeIntMax").SetVector4IntValue(inputs[index].rangeIntMax);
                 }
-            }
+            }*/
         }
 
 

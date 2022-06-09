@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using System.IO;
 using SOS.SubstanceExtensions;
 using Adobe.Substance;
@@ -217,7 +218,7 @@ namespace SOS.SubstanceExtensionsEditor
 
 #endregion
 
-#region SerializedProperty
+        #region SerializedProperty
 
         public static Vector4Int GetVector4IntValue(this SerializedProperty vectorProperty)
         {
@@ -248,9 +249,9 @@ namespace SOS.SubstanceExtensionsEditor
             return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
         }
 
-#endregion
+        #endregion
 
-#region Controls
+        #region Controls
 
 
         public static bool DrawLinkedButton(Rect position, bool isLinked)
@@ -261,20 +262,27 @@ namespace SOS.SubstanceExtensionsEditor
 
         public static bool DrawLinkedButton(Rect position, bool isLinked, GUIContent linkedLabel, GUIContent unlinkedLabel)
         {
-            //Color cachedGUI = GUI.backgroundColor;
-
-            //GUI.color *= isLinked ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
-
             if(GUI.Button(position, isLinked ? linkedLabel : unlinkedLabel, EditorStyles.iconButton))
             {
                 isLinked = !isLinked;
             }
 
-            //GUI.color = cachedGUI;
-
             return isLinked;
         }
 
-#endregion
+        #endregion
+
+        #region Search
+
+        public static void DrawPopupSearchWindow(Rect position, int index, GUIContent[] labels, System.Action<int> selectionCallback, GUIContent title=default)
+        {
+            if(EditorGUI.DropdownButton(position, labels[index], FocusType.Keyboard))
+            {
+                SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(Event.current.mousePosition)),
+                    ScriptableObject.CreateInstance<LabelSearchProvider>().Initialize(labels, selectionCallback, title));
+            }
+        }
+
+        #endregion
     }
 }
