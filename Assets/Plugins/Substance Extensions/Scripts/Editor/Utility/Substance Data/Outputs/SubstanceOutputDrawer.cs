@@ -3,7 +3,6 @@ using UnityEditor;
 using System.Collections.Generic;
 using SOS.SubstanceExtensions;
 using Adobe.Substance;
-using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensionsEditor
 {
@@ -46,7 +45,7 @@ namespace SOS.SubstanceExtensionsEditor
                 ResetOutputProperty(property);
             }
 
-            SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, index, labels, (int selectionIndex) =>
+            SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, GUIContent.none, index, labels, (int selectionIndex) =>
             {
                 if(index == selectionIndex) return;
 

@@ -791,7 +791,7 @@ MonoBehaviour:
     stringValue: Pretty cool.
     textureValue: {fileID: 2800000, guid: f582f763e5df3c241b43ca4f4eac7f4c, type: 3}
   output:
-    guid: 9307f27bb5da44530b7989023af589af
-    name: basecolor
+    guid: 5f19ac5cee01e440a9b4a0625f3b0930
+    name: metallic
     graphId: 0
-    index: 0
+    index: 3

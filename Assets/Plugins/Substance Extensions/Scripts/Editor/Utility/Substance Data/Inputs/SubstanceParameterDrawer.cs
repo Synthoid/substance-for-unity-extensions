@@ -47,7 +47,7 @@ namespace SOS.SubstanceExtensionsEditor
                 ResetParameterProperty(property);
             }
 
-            SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, index, labels, (int selectionIndex) =>
+            SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, GUIContent.none, index, labels, (int selectionIndex) =>
             {
                 if(index == selectionIndex) return;
 

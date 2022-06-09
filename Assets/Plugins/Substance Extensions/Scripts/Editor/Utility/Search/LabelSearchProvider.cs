@@ -17,6 +17,29 @@ namespace SOS.SubstanceExtensionsEditor
         private System.Action<int> SelectionCallback { get; set; } = null;
         private GUIContent Title { get; set; } = null;
 
+        private static Texture2D emptyTexture = null;
+
+        private static Texture2D EmptyTexture
+        {
+            get
+            {
+                if(emptyTexture == null)
+                {
+                    emptyTexture = new Texture2D(2, 2);
+
+                    emptyTexture.SetPixels32(new Color32[4] {
+                        Color.clear,
+                        Color.clear,
+                        Color.clear,
+                        Color.clear
+                    });
+                    emptyTexture.Apply();
+                }
+
+                return emptyTexture;
+            }
+        }
+
         public LabelSearchProvider Initialize(IList<GUIContent> labels, System.Action<int> selectionCallback, GUIContent title=default)
         {
             Initialize(selectionCallback, title);
@@ -79,7 +102,7 @@ namespace SOS.SubstanceExtensionsEditor
                     groupName += "/";
                 }
 
-                SearchTreeEntry entry = new SearchTreeEntry(new GUIContent(entryTitles[entryTitles.Length - 1]))
+                SearchTreeEntry entry = new SearchTreeEntry(new GUIContent(entryTitles[entryTitles.Length - 1], EmptyTexture))
                 {
                     level = entryTitles.Length,
                     userData = index

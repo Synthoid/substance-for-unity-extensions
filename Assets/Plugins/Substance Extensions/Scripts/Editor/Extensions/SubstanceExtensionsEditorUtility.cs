@@ -274,6 +274,22 @@ namespace SOS.SubstanceExtensionsEditor
 
         #region Search
 
+        public static void DrawPopupSearchWindow(Rect position, GUIContent label, int index, GUIContent[] labels, System.Action<int> selectionCallback, GUIContent title = default)
+        {
+            if(label != GUIContent.none)
+            {
+                EditorGUI.PrefixLabel(position, label);
+                position.Set(position.x + EditorGUIUtility.labelWidth, position.y, position.width - EditorGUIUtility.labelWidth, position.height);
+            }
+
+            if(EditorGUI.DropdownButton(position, labels[index], FocusType.Keyboard))
+            {
+                SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(Event.current.mousePosition)),
+                    ScriptableObject.CreateInstance<LabelSearchProvider>().Initialize(labels, selectionCallback, title));
+            }
+        }
+
+
         public static void DrawPopupSearchWindow(Rect position, int index, GUIContent[] labels, System.Action<int> selectionCallback, GUIContent title=default)
         {
             if(EditorGUI.DropdownButton(position, labels[index], FocusType.Keyboard))
