@@ -82,7 +82,50 @@ namespace SOS.SubstanceExtensions
 
         #region Get/Set Values
 
+        public static object GetValue(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetValue(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
+
+        public static object GetValue(this SubstanceFileSO substance, string name, int graphId=0)
+        {
+            return GetValue(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static object GetValue(this SubstanceFileSO substance, int index, int graphId=0)
+        {
+            ISubstanceInput input = GetInput(substance, index, graphId);
+
+            switch(input)
+            {
+                case SubstanceInputFloat floatInput: return floatInput.Data;
+                case SubstanceInputFloat2 float2Input: return float2Input.Data;
+                case SubstanceInputFloat3 float3Input: return float3Input.Data;
+                case SubstanceInputFloat4 float4Input: return float4Input.Data;
+                case SubstanceInputInt intInput: return intInput.Data;
+                case SubstanceInputInt2 int2Input: return int2Input.Data;
+                case SubstanceInputInt3 int3Input: return int3Input.Data;
+                case SubstanceInputInt4 int4Input: return new Vector4Int(int4Input.Data0, int4Input.Data1, int4Input.Data2, int4Input.Data3);
+                case SubstanceInputString stringInput: return stringInput.Data;
+                case SubstanceInputTexture textureInput:
+                    Debug.LogWarning("Broken in 0.0.100...");
+                    //textureInput.Data = TextureValue;
+                    return null;
+            }
+
+            return null;
+        }
+
+
         #region Texture
+
+        public static Texture2D GetTexture(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetTexture(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
 
         public static Texture2D GetTexture(this SubstanceFileSO substance, string name, int graphId=0)
         {
@@ -95,6 +138,7 @@ namespace SOS.SubstanceExtensions
             SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphId);
 
             //TODO: 0.0.100 broke this...
+            //TODO: Use reflection to get and set the texture value...
             //return input == null ? null : input.Data;
             return null;
         }
@@ -102,6 +146,12 @@ namespace SOS.SubstanceExtensions
         #endregion
 
         #region String
+
+        public static string GetString(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetString(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
 
         public static string GetString(this SubstanceFileSO substance, string name, int graphId=0)
         {
@@ -120,6 +170,12 @@ namespace SOS.SubstanceExtensions
 
         #region Float
 
+        public static float GetFloat(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetFloat(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
+
         public static float GetFloat(this SubstanceFileSO substance, string name, int graphId=0)
         {
             return GetFloat(substance, GetInputIndex(substance, name, graphId), graphId);
@@ -136,6 +192,12 @@ namespace SOS.SubstanceExtensions
         #endregion
 
         #region Float2
+
+        public static Vector2 GetFloat2(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetFloat2(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
 
         public static Vector2 GetFloat2(this SubstanceFileSO substance, string name, int graphId=0)
         {
@@ -154,6 +216,12 @@ namespace SOS.SubstanceExtensions
 
         #region Float3
 
+        public static Vector3 GetFloat3(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetFloat3(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
+
         public static Vector3 GetFloat3(this SubstanceFileSO substance, string name, int graphId=0)
         {
             return GetFloat3(substance, GetInputIndex(substance, name, graphId), graphId);
@@ -170,6 +238,12 @@ namespace SOS.SubstanceExtensions
         #endregion
 
         #region Float4
+
+        public static Vector4 GetFloat4(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetFloat4(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
 
         public static Vector4 GetFloat4(this SubstanceFileSO substance, string name, int graphId=0)
         {
@@ -188,9 +262,21 @@ namespace SOS.SubstanceExtensions
 
         #region Int
 
+        public static float GetRandomSeed(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetInt(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
+
         public static int GetRandomSeed(this SubstanceFileSO substance, int graphId=0)
         {
             return GetInt(substance, PARAM_RANDOM_SEED, graphId);
+        }
+
+
+        public static bool GetBool(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetBool(substance, inputParameter.Index, inputParameter.GraphId);
         }
 
 
@@ -200,11 +286,17 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static bool GetBool(this SubstanceFileSO substance, int index, int graphId = 0) //TODO: Should return true if the bool was found, and assign the value with an out parameter?
+        public static bool GetBool(this SubstanceFileSO substance, int index, int graphId=0) //TODO: Should return true if the bool was found, and assign the value with an out parameter?
         {
             SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
 
             return input == null ? false : input.Data != 0;
+        }
+
+
+        public static int GetInt(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetInt(substance, inputParameter.Index, inputParameter.GraphId);
         }
 
 
@@ -224,6 +316,12 @@ namespace SOS.SubstanceExtensions
         #endregion
 
         #region Int2
+
+        public static Vector2Int GetOutputSize(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetInt2(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
 
         public static Vector2Int GetOutputSize(this SubstanceFileSO substance, int graphId=0)
         {
@@ -286,6 +384,12 @@ namespace SOS.SubstanceExtensions
         }
 
 
+        public static Vector2Int GetInt2(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetInt2(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
+
         public static Vector2Int GetInt2(this SubstanceFileSO substance, string name, int graphId=0)
         {
             return GetInt2(substance, GetInputIndex(substance, name, graphId), graphId);
@@ -318,6 +422,12 @@ namespace SOS.SubstanceExtensions
 
         #region Int3
 
+        public static Vector3Int GetInt3(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetInt3(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
+
         public static Vector3Int GetInt3(this SubstanceFileSO substance, string name, int graphId=0)
         {
             return GetInt3(substance, GetInputIndex(substance, name, graphId), graphId);
@@ -334,6 +444,12 @@ namespace SOS.SubstanceExtensions
         #endregion
 
         #region Int4
+
+        public static Vector4Int GetInt4(this SubstanceFileSO substance, SubstanceParameter inputParameter)
+        {
+            return GetInt4(substance, inputParameter.Index, inputParameter.GraphId);
+        }
+
 
         public static Vector4Int GetInt4(this SubstanceFileSO substance, string name, int graphId=0)
         {

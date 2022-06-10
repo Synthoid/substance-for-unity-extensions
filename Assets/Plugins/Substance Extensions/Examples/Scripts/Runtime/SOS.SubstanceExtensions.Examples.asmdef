@@ -1,0 +1,18 @@
+{
+    "name": "SOS.SubstanceExtensions.Examples",
+    "rootNamespace": "SOS.SubstanceExtensions.Examples",
+    "references": [
+        "GUID:cedc11e2794ad3849821c494089f6e9d",
+        "GUID:0322a29457affe94ab4ade0a1555000f",
+        "GUID:b78cd19d3dcc04e4a8eb1915990b2db1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
