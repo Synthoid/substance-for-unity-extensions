@@ -6,6 +6,9 @@ using UnityEditor;
 
 namespace SOS.SubstanceExtensions
 {
+    /// <summary>
+    /// Contains Substance3D utility methods for use at runtime.
+    /// </summary>
     public static class SubstanceExtensionsRuntimeUtility
     {
 #region Utility
