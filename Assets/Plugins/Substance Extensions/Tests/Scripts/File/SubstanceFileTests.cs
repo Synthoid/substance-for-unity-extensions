@@ -130,6 +130,28 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(parameterValue.Float4Value, inputValue);
         }
 
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a texture input value can properly be referenced on a target SubstanceFileSO asset.")]
+        public void GetTexture()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.TextureValue;
+
+            Texture2D inputValue = substance.GetTexture(parameterValue.Index, parameterValue.GraphId);
+
+            Assert.AreEqual(parameterValue.TextureValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a null texture input value can properly be referenced on a target SubstanceFileSO asset.")]
+        public void GetNullTexture()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.TextureNullValue;
+
+            Texture2D inputValue = substance.GetTexture(parameterValue.Index, parameterValue.GraphId);
+
+            Assert.IsNull(inputValue);
+        }
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an $outputsize input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetOutputSize()
         {

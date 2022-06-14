@@ -550,7 +550,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 8
           WidgetType: 6
-        Data: {fileID: 0}
+        Data: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
     - rid: 1020
       type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:

@@ -34,6 +34,10 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceParameterValue float3Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target float4 input on the test substance.")]
         private SubstanceParameterValue float4Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Expected value for the target texture input on the test substance.")]
+        private SubstanceParameterValue textureValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Expected value for the target null texture input on the test substance.")]
+        private SubstanceParameterValue textureNullValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target output size input on the test substance.")]
         private SubstanceParameterValue outputSizeValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target random seed input on the test substance.")]
@@ -124,6 +128,18 @@ namespace SOS.SubstanceExtensions.Tests
         public static SubstanceParameterValue Float4Value
         {
             get { return Instance != null ? Instance.float4Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue TextureValue
+        {
+            get { return Instance != null ? Instance.textureValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue TextureNullValue
+        {
+            get { return Instance != null ? Instance.textureNullValue : default(SubstanceParameterValue); }
         }
 
 
