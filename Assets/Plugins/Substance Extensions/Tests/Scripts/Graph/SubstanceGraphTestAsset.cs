@@ -1,17 +1,17 @@
 using UnityEngine;
-using SOS.SubstanceExtensions;
 using Adobe.Substance;
+using SOS.SubstanceExtensions;
 
 namespace SOS.SubstanceExtensions.Tests
 {
     /// <summary>
-    /// Asset containing values for <see cref="SubstanceFileSO"/> unit tests.
+    /// Asset containing values for <see cref="SubstanceGraphSO"/> unit tests.
     /// </summary>
-    [CreateAssetMenu(fileName="Substance File Test Asset", menuName="SOS/Substance/Tests/Substance File")]
-    public class SubstanceFileTestAsset : UnitTestAsset
+    [CreateAssetMenu(fileName="Substance Graph Test Asset", menuName="SOS/Substance/Tests/Substance Graph")]
+    public class SubstanceGraphTestAsset : UnitTestAsset
     {
-        [SerializeField, Tooltip("SubstanceFile used for testing.")]
-        private SubstanceFileSO substance = null;
+        [SerializeField, Tooltip("SubstanceGraph used for testing.")]
+        private SubstanceGraphSO substance = null;
         [SerializeField, Tooltip("Expected value for the target string input on the test substance.")]
         private SubstanceParameterValue stringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target bool input on the test substance.")]
@@ -39,15 +39,15 @@ namespace SOS.SubstanceExtensions.Tests
         [SerializeField, Tooltip("Expected value for the target random seed input on the test substance.")]
         private SubstanceParameterValue randomSeedValue = new SubstanceParameterValue();
 
-        private static SubstanceFileTestAsset instance = null;
+        private static SubstanceGraphTestAsset instance = null;
 
-        private static SubstanceFileTestAsset Instance
+        private static SubstanceGraphTestAsset Instance
         {
             get
             {
-                if (instance == null)
+                if(instance == null)
                 {
-                    instance = GetTestAsset<SubstanceFileTestAsset>();
+                    instance = GetTestAsset<SubstanceGraphTestAsset>();
                 }
 
                 return instance;
@@ -55,7 +55,7 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
-        public static SubstanceFileSO Substance
+        public static SubstanceGraphSO Substance
         {
             get { return Instance != null ? Instance.substance : null; }
         }

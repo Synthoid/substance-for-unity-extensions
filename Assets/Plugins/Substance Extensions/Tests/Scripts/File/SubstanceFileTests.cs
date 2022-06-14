@@ -6,6 +6,7 @@ using SOS.SubstanceExtensions;
 
 namespace SOS.SubstanceExtensions.Tests
 {
+    //TODO: Write tests for TryGet methods...
     public class SubstanceFileTests
     {
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be referenced on a target SubstanceFileSO asset.")]

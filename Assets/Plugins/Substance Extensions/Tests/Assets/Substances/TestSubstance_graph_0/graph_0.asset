@@ -118,7 +118,7 @@ MonoBehaviour:
     />\n  <presetinput identifier=\"inputBool\" uid=\"2260075145\" type=\"4\" value=\"1\"
     />\n  <presetinput identifier=\"inputInt2\" uid=\"2260075427\" type=\"8\" value=\"1,2\"
     />\n  <presetinput identifier=\"inputInt3\" uid=\"2260106276\" type=\"9\" value=\"1,2,3\"
-    />\n  <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\" value=\"1,1,1,0\"
+    />\n  <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\" value=\"1,2,4,0\"
     />\n  <presetinput identifier=\"inputFloat1\" uid=\"2260106311\" type=\"0\" value=\"0.75\"
     />\n  <presetinput identifier=\"inputFloat2\" uid=\"2260106467\" type=\"1\" value=\"0,1.1\"
     />\n  <presetinput identifier=\"inputFloat3\" uid=\"2260106440\" type=\"2\" value=\"0,0.5,1\"
@@ -312,9 +312,9 @@ MonoBehaviour:
           Type: 7
           WidgetType: 1
         Data0: 1
-        Data1: 1
-        Data2: 1
-        Data3: 1
+        Data1: 2
+        Data2: 3
+        Data3: 4
     - rid: 1008
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
