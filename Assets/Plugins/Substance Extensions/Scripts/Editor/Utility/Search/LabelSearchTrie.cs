@@ -5,6 +5,9 @@ using System.Text;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Handles ingesting arrays of labels and outputting a list of search data that is usable in an <see cref="ISearchWindowProvider"/>.
+    /// </summary>
     public class LabelSearchTrie
     {
         public string content = "";

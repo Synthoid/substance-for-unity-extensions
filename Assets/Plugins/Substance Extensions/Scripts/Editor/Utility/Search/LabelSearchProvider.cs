@@ -17,6 +17,13 @@ namespace SOS.SubstanceExtensionsEditor
         private System.Action<int> SelectionCallback { get; set; } = null;
         private GUIContent Title { get; set; } = null;
 
+        /// <summary>
+        /// Initialize the search provider with the given labels.
+        /// </summary>
+        /// <param name="labels">Labels used in the search window.</param>
+        /// <param name="selectionCallback">Callback invoked to return the selected label.</param>
+        /// <param name="title">Initial title for the search window.</param>
+        /// <returns>The initialized search provider.</returns>
         public LabelSearchProvider Initialize(IList<GUIContent> labels, System.Action<int> selectionCallback, GUIContent title=default)
         {
             Initialize(selectionCallback, title);
@@ -26,7 +33,13 @@ namespace SOS.SubstanceExtensionsEditor
             return this;
         }
 
-
+        /// <summary>
+        /// Initialize the search provider with the given labels.
+        /// </summary>
+        /// <param name="labels">Labels used in the search window.</param>
+        /// <param name="selectionCallback">Callback invoked to return the selected label.</param>
+        /// <param name="title">Initial title for the search window.</param>
+        /// <returns>The initialized search provider.</returns>
         public LabelSearchProvider Initialize(IList<string> labels, System.Action<int> selectionCallback, GUIContent title=default)
         {
             Initialize(selectionCallback, title);
