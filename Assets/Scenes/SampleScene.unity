@@ -745,10 +745,10 @@ MonoBehaviour:
   substanceGraph: {fileID: 0}
   parameter:
     guid: 5f19ac5cee01e440a9b4a0625f3b0930
-    name: $randomseed
+    name: $outputsize
     graphId: 0
-    index: 1
-    type: 4
+    index: 0
+    type: 5
     widgetType: 0
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -759,7 +759,7 @@ MonoBehaviour:
       w: 0
     rangeIntMax:
       x: 1
-      y: 0
+      y: 1
       z: 0
       w: 0
   paramValue:
