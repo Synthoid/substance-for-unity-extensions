@@ -12,6 +12,7 @@ namespace SOS.SubstanceExtensions.Tests
     {
         [SerializeField, Tooltip("SubstanceFile used for testing.")]
         private SubstanceFileSO substance = null;
+        [Header("Get")]
         [SerializeField, Tooltip("Expected value for the target string input on the test substance.")]
         private SubstanceParameterValue stringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target bool input on the test substance.")]
