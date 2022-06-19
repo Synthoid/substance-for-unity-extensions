@@ -97,6 +97,7 @@ namespace SOS.SubstanceExtensionsEditor
                 if(string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(property.FindPropertyRelative("parameter.guid").stringValue))) return height;
 
                 SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
+                SubstanceWidgetType widgetType;
 
                 switch(valueType)
                 {
@@ -134,14 +135,16 @@ namespace SOS.SubstanceExtensionsEditor
                         }
                         break;
                     case SubstanceValueType.Float3:
-                        if(property.FindPropertyRelative("vectorValue").isExpanded)
+                        widgetType = (SubstanceWidgetType)property.FindPropertyRelative("parameter.widgetType").intValue;
+
+                        if(widgetType == SubstanceWidgetType.Color || !property.FindPropertyRelative("vectorValue").isExpanded)
                         {
-                            height += EditorGUIUtility.singleLineHeight * 4f;
-                            height += EditorGUIUtility.standardVerticalSpacing * 4f;
+                            height += EditorGUIUtility.singleLineHeight;
                         }
                         else
                         {
-                            height += EditorGUIUtility.singleLineHeight;
+                            height += EditorGUIUtility.singleLineHeight * 4f;
+                            height += EditorGUIUtility.standardVerticalSpacing * 4f;
                         }
                         break;
                     case SubstanceValueType.Int3:
@@ -156,7 +159,7 @@ namespace SOS.SubstanceExtensionsEditor
                         }
                         break;
                     case SubstanceValueType.Float4:
-                        SubstanceWidgetType widgetType = (SubstanceWidgetType)property.FindPropertyRelative("parameter.widgetType").intValue;
+                        widgetType = (SubstanceWidgetType)property.FindPropertyRelative("parameter.widgetType").intValue;
 
                         if(widgetType == SubstanceWidgetType.Color)
                         {

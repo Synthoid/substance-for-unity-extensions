@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Substance File Test Asset
   m_EditorClassIdentifier: 
   substance: {fileID: 6013892654665635331, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
-  stringValue:
+  getStringValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputString
@@ -41,7 +41,7 @@ MonoBehaviour:
       w: 0
     stringValue: Test
     textureValue: {fileID: 0}
-  boolValue:
+  getBoolValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputBool
@@ -69,7 +69,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  enumValue:
+  getEnumValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputEnum
@@ -97,7 +97,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  intValue:
+  getIntValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputInt
@@ -125,7 +125,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  int2Value:
+  getInt2Value:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputInt2
@@ -153,7 +153,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  int3Value:
+  getInt3Value:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputInt3
@@ -181,7 +181,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  int4Value:
+  getInt4Value:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputInt4
@@ -209,7 +209,7 @@ MonoBehaviour:
       w: 4
     stringValue: 
     textureValue: {fileID: 0}
-  floatValue:
+  getFloatValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputFloat1
@@ -237,7 +237,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  float2Value:
+  getFloat2Value:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputFloat2
@@ -265,7 +265,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  float3Value:
+  getFloat3Value:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputFloat3
@@ -285,7 +285,7 @@ MonoBehaviour:
         y: 0
         z: 0
         w: 0
-    vectorValue: {x: 0, y: 0.5, z: 1, w: 0}
+    vectorValue: {x: 0, y: 0.5, z: 1, w: 1}
     vectorIntValue:
       x: 0
       y: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  float4Value:
+  getFloat4Value:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputFloat4
@@ -321,7 +321,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  textureValue:
+  getTextureValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputColorImage
@@ -349,7 +349,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
-  textureNullValue:
+  getTextureNullValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: inputGrayscaleImage
@@ -377,7 +377,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  outputSizeValue:
+  getOutputSizeValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: $outputsize
@@ -405,7 +405,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  randomSeedValue:
+  getRandomSeedValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
       name: $randomseed
@@ -422,6 +422,846 @@ MonoBehaviour:
         w: 0
       rangeIntMax:
         x: 1
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setStringValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setBoolValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setEnumValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setIntValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setInt2Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setInt3Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setInt4Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setFloatValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setFloat2Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setFloat3Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setFloat4Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setTextureValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setTextureNullValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setOutputSizeValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  setRandomSeedValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultStringValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultBoolValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultEnumValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultIntValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultInt2Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultInt3Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultInt4Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultFloatValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultFloat2Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultFloat3Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultFloat4Value:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultTextureValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultTextureNullValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultOutputSizeValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  defaultRandomSeedValue:
+    parameter:
+      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      name: 
+      graphId: 0
+      index: 0
+      type: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
         y: 0
         z: 0
         w: 0

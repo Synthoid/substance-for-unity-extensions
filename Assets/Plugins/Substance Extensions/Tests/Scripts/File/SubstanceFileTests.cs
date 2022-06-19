@@ -13,7 +13,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetString()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.StringValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetStringValue;
 
             string inputValue = substance.GetString(parameterValue.Index, parameterValue.GraphId);
 
@@ -24,7 +24,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetString()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.StringValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetStringValue;
 
             bool success = substance.TryGetString(out string inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -47,7 +47,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetBool()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.BoolValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetBoolValue;
 
             bool inputValue = substance.GetBool(parameterValue.Index, parameterValue.GraphId);
 
@@ -58,7 +58,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetBool()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.BoolValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetBoolValue;
 
             bool success = substance.TryGetBool(out bool inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -81,7 +81,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetEnum()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.EnumValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetEnumValue;
 
             int inputValue = substance.GetInt(parameterValue.Index, parameterValue.GraphId);
 
@@ -92,7 +92,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetInt()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.IntValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetIntValue;
 
             int inputValue = substance.GetInt(parameterValue.Index, parameterValue.GraphId);
 
@@ -103,7 +103,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetInt()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.IntValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetIntValue;
 
             bool success = substance.TryGetInt(out int inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -126,7 +126,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetInt2()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Int2Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetInt2Value;
 
             Vector2Int inputValue = substance.GetInt2(parameterValue.Index, parameterValue.GraphId);
 
@@ -137,7 +137,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetInt2()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Int2Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetInt2Value;
 
             bool success = substance.TryGetInt2(out Vector2Int inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -160,7 +160,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetInt3()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Int3Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetInt3Value;
 
             Vector3Int inputValue = substance.GetInt3(parameterValue.Index, parameterValue.GraphId);
 
@@ -171,7 +171,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetInt3()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Int3Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetInt3Value;
 
             bool success = substance.TryGetInt3(out Vector3Int inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -194,7 +194,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetInt4()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Int4Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetInt4Value;
 
             Vector4Int inputValue = substance.GetInt4(parameterValue.Index, parameterValue.GraphId);
 
@@ -205,7 +205,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetInt4()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Int4Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetInt4Value;
 
             bool success = substance.TryGetInt4(out Vector4Int inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -228,7 +228,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetFloat()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.FloatValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloatValue;
 
             float inputValue = substance.GetFloat(parameterValue.Index, parameterValue.GraphId);
 
@@ -239,7 +239,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetFloat()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.FloatValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloatValue;
 
             bool success = substance.TryGetFloat(out float inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -262,7 +262,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetFloat2()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Float2Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloat2Value;
 
             Vector2 inputValue = substance.GetFloat2(parameterValue.Index, parameterValue.GraphId);
 
@@ -273,7 +273,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetFloat2()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Float2Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloat2Value;
 
             bool success = substance.TryGetFloat2(out Vector2 inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -296,7 +296,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetFloat3()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Float3Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloat3Value;
 
             Vector3 inputValue = substance.GetFloat3(parameterValue.Index, parameterValue.GraphId);
 
@@ -307,7 +307,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetFloat3()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Float3Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloat3Value;
 
             bool success = substance.TryGetFloat3(out Vector3 inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -330,7 +330,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetFloat4()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Float4Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloat4Value;
 
             Vector4 inputValue = substance.GetFloat4(parameterValue.Index, parameterValue.GraphId);
 
@@ -341,7 +341,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetFloat4()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.Float4Value;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetFloat4Value;
 
             bool success = substance.TryGetFloat4(out Vector4 inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -364,7 +364,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetTexture()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.TextureValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetTextureValue;
 
             Texture2D inputValue = substance.GetTexture(parameterValue.Index, parameterValue.GraphId);
 
@@ -375,7 +375,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetNullTexture()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.TextureNullValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetTextureNullValue;
 
             Texture2D inputValue = substance.GetTexture(parameterValue.Index, parameterValue.GraphId);
 
@@ -386,7 +386,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void TryGetTexture()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.TextureValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetTextureValue;
 
             bool success = substance.TryGetTexture(out Texture2D inputValue, parameterValue.Index, parameterValue.GraphId);
 
@@ -409,7 +409,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetOutputSize()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.OutputSizeValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetOutputSizeValue;
 
             Vector2Int inputValue = substance.GetOutputSize(parameterValue.GraphId);
 
@@ -420,7 +420,7 @@ namespace SOS.SubstanceExtensions.Tests
         public void GetRandomSeed()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.RandomSeedValue;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetRandomSeedValue;
 
             int inputValue = substance.GetRandomSeed(parameterValue.GraphId);
 

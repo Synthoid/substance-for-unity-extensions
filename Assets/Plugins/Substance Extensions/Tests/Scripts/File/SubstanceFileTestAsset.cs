@@ -14,35 +14,97 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceFileSO substance = null;
         [Header("Get")]
         [SerializeField, Tooltip("Expected value for the target string input on the test substance.")]
-        private SubstanceParameterValue stringValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target bool input on the test substance.")]
-        private SubstanceParameterValue boolValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getBoolValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target enum input on the test substance.")]
-        private SubstanceParameterValue enumValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getEnumValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target int input on the test substance.")]
-        private SubstanceParameterValue intValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getIntValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target int2 input on the test substance.")]
-        private SubstanceParameterValue int2Value = new SubstanceParameterValue();
+        private SubstanceParameterValue getInt2Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target int3 input on the test substance.")]
-        private SubstanceParameterValue int3Value = new SubstanceParameterValue();
+        private SubstanceParameterValue getInt3Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target int4 input on the test substance.")]
-        private SubstanceParameterValue int4Value = new SubstanceParameterValue();
+        private SubstanceParameterValue getInt4Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target float input on the test substance.")]
-        private SubstanceParameterValue floatValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getFloatValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target float2 input on the test substance.")]
-        private SubstanceParameterValue float2Value = new SubstanceParameterValue();
+        private SubstanceParameterValue getFloat2Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target float3 input on the test substance.")]
-        private SubstanceParameterValue float3Value = new SubstanceParameterValue();
+        private SubstanceParameterValue getFloat3Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target float4 input on the test substance.")]
-        private SubstanceParameterValue float4Value = new SubstanceParameterValue();
+        private SubstanceParameterValue getFloat4Value = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target texture input on the test substance.")]
-        private SubstanceParameterValue textureValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getTextureValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target null texture input on the test substance.")]
-        private SubstanceParameterValue textureNullValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getTextureNullValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target output size input on the test substance.")]
-        private SubstanceParameterValue outputSizeValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getOutputSizeValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target random seed input on the test substance.")]
-        private SubstanceParameterValue randomSeedValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getRandomSeedValue = new SubstanceParameterValue();
+        [Header("Set")]
+        [SerializeField, Tooltip("Test set value for the target string input on the test substance.")]
+        private SubstanceParameterValue setStringValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target bool input on the test substance.")]
+        private SubstanceParameterValue setBoolValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target enum input on the test substance.")]
+        private SubstanceParameterValue setEnumValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target int input on the test substance.")]
+        private SubstanceParameterValue setIntValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target int2 input on the test substance.")]
+        private SubstanceParameterValue setInt2Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target int3 input on the test substance.")]
+        private SubstanceParameterValue setInt3Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target int4 input on the test substance.")]
+        private SubstanceParameterValue setInt4Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target float input on the test substance.")]
+        private SubstanceParameterValue setFloatValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target float2 input on the test substance.")]
+        private SubstanceParameterValue setFloat2Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target float3 input on the test substance.")]
+        private SubstanceParameterValue setFloat3Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target float4 input on the test substance.")]
+        private SubstanceParameterValue setFloat4Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target texture input on the test substance.")]
+        private SubstanceParameterValue setTextureValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target null texture input on the test substance.")]
+        private SubstanceParameterValue setTextureNullValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target output size input on the test substance.")]
+        private SubstanceParameterValue setOutputSizeValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set value for the target random seed input on the test substance.")]
+        private SubstanceParameterValue setRandomSeedValue = new SubstanceParameterValue();
+        [Header("Default")]
+        [SerializeField, Tooltip("Default set value for the target string input on the test substance.")]
+        private SubstanceParameterValue defaultStringValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target bool input on the test substance.")]
+        private SubstanceParameterValue defaultBoolValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target enum input on the test substance.")]
+        private SubstanceParameterValue defaultEnumValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target int input on the test substance.")]
+        private SubstanceParameterValue defaultIntValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target int2 input on the test substance.")]
+        private SubstanceParameterValue defaultInt2Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target int3 input on the test substance.")]
+        private SubstanceParameterValue defaultInt3Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target int4 input on the test substance.")]
+        private SubstanceParameterValue defaultInt4Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target float input on the test substance.")]
+        private SubstanceParameterValue defaultFloatValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target float2 input on the test substance.")]
+        private SubstanceParameterValue defaultFloat2Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target float3 input on the test substance.")]
+        private SubstanceParameterValue defaultFloat3Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target float4 input on the test substance.")]
+        private SubstanceParameterValue defaultFloat4Value = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target texture input on the test substance.")]
+        private SubstanceParameterValue defaultTextureValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target null texture input on the test substance.")]
+        private SubstanceParameterValue defaultTextureNullValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target output size input on the test substance.")]
+        private SubstanceParameterValue defaultOutputSizeValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set value for the target random seed input on the test substance.")]
+        private SubstanceParameterValue defaultRandomSeedValue = new SubstanceParameterValue();
 
         private static SubstanceFileTestAsset instance = null;
 
@@ -66,93 +128,273 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
-        public static SubstanceParameterValue StringValue
+        public static SubstanceParameterValue GetStringValue
         {
-            get { return Instance != null ? Instance.stringValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getStringValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue BoolValue
+        public static SubstanceParameterValue GetBoolValue
         {
-            get { return Instance != null ? Instance.boolValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getBoolValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue EnumValue
+        public static SubstanceParameterValue GetEnumValue
         {
-            get { return Instance != null ? Instance.enumValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getEnumValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue IntValue
+        public static SubstanceParameterValue GetIntValue
         {
-            get { return Instance != null ? Instance.intValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getIntValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue Int2Value
+        public static SubstanceParameterValue GetInt2Value
         {
-            get { return Instance != null ? Instance.int2Value : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getInt2Value : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue Int3Value
+        public static SubstanceParameterValue GetInt3Value
         {
-            get { return Instance != null ? Instance.int3Value : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getInt3Value : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue Int4Value
+        public static SubstanceParameterValue GetInt4Value
         {
-            get { return Instance != null ? Instance.int4Value : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getInt4Value : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue FloatValue
+        public static SubstanceParameterValue GetFloatValue
         {
-            get { return Instance != null ? Instance.floatValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getFloatValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue Float2Value
+        public static SubstanceParameterValue GetFloat2Value
         {
-            get { return Instance != null ? Instance.float2Value : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getFloat2Value : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue Float3Value
+        public static SubstanceParameterValue GetFloat3Value
         {
-            get { return Instance != null ? Instance.float3Value : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getFloat3Value : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue Float4Value
+        public static SubstanceParameterValue GetFloat4Value
         {
-            get { return Instance != null ? Instance.float4Value : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getFloat4Value : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue TextureValue
+        public static SubstanceParameterValue GetTextureValue
         {
-            get { return Instance != null ? Instance.textureValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getTextureValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue TextureNullValue
+        public static SubstanceParameterValue GetTextureNullValue
         {
-            get { return Instance != null ? Instance.textureNullValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getTextureNullValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue OutputSizeValue
+        public static SubstanceParameterValue GetOutputSizeValue
         {
-            get { return Instance != null ? Instance.outputSizeValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getOutputSizeValue : default(SubstanceParameterValue); }
         }
 
 
-        public static SubstanceParameterValue RandomSeedValue
+        public static SubstanceParameterValue GetRandomSeedValue
         {
-            get { return Instance != null ? Instance.randomSeedValue : default(SubstanceParameterValue); }
+            get { return Instance != null ? Instance.getRandomSeedValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetStringValue
+        {
+            get { return Instance != null ? Instance.setStringValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetBoolValue
+        {
+            get { return Instance != null ? Instance.setBoolValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetEnumValue
+        {
+            get { return Instance != null ? Instance.setEnumValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetIntValue
+        {
+            get { return Instance != null ? Instance.setIntValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetInt2Value
+        {
+            get { return Instance != null ? Instance.setInt2Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetInt3Value
+        {
+            get { return Instance != null ? Instance.setInt3Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetInt4Value
+        {
+            get { return Instance != null ? Instance.setInt4Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetFloatValue
+        {
+            get { return Instance != null ? Instance.setFloatValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetFloat2Value
+        {
+            get { return Instance != null ? Instance.setFloat2Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetFloat3Value
+        {
+            get { return Instance != null ? Instance.setFloat3Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetFloat4Value
+        {
+            get { return Instance != null ? Instance.setFloat4Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetTextureValue
+        {
+            get { return Instance != null ? Instance.setTextureValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetTextureNullValue
+        {
+            get { return Instance != null ? Instance.setTextureNullValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetOutputSizeValue
+        {
+            get { return Instance != null ? Instance.setOutputSizeValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue SetRandomSeedValue
+        {
+            get { return Instance != null ? Instance.setRandomSeedValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultStringValue
+        {
+            get { return Instance != null ? Instance.defaultStringValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultBoolValue
+        {
+            get { return Instance != null ? Instance.defaultBoolValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultEnumValue
+        {
+            get { return Instance != null ? Instance.defaultEnumValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultIntValue
+        {
+            get { return Instance != null ? Instance.defaultIntValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultInt2Value
+        {
+            get { return Instance != null ? Instance.defaultInt2Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultInt3Value
+        {
+            get { return Instance != null ? Instance.defaultInt3Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultInt4Value
+        {
+            get { return Instance != null ? Instance.defaultInt4Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultFloatValue
+        {
+            get { return Instance != null ? Instance.defaultFloatValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultFloat2Value
+        {
+            get { return Instance != null ? Instance.defaultFloat2Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultFloat3Value
+        {
+            get { return Instance != null ? Instance.defaultFloat3Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultFloat4Value
+        {
+            get { return Instance != null ? Instance.defaultFloat4Value : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultTextureValue
+        {
+            get { return Instance != null ? Instance.defaultTextureValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultTextureNullValue
+        {
+            get { return Instance != null ? Instance.defaultTextureNullValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultOutputSizeValue
+        {
+            get { return Instance != null ? Instance.defaultOutputSizeValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static SubstanceParameterValue DefaultRandomSeedValue
+        {
+            get { return Instance != null ? Instance.defaultRandomSeedValue : default(SubstanceParameterValue); }
         }
     }
 }
