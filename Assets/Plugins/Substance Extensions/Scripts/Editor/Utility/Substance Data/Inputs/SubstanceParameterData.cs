@@ -12,7 +12,8 @@ namespace SOS.SubstanceExtensionsEditor
     public struct SubstanceParameterData
     {
         public string name;
-        public int graphIndex;
+        public string graphGuid;
+        public int graphIndex; //TODO: May have to reference target graph's GUID. graphIndex seems to only target original graphs imported with the asset...
         public int index;
         public SubstanceValueType type;
         public SubstanceWidgetType widget;
@@ -21,9 +22,10 @@ namespace SOS.SubstanceExtensionsEditor
         public Vector4Int rangeIntMin;
         public Vector4Int rangeIntMax;
 
-        public SubstanceParameterData(ISubstanceInput input)
+        public SubstanceParameterData(ISubstanceInput input, string substanceGuid)
         {
             this.name = input.Description.Identifier;
+            this.graphGuid = substanceGuid;
             this.graphIndex = input.GraphID;
             this.index = input.Index;
             this.type = input.ValueType;
@@ -82,9 +84,6 @@ namespace SOS.SubstanceExtensionsEditor
                         rangeMax = Vector4.zero;
                         rangeIntMin = new Vector4Int(int4Desc.MinValue[0], int4Desc.MinValue[1], int4Desc.MinValue[2], int4Desc.MinValue[3]);
                         rangeIntMax = new Vector4Int(int4Desc.MaxValue[0], int4Desc.MaxValue[1], int4Desc.MaxValue[2], int4Desc.MaxValue[3]);
-
-                        Debug.Log(rangeIntMin.ToString());
-                        Debug.Log(rangeIntMax.ToString());
                         break;
                     default:
                         rangeMin = Vector4.zero;

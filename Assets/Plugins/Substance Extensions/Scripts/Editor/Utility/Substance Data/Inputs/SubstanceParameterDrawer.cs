@@ -25,6 +25,7 @@ namespace SOS.SubstanceExtensionsEditor
 
             int index = -1;
             int graphId = property.FindPropertyRelative("graphId").intValue;
+            string graphGuid = property.FindPropertyRelative("graphGuid").stringValue;
             string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
             GUIContent[] labels = GetLabels(assetGuid);
@@ -33,7 +34,9 @@ namespace SOS.SubstanceExtensionsEditor
             for(int i=0; i < labels.Length; i++)
             {
                 //Get current label index, accounting for for labels with the same values across multiple graphs, ie $outputSize
-                if(labels[i].tooltip == currentValue && inputs[i].graphIndex == graphId)
+                if(labels[i].tooltip == currentValue &&
+                    inputs[i].graphIndex == graphId &&
+                    inputs[i].graphGuid == graphGuid)
                 {
                     index = i;
                     break;
@@ -59,6 +62,7 @@ namespace SOS.SubstanceExtensionsEditor
                 }
                 else
                 {
+                    property.FindPropertyRelative("graphGuid").stringValue = inputs[selectionIndex].graphGuid;
                     property.FindPropertyRelative("graphId").intValue = inputs[selectionIndex].graphIndex;
                     property.FindPropertyRelative("index").intValue = inputs[selectionIndex].index;
                     property.FindPropertyRelative("type").intValue = (int)inputs[selectionIndex].type;
@@ -77,6 +81,7 @@ namespace SOS.SubstanceExtensionsEditor
 
         private void ResetParameterProperty(SerializedProperty property)
         {
+            property.FindPropertyRelative("graphGuid").stringValue = "";
             property.FindPropertyRelative("graphId").intValue = 0;
             property.FindPropertyRelative("index").intValue = 0;
             property.FindPropertyRelative("type").intValue = (int)SubstanceValueType.Float;
@@ -118,7 +123,7 @@ namespace SOS.SubstanceExtensionsEditor
                                     inputs[index].Description.Identifier);
 
                                 newLabels.Add(label);
-                                parameters.Add(new SubstanceParameterData(inputs[index]));
+                                parameters.Add(new SubstanceParameterData(inputs[index], substance.Instances[i].GUID));
                             }
                         }
                     }

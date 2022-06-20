@@ -10,5 +10,7 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
   _instancesCopy:
   - {fileID: 11400000, guid: 6f7ac17eb4bd7451fb69d341d4ecdacb, type: 2}
-  _fileAsset: {instanceID: 0}
+  - {fileID: 11400000, guid: 7997f4b5d739a42a4ad1ed9f3f0c3750, type: 2}
+  - {fileID: 11400000, guid: 71bf3fd42eded4b33ba8c8a03e91311e, type: 2}
+  _fileAsset: {fileID: 349431513902975818, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
   _assetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/TestSubstance.sbsar

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c82a8ad064764217b2c69d62ff42b1d, type: 3}
   m_Name: Substance File Test Asset
   m_EditorClassIdentifier: 
-  substance: {fileID: 6013892654665635331, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
+  substance: {fileID: 349431513902975818, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
   getStringValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
@@ -436,10 +436,10 @@ MonoBehaviour:
   setStringValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: 
+      name: $randomseed
       graphId: 0
-      index: 0
-      type: 0
+      index: 1
+      type: 4
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -449,14 +449,14 @@ MonoBehaviour:
         z: 0
         w: 0
       rangeIntMax:
-        x: 0
+        x: 1
         y: 0
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
     vectorIntValue:
-      x: 0
-      y: 0
+      x: 11
+      y: 11
       z: 0
       w: 0
     stringValue: 
