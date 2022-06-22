@@ -6,16 +6,51 @@ using SOS.SubstanceExtensions;
 
 namespace SOS.SubstanceExtensions.Tests
 {
-    //TODO: Write tests for TryGet methods...
     public class SubstanceFileTests
     {
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+
+            SubstanceParameterValue defaultStringValue = SubstanceFileTestAsset.DefaultStringValue;
+            SubstanceParameterValue defaultBoolValue = SubstanceFileTestAsset.DefaultBoolValue;
+            SubstanceParameterValue defaultEnumValue = SubstanceFileTestAsset.DefaultEnumValue;
+            SubstanceParameterValue defaultIntValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceParameterValue defaultInt2Value = SubstanceFileTestAsset.DefaultInt2Value;
+            SubstanceParameterValue defaultInt3Value = SubstanceFileTestAsset.DefaultInt3Value;
+            SubstanceParameterValue defaultInt4Value = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceParameterValue defaultFloatValue = SubstanceFileTestAsset.DefaultFloatValue;
+            SubstanceParameterValue defaultFloat2Value = SubstanceFileTestAsset.DefaultFloat2Value;
+            SubstanceParameterValue defaultFloat3Value = SubstanceFileTestAsset.DefaultFloat3Value;
+            SubstanceParameterValue defaultFloat4Value = SubstanceFileTestAsset.DefaultFloat4Value;
+            SubstanceParameterValue defaultTextureValue = SubstanceFileTestAsset.DefaultTextureValue;
+            SubstanceParameterValue defaultNullTextureValue = SubstanceFileTestAsset.DefaultTextureNullValue;
+
+            substance.SetString(defaultStringValue.StringValue, defaultStringValue.Parameter);
+            substance.SetBool(defaultBoolValue.BoolValue, defaultBoolValue.Parameter);
+            substance.SetInt(defaultEnumValue.IntValue, defaultEnumValue.Parameter);
+            substance.SetInt(defaultIntValue.IntValue, defaultIntValue.Parameter);
+            substance.SetInt2(defaultInt2Value.Int2Value, defaultInt2Value.Parameter);
+            substance.SetInt3(defaultInt3Value.Int3Value, defaultInt3Value.Parameter);
+            substance.SetInt4(defaultInt4Value.Int4Value, defaultInt4Value.Parameter);
+            substance.SetFloat(defaultFloatValue.IntValue, defaultFloatValue.Parameter);
+            substance.SetFloat2(defaultFloat2Value.Float2Value, defaultFloat2Value.Parameter);
+            substance.SetFloat3(defaultFloat3Value.Float3Value, defaultFloat3Value.Parameter);
+            substance.SetFloat4(defaultFloat4Value.Float4Value, defaultFloat4Value.Parameter);
+            substance.SetTexture(defaultTextureValue.TextureValue, defaultTextureValue.Parameter);
+            substance.SetTexture(defaultNullTextureValue.TextureValue, defaultNullTextureValue.Parameter);
+        }
+
+        #region String
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetString()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
             SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetStringValue;
 
-            string inputValue = substance.GetString(parameterValue.Index, parameterValue.GraphId);
+            string inputValue = substance.GetString(parameterValue.Parameter);
 
             Assert.AreEqual(parameterValue.StringValue, inputValue);
         }
@@ -26,7 +61,7 @@ namespace SOS.SubstanceExtensions.Tests
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
             SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetStringValue;
 
-            bool success = substance.TryGetString(out string inputValue, parameterValue.Index, parameterValue.GraphId);
+            bool success = substance.TryGetString(out string inputValue, parameterValue.Parameter);
 
             Assert.IsTrue(success);
             Assert.AreEqual(parameterValue.StringValue, inputValue);
@@ -42,6 +77,71 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.IsFalse(success);
             Assert.AreEqual("", inputValue);
         }
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be set on a target SubstanceFileSO asset.")]
+        public void SetString()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultStringValue;
+
+            string inputValue = substance.GetString(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.StringValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetStringValue;
+
+            substance.SetString(setValue.StringValue, setValue.Parameter);
+
+            inputValue = substance.GetString(setValue.Parameter);
+
+            Assert.AreEqual(setValue.StringValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be set on a target SubstanceFileSO asset using the try set method.")]
+        public void TrySetString()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultStringValue;
+
+            string inputValue = substance.GetString(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.StringValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetStringValue;
+
+            bool success = substance.TrySetString(setValue.StringValue, setValue.Parameter);
+
+            inputValue = substance.GetString(setValue.Parameter);
+
+            Assert.IsTrue(success);
+            Assert.AreEqual(setValue.StringValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be set on a target SubstanceFileSO asset using the try set method.")]
+        public void TrySetStringFail()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultStringValue;
+
+            string inputValue = substance.GetString(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.StringValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetStringValue;
+
+            bool success = substance.TrySetString(setValue.StringValue, "I am a great magician.", 0);
+
+            substance.TryGetString(out inputValue, "I am a great magician.", 0);
+
+            Assert.IsFalse(success);
+            Assert.AreEqual("", inputValue);
+        }
+
+        #endregion
+
+        #region Int
+
+        #region Bool
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a bool input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetBool()
@@ -77,6 +177,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(false, inputValue);
         }
 
+        #endregion
+
+        #region Enum
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an enum int input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetEnum()
         {
@@ -87,6 +191,8 @@ namespace SOS.SubstanceExtensions.Tests
 
             Assert.AreEqual(parameterValue.IntValue, inputValue);
         }
+
+        #endregion
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an int input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetInt()
@@ -122,6 +228,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(0, inputValue);
         }
 
+        #endregion
+
+        #region Int2
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an int2 input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetInt2()
         {
@@ -155,6 +265,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.IsFalse(success);
             Assert.AreEqual(Vector2Int.zero, inputValue);
         }
+
+        #endregion
+
+        #region Int3
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an int3 input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetInt3()
@@ -190,6 +304,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(Vector3Int.zero, inputValue);
         }
 
+        #endregion
+
+        #region Int4
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetInt4()
         {
@@ -223,6 +341,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.IsFalse(success);
             Assert.AreEqual(Vector4Int.zero, inputValue);
         }
+
+        #endregion
+
+        #region Float
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a float input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetFloat()
@@ -258,6 +380,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(0f, inputValue);
         }
 
+        #endregion
+
+        #region Float2
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a float2 input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetFloat2()
         {
@@ -291,6 +417,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.IsFalse(success);
             Assert.AreEqual(Vector2.zero, inputValue);
         }
+
+        #endregion
+
+        #region Float3
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a float3 input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetFloat3()
@@ -326,6 +456,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(Vector3.zero, inputValue);
         }
 
+        #endregion
+
+        #region Float4
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a float4 input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetFloat4()
         {
@@ -359,6 +493,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.IsFalse(success);
             Assert.AreEqual(Vector4.zero, inputValue);
         }
+
+        #endregion
+
+        #region Texture
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a texture input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetTexture()
@@ -405,6 +543,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.IsNull(inputValue);
         }
 
+        #endregion
+
+        #region Output Size
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an $outputsize input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetOutputSize()
         {
@@ -416,6 +558,10 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(parameterValue.Int2Value, inputValue);
         }
 
+        #endregion
+
+        #region Random Seed
+
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a $randomseed input value can properly be referenced on a target SubstanceFileSO asset.")]
         public void GetRandomSeed()
         {
@@ -426,6 +572,8 @@ namespace SOS.SubstanceExtensions.Tests
 
             Assert.AreEqual(parameterValue.IntValue, inputValue);
         }
+
+        #endregion
 
         /*[UnityTest]
         public IEnumerator SubstanceFileTestsWithEnumeratorPasses()

@@ -30,6 +30,22 @@ namespace SOS.SubstanceExtensions
         }
 
 
+        public static ISubstanceInput GetInput(this SubstanceFileSO substance, string name, string graphGuid="")
+        {
+            int graphId = GetGraphIndex(substance, string.IsNullOrEmpty(graphGuid) ? substance.Instances[0].GUID : graphGuid);
+
+            return GetInput(substance, GetInputIndex(substance, name, graphId), graphId);
+        }
+
+
+        public static ISubstanceInput GetInput(this SubstanceFileSO substance, int index, string graphGuid="")
+        {
+            int graphId = GetGraphIndex(substance, graphGuid);
+
+            return GetInput(substance, index, graphId);
+        }
+
+
         public static ISubstanceInput GetInput(this SubstanceFileSO substance, string name, int graphId=0)
         {
             return GetInput(substance, GetInputIndex(substance, name, graphId), graphId);
@@ -66,6 +82,17 @@ namespace SOS.SubstanceExtensions
         }
 
 
+        public static int GetGraphIndex(this SubstanceFileSO substance, string graphGuid)
+        {
+            for(int i=0; i < substance.Instances.Count; i++)
+            {
+                if(substance.Instances[i].GUID == graphGuid) return i;
+            }
+
+            return -1;
+        }
+
+
         public static Tuple<int, int> GetGraphAndInputIndexes(this SubstanceFileSO substance, string name)
         {
             for(int i=0; i < substance.Instances.Count; i++)
@@ -98,6 +125,24 @@ namespace SOS.SubstanceExtensions
             return -1;
         }
 
+
+        public static int GetInputIndex(this SubstanceFileSO substance, string name, string graphGuid="")
+        {
+            int graphId = GetGraphIndex(substance, string.IsNullOrEmpty(graphGuid) ? substance.Instances[0].GUID : graphGuid);
+
+            if(graphId < 0 || graphId >= substance.Instances.Count) return -1;
+
+            for(int i = 0; i < substance.Instances[graphId].Input.Count; i++)
+            {
+                if(substance.Instances[graphId].Input[i].Description.Identifier == name)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         #region Get/Set Values
 
         /// <summary>
@@ -108,7 +153,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>object represnting the target input's value.</returns>
         public static object GetValue(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetValue(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetValue(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -160,7 +205,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetValue(this SubstanceFileSO substance, out object value, SubstanceParameter inputParameter)
         {
-            return TryGetValue(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetValue(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -242,7 +287,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetValue(this SubstanceFileSO substance, object value, SubstanceParameter inputParameter)
         {
-            SetValue(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetValue(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -316,7 +361,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetValue(this SubstanceFileSO substance, object value, SubstanceParameter inputParameter)
         {
-            return TrySetValue(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetValue(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -436,7 +481,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Texture2D"/> represnting the target input's value.</returns>
         public static Texture2D GetTexture(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetTexture(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetTexture(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -474,7 +519,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetTexture(this SubstanceFileSO substance, out Texture2D value, SubstanceParameter inputParameter)
         {
-            return TryGetTexture(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetTexture(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -523,7 +568,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetTexture(this SubstanceFileSO substance, Texture2D value, SubstanceParameter inputParameter)
         {
-            SetTexture(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetTexture(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -561,7 +606,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetTexture(this SubstanceFileSO substance, Texture2D value, SubstanceParameter inputParameter)
         {
-            return TrySetTexture(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetTexture(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -620,7 +665,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>string represnting the target input's value.</returns>
         public static string GetString(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetString(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetString(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -706,7 +751,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetString(this SubstanceFileSO substance, string value, SubstanceParameter inputParameter)
         {
-            SetString(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetString(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -791,7 +836,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>float represnting the target input's value.</returns>
         public static float GetFloat(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetFloat(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetFloat(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -829,7 +874,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetFloat(this SubstanceFileSO substance, out float value, SubstanceParameter inputParameter)
         {
-            return TryGetFloat(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetFloat(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -877,7 +922,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetFloat(this SubstanceFileSO substance, float value, SubstanceParameter inputParameter)
         {
-            SetFloat(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetFloat(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -915,7 +960,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetFloat(this SubstanceFileSO substance, float value, SubstanceParameter inputParameter)
         {
-            return TrySetFloat(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetFloat(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -962,7 +1007,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector2"/> represnting the target input's value.</returns>
         public static Vector2 GetFloat2(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetFloat2(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetFloat2(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1000,7 +1045,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetFloat2(this SubstanceFileSO substance, out Vector2 value, SubstanceParameter inputParameter)
         {
-            return TryGetFloat2(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetFloat2(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1048,7 +1093,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetFloat2(this SubstanceFileSO substance, Vector2 value, SubstanceParameter inputParameter)
         {
-            SetFloat2(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetFloat2(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1086,7 +1131,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetFloat2(this SubstanceFileSO substance, Vector2 value, SubstanceParameter inputParameter)
         {
-            return TrySetFloat2(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetFloat2(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1133,7 +1178,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector3"/> represnting the target input's value.</returns>
         public static Vector3 GetFloat3(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetFloat3(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetFloat3(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1171,7 +1216,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetFloat3(this SubstanceFileSO substance, out Vector3 value, SubstanceParameter inputParameter)
         {
-            return TryGetFloat3(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetFloat3(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1219,7 +1264,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetFloat3(this SubstanceFileSO substance, Vector3 value, SubstanceParameter inputParameter)
         {
-            SetFloat3(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetFloat3(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1257,7 +1302,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetFloat3(this SubstanceFileSO substance, Vector3 value, SubstanceParameter inputParameter)
         {
-            return TrySetFloat3(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetFloat3(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1304,7 +1349,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector4"/> represnting the target input's value.</returns>
         public static Vector4 GetFloat4(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetFloat4(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetFloat4(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1342,7 +1387,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetFloat4(this SubstanceFileSO substance, out Vector4 value, SubstanceParameter inputParameter)
         {
-            return TryGetFloat4(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetFloat4(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1390,7 +1435,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetFloat4(this SubstanceFileSO substance, Vector4 value, SubstanceParameter inputParameter)
         {
-            SetFloat4(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetFloat4(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1428,7 +1473,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetFloat4(this SubstanceFileSO substance, Vector4 value, SubstanceParameter inputParameter)
         {
-            return TrySetFloat4(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetFloat4(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1475,7 +1520,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>int represnting the substance's $randomseed value.</returns>
         public static int GetRandomSeed(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetInt(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetInt(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1497,7 +1542,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the $randomseed input.</param>
         public static void SetRandomSeed(this SubstanceFileSO substance, int value, SubstanceParameter inputParameter)
         {
-            SetInt(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetInt(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1519,7 +1564,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>bool represnting the target input's value. False if 0, true if anything else.</returns>
         public static bool GetBool(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetBool(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetBool(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1557,7 +1602,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetBool(this SubstanceFileSO substance, out bool value, SubstanceParameter inputParameter)
         {
-            return TryGetBool(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetBool(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1605,7 +1650,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetBool(this SubstanceFileSO substance, bool value, SubstanceParameter inputParameter)
         {
-            SetBool(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetBool(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1643,7 +1688,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetBool(this SubstanceFileSO substance, bool value, SubstanceParameter inputParameter)
         {
-            return TrySetBool(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetBool(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1680,7 +1725,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>int represnting the target input's value.</returns>
         public static int GetInt(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetInt(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetInt(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1718,7 +1763,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetInt(this SubstanceFileSO substance, out int value, SubstanceParameter inputParameter)
         {
-            return TryGetInt(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetInt(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1766,7 +1811,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetInt(this SubstanceFileSO substance, int value, SubstanceParameter inputParameter)
         {
-            SetInt(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetInt(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1804,7 +1849,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetInt(this SubstanceFileSO substance, int value, SubstanceParameter inputParameter)
         {
-            return TrySetInt(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetInt(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1851,7 +1896,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector2Int"/> represnting the substance's $outputsize value.</returns>
         public static Vector2Int GetOutputSize(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetInt2(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetInt2(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1934,7 +1979,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector2Int"/> represnting the target input's value.</returns>
         public static Vector2Int GetInt2(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetInt2(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetInt2(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -1972,7 +2017,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetInt2(this SubstanceFileSO substance, out Vector2Int value, SubstanceParameter inputParameter)
         {
-            return TryGetInt2(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetInt2(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2020,7 +2065,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetInt2(this SubstanceFileSO substance, Vector2Int value, SubstanceParameter inputParameter)
         {
-            SetInt2(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetInt2(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2058,7 +2103,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetInt2(this SubstanceFileSO substance, Vector2Int value, SubstanceParameter inputParameter)
         {
-            return TrySetInt2(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetInt2(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2105,7 +2150,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector3Int"/> represnting the target input's value.</returns>
         public static Vector3Int GetInt3(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetInt3(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetInt3(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2143,7 +2188,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetInt3(this SubstanceFileSO substance, out Vector3Int value, SubstanceParameter inputParameter)
         {
-            return TryGetInt3(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetInt3(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2191,7 +2236,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetInt3(this SubstanceFileSO substance, Vector3Int value, SubstanceParameter inputParameter)
         {
-            SetInt3(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetInt3(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2229,7 +2274,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetInt3(this SubstanceFileSO substance, Vector3Int value, SubstanceParameter inputParameter)
         {
-            return TrySetInt3(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetInt3(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2276,7 +2321,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector4Int"/> represnting the target input's value.</returns>
         public static Vector4Int GetInt4(this SubstanceFileSO substance, SubstanceParameter inputParameter)
         {
-            return GetInt4(substance, inputParameter.Index, inputParameter.GraphId);
+            return GetInt4(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2314,7 +2359,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetInt4(this SubstanceFileSO substance, out Vector4Int value, SubstanceParameter inputParameter)
         {
-            return TryGetInt4(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetInt4(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2362,7 +2407,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         public static void SetInt4(this SubstanceFileSO substance, Vector4Int value, SubstanceParameter inputParameter)
         {
-            SetInt4(substance, value, inputParameter.Index, inputParameter.GraphId);
+            SetInt4(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -2406,7 +2451,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetInt4(this SubstanceFileSO substance, Vector4Int value, SubstanceParameter inputParameter)
         {
-            return TrySetInt4(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetInt4(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>

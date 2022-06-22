@@ -43,7 +43,7 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static void Render(this SubstanceFileSO substance, int graphId = 0)
+        public static void Render(this SubstanceFileSO substance, int graphId=0)
         {
             using(SubstanceNativeHandler handler = Engine.OpenFile(substance.Instances[graphId].RawData.FileContent))
             {

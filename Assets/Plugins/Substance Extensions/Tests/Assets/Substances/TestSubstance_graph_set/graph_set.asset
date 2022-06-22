@@ -113,7 +113,17 @@ MonoBehaviour:
     Flags: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: 
+  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n 
+    <presetinput identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\"
+    />\n  <presetinput identifier=\"inputInt2\" uid=\"2260075427\" type=\"8\" value=\"1,2\"
+    />\n  <presetinput identifier=\"inputInt3\" uid=\"2260106276\" type=\"9\" value=\"1,2,3\"
+    />\n  <presetinput identifier=\"inputInt4\" uid=\"2260106333\" type=\"10\" value=\"1,2,0,0\"
+    />\n  <presetinput identifier=\"inputFloat1\" uid=\"2260106311\" type=\"0\" value=\"0.75\"
+    />\n  <presetinput identifier=\"inputFloat2\" uid=\"2260106467\" type=\"1\" value=\"0,1.1\"
+    />\n  <presetinput identifier=\"inputFloat3\" uid=\"2260106440\" type=\"2\" value=\"0,0.5,1\"
+    />\n  <presetinput identifier=\"inputFloat4\" uid=\"2260106444\" type=\"3\" value=\"0,0.333,0.75,1\"
+    />\n  <presetinput identifier=\"inputString\" uid=\"2260106579\" type=\"6\" value=\"Temp\"
+    />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 0
@@ -190,7 +200,7 @@ MonoBehaviour:
           GuiDescription: A test bool input parameter.
           Type: 4
           WidgetType: 4
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -410,7 +420,7 @@ MonoBehaviour:
           GuiDescription: A test string input parameter.
           Type: 9
           WidgetType: 0
-        Data: Test
+        Data: Temp
     - rid: 3158453149325328397
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:

@@ -47,11 +47,28 @@ namespace SOS.SubstanceExtensions
         #region Properties
 
         /// <summary>
+        /// Parameter being referenced.
+        /// </summary>
+        public SubstanceParameter Parameter
+        {
+            get { return parameter; }
+        }
+
+        /// <summary>
         /// Name for the input parameter associated with this value.
         /// </summary>
         public string Name
         {
             get { return parameter.Name; }
+        }
+
+
+        /// <summary>
+        /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
+        /// </summary>
+        public string GraphGuid
+        {
+            get { return parameter.GraphGuid; }
         }
 
         /// <summary>
