@@ -318,10 +318,11 @@ MonoBehaviour:
   targetParameter:
     parameter:
       guid: 5f19ac5cee01e440a9b4a0625f3b0930
-      name: $outputsize
+      name: 
+      graphGuid: 
       graphId: 0
       index: 0
-      type: 5
+      type: 0
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -331,8 +332,8 @@ MonoBehaviour:
         z: 0
         w: 0
       rangeIntMax:
-        x: 1
-        y: 1
+        x: 0
+        y: 0
         z: 0
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
@@ -347,6 +348,7 @@ MonoBehaviour:
   - parameter:
       guid: 9307f27bb5da44530b7989023af589af
       name: color
+      graphGuid: 
       graphId: 0
       index: 2
       type: 3
@@ -374,6 +376,7 @@ MonoBehaviour:
   - parameter:
       guid: 5f19ac5cee01e440a9b4a0625f3b0930
       name: inputEnum
+      graphGuid: 
       graphId: 0
       index: 3
       type: 4
@@ -401,6 +404,7 @@ MonoBehaviour:
   - parameter:
       guid: 5f19ac5cee01e440a9b4a0625f3b0930
       name: color
+      graphGuid: 
       graphId: 0
       index: 13
       type: 3
@@ -428,6 +432,7 @@ MonoBehaviour:
   - parameter:
       guid: 5f19ac5cee01e440a9b4a0625f3b0930
       name: textMetallic
+      graphGuid: 
       graphId: 0
       index: 18
       type: 0
@@ -455,6 +460,7 @@ MonoBehaviour:
   - parameter:
       guid: 5f19ac5cee01e440a9b4a0625f3b0930
       name: inputString
+      graphGuid: 
       graphId: 0
       index: 12
       type: 9
@@ -745,11 +751,12 @@ MonoBehaviour:
   substanceGraph: {fileID: 0}
   parameter:
     guid: 9307f27bb5da44530b7989023af589af
-    name: color
-    graphId: 1
-    index: 2
-    type: 3
-    widgetType: 3
+    name: 
+    graphGuid: 
+    graphId: 0
+    index: 0
+    type: 0
+    widgetType: 0
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
     rangeIntMin:
@@ -766,6 +773,7 @@ MonoBehaviour:
     parameter:
       guid: f24f6394d9309114d91449f5c8adb17f
       name: 
+      graphGuid: 
       graphId: 0
       index: 0
       type: 0

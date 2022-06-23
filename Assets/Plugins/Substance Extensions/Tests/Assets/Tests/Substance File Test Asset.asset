@@ -100,6 +100,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
+  getEnumCastValue: 1
   getIntValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
@@ -535,6 +536,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
+  setEnumCastValue: 5
   setIntValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed
@@ -970,6 +972,7 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
+  defaultEnumCastValue: 0
   defaultIntValue:
     parameter:
       guid: 3f4a63289bc3f4c129d168c64fdab6ed

@@ -32,53 +32,76 @@ namespace SOS.SubstanceExtensions
 
         public static ISubstanceInput GetInput(this SubstanceFileSO substance, string name, string graphGuid="")
         {
-            int graphId = GetGraphIndex(substance, string.IsNullOrEmpty(graphGuid) ? substance.Instances[0].GUID : graphGuid);
+            int graphIndex = GetGraphIndex(substance, string.IsNullOrEmpty(graphGuid) ? substance.Instances[0].GUID : graphGuid);
 
-            return GetInput(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInput(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
 
         public static ISubstanceInput GetInput(this SubstanceFileSO substance, int index, string graphGuid="")
         {
-            int graphId = GetGraphIndex(substance, graphGuid);
+            int graphIndex = GetGraphIndex(substance, graphGuid);
 
-            return GetInput(substance, index, graphId);
+            return GetInput(substance, index, graphIndex);
         }
 
 
-        public static ISubstanceInput GetInput(this SubstanceFileSO substance, string name, int graphId=0)
+        public static ISubstanceInput GetInput(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetInput(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInput(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
 
-        public static ISubstanceInput GetInput(this SubstanceFileSO substance, int index, int graphId=0)
+        public static ISubstanceInput GetInput(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            if(graphId < 0 || graphId >= substance.Instances.Count ||
-                index < 0 || index >= substance.Instances[graphId].Input.Count)
+            if(graphIndex < 0 || graphIndex >= substance.Instances.Count ||
+                index < 0 || index >= substance.Instances[graphIndex].Input.Count)
             {
                 return null;
             }
 
-            return substance.Instances[graphId].Input[index];
+            return substance.Instances[graphIndex].Input[index];
         }
 
 
-        public static T GetInput<T>(this SubstanceFileSO substance, string name, int graphId=0) where T : ISubstanceInput
+        public static T GetInput<T>(this SubstanceFileSO substance, string name, int graphIndex=0) where T : ISubstanceInput
         {
-            return GetInput<T>(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInput<T>(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
 
-        public static T GetInput<T>(this SubstanceFileSO substance, int index, int graphId=0) where T : ISubstanceInput
+        public static T GetInput<T>(this SubstanceFileSO substance, int index, int graphIndex=0) where T : ISubstanceInput
         {
-            if(graphId < 0 || graphId >= substance.Instances.Count ||
-                index < 0 || index >= substance.Instances[graphId].Input.Count)
+            if(graphIndex < 0 || graphIndex >= substance.Instances.Count ||
+                index < 0 || index >= substance.Instances[graphIndex].Input.Count)
             {
                 return default(T);
             }
 
-            return (T)substance.Instances[graphId].Input[index];
+            T input;
+
+            try
+            {
+                input = (T)substance.Instances[graphIndex].Input[index];
+            }
+            catch (System.InvalidCastException e)
+            {
+                input = default(T);
+
+                ISubstanceInput baseInput = substance.Instances[graphIndex].Input[index];
+
+                Debug.LogError(string.Format("{0}\nInput [{1}] at index [{2}] on graph [{3}] at index [{4}] of substance [{5}] is an input of type [{6}], not [{7}]!",
+                    e.Message,
+                    baseInput.Description.Identifier,
+                    baseInput.Index,
+                    substance.Instances[graphIndex].Name,
+                    graphIndex,
+                    substance.name,
+                    baseInput.GetType().FullName,
+                    typeof(T).FullName));
+            }
+
+            return input;
         }
 
 
@@ -110,13 +133,13 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static int GetInputIndex(this SubstanceFileSO substance, string name, int graphId=0)
+        public static int GetInputIndex(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            if(graphId < 0 || graphId >= substance.Instances.Count) return -1;
+            if(graphIndex < 0 || graphIndex >= substance.Instances.Count) return -1;
 
-            for(int i=0; i < substance.Instances[graphId].Input.Count; i++)
+            for(int i=0; i < substance.Instances[graphIndex].Input.Count; i++)
             {
-                if(substance.Instances[graphId].Input[i].Description.Identifier == name)
+                if(substance.Instances[graphIndex].Input[i].Description.Identifier == name)
                 {
                     return i;
                 }
@@ -128,13 +151,13 @@ namespace SOS.SubstanceExtensions
 
         public static int GetInputIndex(this SubstanceFileSO substance, string name, string graphGuid="")
         {
-            int graphId = GetGraphIndex(substance, string.IsNullOrEmpty(graphGuid) ? substance.Instances[0].GUID : graphGuid);
+            int graphIndex = GetGraphIndex(substance, string.IsNullOrEmpty(graphGuid) ? substance.Instances[0].GUID : graphGuid);
 
-            if(graphId < 0 || graphId >= substance.Instances.Count) return -1;
+            if(graphIndex < 0 || graphIndex >= substance.Instances.Count) return -1;
 
-            for(int i = 0; i < substance.Instances[graphId].Input.Count; i++)
+            for(int i = 0; i < substance.Instances[graphIndex].Input.Count; i++)
             {
-                if(substance.Instances[graphId].Input[i].Description.Identifier == name)
+                if(substance.Instances[graphIndex].Input[i].Description.Identifier == name)
                 {
                     return i;
                 }
@@ -161,11 +184,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>object represnting the target input's value.</returns>
-        public static object GetValue(this SubstanceFileSO substance, string name, int graphId=0)
+        public static object GetValue(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetValue(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetValue(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -173,11 +196,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>object represnting the target input's value.</returns>
-        public static object GetValue(this SubstanceFileSO substance, int index, int graphId=0)
+        public static object GetValue(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            ISubstanceInput input = GetInput(substance, index, graphId);
+            ISubstanceInput input = GetInput(substance, index, graphIndex);
 
             switch(input)
             {
@@ -214,11 +237,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns null.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetValue(this SubstanceFileSO substance, out object value, string name, int graphId=0)
+        public static bool TryGetValue(this SubstanceFileSO substance, out object value, string name, int graphIndex=0)
         {
-            return TryGetValue(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetValue(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -227,11 +250,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns null.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetValue(this SubstanceFileSO substance, out object value, int index, int graphId=0)
+        public static bool TryGetValue(this SubstanceFileSO substance, out object value, int index, int graphIndex=0)
         {
-            ISubstanceInput input = GetInput(substance, index, graphId);
+            ISubstanceInput input = GetInput(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -296,10 +319,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetValue(this SubstanceFileSO substance, object value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetValue(this SubstanceFileSO substance, object value, string name, int graphIndex=0)
         {
-            SetValue(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetValue(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -308,10 +331,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetValue(this SubstanceFileSO substance, object value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetValue(this SubstanceFileSO substance, object value, int index, int graphIndex=0)
         {
-            ISubstanceInput input = GetInput(substance, index, graphId);
+            ISubstanceInput input = GetInput(substance, index, graphIndex);
 
             switch(input)
             {
@@ -370,11 +393,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetValue(this SubstanceFileSO substance, object value, string name, int graphId=0)
+        public static bool TrySetValue(this SubstanceFileSO substance, object value, string name, int graphIndex=0)
         {
-            return TrySetValue(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetValue(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -383,11 +406,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetValue(this SubstanceFileSO substance, object value, int index, int graphId=0)
+        public static bool TrySetValue(this SubstanceFileSO substance, object value, int index, int graphIndex=0)
         {
-            ISubstanceInput input = GetInput(substance, index, graphId);
+            ISubstanceInput input = GetInput(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -489,11 +512,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Texture2D"/> represnting the target input's value.</returns>
-        public static Texture2D GetTexture(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Texture2D GetTexture(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetTexture(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetTexture(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -501,11 +524,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Texture2D"/> represnting the target input's value.</returns>
-        public static Texture2D GetTexture(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Texture2D GetTexture(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphId);
+            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphIndex);
 
             return input == null ? null : GetTextureInternal(input);
         }
@@ -528,11 +551,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns null.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetTexture(this SubstanceFileSO substance, out Texture2D value, string name, int graphId=0)
+        public static bool TryGetTexture(this SubstanceFileSO substance, out Texture2D value, string name, int graphIndex=0)
         {
-            return TryGetTexture(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetTexture(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -541,11 +564,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns null.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetTexture(this SubstanceFileSO substance, out Texture2D value, int index, int graphId=0)
+        public static bool TryGetTexture(this SubstanceFileSO substance, out Texture2D value, int index, int graphIndex=0)
         {
-            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphId);
+            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -577,10 +600,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetTexture(this SubstanceFileSO substance, Texture2D value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetTexture(this SubstanceFileSO substance, Texture2D value, string name, int graphIndex=0)
         {
-            SetTexture(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetTexture(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -589,10 +612,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetTexture(this SubstanceFileSO substance, Texture2D value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetTexture(this SubstanceFileSO substance, Texture2D value, int index, int graphIndex=0)
         {
-            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphId);
+            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphIndex);
 
             if(input != null) SetTextureInternal(input, value);
         }
@@ -615,11 +638,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetTexture(this SubstanceFileSO substance, Texture2D value, string name, int graphId=0)
+        public static bool TrySetTexture(this SubstanceFileSO substance, Texture2D value, string name, int graphIndex=0)
         {
-            return TrySetTexture(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetTexture(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -628,11 +651,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetTexture(this SubstanceFileSO substance, Texture2D value, int index, int graphId=0)
+        public static bool TrySetTexture(this SubstanceFileSO substance, Texture2D value, int index, int graphIndex=0)
         {
-            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphId);
+            SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -673,11 +696,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>string represnting the target input's value.</returns>
-        public static string GetString(this SubstanceFileSO substance, string name, int graphId=0)
+        public static string GetString(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetString(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetString(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -685,11 +708,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>string represnting the target input's value.</returns>
-        public static string GetString(this SubstanceFileSO substance, int index, int graphId=0)
+        public static string GetString(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphId);
+            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphIndex);
 
             return input == null ? string.Empty : input.Data;
         }
@@ -712,11 +735,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns an empty string.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetString(this SubstanceFileSO substance, out string value, string name, int graphId=0)
+        public static bool TryGetString(this SubstanceFileSO substance, out string value, string name, int graphIndex=0)
         {
-            return TryGetString(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetString(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -725,11 +748,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns an empty string.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetString(this SubstanceFileSO substance, out string value, int index, int graphId=0)
+        public static bool TryGetString(this SubstanceFileSO substance, out string value, int index, int graphIndex=0)
         {
-            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphId);
+            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -760,10 +783,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetString(this SubstanceFileSO substance, string value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetString(this SubstanceFileSO substance, string value, string name, int graphIndex=0)
         {
-            SetString(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetString(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -772,10 +795,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetString(this SubstanceFileSO substance, string value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetString(this SubstanceFileSO substance, string value, int index, int graphIndex=0)
         {
-            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphId);
+            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -798,11 +821,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetString(this SubstanceFileSO substance, string value, string name, int graphId=0)
+        public static bool TrySetString(this SubstanceFileSO substance, string value, string name, int graphIndex=0)
         {
-            return TrySetString(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetString(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -811,11 +834,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetString(this SubstanceFileSO substance, string value, int index, int graphId=0)
+        public static bool TrySetString(this SubstanceFileSO substance, string value, int index, int graphIndex=0)
         {
-            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphId);
+            SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -844,11 +867,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>float represnting the target input's value.</returns>
-        public static float GetFloat(this SubstanceFileSO substance, string name, int graphId=0)
+        public static float GetFloat(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetFloat(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetFloat(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -856,11 +879,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>float represnting the target input's value.</returns>
-        public static float GetFloat(this SubstanceFileSO substance, int index, int graphId=0)
+        public static float GetFloat(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphId);
+            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphIndex);
 
             return input == null ? 0f : input.Data;
         }
@@ -883,11 +906,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat(this SubstanceFileSO substance, out float value, string name, int graphId=0)
+        public static bool TryGetFloat(this SubstanceFileSO substance, out float value, string name, int graphIndex=0)
         {
-            return TryGetFloat(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetFloat(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -896,11 +919,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat(this SubstanceFileSO substance, out float value, int index, int graphId=0)
+        public static bool TryGetFloat(this SubstanceFileSO substance, out float value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphId);
+            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -931,10 +954,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat(this SubstanceFileSO substance, float value, string name, int graphId = 0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat(this SubstanceFileSO substance, float value, string name, int graphIndex = 0)
         {
-            SetFloat(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetFloat(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -943,10 +966,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat(this SubstanceFileSO substance, float value, int index, int graphId = 0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat(this SubstanceFileSO substance, float value, int index, int graphIndex = 0)
         {
-            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphId);
+            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -969,11 +992,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat(this SubstanceFileSO substance, float value, string name, int graphId = 0)
+        public static bool TrySetFloat(this SubstanceFileSO substance, float value, string name, int graphIndex = 0)
         {
-            return TrySetFloat(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetFloat(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -982,11 +1005,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat(this SubstanceFileSO substance, float value, int index, int graphId = 0)
+        public static bool TrySetFloat(this SubstanceFileSO substance, float value, int index, int graphIndex = 0)
         {
-            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphId);
+            SubstanceInputFloat input = GetInput<SubstanceInputFloat>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -1015,11 +1038,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector2"/> represnting the target input's value.</returns>
-        public static Vector2 GetFloat2(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Vector2 GetFloat2(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetFloat2(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetFloat2(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1027,11 +1050,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector2"/> represnting the target input's value.</returns>
-        public static Vector2 GetFloat2(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Vector2 GetFloat2(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphId);
+            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphIndex);
 
             return input == null ? Vector2.zero : input.Data;
         }
@@ -1054,11 +1077,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector2.zero"/>.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat2(this SubstanceFileSO substance, out Vector2 value, string name, int graphId=0)
+        public static bool TryGetFloat2(this SubstanceFileSO substance, out Vector2 value, string name, int graphIndex=0)
         {
-            return TryGetFloat2(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetFloat2(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1067,11 +1090,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector2.zero"/>.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat2(this SubstanceFileSO substance, out Vector2 value, int index, int graphId=0)
+        public static bool TryGetFloat2(this SubstanceFileSO substance, out Vector2 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphId);
+            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -1102,10 +1125,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat2(this SubstanceFileSO substance, Vector2 value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat2(this SubstanceFileSO substance, Vector2 value, string name, int graphIndex=0)
         {
-            SetFloat2(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetFloat2(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1114,10 +1137,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat2(this SubstanceFileSO substance, Vector2 value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat2(this SubstanceFileSO substance, Vector2 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphId);
+            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -1140,11 +1163,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat2(this SubstanceFileSO substance, Vector2 value, string name, int graphId=0)
+        public static bool TrySetFloat2(this SubstanceFileSO substance, Vector2 value, string name, int graphIndex=0)
         {
-            return TrySetFloat2(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetFloat2(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1153,11 +1176,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat2(this SubstanceFileSO substance, Vector2 value, int index, int graphId=0)
+        public static bool TrySetFloat2(this SubstanceFileSO substance, Vector2 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphId);
+            SubstanceInputFloat2 input = GetInput<SubstanceInputFloat2>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -1186,11 +1209,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector3"/> represnting the target input's value.</returns>
-        public static Vector3 GetFloat3(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Vector3 GetFloat3(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetFloat3(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetFloat3(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1198,11 +1221,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector3"/> represnting the target input's value.</returns>
-        public static Vector3 GetFloat3(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Vector3 GetFloat3(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphId);
+            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphIndex);
 
             return input == null ? Vector3.zero : input.Data;
         }
@@ -1225,11 +1248,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector3.zero"/>.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat3(this SubstanceFileSO substance, out Vector3 value, string name, int graphId=0)
+        public static bool TryGetFloat3(this SubstanceFileSO substance, out Vector3 value, string name, int graphIndex=0)
         {
-            return TryGetFloat3(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetFloat3(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1238,11 +1261,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector3.zero"/>.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat3(this SubstanceFileSO substance, out Vector3 value, int index, int graphId=0)
+        public static bool TryGetFloat3(this SubstanceFileSO substance, out Vector3 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphId);
+            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -1273,10 +1296,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat3(this SubstanceFileSO substance, Vector3 value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat3(this SubstanceFileSO substance, Vector3 value, string name, int graphIndex=0)
         {
-            SetFloat3(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetFloat3(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1285,10 +1308,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat3(this SubstanceFileSO substance, Vector3 value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat3(this SubstanceFileSO substance, Vector3 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphId);
+            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -1311,11 +1334,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat3(this SubstanceFileSO substance, Vector3 value, string name, int graphId=0)
+        public static bool TrySetFloat3(this SubstanceFileSO substance, Vector3 value, string name, int graphIndex=0)
         {
-            return TrySetFloat3(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetFloat3(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1324,11 +1347,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat3(this SubstanceFileSO substance, Vector3 value, int index, int graphId=0)
+        public static bool TrySetFloat3(this SubstanceFileSO substance, Vector3 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphId);
+            SubstanceInputFloat3 input = GetInput<SubstanceInputFloat3>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -1357,11 +1380,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector4"/> represnting the target input's value.</returns>
-        public static Vector4 GetFloat4(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Vector4 GetFloat4(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetFloat4(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetFloat4(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1369,11 +1392,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector4"/> represnting the target input's value.</returns>
-        public static Vector4 GetFloat4(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Vector4 GetFloat4(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphId);
+            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphIndex);
 
             return input == null ? Vector4.zero : input.Data;
         }
@@ -1396,11 +1419,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector4.zero"/>.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat4(this SubstanceFileSO substance, out Vector4 value, string name, int graphId=0)
+        public static bool TryGetFloat4(this SubstanceFileSO substance, out Vector4 value, string name, int graphIndex=0)
         {
-            return TryGetFloat4(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetFloat4(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1409,11 +1432,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector4.zero"/>.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat4(this SubstanceFileSO substance, out Vector4 value, int index, int graphId=0)
+        public static bool TryGetFloat4(this SubstanceFileSO substance, out Vector4 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphId);
+            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -1444,10 +1467,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat4(this SubstanceFileSO substance, Vector4 value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat4(this SubstanceFileSO substance, Vector4 value, string name, int graphIndex=0)
         {
-            SetFloat4(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetFloat4(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1456,10 +1479,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetFloat4(this SubstanceFileSO substance, Vector4 value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetFloat4(this SubstanceFileSO substance, Vector4 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphId);
+            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -1482,11 +1505,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat4(this SubstanceFileSO substance, Vector4 value, string name, int graphId=0)
+        public static bool TrySetFloat4(this SubstanceFileSO substance, Vector4 value, string name, int graphIndex=0)
         {
-            return TrySetFloat4(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetFloat4(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1495,11 +1518,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat4(this SubstanceFileSO substance, Vector4 value, int index, int graphId=0)
+        public static bool TrySetFloat4(this SubstanceFileSO substance, Vector4 value, int index, int graphIndex=0)
         {
-            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphId);
+            SubstanceInputFloat4 input = GetInput<SubstanceInputFloat4>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -1527,11 +1550,11 @@ namespace SOS.SubstanceExtensions
         /// Get the $randomseed value for the substance.
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the $randomseed value from.</param>
-        /// <param name="graphId">Index for the graph containing the target $randomseed.</param>
+        /// <param name="graphIndex">Index for the graph containing the target $randomseed.</param>
         /// <returns>int represnting the substance's $randomseed value.</returns>
-        public static int GetRandomSeed(this SubstanceFileSO substance, int graphId=0)
+        public static int GetRandomSeed(this SubstanceFileSO substance, int graphIndex=0)
         {
-            return GetInt(substance, PARAM_RANDOM_SEED, graphId);
+            return GetInt(substance, PARAM_RANDOM_SEED, graphIndex);
         }
 
         /// <summary>
@@ -1550,11 +1573,13 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the $randomseed value on.</param>
         /// <param name="value">New value for the $randomseed input.</param>
-        /// <param name="graphId"></param>
-        public static void SetRandomSeed(this SubstanceFileSO substance, int value, int graphId=0)
+        /// <param name="graphIndex"></param>
+        public static void SetRandomSeed(this SubstanceFileSO substance, int value, int graphIndex=0)
         {
-            SetInt(substance, value, PARAM_RANDOM_SEED, graphId);
+            SetInt(substance, value, PARAM_RANDOM_SEED, graphIndex);
         }
+
+        #region Bool
 
         /// <summary>
         /// Get the bool value for the target input on the substance. Note: bool values are wrappers for int values.
@@ -1572,11 +1597,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>bool represnting the target input's value. False if 0, true if anything else.</returns>
-        public static bool GetBool(this SubstanceFileSO substance, string name, int graphId=0)
+        public static bool GetBool(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetBool(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetBool(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1584,11 +1609,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>bool represnting the target input's value. False if 0, true if anything else.</returns>
-        public static bool GetBool(this SubstanceFileSO substance, int index, int graphId=0)
+        public static bool GetBool(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             return input == null ? false : input.Data != 0;
         }
@@ -1611,11 +1636,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns false.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetBool(this SubstanceFileSO substance, out bool value, string name, int graphId=0)
+        public static bool TryGetBool(this SubstanceFileSO substance, out bool value, string name, int graphIndex=0)
         {
-            return TryGetBool(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetBool(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1624,11 +1649,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns false.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetBool(this SubstanceFileSO substance, out bool value, int index, int graphId=0)
+        public static bool TryGetBool(this SubstanceFileSO substance, out bool value, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -1659,10 +1684,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetBool(this SubstanceFileSO substance, bool value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetBool(this SubstanceFileSO substance, bool value, string name, int graphIndex=0)
         {
-            SetBool(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetBool(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1671,10 +1696,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetBool(this SubstanceFileSO substance, bool value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetBool(this SubstanceFileSO substance, bool value, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             if(input != null) input.Data = value ? 1 : 0;
         }
@@ -1697,11 +1722,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetBool(this SubstanceFileSO substance, bool value, string name, int graphId=0)
+        public static bool TrySetBool(this SubstanceFileSO substance, bool value, string name, int graphIndex=0)
         {
-            return TrySetBool(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetBool(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1710,12 +1735,203 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetBool(this SubstanceFileSO substance, bool value, int index, int graphId=0)
+        public static bool TrySetBool(this SubstanceFileSO substance, bool value, int index, int graphIndex=0)
         {
-            return TrySetInt(substance, value ? 1 : 0, index, graphId);
+            return TrySetInt(substance, value ? 1 : 0, index, graphIndex);
         }
+
+        #endregion
+
+        #region Enum
+
+        /// <summary>
+        /// Get the enum value for the target int input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
+        /// <param name="inputParameter">Parameter data for the target input.</param>
+        /// <param name="defaultValue">Default value returned if the target input is not found.</param>
+        /// <returns>Enum value cast from the target input's int value.</returns>
+        public static TEnum GetEnum<TEnum>(this SubstanceFileSO substance, SubstanceParameter inputParameter, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        {
+            return GetEnum<TEnum>(substance, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid), defaultValue);
+        }
+
+        /// <summary>
+        /// Get the enum value for the target int input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
+        /// <param name="name">Name for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        /// <param name="defaultValue">Default value returned if the target input is not found.</param>
+        /// <returns>Enum value cast from the target input's int value.</returns>
+        public static TEnum GetEnum<TEnum>(this SubstanceFileSO substance, string name, int graphIndex=0, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        {
+            return GetEnum<TEnum>(substance, GetInputIndex(substance, name, graphIndex), graphIndex, defaultValue);
+        }
+
+        /// <summary>
+        /// Get the enum value for the target int input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
+        /// <param name="index">Index for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        /// <param name="defaultValue">Default value returned if the target input is not found.</param>
+        /// <returns>Enum value cast from the target input's int value.</returns>
+        public static TEnum GetEnum<TEnum>(this SubstanceFileSO substance, int index, int graphIndex=0, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        {
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
+
+            return input == null ? defaultValue : (TEnum)(object)input.Data;
+        }
+
+        /// <summary>
+        /// Attempt to get an int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
+        /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
+        /// <param name="inputParameter">Parameter data for the target input.</param>
+        /// <param name="defaultValue">Default value returned if the target input is not found.</param>
+        /// <returns>True if the value was found or false if the input was not found.</returns>
+        public static bool TryGetEnum<TEnum>(this SubstanceFileSO substance, out TEnum value, SubstanceParameter inputParameter, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        {
+            return TryGetEnum<TEnum>(substance, out value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid), defaultValue);
+        }
+
+        /// <summary>
+        /// Attempt to get an int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
+        /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
+        /// <param name="name">Name for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        /// <param name="defaultValue">Default value returned if the target input is not found.</param>
+        /// <returns>True if the value was found or false if the input was not found.</returns>
+        public static bool TryGetEnum<TEnum>(this SubstanceFileSO substance, out TEnum value, string name, int graphIndex=0, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        {
+            return TryGetEnum<TEnum>(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex, defaultValue);
+        }
+
+        /// <summary>
+        /// Attempt to get an int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
+        /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
+        /// <param name="index">Index for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        /// <param name="defaultValue">Default value returned if the target input is not found.</param>
+        /// <returns>True if the value was found or false if the input was not found.</returns>
+        public static bool TryGetEnum<TEnum>(this SubstanceFileSO substance, out TEnum value, int index, int graphIndex=0, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        {
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
+
+            if(input != null)
+            {
+                value = (TEnum)(object)input.Data;
+
+                return true;
+            }
+
+            value = defaultValue;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Set the int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
+        /// <param name="value">New value for the input.</param>
+        /// <param name="inputParameter">Parameter data for the target input.</param>
+        public static void SetEnum<TEnum>(this SubstanceFileSO substance, TEnum value, SubstanceParameter inputParameter) where TEnum : Enum
+        {
+            SetEnum<TEnum>(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
+        }
+
+        /// <summary>
+        /// Set the int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
+        /// <param name="value">New value for the input.</param>
+        /// <param name="name">Name for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetEnum<TEnum>(this SubstanceFileSO substance, TEnum value, string name, int graphIndex=0) where TEnum : Enum
+        {
+            SetEnum<TEnum>(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
+        }
+
+        /// <summary>
+        /// Set the int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
+        /// <param name="value">New value for the input.</param>
+        /// <param name="index">Index for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetEnum<TEnum>(this SubstanceFileSO substance, TEnum value, int index, int graphIndex=0) where TEnum : Enum
+        {
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
+
+            if(input != null) input.Data = (int)(object)value;
+        }
+
+        /// <summary>
+        /// Attempt to set the int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
+        /// <param name="value">New value for the input.</param>
+        /// <param name="inputParameter">Parameter data for the target input.</param>
+        /// <returns>True if the input value was set or false otherwise.</returns>
+        public static bool TrySetEnum<TEnum>(this SubstanceFileSO substance, TEnum value, SubstanceParameter inputParameter) where TEnum : Enum
+        {
+            return TrySetEnum<TEnum>(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
+        }
+
+        /// <summary>
+        /// Attempt to set the int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
+        /// <param name="value">New value for the input.</param>
+        /// <param name="name">Name for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        /// <returns>True if the input value was set or false otherwise.</returns>
+        public static bool TrySetEnum<TEnum>(this SubstanceFileSO substance, TEnum value, string name, int graphIndex=0) where TEnum : Enum
+        {
+            return TrySetEnum<TEnum>(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
+        }
+
+        /// <summary>
+        /// Attempt to set the int value for the target input on the substance.
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type to cast the input's int value to.</typeparam>
+        /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
+        /// <param name="value">New value for the input.</param>
+        /// <param name="index">Index for the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        /// <returns>True if the input value was set or false otherwise.</returns>
+        public static bool TrySetEnum<TEnum>(this SubstanceFileSO substance, TEnum value, int index, int graphIndex=0) where TEnum : Enum
+        {
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
+
+            if(input == null) return false;
+
+            input.Data = (int)(object)value;
+
+            return true;
+        }
+
+        #endregion
 
         /// <summary>
         /// Get the int value for the target input on the substance.
@@ -1733,11 +1949,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>int represnting the target input's value.</returns>
-        public static int GetInt(this SubstanceFileSO substance, string name, int graphId=0)
+        public static int GetInt(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetInt(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInt(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1745,11 +1961,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>int represnting the target input's value.</returns>
-        public static int GetInt(this SubstanceFileSO substance, int index, int graphId=0)
+        public static int GetInt(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             return input == null ? 0 : input.Data;
         }
@@ -1772,11 +1988,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt(this SubstanceFileSO substance, out int value, string name, int graphId=0)
+        public static bool TryGetInt(this SubstanceFileSO substance, out int value, string name, int graphIndex=0)
         {
-            return TryGetInt(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetInt(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1785,11 +2001,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt(this SubstanceFileSO substance, out int value, int index, int graphId=0)
+        public static bool TryGetInt(this SubstanceFileSO substance, out int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -1820,10 +2036,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt(this SubstanceFileSO substance, int value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt(this SubstanceFileSO substance, int value, string name, int graphIndex=0)
         {
-            SetInt(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetInt(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1832,10 +2048,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt(this SubstanceFileSO substance, int value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt(this SubstanceFileSO substance, int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -1858,11 +2074,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt(this SubstanceFileSO substance, int value, string name, int graphId=0)
+        public static bool TrySetInt(this SubstanceFileSO substance, int value, string name, int graphIndex=0)
         {
-            return TrySetInt(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetInt(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1871,11 +2087,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt(this SubstanceFileSO substance, int value, int index, int graphId=0)
+        public static bool TrySetInt(this SubstanceFileSO substance, int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphId);
+            SubstanceInputInt input = GetInput<SubstanceInputInt>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -1903,11 +2119,11 @@ namespace SOS.SubstanceExtensions
         /// Get the $outputsize value for the substance.
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the $outputsize value from.</param>
-        /// <param name="graphId">Index for the graph containing the target $outputsize.</param>
+        /// <param name="graphIndex">Index for the graph containing the target $outputsize.</param>
         /// <returns><see cref="Vector2Int"/> represnting the substance's $outputsize value.</returns>
-        public static Vector2Int GetOutputSize(this SubstanceFileSO substance, int graphId=0)
+        public static Vector2Int GetOutputSize(this SubstanceFileSO substance, int graphIndex=0)
         {
-            return GetInt2(substance, PARAM_OUTPUT_SIZE, graphId);
+            return GetInt2(substance, PARAM_OUTPUT_SIZE, graphIndex);
         }
 
         /// <summary>
@@ -1916,10 +2132,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the $outputsize value from.</param>
         /// <param name="width">Value to populate with the substance's $outputsize width.</param>
         /// <param name="height">Value to populate with the substance's $outputsize height.</param>
-        /// <param name="graphId">Index for the graph containing the target $outputsize.</param>
-        public static void GetOutputSize(this SubstanceFileSO substance, out SbsOutputSize width, out SbsOutputSize height, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target $outputsize.</param>
+        public static void GetOutputSize(this SubstanceFileSO substance, out SbsOutputSize width, out SbsOutputSize height, int graphIndex=0)
         {
-            Vector2Int value = GetOutputSize(substance, graphId);
+            Vector2Int value = GetOutputSize(substance, graphIndex);
 
             width = (SbsOutputSize)value.x;
             height = (SbsOutputSize)value.y;
@@ -1930,10 +2146,10 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance">Substance to set the output size on.</param>
         /// <param name="size">Width and height of the size.</param>
-        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
-        public static void SetOutputSize(this SubstanceFileSO substance, SbsOutputSize size, int graphId=0)
+        /// <param name="graphIndex">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceFileSO substance, SbsOutputSize size, int graphIndex=0)
         {
-            SetOutputSize(substance, new Vector2Int((int)size, (int)size), graphId);
+            SetOutputSize(substance, new Vector2Int((int)size, (int)size), graphIndex);
         }
 
         /// <summary>
@@ -1942,10 +2158,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance">Substance to set the output size on.</param>
         /// <param name="width">Width of the size value.</param>
         /// <param name="height">Height of the size value.</param>
-        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
-        public static void SetOutputSize(this SubstanceFileSO substance, SbsOutputSize width, SbsOutputSize height, int graphId=0)
+        /// <param name="graphIndex">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceFileSO substance, SbsOutputSize width, SbsOutputSize height, int graphIndex=0)
         {
-            SetOutputSize(substance, new Vector2Int((int)width, (int)height), graphId);
+            SetOutputSize(substance, new Vector2Int((int)width, (int)height), graphIndex);
         }
 
         /// <summary>
@@ -1954,10 +2170,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance">Substance to set the output size on.</param>
         /// <param name="width">Width of the size value. Note that this value isn't the resolution in pixels, but specific int values associated with sizes. See <see cref="SbsOutputSize"/> for coresponding resolutions and ints.</param>
         /// <param name="height">Height of the size value. Note that this value isn't the resolution in pixels, but specific int values associated with sizes. See <see cref="SbsOutputSize"/> for coresponding resolutions and ints.</param>
-        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
-        public static void SetOutputSize(this SubstanceFileSO substance, int width, int height, int graphId=0)
+        /// <param name="graphIndex">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceFileSO substance, int width, int height, int graphIndex=0)
         {
-            SetOutputSize(substance, new Vector2Int(width, height), graphId);
+            SetOutputSize(substance, new Vector2Int(width, height), graphIndex);
         }
 
         /// <summary>
@@ -1965,10 +2181,10 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance">Substance to set the output size on.</param>
         /// <param name="size">Width and height values of the size. Note that this value isn't the resolution in pixels, but specific int values associated with sizes. See <see cref="SbsOutputSize"/> for coresponding resolutions and ints.</param>
-        /// <param name="graphId">Index for the specific graph being targeted. Usually this can be left as 0.</param>
-        public static void SetOutputSize(this SubstanceFileSO substance, Vector2Int size, int graphId=0)
+        /// <param name="graphIndex">Index for the specific graph being targeted. Usually this can be left as 0.</param>
+        public static void SetOutputSize(this SubstanceFileSO substance, Vector2Int size, int graphIndex=0)
         {
-            SetInt2(substance, size, PARAM_OUTPUT_SIZE, graphId);
+            SetInt2(substance, size, PARAM_OUTPUT_SIZE, graphIndex);
         }
 
         /// <summary>
@@ -1987,11 +2203,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector2Int"/> represnting the target input's value.</returns>
-        public static Vector2Int GetInt2(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Vector2Int GetInt2(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetInt2(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInt2(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -1999,11 +2215,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector2Int"/> represnting the target input's value.</returns>
-        public static Vector2Int GetInt2(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Vector2Int GetInt2(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphId);
+            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphIndex);
 
             return input == null ? Vector2Int.zero : input.Data;
         }
@@ -2026,11 +2242,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector2Int.zero"/>.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt2(this SubstanceFileSO substance, out Vector2Int value, string name, int graphId=0)
+        public static bool TryGetInt2(this SubstanceFileSO substance, out Vector2Int value, string name, int graphIndex=0)
         {
-            return TryGetInt2(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetInt2(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2039,11 +2255,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector2Int.zero"/>.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt2(this SubstanceFileSO substance, out Vector2Int value, int index, int graphId=0)
+        public static bool TryGetInt2(this SubstanceFileSO substance, out Vector2Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphId);
+            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -2074,10 +2290,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt2(this SubstanceFileSO substance, Vector2Int value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt2(this SubstanceFileSO substance, Vector2Int value, string name, int graphIndex=0)
         {
-            SetInt2(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetInt2(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2086,10 +2302,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt2(this SubstanceFileSO substance, Vector2Int value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt2(this SubstanceFileSO substance, Vector2Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphId);
+            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -2112,11 +2328,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt2(this SubstanceFileSO substance, Vector2Int value, string name, int graphId=0)
+        public static bool TrySetInt2(this SubstanceFileSO substance, Vector2Int value, string name, int graphIndex=0)
         {
-            return TrySetInt2(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetInt2(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2125,11 +2341,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt2(this SubstanceFileSO substance, Vector2Int value, int index, int graphId=0)
+        public static bool TrySetInt2(this SubstanceFileSO substance, Vector2Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphId);
+            SubstanceInputInt2 input = GetInput<SubstanceInputInt2>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -2158,11 +2374,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector3Int"/> represnting the target input's value.</returns>
-        public static Vector3Int GetInt3(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Vector3Int GetInt3(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetInt3(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInt3(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2170,11 +2386,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector3Int"/> represnting the target input's value.</returns>
-        public static Vector3Int GetInt3(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Vector3Int GetInt3(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphId);
+            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphIndex);
 
             return input == null ? Vector3Int.zero : input.Data;
         }
@@ -2197,11 +2413,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector3Int.zero"/>.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt3(this SubstanceFileSO substance, out Vector3Int value, string name, int graphId=0)
+        public static bool TryGetInt3(this SubstanceFileSO substance, out Vector3Int value, string name, int graphIndex=0)
         {
-            return TryGetInt3(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetInt3(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2210,11 +2426,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector3Int.zero"/>.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt3(this SubstanceFileSO substance, out Vector3Int value, int index, int graphId=0)
+        public static bool TryGetInt3(this SubstanceFileSO substance, out Vector3Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphId);
+            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -2245,10 +2461,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt3(this SubstanceFileSO substance, Vector3Int value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt3(this SubstanceFileSO substance, Vector3Int value, string name, int graphIndex=0)
         {
-            SetInt3(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetInt3(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2257,10 +2473,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt3(this SubstanceFileSO substance, Vector3Int value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt3(this SubstanceFileSO substance, Vector3Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphId);
+            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphIndex);
 
             if(input != null) input.Data = value;
         }
@@ -2283,11 +2499,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt3(this SubstanceFileSO substance, Vector3Int value, string name, int graphId=0)
+        public static bool TrySetInt3(this SubstanceFileSO substance, Vector3Int value, string name, int graphIndex=0)
         {
-            return TrySetInt3(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetInt3(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2296,11 +2512,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt3(this SubstanceFileSO substance, Vector3Int value, int index, int graphId=0)
+        public static bool TrySetInt3(this SubstanceFileSO substance, Vector3Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphId);
+            SubstanceInputInt3 input = GetInput<SubstanceInputInt3>(substance, index, graphIndex);
 
             if(input == null) return false;
 
@@ -2329,11 +2545,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector4Int"/> represnting the target input's value.</returns>
-        public static Vector4Int GetInt4(this SubstanceFileSO substance, string name, int graphId=0)
+        public static Vector4Int GetInt4(this SubstanceFileSO substance, string name, int graphIndex=0)
         {
-            return GetInt4(substance, GetInputIndex(substance, name, graphId), graphId);
+            return GetInt4(substance, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2341,11 +2557,11 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns><see cref="Vector4Int"/> represnting the target input's value.</returns>
-        public static Vector4Int GetInt4(this SubstanceFileSO substance, int index, int graphId=0)
+        public static Vector4Int GetInt4(this SubstanceFileSO substance, int index, int graphIndex=0)
         {
-            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphId);
+            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphIndex);
 
             return input == null ? Vector4Int.zero : new Vector4Int(input.Data0, input.Data1, input.Data2, input.Data3);
         }
@@ -2368,11 +2584,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector4Int.zero"/>.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt4(this SubstanceFileSO substance, out Vector4Int value, string name, int graphId=0)
+        public static bool TryGetInt4(this SubstanceFileSO substance, out Vector4Int value, string name, int graphIndex=0)
         {
-            return TryGetInt4(substance, out value, GetInputIndex(substance, name, graphId), graphId);
+            return TryGetInt4(substance, out value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2381,11 +2597,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the input value from.</param>
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector4Int.zero"/>.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt4(this SubstanceFileSO substance, out Vector4Int value, int index, int graphId=0)
+        public static bool TryGetInt4(this SubstanceFileSO substance, out Vector4Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphId);
+            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -2416,10 +2632,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt4(this SubstanceFileSO substance, Vector4Int value, string name, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt4(this SubstanceFileSO substance, Vector4Int value, string name, int graphIndex=0)
         {
-            SetInt4(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            SetInt4(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2428,10 +2644,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
-        public static void SetInt4(this SubstanceFileSO substance, Vector4Int value, int index, int graphId=0)
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
+        public static void SetInt4(this SubstanceFileSO substance, Vector4Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphId);
+            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphIndex);
 
             if(input != null)
             {
@@ -2460,11 +2676,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="name">Name for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt4(this SubstanceFileSO substance, Vector4Int value, string name, int graphId=0)
+        public static bool TrySetInt4(this SubstanceFileSO substance, Vector4Int value, string name, int graphIndex=0)
         {
-            return TrySetInt4(substance, value, GetInputIndex(substance, name, graphId), graphId);
+            return TrySetInt4(substance, value, GetInputIndex(substance, name, graphIndex), graphIndex);
         }
 
         /// <summary>
@@ -2473,11 +2689,11 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceFileSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="index">Index for the target input.</param>
-        /// <param name="graphId">Index for the graph containing the target input.</param>
+        /// <param name="graphIndex">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt4(this SubstanceFileSO substance, Vector4Int value, int index, int graphId=0)
+        public static bool TrySetInt4(this SubstanceFileSO substance, Vector4Int value, int index, int graphIndex=0)
         {
-            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphId);
+            SubstanceInputInt4 input = GetInput<SubstanceInputInt4>(substance, index, graphIndex);
 
             if(input == null) return false;
 

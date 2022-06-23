@@ -17,8 +17,10 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceParameterValue getStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target bool input on the test substance.")]
         private SubstanceParameterValue getBoolValue = new SubstanceParameterValue();
-        [SerializeField, Tooltip("Expected value for the target enum input on the test substance.")]
+        [SerializeField, Tooltip("Expected int value for the target enum input on the test substance.")]
         private SubstanceParameterValue getEnumValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Expected enum value for the target enum input on the test substance.")]
+        private TestInputEnum getEnumCastValue = TestInputEnum.Black;
         [SerializeField, Tooltip("Expected value for the target int input on the test substance.")]
         private SubstanceParameterValue getIntValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target int2 input on the test substance.")]
@@ -48,8 +50,10 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceParameterValue setStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test set value for the target bool input on the test substance.")]
         private SubstanceParameterValue setBoolValue = new SubstanceParameterValue();
-        [SerializeField, Tooltip("Test set value for the target enum input on the test substance.")]
+        [SerializeField, Tooltip("Test set int value for the target enum input on the test substance.")]
         private SubstanceParameterValue setEnumValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Test set enum value for the target enum input on the test substance.")]
+        private TestInputEnum setEnumCastValue = TestInputEnum.Black;
         [SerializeField, Tooltip("Test set value for the target int input on the test substance.")]
         private SubstanceParameterValue setIntValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test set value for the target int2 input on the test substance.")]
@@ -79,8 +83,10 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceParameterValue defaultStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Default set value for the target bool input on the test substance.")]
         private SubstanceParameterValue defaultBoolValue = new SubstanceParameterValue();
-        [SerializeField, Tooltip("Default set value for the target enum input on the test substance.")]
+        [SerializeField, Tooltip("Default set int value for the target enum input on the test substance.")]
         private SubstanceParameterValue defaultEnumValue = new SubstanceParameterValue();
+        [SerializeField, Tooltip("Default set enum value for the target enum input on the test substance.")]
+        private TestInputEnum defaultEnumCastValue = TestInputEnum.Black;
         [SerializeField, Tooltip("Default set value for the target int input on the test substance.")]
         private SubstanceParameterValue defaultIntValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Default set value for the target int2 input on the test substance.")]
@@ -143,6 +149,12 @@ namespace SOS.SubstanceExtensions.Tests
         public static SubstanceParameterValue GetEnumValue
         {
             get { return Instance != null ? Instance.getEnumValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static TestInputEnum GetEnumCastValue
+        {
+            get { return Instance != null ? Instance.getEnumCastValue : TestInputEnum.Black; }
         }
 
 
@@ -236,6 +248,12 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
+        public static TestInputEnum SetEnumCastValue
+        {
+            get { return Instance != null ? Instance.setEnumCastValue : TestInputEnum.Black; }
+        }
+
+
         public static SubstanceParameterValue SetIntValue
         {
             get { return Instance != null ? Instance.setIntValue : default(SubstanceParameterValue); }
@@ -323,6 +341,12 @@ namespace SOS.SubstanceExtensions.Tests
         public static SubstanceParameterValue DefaultEnumValue
         {
             get { return Instance != null ? Instance.defaultEnumValue : default(SubstanceParameterValue); }
+        }
+
+
+        public static TestInputEnum DefaultEnumCastValue
+        {
+            get { return Instance != null ? Instance.defaultEnumCastValue : TestInputEnum.Black; }
         }
 
 

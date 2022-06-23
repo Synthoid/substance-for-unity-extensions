@@ -223,7 +223,7 @@ MonoBehaviour:
           GuiDescription: A test integer1 input parameter set up as an enum dropdown.
           Type: 4
           WidgetType: 5
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
           GuiDescription: A test integer1 input parameter set up as a slider.
           Type: 4
           WidgetType: 1
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
           GuiDescription: A test integer2 input parameter.
           Type: 5
           WidgetType: 1
-        Data: {x: 1, y: 2}
+        Data: {x: 0, y: 0}
         NumericalDescription:
           DefaultValue: {x: 1, y: 1}
           MinValue: {x: 0, y: 0}
@@ -299,7 +299,7 @@ MonoBehaviour:
           GuiDescription: A test integer3 input parameter.
           Type: 6
           WidgetType: 1
-        Data: {x: 1, y: 2, z: 3}
+        Data: {x: 0, y: 0, z: 0}
         NumericalDescription:
           DefaultValue: {x: 1, y: 1, z: 1}
           MinValue: {x: 0, y: 0, z: 0}
@@ -320,9 +320,9 @@ MonoBehaviour:
           GuiDescription: A test integer4 input parameter.
           Type: 7
           WidgetType: 1
-        Data0: 1
-        Data1: 2
-        Data2: 4
+        Data0: 0
+        Data1: 0
+        Data2: 0
         Data3: 0
     - rid: 3158453149325328392
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
@@ -336,7 +336,7 @@ MonoBehaviour:
           GuiDescription: A test float1 input parameter.
           Type: 0
           WidgetType: 1
-        Data: 0.75
+        Data: 0
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -357,7 +357,7 @@ MonoBehaviour:
           GuiDescription: A test float2 input parameter.
           Type: 1
           WidgetType: 7
-        Data: {x: 0, y: 1.1}
+        Data: {x: 0, y: 0}
         NumericalDescription:
           DefaultValue: {x: 0, y: 0}
           MinValue: {x: 0, y: 0}
@@ -378,7 +378,7 @@ MonoBehaviour:
           GuiDescription: A test float3 input parameter.
           Type: 2
           WidgetType: 3
-        Data: {x: 0, y: 0.5, z: 1}
+        Data: {x: 0, y: 0, z: 0}
         NumericalDescription:
           DefaultValue: {x: 1, y: 1, z: 1}
           MinValue: {x: 0, y: 0, z: 0}
@@ -399,7 +399,7 @@ MonoBehaviour:
           GuiDescription: A test float4 input parameter.
           Type: 3
           WidgetType: 1
-        Data: {x: 0, y: 0.333, z: 0.75, w: 1}
+        Data: {x: 0, y: 0, z: 0, w: 0}
         NumericalDescription:
           DefaultValue: {x: 1, y: 1, z: 1, w: 1}
           MinValue: {x: 0, y: 0, z: 0, w: 0}
@@ -420,7 +420,7 @@ MonoBehaviour:
           GuiDescription: A test string input parameter.
           Type: 9
           WidgetType: 0
-        Data: Temp
+        Data: Test
     - rid: 3158453149325328397
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
@@ -572,4 +572,4 @@ MonoBehaviour:
           GuiDescription: 
           Type: 8
           WidgetType: 6
-        Data: {fileID: 0}
+        Data: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
