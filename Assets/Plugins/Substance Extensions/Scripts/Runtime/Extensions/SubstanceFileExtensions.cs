@@ -789,7 +789,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the input value was set or false otherwise.</returns>
         public static bool TrySetString(this SubstanceFileSO substance, string value, SubstanceParameter inputParameter)
         {
-            return TrySetString(substance, value, inputParameter.Index, inputParameter.GraphId);
+            return TrySetString(substance, value, inputParameter.Index, GetGraphIndex(substance, inputParameter.GraphGuid));
         }
 
         /// <summary>
@@ -800,7 +800,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="name">Name for the target input.</param>
         /// <param name="graphId">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetString(this SubstanceFileSO substance, string value, string name, int graphId = 0)
+        public static bool TrySetString(this SubstanceFileSO substance, string value, string name, int graphId=0)
         {
             return TrySetString(substance, value, GetInputIndex(substance, name, graphId), graphId);
         }
@@ -813,7 +813,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="index">Index for the target input.</param>
         /// <param name="graphId">Index for the graph containing the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetString(this SubstanceFileSO substance, string value, int index, int graphId = 0)
+        public static bool TrySetString(this SubstanceFileSO substance, string value, int index, int graphId=0)
         {
             SubstanceInputString input = GetInput<SubstanceInputString>(substance, index, graphId);
 

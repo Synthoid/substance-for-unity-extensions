@@ -8,7 +8,7 @@ namespace SOS.SubstanceExtensions.Tests
 {
     public class SubstanceFileTests
     {
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
@@ -41,6 +41,21 @@ namespace SOS.SubstanceExtensions.Tests
             substance.SetTexture(defaultTextureValue.TextureValue, defaultTextureValue.Parameter);
             substance.SetTexture(defaultNullTextureValue.TextureValue, defaultNullTextureValue.Parameter);
         }
+
+        #region Utility
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if a graph index on a target SubstanceFileSO asset can properly be returned by referencing a graph guid.")]
+        public void GetGraphIndex()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.SetStringValue;
+
+            int index = substance.GetGraphIndex(parameterValue.Parameter.GraphGuid);
+
+            Assert.AreEqual(1, index);
+        }
+
+        #endregion
 
         #region String
 
