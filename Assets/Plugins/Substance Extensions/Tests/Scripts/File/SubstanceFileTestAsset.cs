@@ -12,7 +12,7 @@ namespace SOS.SubstanceExtensions.Tests
     {
         [SerializeField, Tooltip("SubstanceFile used for testing.")]
         private SubstanceFileSO substance = null;
-        [Header("Get")]
+        //[Header("Get")]
         [SerializeField, Tooltip("Expected value for the target string input on the test substance.")]
         private SubstanceParameterValue getStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target bool input on the test substance.")]
@@ -45,7 +45,7 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceParameterValue getOutputSizeValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target random seed input on the test substance.")]
         private SubstanceParameterValue getRandomSeedValue = new SubstanceParameterValue();
-        [Header("Set")]
+        //[Header("Set")]
         [SerializeField, Tooltip("Test set value for the target string input on the test substance.")]
         private SubstanceParameterValue setStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test set value for the target bool input on the test substance.")]
@@ -78,7 +78,7 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceParameterValue setOutputSizeValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test set value for the target random seed input on the test substance.")]
         private SubstanceParameterValue setRandomSeedValue = new SubstanceParameterValue();
-        [Header("Default")]
+        //[Header("Default")]
         [SerializeField, Tooltip("Default set value for the target string input on the test substance.")]
         private SubstanceParameterValue defaultStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Default set value for the target bool input on the test substance.")]

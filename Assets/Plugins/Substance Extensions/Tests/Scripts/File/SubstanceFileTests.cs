@@ -299,6 +299,64 @@ namespace SOS.SubstanceExtensions.Tests
             Assert.AreEqual(defaultValue, inputValue);
         }
 
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an enum input value can properly be set on a target SubstanceFileSO asset.")]
+        public void SetEnum()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultBoolValue;
+
+            TestInputEnum inputValue = substance.GetEnum<TestInputEnum>(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.BoolValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetEnumValue;
+            TestInputEnum enumValue = SubstanceFileTestAsset.SetEnumCastValue;
+
+            substance.SetEnum(enumValue, setValue.Parameter);
+
+            inputValue = substance.GetEnum<TestInputEnum>(setValue.Parameter);
+
+            Assert.AreEqual(setValue.BoolValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an enum input value can properly be set on a target SubstanceFileSO asset using the try set method.")]
+        public void TrySetEnum()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultBoolValue;
+
+            bool inputValue = substance.GetBool(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.BoolValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetBoolValue;
+
+            bool success = substance.TrySetBool(setValue.BoolValue, setValue.Parameter);
+
+            inputValue = substance.GetBool(setValue.Parameter);
+
+            Assert.IsTrue(success);
+            Assert.AreEqual(setValue.BoolValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant enum input value properly returns false when setting its value on a target SubstanceFileSO asset using the try set method.")]
+        public void TrySetEnumFail()
+        {
+            SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultBoolValue;
+
+            bool inputValue = substance.GetBool(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.BoolValue, inputValue);
+
+            bool success = substance.TrySetBool(true, "I am a great magician.", 0);
+
+            substance.TryGetBool(out inputValue, "I am a great magician.", 0);
+
+            Assert.IsFalse(success);
+            Assert.IsFalse(inputValue);
+        }
+
         #endregion
 
         [Test, TestOf(typeof(SubstanceFileExtensions)), Author("Chris Ingerson"), Description("Tests if an int input value can properly be referenced on a target SubstanceFileSO asset.")]
