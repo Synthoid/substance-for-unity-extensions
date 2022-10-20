@@ -54,9 +54,9 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance">Substance to begin editing.</param>
         /// <returns><see cref="SubstanceNativeHandler"/> controlling the substance editing.</returns>
-        public static SubstanceNativeHandler BeginRuntimeEditing(this SubstanceGraphSO substance)
+        public static SubstanceNativeGraph BeginRuntimeEditing(this SubstanceGraphSO substance)
         {
-            SubstanceNativeHandler handler = Engine.OpenFile(substance.RawData.FileContent);
+            SubstanceNativeGraph handler = Engine.OpenFile(substance.RawData.FileContent, substance.Index);
 
             substance.RuntimeInitialize(handler, true);
 
@@ -69,7 +69,7 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static void EndRuntimeEditing(this SubstanceGraphSO substance, SubstanceNativeHandler handler)
+        public static void EndRuntimeEditing(this SubstanceGraphSO substance, SubstanceNativeGraph handler)
         {
             handler.Dispose();
         }

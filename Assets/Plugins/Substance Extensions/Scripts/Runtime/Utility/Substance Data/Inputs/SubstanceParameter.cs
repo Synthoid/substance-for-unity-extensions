@@ -9,7 +9,7 @@ using UnityEditor;
 namespace SOS.SubstanceExtensions
 {
     /// <summary>
-    /// Convenience struct that allows easy selection of <see cref="SubstanceMaterialInstanceSO"/> input parameters in the inspector.
+    /// Convenience struct that allows easy selection of <see cref="SubstanceGraphSO"/> input parameters in the inspector.
     /// </summary>
     [System.Serializable]
     public struct SubstanceParameter
@@ -31,11 +31,6 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         [SerializeField]
         private string graphGuid;
-        /// <summary>
-        /// Index for the graph associated with this parameter.
-        /// </summary>
-        [SerializeField]
-        private int graphId;
         /// <summary>
         /// Index for the target parameter.
         /// </summary>
@@ -101,14 +96,6 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
-        /// Index for the graph containing the input parameter.
-        /// </summary>
-        public int GraphId
-        {
-            get { return graphId; }
-        }
-
-        /// <summary>
         /// Index for the input parameter on the target graph.
         /// </summary>
         public int Index
@@ -119,11 +106,11 @@ namespace SOS.SubstanceExtensions
 
 #if UNITY_EDITOR
         /// <summary>
-        /// [Editor Only] <see cref="SubstanceFileSO"/> asset referenced for input parameters.
+        /// [Editor Only] <see cref="SubstanceGraphSO"/> asset referenced for input parameters.
         /// </summary>
-        public SubstanceFileSO EditorAsset
+        public SubstanceGraphSO EditorAsset
         {
-            get { return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid)); }
+            get { return AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guid)); }
         }
 #endif
 
@@ -181,22 +168,22 @@ namespace SOS.SubstanceExtensions
 
         #region Floats
 
-        public SubstanceParameter(int index, float min, float max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Float, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, new Vector4(min, 0f, 0f, 0f), new Vector4(max, 0f, 0f, 0f), default, default)
+        public SubstanceParameter(int index, float min, float max, string name="", string graphGuid="") : this(index, SubstanceValueType.Float, name, graphGuid, "", SubstanceWidgetType.Slider, new Vector4(min, 0f, 0f, 0f), new Vector4(max, 0f, 0f, 0f), default, default)
         {
 
         }
 
-        public SubstanceParameter(int index, Vector2 min, Vector2 max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Float2, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, min, max, default, default)
+        public SubstanceParameter(int index, Vector2 min, Vector2 max, string name="", string graphGuid="") : this(index, SubstanceValueType.Float2, name, graphGuid, "", SubstanceWidgetType.Slider, min, max, default, default)
         {
 
         }
 
-        public SubstanceParameter(int index, Vector3 min, Vector3 max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Float3, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, min, max, default, default)
+        public SubstanceParameter(int index, Vector3 min, Vector3 max, string name="", string graphGuid="") : this(index, SubstanceValueType.Float3, name, graphGuid, "", SubstanceWidgetType.Slider, min, max, default, default)
         {
 
         }
 
-        public SubstanceParameter(int index, Vector4 min, Vector4 max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Float4, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, min, max, default, default)
+        public SubstanceParameter(int index, Vector4 min, Vector4 max, string name="", string graphGuid="") : this(index, SubstanceValueType.Float4, name, graphGuid, "", SubstanceWidgetType.Slider, min, max, default, default)
         {
 
         }
@@ -205,39 +192,38 @@ namespace SOS.SubstanceExtensions
 
         #region Ints
 
-        public SubstanceParameter(int index, int min, int max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Int, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, default, default, new Vector4Int(min), new Vector4Int(max))
+        public SubstanceParameter(int index, int min, int max, string name="", string graphGuid="") : this(index, SubstanceValueType.Int, name, graphGuid, "", SubstanceWidgetType.Slider, default, default, new Vector4Int(min), new Vector4Int(max))
         {
 
         }
 
-        public SubstanceParameter(int index, Vector2Int min, Vector2Int max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Int2, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, default, default, new Vector4Int(min.x, min.y), new Vector4Int(max.x, max.y))
+        public SubstanceParameter(int index, Vector2Int min, Vector2Int max, string name="", string graphGuid="") : this(index, SubstanceValueType.Int2, name, graphGuid, "", SubstanceWidgetType.Slider, default, default, new Vector4Int(min.x, min.y), new Vector4Int(max.x, max.y))
         {
 
         }
 
-        public SubstanceParameter(int index, Vector3Int min, Vector3Int max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Int3, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, default, default, new Vector4Int(min.x, min.y, min.z), new Vector4Int(max.x, max.y, max.z))
+        public SubstanceParameter(int index, Vector3Int min, Vector3Int max, string name="", string graphGuid="") : this(index, SubstanceValueType.Int3, name, graphGuid, "", SubstanceWidgetType.Slider, default, default, new Vector4Int(min.x, min.y, min.z), new Vector4Int(max.x, max.y, max.z))
         {
 
         }
 
-        public SubstanceParameter(int index, Vector4Int min, Vector4Int max, string name="", int graphId=0, string graphGuid="") : this(index, SubstanceValueType.Int4, name, graphId, graphGuid, "", SubstanceWidgetType.Slider, default, default, min, max)
+        public SubstanceParameter(int index, Vector4Int min, Vector4Int max, string name="", string graphGuid="") : this(index, SubstanceValueType.Int4, name, graphGuid, "", SubstanceWidgetType.Slider, default, default, min, max)
         {
 
         }
 
         #endregion
 
-        public SubstanceParameter(int index, SubstanceValueType type, string name, int graphId=0, string graphGuid="") : this(index, type, name, graphId, graphGuid, "", SubstanceWidgetType.NoWidget, default, default, default, default)
+        public SubstanceParameter(int index, SubstanceValueType type, string name, string graphGuid="") : this(index, type, name, graphGuid, "", SubstanceWidgetType.NoWidget, default, default, default, default)
         {
 
         }
 
-        public SubstanceParameter(int index, SubstanceValueType type, string name="", int graphId=0, string graphGuid="", string guid="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget, Vector4 sliderMin=default, Vector4 sliderMax=default, Vector4Int sliderIntMin=default, Vector4Int sliderIntMax=default)
+        public SubstanceParameter(int index, SubstanceValueType type, string name="", string graphGuid="", string guid="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget, Vector4 sliderMin=default, Vector4 sliderMax=default, Vector4Int sliderIntMin=default, Vector4Int sliderIntMax=default)
         {
             this.guid = guid;
             this.name = name;
             this.graphGuid = graphGuid;
-            this.graphId = graphId;
             this.index = index;
             this.type = type;
             this.widgetType = widgetType;
@@ -248,33 +234,5 @@ namespace SOS.SubstanceExtensions
         }
 
         #endregion
-
-        /// <summary>
-        /// Returns the input on the given <see cref="SubstanceFileSO"/> targeted by this parameter.
-        /// </summary>
-        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the target input from.</param>
-        public ISubstanceInput GetInput(SubstanceFileSO substance)
-        {
-            for(int i=0; i < substance.Instances.Count; i++)
-            {
-                if(substance.Instances[i].GUID == GraphGuid)
-                {
-                    return substance.Instances[i].Input[Index];
-                }
-            }
-
-            //return substance.Instances[GraphId].Input[Index];
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the input on the given <see cref="SubstanceFileSO"/> targeted by this parameter.
-        /// </summary>
-        /// <typeparam name="T">Expected type for the input data.</typeparam>
-        /// <param name="substance"><see cref="SubstanceFileSO"/> to obtain the target input from.</param>
-        public T GetInput<T>(SubstanceFileSO substance) where T : ISubstanceInput
-        {
-            return (T)GetInput(substance);
-        }
     }
 }

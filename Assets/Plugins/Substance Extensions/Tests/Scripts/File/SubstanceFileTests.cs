@@ -718,7 +718,7 @@ namespace SOS.SubstanceExtensions.Tests
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
             SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetOutputSizeValue;
 
-            Vector2Int inputValue = substance.GetOutputSize(parameterValue.GraphId);
+            Vector2Int inputValue = substance.GetOutputSize();
 
             Assert.AreEqual(parameterValue.Int2Value, inputValue);
         }
@@ -733,7 +733,7 @@ namespace SOS.SubstanceExtensions.Tests
             SubstanceFileSO substance = SubstanceFileTestAsset.Substance;
             SubstanceParameterValue parameterValue = SubstanceFileTestAsset.GetRandomSeedValue;
 
-            int inputValue = substance.GetRandomSeed(parameterValue.GraphId);
+            int inputValue = substance.GetRandomSeed();
 
             Assert.AreEqual(parameterValue.IntValue, inputValue);
         }

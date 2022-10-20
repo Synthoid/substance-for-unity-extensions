@@ -7,7 +7,7 @@ using Adobe.Substance;
 namespace SOS.SubstanceExtensionsEditor
 {
     [CustomPropertyDrawer(typeof(SubstanceOutput))]
-    public class SubstanceOutputDrawer : GUIDReferenceDrawer<SubstanceFileSO>
+    public class SubstanceOutputDrawer : GUIDReferenceDrawer<SubstanceGraphSO>
     {
         private static readonly GUIContent SearchWindowTitle = new GUIContent("Substance Outputs");
         private static readonly SubstanceOutputData[] DefaultOutputs = new SubstanceOutputData[0];
@@ -23,7 +23,6 @@ namespace SOS.SubstanceExtensionsEditor
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
             int index = -1;
-            int graphId = property.FindPropertyRelative("graphId").intValue;
             string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
             GUIContent[] labels = GetLabels(assetGuid);
@@ -31,7 +30,7 @@ namespace SOS.SubstanceExtensionsEditor
 
             for(int i = 0; i < labels.Length; i++)
             {
-                if(labels[i].tooltip == currentValue && outputs[i].graphIndex == graphId)
+                if(labels[i].tooltip == currentValue)
                 {
                     index = i;
                     break;
@@ -60,7 +59,6 @@ namespace SOS.SubstanceExtensionsEditor
                     string assetGuid = assetProperty.stringValue;
                     SubstanceOutputData[] outputs = GetOutputs(assetGuid);
 
-                    property.FindPropertyRelative("graphId").intValue = outputs[selectionIndex].graphIndex;
                     property.FindPropertyRelative("index").intValue = outputs[selectionIndex].index;
                 }
 
@@ -72,7 +70,6 @@ namespace SOS.SubstanceExtensionsEditor
 
         private void ResetOutputProperty(SerializedProperty property)
         {
-            property.FindPropertyRelative("graphId").intValue = 0;
             property.FindPropertyRelative("index").intValue = 0;
         }
 
@@ -83,29 +80,26 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(labels == null)
             {
-                SubstanceFileSO substance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
-                List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("None", "") };
+                SubstanceGraphSO substance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+                List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("<None>", "") };
                 List<SubstanceOutputData> parameters = new List<SubstanceOutputData>() { new SubstanceOutputData() };
 
                 if(substance != null)
                 {
-                    for(int i = 0; i < substance.Instances.Count; i++)
+                    List<SubstanceOutputTexture> outputs = substance.Output;
+
+                    for(int j = 0; j < outputs.Count; j++)
                     {
-                        List<SubstanceOutputTexture> outputs = substance.Instances[i].Output;
+                        int index = j;
 
-                        for(int j = 0; j < outputs.Count; j++)
-                        {
-                            int index = j;
+                        GUIContent label = new GUIContent(string.Format("{0} ({1}) [{2}]",
+                            outputs[index].Description.Label,
+                            outputs[index].Description.Identifier,
+                            outputs[index].Description.Channel),
+                            outputs[index].Description.Identifier);
 
-                            GUIContent label = new GUIContent(string.Format("{0}/{1} ({2})",
-                                substance.Instances[i].Name,
-                                outputs[index].Description.Label,
-                                outputs[index].Description.Channel),
-                                outputs[index].Description.Identifier);
-
-                            newLabels.Add(label);
-                            parameters.Add(new SubstanceOutputData(outputs[index])); //TODO: This will break for labels with the same values, ie $outputSize
-                        }
+                        newLabels.Add(label);
+                        parameters.Add(new SubstanceOutputData(outputs[index])); //TODO: This will break for labels with the same values, ie $outputSize
                     }
                 }
                 else

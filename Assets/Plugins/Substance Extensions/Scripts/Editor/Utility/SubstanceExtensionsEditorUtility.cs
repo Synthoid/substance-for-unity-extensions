@@ -42,16 +42,16 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
         /// <summary>
-        /// Get the <see cref="SubstanceFileSO"/> referenced by a <see cref="SubstanceParameter"/> field.
+        /// Get the <see cref="SubstanceGraphSO"/> referenced by a <see cref="SubstanceParameter"/> field.
         /// </summary>
         /// <param name="property"><see cref="SubstanceParameter"/> property to get the target reference for.</param>
-        public static SubstanceFileSO GetGUIDReferenceSubstance(this SerializedProperty property)
+        public static SubstanceGraphSO GetGUIDReferenceSubstance(this SerializedProperty property)
         {
             string guid = property.FindPropertyRelative("guid").stringValue;
 
             if(string.IsNullOrEmpty(guid)) return null;
 
-            return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
+            return AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guid));
         }
 
         #endregion

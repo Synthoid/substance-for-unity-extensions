@@ -8,7 +8,9 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private KeyCode renderKey = KeyCode.Space;
         [SerializeField]
-        private SubstanceFileSO substance = null;
+        private SubstanceGraphSO substance = null;
+        [SerializeField]
+        private SubstanceOutput outputField = new SubstanceOutput();
         [SerializeField]
         private SubstanceParameterValue targetParameter = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test Tooltip")]
@@ -21,10 +23,10 @@ namespace SOS.SubstanceExtensions
             //substance.SetInputAndRender(targetParameter);
             //substance.SetInputsAndRender(targetParameters);
 
-            SubstanceNativeHandler handler = substance.Instances[0].BeginRuntimeEditing();
+            SubstanceNativeGraph handler = substance.BeginRuntimeEditing();
             substance.SetInputs(targetParameters);
             substance.Render(handler);
-            substance.Instances[0].EndRuntimeEditing(handler);
+            substance.EndRuntimeEditing(handler);
 
             //TODO: Seems like directly setting parameters on the substance updates (semi) correctly.
             //But the below doesn't...

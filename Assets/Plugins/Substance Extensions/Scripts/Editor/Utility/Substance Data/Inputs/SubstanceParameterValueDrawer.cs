@@ -79,9 +79,9 @@ namespace SOS.SubstanceExtensionsEditor
         private const string NAME_RANDOM_SEED = "$randomseed";
         private const float LINK_WIDTH = 20f;
 
-        private Dictionary<string, Dictionary<int, Dictionary<int, GUIContent[]>>> EnumLabels = new Dictionary<string, Dictionary<int, Dictionary<int, GUIContent[]>>>();
-        private Dictionary<string, Dictionary<int, Dictionary<int, int[]>>> EnumValues = new Dictionary<string, Dictionary<int, Dictionary<int, int[]>>>();
-        private Dictionary<string, Dictionary<int, Dictionary<int, GUIContent>>> EnumFieldLabels = new Dictionary<string, Dictionary<int, Dictionary<int, GUIContent>>>();
+        private Dictionary<string, Dictionary<int, GUIContent[]>> EnumLabels = new Dictionary<string, Dictionary<int, GUIContent[]>>();
+        private Dictionary<string, Dictionary<int, int[]>> EnumValues = new Dictionary<string, Dictionary<int, int[]>>();
+        private Dictionary<string, Dictionary<int, GUIContent>> EnumFieldLabels = new Dictionary<string, Dictionary<int, GUIContent>>();
         private Dictionary<string, GUIContent> ArrayLabels = new Dictionary<string, GUIContent>();
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -625,22 +625,15 @@ namespace SOS.SubstanceExtensionsEditor
 
         private Tuple<GUIContent, GUIContent[], int[]> GetEnumLabels(SerializedProperty parameterProperty)
         {
-            return GetEnumLabels(parameterProperty.FindPropertyRelative("guid").stringValue, parameterProperty.FindPropertyRelative("graphId").intValue, parameterProperty.FindPropertyRelative("index").intValue);
+            return GetEnumLabels(parameterProperty.FindPropertyRelative("guid").stringValue, parameterProperty.FindPropertyRelative("index").intValue);
         }
 
 
-        private Tuple<GUIContent, GUIContent[], int[]> GetEnumLabels(string guid, int graphIndex, int parameterIndex)
+        private Tuple<GUIContent, GUIContent[], int[]> GetEnumLabels(string guid, int parameterIndex)
         {
-            bool containsGraph = EnumLabels.TryGetValue(guid, out Dictionary<int, Dictionary<int, GUIContent[]>> graphs);
+            bool containsIndexes = EnumLabels.TryGetValue(guid, out Dictionary<int, GUIContent[]> indexes);
 
-            if(!containsGraph)
-            {
-                graphs = new Dictionary<int, Dictionary<int, GUIContent[]>>();
-            }
-
-            bool containsIndex = graphs.TryGetValue(graphIndex, out Dictionary<int, GUIContent[]> indexes);
-
-            if(!containsIndex)
+            if(!containsIndexes)
             {
                 indexes = new Dictionary<int, GUIContent[]>();
             }
@@ -651,7 +644,7 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(!containsEnum)
             {
-                SubstanceFileSO targetSubstance = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
+                SubstanceGraphSO targetSubstance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guid));
 
                 if(targetSubstance == null)
                 {
@@ -661,7 +654,7 @@ namespace SOS.SubstanceExtensionsEditor
                 }
                 else
                 {
-                    ISubstanceInput input = targetSubstance.Instances[graphIndex].Input[parameterIndex];
+                    ISubstanceInput input = targetSubstance.Input[parameterIndex];
 
                     bool numericSuccess = input.TryGetNumericalDescription(out ISubstanceInputDescNumerical numericDescription);
 
@@ -693,35 +686,35 @@ namespace SOS.SubstanceExtensionsEditor
 
                 indexes.Add(parameterIndex, labels);
 
-                if(!containsGraph)
+                if(!containsIndexes)
                 {
-                    EnumValues.Add(guid, new Dictionary<int, Dictionary<int, int[]>>());
-                    EnumFieldLabels.Add(guid, new Dictionary<int, Dictionary<int, GUIContent>>());
+                    EnumValues.Add(guid, new Dictionary<int, int[]>());
+                    EnumFieldLabels.Add(guid, new Dictionary<int, GUIContent>());
                 }
 
-                if(!containsIndex)
+                /*if(!containsIndex)
                 {
                     EnumValues[guid].Add(graphIndex, new Dictionary<int, int[]>());
                     EnumFieldLabels[guid].Add(graphIndex, new Dictionary<int, GUIContent>());
-                }
+                }*/
 
-                EnumValues[guid][graphIndex].Add(parameterIndex, enumLabelValues);
-                EnumFieldLabels[guid][graphIndex].Add(parameterIndex, label);
+                EnumValues[guid].Add(parameterIndex, enumLabelValues);
+                EnumFieldLabels[guid].Add(parameterIndex, label);
             }
             else
             {
-                enumLabelValues = EnumValues[guid][graphIndex][parameterIndex];
-                label = EnumFieldLabels[guid][graphIndex][parameterIndex];
+                enumLabelValues = EnumValues[guid][parameterIndex];
+                label = EnumFieldLabels[guid][parameterIndex];
             }
 
-            if(!containsIndex)
+            /*if(!containsIndex)
             {
-                graphs.Add(graphIndex, indexes);
-            }
+                indexes.Add(graphIndex, indexes);
+            }*/
 
-            if(!containsGraph)
+            if(!containsIndexes)
             {
-                EnumLabels.Add(guid, graphs);
+                EnumLabels.Add(guid, indexes);
             }
 
             return Tuple.Create(label, labels, enumLabelValues);
@@ -742,39 +735,32 @@ namespace SOS.SubstanceExtensionsEditor
                 if(!string.IsNullOrEmpty(parameterName))
                 {
                     string guid = property.FindPropertyRelative("parameter.guid").stringValue;
-                    SubstanceFileSO substance = string.IsNullOrEmpty(guid) ? null : AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid));
+                    SubstanceGraphSO substance = string.IsNullOrEmpty(guid) ? null : AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guid));
                     SubstanceValueType type;
 
                     if(substance != null)
                     {
                         //Validate parameters in case of index or graphId conflict after swapping target substances.
                         int index = property.FindPropertyRelative("parameter.index").intValue;
-                        int graphId = property.FindPropertyRelative("parameter.graphId").intValue;
-
-                        if(graphId >= substance.Instances.Count)
-                        {
-                            property.FindPropertyRelative("parameter.graphId").intValue = 0;
-                            graphId = 0;
-                        }
 
                         //TODO: Test this with a Substance containing no graphs...
-                        if(index >= substance.Instances[graphId].Input.Count)
+                        if(index >= substance.Input.Count)
                         {
                             property.FindPropertyRelative("parameter.index").intValue = 0;
                             index = 0;
                         }
 
-                        ISubstanceInput input = substance.GetInput(index, graphId);
+                        ISubstanceInput input = substance.GetInput(index);
                         type = input.ValueType;
 
-                        label.text = string.Format("{0} ({1} - {2})", input.Description.Label, input.Description.Identifier, type);
+                        label.text = string.Format("{0} ({1}) [{2}]", input.Description.Label, input.Description.Identifier, type);
                         label.tooltip = string.Format("{0}{1}{2}", (string.IsNullOrEmpty(label.tooltip) ? "" : string.Format("{0}\n\n", label.tooltip)), parameterName, string.IsNullOrEmpty(input.Description.GuiDescription) ? "" : string.Format("\n{0}", input.Description.GuiDescription));
                     }
                     else
                     {
                         type = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
 
-                        label.text = string.Format("{0} ({1}", parameterName, type);
+                        label.text = string.Format("{0} [{1}]", parameterName, type);
                     }
                 }
                 //TODO: Get parameter name and type. Maybe append info to tooltip as well? ie (Name (Type), Original Tooltip\n\nInput description?)

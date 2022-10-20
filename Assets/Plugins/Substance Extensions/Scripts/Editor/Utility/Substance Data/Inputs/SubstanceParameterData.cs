@@ -13,7 +13,6 @@ namespace SOS.SubstanceExtensionsEditor
     {
         public string name;
         public string graphGuid;
-        public int graphIndex; //TODO: May have to reference target graph's GUID. graphIndex seems to only target original graphs imported with the asset...
         public int index;
         public SubstanceValueType type;
         public SubstanceWidgetType widget;
@@ -26,7 +25,6 @@ namespace SOS.SubstanceExtensionsEditor
         {
             this.name = input.Description.Identifier;
             this.graphGuid = substanceGuid;
-            this.graphIndex = input.GraphID;
             this.index = input.Index;
             this.type = input.ValueType;
             this.widget = input.Description.WidgetType;

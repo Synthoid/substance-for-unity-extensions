@@ -726,7 +726,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>True if the value was found or false if the input was not found.</returns>
         public static bool TryGetString(this SubstanceFileSO substance, out string value, SubstanceParameter inputParameter)
         {
-            return TryGetString(substance, out value, inputParameter.Index, inputParameter.GraphId);
+            return TryGetString(substance, out value, inputParameter.Index);
         }
 
         /// <summary>

@@ -72,14 +72,6 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
-        /// Graph index for the input parameter associated with this value.
-        /// </summary>
-        public int GraphId
-        {
-            get { return parameter.GraphId; }
-        }
-
-        /// <summary>
         /// Index for the input parameter associated with this value.
         /// </summary>
         public int Index
@@ -89,9 +81,9 @@ namespace SOS.SubstanceExtensions
 
 #if UNITY_EDITOR
         /// <summary>
-        /// [Editor Only] <see cref="SubstanceFileSO"/> asset referenced for input values.
+        /// [Editor Only] <see cref="SubstanceGraphSO"/> asset referenced for input values.
         /// </summary>
-        public SubstanceFileSO EditorAsset
+        public SubstanceGraphSO EditorAsset
         {
             get { return parameter.EditorAsset; }
         }
@@ -336,20 +328,20 @@ namespace SOS.SubstanceExtensions
         #endregion
 
         /// <summary>
-        /// Returns the input on the given <see cref="SubstanceMaterialInstanceSO"/> targeted by this parameter.
+        /// Returns the input on the given <see cref="SubstanceGraphSO"/> targeted by this parameter.
         /// </summary>
-        /// <param name="substance"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
-        public ISubstanceInput GetInput(SubstanceFileSO substance)
+        /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the target input from.</param>
+        public ISubstanceInput GetInput(SubstanceGraphSO substance)
         {
-            return substance.Instances[GraphId].Input[Index];
+            return substance.Input[Index];
         }
 
         /// <summary>
-        /// Returns the input on the given <see cref="SubstanceMaterialInstanceSO"/> targeted by this parameter.
+        /// Returns the input on the given <see cref="SubstanceGraphSO"/> targeted by this parameter.
         /// </summary>
         /// <typeparam name="T">Expected type for the input data.</typeparam>
-        /// <param name="substance"><see cref="SubstanceMaterialInstanceSO"/> to obtain the target input from.</param>
-        public T GetInput<T>(SubstanceFileSO substance) where T : ISubstanceInput
+        /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the target input from.</param>
+        public T GetInput<T>(SubstanceGraphSO substance) where T : ISubstanceInput
         {
             return (T)GetInput(substance);
         }
@@ -359,36 +351,36 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="handler">Handler to update values on.</param>
         /// <returns>True if the handler has the target parameter set.</returns>
-        public bool SetValue(SubstanceNativeHandler handler)
+        public bool SetValue(SubstanceNativeGraph handler)
         {
             switch(Type)
             {
                 case SubstanceValueType.Float:
-                    handler.SetInputFloat(FloatValue, Index, GraphId);
+                    handler.SetInputFloat(Index, FloatValue);
                     return true;
                 case SubstanceValueType.Float2:
-                    handler.SetInputFloat2(Float2Value, Index, GraphId);
+                    handler.SetInputFloat2(Index, Float2Value);
                     return true;
                 case SubstanceValueType.Float3:
-                    handler.SetInputFloat3(Float3Value, Index, GraphId);
+                    handler.SetInputFloat3(Index, Float3Value);
                     return true;
                 case SubstanceValueType.Float4:
-                    handler.SetInputFloat4(Float4Value, Index, GraphId);
+                    handler.SetInputFloat4(Index, Float4Value);
                     return true;
                 case SubstanceValueType.Int:
-                    handler.SetInputInt(IntValue, Index, GraphId);
+                    handler.SetInputInt(Index, IntValue);
                     return true;
                 case SubstanceValueType.Int2:
-                    handler.SetInputInt2(Int2Value, Index, GraphId);
+                    handler.SetInputInt2(Index, Int2Value);
                     return true;
                 case SubstanceValueType.Int3:
-                    handler.SetInputInt3(Int3Value, Index, GraphId);
+                    handler.SetInputInt3(Index, Int3Value);
                     return true;
                 case SubstanceValueType.Int4:
-                    handler.SetInputInt4(Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w, Index, GraphId);
+                    handler.SetInputInt4(Index, Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w);
                     return true;
                 case SubstanceValueType.String:
-                    handler.SetInputString(StringValue, Index, GraphId);
+                    handler.SetInputString(Index, StringValue);
                     return true;
                 case SubstanceValueType.Image:
                     Debug.LogWarning("Broken in 0.0.100...");
@@ -404,9 +396,9 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="substance">Substance to update values on.</param>
         /// <returns>True if the substance has the target parameter set.</returns>
-        public bool SetValue(SubstanceFileSO substance)
+        public bool SetValue(SubstanceGraphSO substance)
         {
-            ISubstanceInput input = substance.GetInput(Index, GraphId);
+            ISubstanceInput input = substance.GetInput(Index);
 
             switch(input)
             {
