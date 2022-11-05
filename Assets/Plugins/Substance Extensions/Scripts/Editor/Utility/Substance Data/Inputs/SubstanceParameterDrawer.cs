@@ -10,9 +10,12 @@ namespace SOS.SubstanceExtensionsEditor
     [CustomPropertyDrawer(typeof(SubstanceParameter))]
     public class SubstanceParameterDrawer : GUIDReferenceDrawer<SubstanceGraphSO>
     {
-        private static readonly GUIContent SearchWindowTitle = new GUIContent("Substance Inputs");
+        protected const string kSearchWindowTitle = "{0} Inputs";
+        protected const string kDefaultSubstanceName = "<No Substance>";
+
         private static readonly SubstanceParameterData[] DefaultParameters = new SubstanceParameterData[0];
 
+        private Dictionary<string, string> graphNames = new Dictionary<string, string>();
         private Dictionary<string, GUIContent[]> parameterLabels = new Dictionary<string, GUIContent[]>();
         private Dictionary<string, SubstanceParameterData[]> parameterMappings = new Dictionary<string, SubstanceParameterData[]>();
 
@@ -24,7 +27,7 @@ namespace SOS.SubstanceExtensionsEditor
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
             int index = -1;
-            string graphGuid = property.FindPropertyRelative("graphGuid").stringValue;
+            //string graphGuid = property.FindPropertyRelative("graphGuid").stringValue;
             string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
             GUIContent[] labels = GetLabels(assetGuid);
@@ -32,9 +35,8 @@ namespace SOS.SubstanceExtensionsEditor
 
             for(int i=0; i < labels.Length; i++)
             {
-                //Get current label index, accounting for for labels with the same values across multiple graphs, ie $outputSize
-                if(labels[i].tooltip == currentValue &&
-                    inputs[i].graphGuid == graphGuid)
+                //Get current label index
+                if(labels[i].tooltip == currentValue)
                 {
                     index = i;
                     break;
@@ -60,7 +62,7 @@ namespace SOS.SubstanceExtensionsEditor
                 }
                 else
                 {
-                    property.FindPropertyRelative("graphGuid").stringValue = inputs[selectionIndex].graphGuid;
+                    //property.FindPropertyRelative("graphGuid").stringValue = inputs[selectionIndex].graphGuid;
                     property.FindPropertyRelative("index").intValue = inputs[selectionIndex].index;
                     property.FindPropertyRelative("type").intValue = (int)inputs[selectionIndex].type;
                     property.FindPropertyRelative("widgetType").intValue = (int)inputs[selectionIndex].widget;
@@ -72,7 +74,8 @@ namespace SOS.SubstanceExtensionsEditor
 
                 valueProperty.serializedObject.ApplyModifiedProperties();
             },
-            SearchWindowTitle);
+            new GUIContent(string.Format(kSearchWindowTitle, GetGraphName(assetGuid))));
+            //SearchWindowTitle);
         }
 
 
@@ -141,6 +144,26 @@ namespace SOS.SubstanceExtensionsEditor
             bool success = parameterMappings.TryGetValue(assetGuid, out SubstanceParameterData[] parameters);
 
             return success ? parameters : DefaultParameters;
+        }
+
+
+        private string GetGraphName(string assetGuid)
+        {
+            bool success = graphNames.TryGetValue(assetGuid, out string graphName);
+
+            if(!success)
+            {
+
+                SubstanceGraphSO substance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+
+                if(substance == null) return kDefaultSubstanceName;
+
+                graphName = substance.Name;
+
+                graphNames.Add(assetGuid, graphName);
+            }
+
+            return graphName;
         }
     }
 }

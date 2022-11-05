@@ -14,8 +14,8 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     public static class SubstanceFileExtensions
     {
-        public const string PARAM_OUTPUT_SIZE = "$outputsize";
-        public const string PARAM_RANDOM_SEED = "$randomseed";
+        public const string kOutputSize = "$outputsize";
+        public const string kRandomSeed = "$randomseed";
 
         public static List<ISubstanceInput> GetInputs(this SubstanceFileSO substance)
         {
@@ -1554,7 +1554,7 @@ namespace SOS.SubstanceExtensions
         /// <returns>int represnting the substance's $randomseed value.</returns>
         public static int GetRandomSeed(this SubstanceFileSO substance, int graphIndex=0)
         {
-            return GetInt(substance, PARAM_RANDOM_SEED, graphIndex);
+            return GetInt(substance, kRandomSeed, graphIndex);
         }
 
         /// <summary>
@@ -1576,7 +1576,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="graphIndex"></param>
         public static void SetRandomSeed(this SubstanceFileSO substance, int value, int graphIndex=0)
         {
-            SetInt(substance, value, PARAM_RANDOM_SEED, graphIndex);
+            SetInt(substance, value, kRandomSeed, graphIndex);
         }
 
         #region Bool
@@ -2123,7 +2123,7 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Vector2Int"/> represnting the substance's $outputsize value.</returns>
         public static Vector2Int GetOutputSize(this SubstanceFileSO substance, int graphIndex=0)
         {
-            return GetInt2(substance, PARAM_OUTPUT_SIZE, graphIndex);
+            return GetInt2(substance, kOutputSize, graphIndex);
         }
 
         /// <summary>
@@ -2184,7 +2184,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="graphIndex">Index for the specific graph being targeted. Usually this can be left as 0.</param>
         public static void SetOutputSize(this SubstanceFileSO substance, Vector2Int size, int graphIndex=0)
         {
-            SetInt2(substance, size, PARAM_OUTPUT_SIZE, graphIndex);
+            SetInt2(substance, size, kOutputSize, graphIndex);
         }
 
         /// <summary>

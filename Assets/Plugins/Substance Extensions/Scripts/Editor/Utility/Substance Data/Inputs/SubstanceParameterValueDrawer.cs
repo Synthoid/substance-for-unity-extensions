@@ -199,6 +199,7 @@ namespace SOS.SubstanceExtensionsEditor
 
             if(property.isExpanded)
             {
+                EditorGUI.indentLevel++;
                 SubstanceWidgetType widgetType = (SubstanceWidgetType)property.FindPropertyRelative("parameter.widgetType").intValue;
 
                 position.Set(position.x, position.y + position.height + EditorGUIUtility.standardVerticalSpacing, position.width, position.height);
@@ -208,10 +209,12 @@ namespace SOS.SubstanceExtensionsEditor
                 {
                     ClearArrayLabel(property.propertyPath);
                 }
+                EditorGUI.indentLevel--;
 
                 if(string.IsNullOrEmpty(property.FindPropertyRelative("parameter.name").stringValue)) return;
                 if(string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(property.FindPropertyRelative("parameter.guid").stringValue))) return;
 
+                EditorGUI.indentLevel++;
                 SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
 
                 switch(valueType)
@@ -453,6 +456,8 @@ namespace SOS.SubstanceExtensionsEditor
                         //$outputsize specific check
                         if(property.FindPropertyRelative("parameter.name").stringValue == NAME_OUTPUT_SIZE)
                         {
+                            int cachedIndent = EditorGUI.indentLevel;
+                            EditorGUI.indentLevel = 0;
                             bool isLinked = int2Property.FindPropertyRelative("x").isExpanded;
                             float width = position.width+ EditorGUIUtility.singleLineHeight;
                             position.Set(position.x - EditorGUIUtility.singleLineHeight, position.y, EditorGUIUtility.labelWidth, position.height);
@@ -491,6 +496,7 @@ namespace SOS.SubstanceExtensionsEditor
                                     property.FindPropertyRelative("vectorIntValue").SetVector4IntValue(new Vector4Int(indexes.x, indexes.x));
                                 }
                             }
+                            EditorGUI.indentLevel = cachedIndent;
                             break;
                         }
 
@@ -619,6 +625,8 @@ namespace SOS.SubstanceExtensionsEditor
                         EditorGUI.PropertyField(position, property.FindPropertyRelative("stringValue"), Labels.TextureLabel);
                         break;
                 }
+
+                EditorGUI.indentLevel--;
             }
         }
 

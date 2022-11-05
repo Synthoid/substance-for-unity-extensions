@@ -17,7 +17,7 @@ namespace SOS.SubstanceExtensions
         #region Fields
 
         /// <summary>
-        /// GUID for the parent <see cref="SubstanceFileSO"/> asset containing the target parameter.
+        /// GUID for the parent <see cref="SubstanceGraphSO"/> asset containing the target parameter.
         /// </summary>
         [SerializeField]
         private string guid;
@@ -26,11 +26,13 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         [SerializeField]
         private string name;
+
         /// <summary>
         /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
         /// </summary>
         [SerializeField]
         private string graphGuid;
+
         /// <summary>
         /// Index for the target parameter.
         /// </summary>
@@ -72,7 +74,7 @@ namespace SOS.SubstanceExtensions
         #region Properties
 
         /// <summary>
-        /// [Editor Only] GUID for the <see cref="SubstanceFileSO"/> targeted by this parameter. Primarily used for editor tooling, not used at runtime.
+        /// [Editor Only] GUID for the <see cref="SubstanceGraphSO"/> targeted by this parameter. Primarily used for editor tooling, not used at runtime.
         /// </summary>
         public string GUID
         {
@@ -90,6 +92,7 @@ namespace SOS.SubstanceExtensions
         /// <summary>
         /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
         /// </summary>
+        [System.Obsolete("Use GUID instead.")]
         public string GraphGuid
         {
             get { return graphGuid; }

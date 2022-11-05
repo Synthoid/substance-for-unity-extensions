@@ -10,10 +10,14 @@ namespace SOS.SubstanceExtensions.Tests
     [CreateAssetMenu(fileName="Substance File Test Asset", menuName="SOS/Substance/Tests/Substance File")]
     public class SubstanceFileTestAsset : UnitTestAsset
     {
-        [SerializeField, Tooltip("SubstanceFile used for testing.")]
-        private SubstanceFileSO substance = null;
+        [SerializeField, Tooltip("SubstanceGraph used for testing get operations.")]
+        private SubstanceGraphSO substance = null;
+        /*[SerializeField, Tooltip("SubstanceGraph used for testing set operations.")]
+        private SubstanceGraphSO setSubstance = null;
+        [SerializeField, Tooltip("SubstanceGraph used for testing set operations.")]
+        private SubstanceGraphSO runtimeSubstance = null;*/
         //[Header("Get")]
-        [SerializeField, Tooltip("Expected value for the target string input on the test substance.")]
+        /*[SerializeField, Tooltip("Expected value for the target string input on the test substance.")]
         private SubstanceParameterValue getStringValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target bool input on the test substance.")]
         private SubstanceParameterValue getBoolValue = new SubstanceParameterValue();
@@ -44,7 +48,7 @@ namespace SOS.SubstanceExtensions.Tests
         [SerializeField, Tooltip("Expected value for the target output size input on the test substance.")]
         private SubstanceParameterValue getOutputSizeValue = new SubstanceParameterValue();
         [SerializeField, Tooltip("Expected value for the target random seed input on the test substance.")]
-        private SubstanceParameterValue getRandomSeedValue = new SubstanceParameterValue();
+        private SubstanceParameterValue getRandomSeedValue = new SubstanceParameterValue();*/
         //[Header("Set")]
         [SerializeField, Tooltip("Test set value for the target string input on the test substance.")]
         private SubstanceParameterValue setStringValue = new SubstanceParameterValue();
@@ -128,13 +132,25 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
-        public static SubstanceFileSO Substance
+        public static SubstanceGraphSO Substance
         {
             get { return Instance != null ? Instance.substance : null; }
         }
 
 
-        public static SubstanceParameterValue GetStringValue
+        /*public static SubstanceGraphSO SetSubstance
+        {
+            get { return Instance != null ? Instance.getSubstance : null; }
+        }
+
+
+        public static SubstanceGraphSO RuntimeSubstance
+        {
+            get { return Instance != null ? Instance.runtimeSubstance : null; }
+        }*/
+
+
+        /*public static SubstanceParameterValue GetStringValue
         {
             get { return Instance != null ? Instance.getStringValue : default(SubstanceParameterValue); }
         }
@@ -227,7 +243,7 @@ namespace SOS.SubstanceExtensions.Tests
         public static SubstanceParameterValue GetRandomSeedValue
         {
             get { return Instance != null ? Instance.getRandomSeedValue : default(SubstanceParameterValue); }
-        }
+        }*/
 
 
         public static SubstanceParameterValue SetStringValue

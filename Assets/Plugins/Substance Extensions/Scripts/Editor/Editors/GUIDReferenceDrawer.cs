@@ -89,12 +89,17 @@ namespace SOS.SubstanceExtensionsEditor
 
                 position.Set(position.x + position.width - FIELD_WIDTH, position.y, FIELD_WIDTH, position.height);
 
+                int cachedIndent = EditorGUI.indentLevel;
+                EditorGUI.indentLevel = 0;
+
                 EditorGUI.BeginChangeCheck();
                 asset = (T)EditorGUI.ObjectField(position, GUIContent.none, asset, AssetType, false);
                 if(EditorGUI.EndChangeCheck())
                 {
                     assetProperty.stringValue = asset != null ? AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset)) : "";
                 }
+
+                EditorGUI.indentLevel = cachedIndent;
 
                 position.Set(position.x - (width - EditorGUIUtility.labelWidth - FIELD_WIDTH), position.y, (width - EditorGUIUtility.labelWidth) - (FIELD_WIDTH + EditorGUIUtility.standardVerticalSpacing), position.height);
 

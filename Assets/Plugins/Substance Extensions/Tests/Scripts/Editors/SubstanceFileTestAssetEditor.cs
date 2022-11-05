@@ -8,8 +8,10 @@ namespace SOS.SubstanceExtensions.Tests
     {
         private SerializedProperty m_Script = null;
         private SerializedProperty m_Substance = null;
+        //private SerializedProperty m_SetSubstance = null;
+        //private SerializedProperty m_RuntimeSubstance = null;
         //[Header("Get")]
-        private SerializedProperty m_GetStringValue = null;
+        /*private SerializedProperty m_GetStringValue = null;
         private SerializedProperty m_GetBoolValue = null;
         private SerializedProperty m_GetEnumValue = null;
         private SerializedProperty m_GetEnumCastValue = null;
@@ -24,7 +26,7 @@ namespace SOS.SubstanceExtensions.Tests
         private SerializedProperty m_GetTextureValue = null;
         private SerializedProperty m_GetTextureNullValue = null;
         private SerializedProperty m_GetOutputSizeValue = null;
-        private SerializedProperty m_GetRandomSeedValue = null;
+        private SerializedProperty m_GetRandomSeedValue = null;*/
         //[Header("Set")]
         private SerializedProperty m_SetStringValue = null;
         private SerializedProperty m_SetBoolValue = null;
@@ -68,8 +70,10 @@ namespace SOS.SubstanceExtensions.Tests
         {
             m_Script = serializedObject.FindProperty("m_Script");
             m_Substance = serializedObject.FindProperty("substance");
+            //m_SetSubstance = serializedObject.FindProperty("setSubstance");
+            //m_RuntimeSubstance = serializedObject.FindProperty("runtimeSubstance");
             //Get
-            m_GetStringValue = serializedObject.FindProperty("getStringValue");
+            /*m_GetStringValue = serializedObject.FindProperty("getStringValue");
             m_GetBoolValue = serializedObject.FindProperty("getBoolValue");
             m_GetEnumValue = serializedObject.FindProperty("getEnumValue");
             m_GetEnumCastValue = serializedObject.FindProperty("getEnumCastValue");
@@ -84,7 +88,7 @@ namespace SOS.SubstanceExtensions.Tests
             m_GetTextureValue = serializedObject.FindProperty("getTextureValue");
             m_GetTextureNullValue = serializedObject.FindProperty("getTextureNullValue");
             m_GetOutputSizeValue = serializedObject.FindProperty("getOutputSizeValue");
-            m_GetRandomSeedValue = serializedObject.FindProperty("getRandomSeedValue");
+            m_GetRandomSeedValue = serializedObject.FindProperty("getRandomSeedValue");*/
             //Set
             m_SetStringValue = serializedObject.FindProperty("setStringValue");
             m_SetBoolValue = serializedObject.FindProperty("setBoolValue");
@@ -131,8 +135,10 @@ namespace SOS.SubstanceExtensions.Tests
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(m_Substance);
+            //EditorGUILayout.PropertyField(m_SetSubstance);
+            //EditorGUILayout.PropertyField(m_RuntimeSubstance);
 
-            DrawGetSection();
+            //DrawGetSection();
             DrawSetSection();
             DrawDefaultSection();
 
@@ -140,7 +146,7 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
-        private void DrawGetSection()
+        /*private void DrawGetSection()
         {
             m_GetEnumCastValue.isExpanded = EditorGUILayout.BeginFoldoutHeaderGroup(m_GetEnumCastValue.isExpanded, GetLabel);
             EditorGUILayout.EndFoldoutHeaderGroup();
@@ -165,7 +171,7 @@ namespace SOS.SubstanceExtensions.Tests
             EditorGUILayout.PropertyField(m_GetRandomSeedValue);
 
             EditorGUILayout.Space();
-        }
+        }*/
 
 
         private void DrawSetSection()

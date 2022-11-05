@@ -12,449 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c82a8ad064764217b2c69d62ff42b1d, type: 3}
   m_Name: Substance File Test Asset
   m_EditorClassIdentifier: 
-  substance: {fileID: 349431513902975818, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
-  getStringValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputString
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 12
-      type: 9
-      widgetType: 0
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: Test
-    textureValue: {fileID: 0}
-  getBoolValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputBool
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 2
-      type: 4
-      widgetType: 4
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 1
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getEnumValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputEnum
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 3
-      type: 4
-      widgetType: 5
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 1
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getEnumCastValue: 1
-  getIntValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputInt
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 4
-      type: 4
-      widgetType: 1
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 10
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 1
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getInt2Value:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputInt2
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 5
-      type: 5
-      widgetType: 1
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 10
-        y: 10
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 1
-      y: 2
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getInt3Value:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputInt3
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 6
-      type: 6
-      widgetType: 1
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 10
-        y: 10
-        z: 10
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 1
-      y: 2
-      z: 3
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getInt4Value:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputInt4
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 7
-      type: 7
-      widgetType: 1
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 1
-      y: 2
-      z: 3
-      w: 4
-    stringValue: 
-    textureValue: {fileID: 0}
-  getFloatValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputFloat1
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 8
-      type: 0
-      widgetType: 1
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 1, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0.75, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getFloat2Value:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputFloat2
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 9
-      type: 1
-      widgetType: 7
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 1.1, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getFloat3Value:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputFloat3
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 10
-      type: 2
-      widgetType: 3
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0.5, z: 1, w: 1}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getFloat4Value:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputFloat4
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 11
-      type: 3
-      widgetType: 1
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 1, y: 1, z: 1, w: 1}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0.333, z: 0.75, w: 1}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getTextureValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputColorImage
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 19
-      type: 8
-      widgetType: 6
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
-  getTextureNullValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputGrayscaleImage
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 20
-      type: 8
-      widgetType: 6
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getOutputSizeValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: $outputsize
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 0
-      type: 5
-      widgetType: 0
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 1
-        y: 1
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 10
-      y: 10
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  getRandomSeedValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: $randomseed
-      graphGuid: ee58749a-f578-4dc2-8331-54a86abc42b0
-      graphId: 0
-      index: 1
-      type: 4
-      widgetType: 0
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 1
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
+  substance: {fileID: 11400000, guid: 6f7ac17eb4bd7451fb69d341d4ecdacb, type: 2}
   setStringValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputString
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 12
       type: 9
       widgetType: 0
@@ -480,10 +43,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setBoolValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputBool
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 2
       type: 4
       widgetType: 4
@@ -509,10 +71,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setEnumValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputEnum
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 3
       type: 4
       widgetType: 5
@@ -539,10 +100,9 @@ MonoBehaviour:
   setEnumCastValue: 5
   setIntValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputInt
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 4
       type: 4
       widgetType: 1
@@ -568,10 +128,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setInt2Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputInt2
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 5
       type: 5
       widgetType: 1
@@ -597,10 +156,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setInt3Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputInt3
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 6
       type: 6
       widgetType: 1
@@ -626,10 +184,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setInt4Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputInt4
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 7
       type: 7
       widgetType: 1
@@ -655,10 +212,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setFloatValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputFloat1
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 8
       type: 0
       widgetType: 1
@@ -684,10 +240,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setFloat2Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputFloat2
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 9
       type: 1
       widgetType: 7
@@ -713,10 +268,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setFloat3Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputFloat3
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 10
       type: 2
       widgetType: 3
@@ -742,10 +296,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setFloat4Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: inputFloat4
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 11
       type: 3
       widgetType: 1
@@ -771,11 +324,10 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setTextureValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputColorImage
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
+      name: inputGrayscaleImage
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
-      index: 19
+      index: 20
       type: 8
       widgetType: 6
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
@@ -800,11 +352,10 @@ MonoBehaviour:
     textureValue: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
   setTextureNullValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputGrayscaleImage
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
+      name: inputColorImage
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
-      index: 20
+      index: 19
       type: 8
       widgetType: 6
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
@@ -829,10 +380,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setOutputSizeValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: $outputsize
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 0
       type: 5
       widgetType: 0
@@ -858,10 +408,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   setRandomSeedValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 7997f4b5d739a42a4ad1ed9f3f0c3750
       name: $randomseed
       graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
       index: 1
       type: 4
       widgetType: 0
@@ -887,10 +436,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultStringValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputString
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 12
       type: 9
       widgetType: 0
@@ -916,10 +464,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultBoolValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputBool
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 2
       type: 4
       widgetType: 4
@@ -945,10 +492,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultEnumValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputEnum
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 3
       type: 4
       widgetType: 5
@@ -975,10 +521,9 @@ MonoBehaviour:
   defaultEnumCastValue: 0
   defaultIntValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputInt
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 4
       type: 4
       widgetType: 1
@@ -1004,10 +549,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultInt2Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputInt2
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 5
       type: 5
       widgetType: 1
@@ -1033,10 +577,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultInt3Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputInt3
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 6
       type: 6
       widgetType: 1
@@ -1062,10 +605,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultInt4Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputInt4
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 7
       type: 7
       widgetType: 1
@@ -1091,10 +633,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultFloatValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputFloat1
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 8
       type: 0
       widgetType: 1
@@ -1120,10 +661,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultFloat2Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputFloat2
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 9
       type: 1
       widgetType: 7
@@ -1149,10 +689,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultFloat3Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputFloat3
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 10
       type: 2
       widgetType: 3
@@ -1178,10 +717,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultFloat4Value:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputFloat4
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 11
       type: 3
       widgetType: 1
@@ -1207,39 +745,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultTextureValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
-      name: inputColorImage
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
-      index: 19
-      type: 8
-      widgetType: 6
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
-  defaultTextureNullValue:
-    parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: inputGrayscaleImage
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 20
       type: 8
       widgetType: 6
@@ -1263,12 +771,39 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 2800000, guid: 637e683a4f9e2344995b88c13d73083c, type: 3}
+  defaultTextureNullValue:
+    parameter:
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
+      name: inputColorImage
+      graphGuid: 
+      index: 19
+      type: 8
+      widgetType: 6
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
   defaultOutputSizeValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: $outputsize
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 0
       type: 5
       widgetType: 0
@@ -1294,10 +829,9 @@ MonoBehaviour:
     textureValue: {fileID: 0}
   defaultRandomSeedValue:
     parameter:
-      guid: 3f4a63289bc3f4c129d168c64fdab6ed
+      guid: 71bf3fd42eded4b33ba8c8a03e91311e
       name: $randomseed
-      graphGuid: f0d66f8d-b34e-48ae-b7aa-e86c58560daf
-      graphId: 0
+      graphGuid: 
       index: 1
       type: 4
       widgetType: 0
