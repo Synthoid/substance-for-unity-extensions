@@ -456,8 +456,6 @@ namespace SOS.SubstanceExtensionsEditor
                         //$outputsize specific check
                         if(property.FindPropertyRelative("parameter.name").stringValue == NAME_OUTPUT_SIZE)
                         {
-                            int cachedIndent = EditorGUI.indentLevel;
-                            EditorGUI.indentLevel = 0;
                             bool isLinked = int2Property.FindPropertyRelative("x").isExpanded;
                             float width = position.width+ EditorGUIUtility.singleLineHeight;
                             position.Set(position.x - EditorGUIUtility.singleLineHeight, position.y, EditorGUIUtility.labelWidth, position.height);
@@ -465,6 +463,9 @@ namespace SOS.SubstanceExtensionsEditor
                             Vector2Int indexes = (Vector2Int)int2Property.GetVector4IntValue();
 
                             EditorGUI.PrefixLabel(position, Labels.OutputSizeLabel);
+
+                            int cachedIndent = EditorGUI.indentLevel;
+                            EditorGUI.indentLevel = 0;
 
                             position.Set(position.x + position.width, position.y, ((width - position.width) * 0.5f) - (LINK_WIDTH * 0.5f) - EditorGUIUtility.standardVerticalSpacing, position.height);
 

@@ -1,0 +1,26 @@
+{
+    "name": "SOS.SubstanceExtensions.Tests.Runtime",
+    "rootNamespace": "SOS.SubstanceExtensions.Tests",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "SOS.SubstanceExtensions.Runtime",
+        "Adobe.Substance",
+        "Adobe.Substance.Runtime",
+        "Unity.TextMeshPro",
+        "SOS.SubstanceExtensions.Tests"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

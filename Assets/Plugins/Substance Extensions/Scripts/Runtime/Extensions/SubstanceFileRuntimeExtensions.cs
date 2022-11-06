@@ -17,10 +17,10 @@ namespace SOS.SubstanceExtensions
 
         #region Rendering
 
-        public static void RuntimeInitialize(this SubstanceGraphSO substance, SubstanceNativeGraph handler)
+        /*public static void RuntimeInitialize(this SubstanceGraphSO substance, SubstanceNativeGraph handler)
         {
             substance.RuntimeInitialize(handler, true);
-        }
+        }*/
 
 
         public static void SetInputs(this SubstanceGraphSO substance, IList<SubstanceParameterValue> values)

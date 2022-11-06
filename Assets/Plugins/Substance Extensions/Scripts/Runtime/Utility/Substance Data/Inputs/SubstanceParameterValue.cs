@@ -66,10 +66,10 @@ namespace SOS.SubstanceExtensions
         /// <summary>
         /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
         /// </summary>
-        public string GraphGuid
+        /*public string GraphGuid
         {
             get { return parameter.GraphGuid; }
-        }
+        }*/
 
         /// <summary>
         /// Index for the input parameter associated with this value.

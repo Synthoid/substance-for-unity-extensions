@@ -15,7 +15,7 @@ namespace SOS.SubstanceExtensionsEditor
 
         private static readonly SubstanceParameterData[] DefaultParameters = new SubstanceParameterData[0];
 
-        private Dictionary<string, string> graphNames = new Dictionary<string, string>();
+        private Dictionary<string, GUIContent> graphLabels = new Dictionary<string, GUIContent>();
         private Dictionary<string, GUIContent[]> parameterLabels = new Dictionary<string, GUIContent[]>();
         private Dictionary<string, SubstanceParameterData[]> parameterMappings = new Dictionary<string, SubstanceParameterData[]>();
 
@@ -74,7 +74,8 @@ namespace SOS.SubstanceExtensionsEditor
 
                 valueProperty.serializedObject.ApplyModifiedProperties();
             },
-            new GUIContent(string.Format(kSearchWindowTitle, GetGraphName(assetGuid))));
+            GetGraphLabel(assetGuid));
+            //new GUIContent(string.Format(kSearchWindowTitle, )));
             //SearchWindowTitle);
         }
 
@@ -147,23 +148,22 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
 
-        private string GetGraphName(string assetGuid)
+        private GUIContent GetGraphLabel(string assetGuid)
         {
-            bool success = graphNames.TryGetValue(assetGuid, out string graphName);
+            bool success = graphLabels.TryGetValue(assetGuid, out GUIContent graphLabel);
 
             if(!success)
             {
-
                 SubstanceGraphSO substance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
 
-                if(substance == null) return kDefaultSubstanceName;
+                if(substance == null) return new GUIContent(string.Format(kSearchWindowTitle, kDefaultSubstanceName));
 
-                graphName = substance.Name;
+                graphLabel = new GUIContent(string.Format(kSearchWindowTitle, substance.Name));
 
-                graphNames.Add(assetGuid, graphName);
+                graphLabels.Add(assetGuid, graphLabel);
             }
 
-            return graphName;
+            return graphLabel;
         }
     }
 }

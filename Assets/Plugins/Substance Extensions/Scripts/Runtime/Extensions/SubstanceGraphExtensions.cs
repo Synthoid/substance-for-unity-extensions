@@ -2,6 +2,7 @@ using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SOS.SubstanceExtensions
@@ -64,8 +65,7 @@ namespace SOS.SubstanceExtensions
         }
 
         #endregion
-
-
+        
         #region Get/Set Values
 
         /// <summary>
@@ -2741,6 +2741,25 @@ namespace SOS.SubstanceExtensions
         }
 
         #endregion
+
+        #endregion
+
+        #region Outputs
+
+        public static Texture2D GetOutputMap(this SubstanceGraphSO substance, string name)
+        {
+            List<SubstanceOutputTexture> outputs = substance.Output;
+
+            for(int i=0; i < outputs.Count; i++)
+            {
+                if(outputs[i].Description.Identifier == name)
+                {
+                    return outputs[i].OutputTexture;
+                }
+            }
+
+            return null;
+        }
 
         #endregion
 

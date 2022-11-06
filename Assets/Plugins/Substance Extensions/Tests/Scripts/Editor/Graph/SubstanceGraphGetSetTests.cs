@@ -6,26 +6,31 @@ using SOS.SubstanceExtensions;
 
 namespace SOS.SubstanceExtensions.Tests
 {
-    public class SubstanceFileTests
+    /// <summary>
+    /// Unit tests for <see cref="SubstanceGraphSO"/> get/set value operations.
+    /// </summary>
+    public class SubstanceGraphGetSetTests
     {
         [SetUp, OneTimeTearDown]
-        public void SetupAndTearDown()
+        public void SetUpAndTearDown()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
-            SubstanceParameterValue defaultStringValue = SubstanceFileTestAsset.DefaultStringValue;
-            SubstanceParameterValue defaultBoolValue = SubstanceFileTestAsset.DefaultBoolValue;
-            SubstanceParameterValue defaultEnumValue = SubstanceFileTestAsset.DefaultEnumValue;
-            SubstanceParameterValue defaultIntValue = SubstanceFileTestAsset.DefaultIntValue;
-            SubstanceParameterValue defaultInt2Value = SubstanceFileTestAsset.DefaultInt2Value;
-            SubstanceParameterValue defaultInt3Value = SubstanceFileTestAsset.DefaultInt3Value;
-            SubstanceParameterValue defaultInt4Value = SubstanceFileTestAsset.DefaultInt4Value;
-            SubstanceParameterValue defaultFloatValue = SubstanceFileTestAsset.DefaultFloatValue;
-            SubstanceParameterValue defaultFloat2Value = SubstanceFileTestAsset.DefaultFloat2Value;
-            SubstanceParameterValue defaultFloat3Value = SubstanceFileTestAsset.DefaultFloat3Value;
-            SubstanceParameterValue defaultFloat4Value = SubstanceFileTestAsset.DefaultFloat4Value;
-            SubstanceParameterValue defaultTextureValue = SubstanceFileTestAsset.DefaultTextureValue;
-            SubstanceParameterValue defaultNullTextureValue = SubstanceFileTestAsset.DefaultTextureNullValue;
+            SubstanceParameterValue defaultStringValue = SubstanceGraphTestAsset.DefaultStringValue;
+            SubstanceParameterValue defaultBoolValue = SubstanceGraphTestAsset.DefaultBoolValue;
+            SubstanceParameterValue defaultEnumValue = SubstanceGraphTestAsset.DefaultEnumValue;
+            SubstanceParameterValue defaultIntValue = SubstanceGraphTestAsset.DefaultIntValue;
+            SubstanceParameterValue defaultInt2Value = SubstanceGraphTestAsset.DefaultInt2Value;
+            SubstanceParameterValue defaultInt3Value = SubstanceGraphTestAsset.DefaultInt3Value;
+            SubstanceParameterValue defaultInt4Value = SubstanceGraphTestAsset.DefaultInt4Value;
+            SubstanceParameterValue defaultFloatValue = SubstanceGraphTestAsset.DefaultFloatValue;
+            SubstanceParameterValue defaultFloat2Value = SubstanceGraphTestAsset.DefaultFloat2Value;
+            SubstanceParameterValue defaultFloat3Value = SubstanceGraphTestAsset.DefaultFloat3Value;
+            SubstanceParameterValue defaultFloat4Value = SubstanceGraphTestAsset.DefaultFloat4Value;
+            SubstanceParameterValue defaultTextureValue = SubstanceGraphTestAsset.DefaultTextureValue;
+            SubstanceParameterValue defaultNullTextureValue = SubstanceGraphTestAsset.DefaultTextureNullValue;
+            SubstanceParameterValue defaultOutputSizeValue = SubstanceGraphTestAsset.DefaultOutputSizeValue;
+            SubstanceParameterValue defaultRandomSeedValue = SubstanceGraphTestAsset.DefaultRandomSeedValue;
 
             substance.SetString(defaultStringValue.StringValue, defaultStringValue.Parameter);
             substance.SetBool(defaultBoolValue.BoolValue, defaultBoolValue.Parameter);
@@ -40,30 +45,17 @@ namespace SOS.SubstanceExtensions.Tests
             substance.SetFloat4(defaultFloat4Value.Float4Value, defaultFloat4Value.Parameter);
             substance.SetTexture(defaultTextureValue.TextureValue, defaultTextureValue.Parameter);
             substance.SetTexture(defaultNullTextureValue.TextureValue, defaultNullTextureValue.Parameter);
+            substance.SetOutputSize(defaultOutputSizeValue.Int2Value);
+            substance.SetRandomSeed(defaultRandomSeedValue.IntValue);
         }
-
-        /*#region Utility
-
-        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a graph index on a target SubstanceGraphSO asset can properly be returned by referencing a graph guid.")]
-        public void GetGraphIndex()
-        {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.SetStringValue;
-
-            int index = substance.GetGraphIndex(parameterValue.Parameter.GraphGuid);
-
-            Assert.AreEqual(1, index);
-        }
-
-        #endregion*/
 
         #region String
 
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetString()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultStringValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultStringValue;
 
             string inputValue = substance.GetString(parameterValue.Parameter);
 
@@ -73,8 +65,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetString()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultStringValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultStringValue;
 
             bool success = substance.TryGetString(out string inputValue, parameterValue.Parameter);
 
@@ -85,7 +77,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default string value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetStringFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetString(out string inputValue, "I am a great magician.");
 
@@ -96,14 +88,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetString()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultStringValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultStringValue;
 
             string inputValue = substance.GetString(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.StringValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetStringValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetStringValue;
 
             substance.SetString(setValue.StringValue, setValue.Parameter);
 
@@ -115,14 +107,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a string input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetString()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultStringValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultStringValue;
 
             string inputValue = substance.GetString(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.StringValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetStringValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetStringValue;
 
             bool success = substance.TrySetString(setValue.StringValue, setValue.Parameter);
 
@@ -135,8 +127,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant string input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetStringFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultStringValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultStringValue;
 
             string inputValue = substance.GetString(defaultValue.Parameter);
 
@@ -159,8 +151,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a bool input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetBool()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultBoolValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultBoolValue;
 
             bool inputValue = substance.GetBool(parameterValue.Parameter);
 
@@ -170,8 +162,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a bool input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetBool()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultBoolValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultBoolValue;
 
             bool success = substance.TryGetBool(out bool inputValue, parameterValue.Parameter);
 
@@ -182,7 +174,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default bool value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetBoolFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetBool(out bool inputValue, "Your clothes are black.");
 
@@ -193,14 +185,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a bool input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetBool()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultBoolValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultBoolValue;
 
             bool inputValue = substance.GetBool(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.BoolValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetBoolValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetBoolValue;
 
             substance.SetBool(setValue.BoolValue, setValue.Parameter);
 
@@ -212,14 +204,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a bool input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetBool()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultBoolValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultBoolValue;
 
             bool inputValue = substance.GetBool(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.BoolValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetBoolValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetBoolValue;
 
             bool success = substance.TrySetBool(setValue.BoolValue, setValue.Parameter);
 
@@ -232,8 +224,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant bool input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetBoolFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultBoolValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultBoolValue;
 
             bool inputValue = substance.GetBool(defaultValue.Parameter);
 
@@ -254,8 +246,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an enum int input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetEnum()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultEnumValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultEnumValue;
 
             int inputValue = substance.GetInt(parameterValue.Index);
 
@@ -265,9 +257,9 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an enum int input value can properly be referenced on a target SubstanceGraphSO asset and cast to a specific enum type.")]
         public void GetEnumCast()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultEnumValue;
-            TestInputEnum enumValue = SubstanceFileTestAsset.DefaultEnumCastValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultEnumValue;
+            TestInputEnum enumValue = SubstanceGraphTestAsset.DefaultEnumCastValue;
 
             TestInputEnum inputValue = substance.GetEnum<TestInputEnum>(parameterValue.Parameter);
 
@@ -277,9 +269,9 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an enum int input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetEnumCast()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultEnumValue;
-            TestInputEnum enumValue = SubstanceFileTestAsset.DefaultEnumCastValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultEnumValue;
+            TestInputEnum enumValue = SubstanceGraphTestAsset.DefaultEnumCastValue;
 
             bool success = substance.TryGetEnum<TestInputEnum>(out TestInputEnum inputValue, parameterValue.Parameter);
 
@@ -290,7 +282,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default enum value can properly be returned when referencing a non-existant enum input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetEnumCastFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
             TestInputEnum defaultValue = TestInputEnum.Blue;
 
             bool success = substance.TryGetEnum<TestInputEnum>(out TestInputEnum inputValue, "Red clothes!", defaultValue);
@@ -302,15 +294,15 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an enum input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetEnum()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultEnumValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultEnumValue;
 
             TestInputEnum inputValue = substance.GetEnum<TestInputEnum>(defaultValue.Parameter);
 
             Assert.AreEqual((TestInputEnum)defaultValue.IntValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetEnumValue;
-            TestInputEnum enumValue = SubstanceFileTestAsset.SetEnumCastValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetEnumValue;
+            TestInputEnum enumValue = SubstanceGraphTestAsset.SetEnumCastValue;
 
             substance.SetEnum(enumValue, setValue.Parameter);
 
@@ -322,14 +314,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an enum input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetEnum()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultEnumValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultEnumValue;
 
             TestInputEnum inputValue = substance.GetEnum<TestInputEnum>(defaultValue.Parameter);
 
             Assert.AreEqual((TestInputEnum)defaultValue.IntValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetEnumValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetEnumValue;
 
             bool success = substance.TrySetEnum<TestInputEnum>((TestInputEnum)setValue.IntValue, setValue.Parameter);
 
@@ -342,8 +334,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant enum input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetEnumFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultEnumValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultEnumValue;
 
             TestInputEnum inputValue = substance.GetEnum<TestInputEnum>(defaultValue.Parameter);
 
@@ -362,8 +354,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetInt()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultIntValue;
 
             int inputValue = substance.GetInt(parameterValue.Parameter);
 
@@ -373,8 +365,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultIntValue;
 
             bool success = substance.TryGetInt(out int inputValue, parameterValue.Parameter);
 
@@ -385,7 +377,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default int value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetIntFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetInt(out int inputValue, "Red clothes!");
 
@@ -396,14 +388,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetInt()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultIntValue;
 
             int inputValue = substance.GetInt(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.IntValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetIntValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetIntValue;
 
             substance.SetInt(setValue.IntValue, setValue.Parameter);
 
@@ -415,14 +407,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultIntValue;
 
             int inputValue = substance.GetInt(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.IntValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetIntValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetIntValue;
 
             bool success = substance.TrySetInt(setValue.IntValue, setValue.Parameter);
 
@@ -435,8 +427,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant int input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetIntFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultIntValue;
 
             int inputValue = substance.GetInt(defaultValue.Parameter);
 
@@ -457,8 +449,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int2 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetInt2()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt2Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt2Value;
 
             Vector2Int inputValue = substance.GetInt2(parameterValue.Parameter);
 
@@ -468,8 +460,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int2 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt2()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt2Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt2Value;
 
             bool success = substance.TryGetInt2(out Vector2Int inputValue, parameterValue.Parameter);
 
@@ -480,7 +472,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default int2 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt2Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetInt2(out Vector2Int inputValue, "That's a lot of nuts!");
 
@@ -491,14 +483,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int2 input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetInt2()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultIntValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultIntValue;
 
             int inputValue = substance.GetInt(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.IntValue, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetIntValue;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetIntValue;
 
             substance.SetInt(setValue.IntValue, setValue.Parameter);
 
@@ -510,14 +502,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int2 input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt2()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt2Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt2Value;
 
             Vector2Int inputValue = substance.GetInt2(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.Int2Value, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetInt2Value;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetInt2Value;
 
             bool success = substance.TrySetInt2(setValue.Int2Value, setValue.Parameter);
 
@@ -530,8 +522,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant int2 input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt2Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt2Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt2Value;
 
             Vector2Int inputValue = substance.GetInt2(defaultValue.Parameter);
 
@@ -552,8 +544,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int3 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetInt3()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt3Value;
 
             Vector3Int inputValue = substance.GetInt3(parameterValue.Parameter);
 
@@ -563,8 +555,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int3 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt3()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt3Value;
 
             bool success = substance.TryGetInt3(out Vector3Int inputValue, parameterValue.Parameter);
 
@@ -575,7 +567,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default int3 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt3Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetInt3(out Vector3Int inputValue, "Ventriloquists, huh?");
 
@@ -586,14 +578,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int3 input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetInt3()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt3Value;
 
             Vector3Int inputValue = substance.GetInt3(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.Int3Value, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetInt3Value;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetInt3Value;
 
             substance.SetInt3(setValue.Int3Value, setValue.Parameter);
 
@@ -605,14 +597,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int3 input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt3()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt3Value;
 
             Vector3Int inputValue = substance.GetInt3(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.Int3Value, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetInt3Value;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetInt3Value;
 
             bool success = substance.TrySetInt3(setValue.Int3Value, setValue.Parameter);
 
@@ -625,8 +617,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant int3 input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt3Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt3Value;
 
             Vector3Int inputValue = substance.GetInt3(defaultValue.Parameter);
 
@@ -647,8 +639,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetInt4()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt4Value;
 
             int[] defaultValue = new int[4] { parameterValue.Int4Value.x, parameterValue.Int4Value.y, parameterValue.Int4Value.z, parameterValue.Int4Value.w };
             int[] inputValue = substance.GetInt4(parameterValue.Parameter);
@@ -659,8 +651,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt4()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt4Value;
             int[] defaultValue = new int[4] { parameterValue.Int4Value.x, parameterValue.Int4Value.y, parameterValue.Int4Value.z, parameterValue.Int4Value.w };
 
             bool success = substance.TryGetInt4(out int[] inputValue, parameterValue.Parameter);
@@ -672,7 +664,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default int4 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt4Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
             int[] defaultValue = new int[4] { 0, 0, 0, 0 };
 
             bool success = substance.TryGetInt4(out int[] inputValue, "Face to foot style!");
@@ -684,8 +676,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetInt4Vector()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt4Value;
 
             Vector4Int inputValue = substance.GetInt4Vector(parameterValue.Parameter);
 
@@ -695,8 +687,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt4Vector()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultInt4Value;
 
             bool success = substance.TryGetInt4Vector(out Vector4Int inputValue, parameterValue.Parameter);
 
@@ -707,7 +699,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default int4 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetInt4VectorFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetInt4Vector(out Vector4Int inputValue, "Face to foot style!");
 
@@ -718,14 +710,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be set on a target SubstanceGraphSO asset.")]
         public void SetInt4()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt4Value;
 
             Vector4Int inputValue = substance.GetInt4Vector(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.Int4Value, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetInt4Value;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetInt4Value;
 
             substance.SetInt4(setValue.Int4Value, setValue.Parameter);
 
@@ -737,14 +729,14 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt4()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt4Value;
 
             Vector4Int inputValue = substance.GetInt4Vector(defaultValue.Parameter);
 
             Assert.AreEqual(defaultValue.Int4Value, inputValue);
 
-            SubstanceParameterValue setValue = SubstanceFileTestAsset.SetInt4Value;
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetInt4Value;
 
             bool success = substance.TrySetInt4(setValue.Int4Value, setValue.Parameter);
 
@@ -757,8 +749,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant int4 input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
         public void TrySetInt4Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue defaultValue = SubstanceFileTestAsset.DefaultInt4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultInt4Value;
 
             Vector4Int inputValue = substance.GetInt4Vector(defaultValue.Parameter);
 
@@ -779,8 +771,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetFloat()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloatValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloatValue;
 
             float inputValue = substance.GetFloat(parameterValue.Parameter);
 
@@ -790,8 +782,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloatValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloatValue;
 
             bool success = substance.TryGetFloat(out float inputValue, parameterValue.Parameter);
 
@@ -802,9 +794,66 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default float value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloatFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetFloat(out float inputValue, "And so, he walked.");
+
+            Assert.IsFalse(success);
+            Assert.AreEqual(0f, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float input value can properly be set on a target SubstanceGraphSO asset.")]
+        public void SetFloat()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloatValue;
+
+            float inputValue = substance.GetFloat(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.FloatValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloatValue;
+
+            substance.SetFloat(setValue.FloatValue, setValue.Parameter);
+
+            inputValue = substance.GetFloat(setValue.Parameter);
+
+            Assert.AreEqual(setValue.FloatValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloatValue;
+
+            float inputValue = substance.GetFloat(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.FloatValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloatValue;
+
+            bool success = substance.TrySetFloat(setValue.FloatValue, setValue.Parameter);
+
+            inputValue = substance.GetFloat(setValue.Parameter);
+
+            Assert.IsTrue(success);
+            Assert.AreEqual(setValue.FloatValue, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant float input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloatFail()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloatValue;
+
+            float inputValue = substance.GetFloat(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.FloatValue, inputValue);
+
+            bool success = substance.TrySetFloat(1f, "I am a great magician.");
+
+            substance.TryGetFloat(out inputValue, "I am a great magician.");
 
             Assert.IsFalse(success);
             Assert.AreEqual(0f, inputValue);
@@ -817,8 +866,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float2 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetFloat2()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloat2Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloat2Value;
 
             Vector2 inputValue = substance.GetFloat2(parameterValue.Parameter);
 
@@ -828,8 +877,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float2 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat2()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloat2Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloat2Value;
 
             bool success = substance.TryGetFloat2(out Vector2 inputValue, parameterValue.Parameter);
 
@@ -840,9 +889,66 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default float2 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat2Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetFloat2(out Vector2 inputValue, "And sometimes, drove.");
+
+            Assert.IsFalse(success);
+            Assert.AreEqual(Vector2.zero, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float2 input value can properly be set on a target SubstanceGraphSO asset.")]
+        public void SetFloat2()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat2Value;
+
+            Vector2 inputValue = substance.GetFloat2(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float2Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloat2Value;
+
+            substance.SetFloat2(setValue.Float2Value, setValue.Parameter);
+
+            inputValue = substance.GetFloat2(setValue.Parameter);
+
+            Assert.AreEqual(setValue.Float2Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float2 input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat2()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat2Value;
+
+            Vector2 inputValue = substance.GetFloat2(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float2Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloat2Value;
+
+            bool success = substance.TrySetFloat2(setValue.Float2Value, setValue.Parameter);
+
+            inputValue = substance.GetFloat2(setValue.Parameter);
+
+            Assert.IsTrue(success);
+            Assert.AreEqual(setValue.Float2Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant float2 input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat2Fail()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat2Value;
+
+            Vector2 inputValue = substance.GetFloat2(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float2Value, inputValue);
+
+            bool success = substance.TrySetFloat2(Vector2.one, "I am a great magician.");
+
+            substance.TryGetFloat2(out inputValue, "I am a great magician.");
 
             Assert.IsFalse(success);
             Assert.AreEqual(Vector2.zero, inputValue);
@@ -855,8 +961,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float3 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetFloat3()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloat3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloat3Value;
 
             Vector3 inputValue = substance.GetFloat3(parameterValue.Parameter);
 
@@ -866,8 +972,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float3 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat3()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloat3Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloat3Value;
 
             bool success = substance.TryGetFloat3(out Vector3 inputValue, parameterValue.Parameter);
 
@@ -878,9 +984,66 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default float3 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat3Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetFloat3(out Vector3 inputValue, "I mean, I'm no doctor.");
+
+            Assert.IsFalse(success);
+            Assert.AreEqual(Vector3.zero, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float3 input value can properly be set on a target SubstanceGraphSO asset.")]
+        public void SetFloat3()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat3Value;
+
+            Vector3 inputValue = substance.GetFloat3(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float3Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloat3Value;
+
+            substance.SetFloat3(setValue.Float3Value, setValue.Parameter);
+
+            inputValue = substance.GetFloat3(setValue.Parameter);
+
+            Assert.AreEqual(setValue.Float3Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float3 input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat3()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat3Value;
+
+            Vector3 inputValue = substance.GetFloat3(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float3Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloat3Value;
+
+            bool success = substance.TrySetFloat3(setValue.Float3Value, setValue.Parameter);
+
+            inputValue = substance.GetFloat3(setValue.Parameter);
+
+            Assert.IsTrue(success);
+            Assert.AreEqual(setValue.Float3Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant float3 input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat3Fail()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat3Value;
+
+            Vector3 inputValue = substance.GetFloat3(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float3Value, inputValue);
+
+            bool success = substance.TrySetFloat3(Vector3.one, "I am a great magician.");
+
+            substance.TryGetFloat3(out inputValue, "I am a great magician.");
 
             Assert.IsFalse(success);
             Assert.AreEqual(Vector3.zero, inputValue);
@@ -893,8 +1056,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float4 input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetFloat4()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloat4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloat4Value;
 
             Vector4 inputValue = substance.GetFloat4(parameterValue.Parameter);
 
@@ -904,8 +1067,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float4 input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat4()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultFloat4Value;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultFloat4Value;
 
             bool success = substance.TryGetFloat4(out Vector4 inputValue, parameterValue.Parameter);
 
@@ -916,9 +1079,66 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default float4 value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetFloat4Fail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetFloat4(out Vector4 inputValue, "It was like, one clean chunk!");
+
+            Assert.IsFalse(success);
+            Assert.AreEqual(Vector4.zero, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float4 input value can properly be set on a target SubstanceGraphSO asset.")]
+        public void SetFloat4()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat4Value;
+
+            Vector4 inputValue = substance.GetFloat4(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float4Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloat4Value;
+
+            substance.SetFloat4(setValue.Float4Value, setValue.Parameter);
+
+            inputValue = substance.GetFloat4(setValue.Parameter);
+
+            Assert.AreEqual(setValue.Float4Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float4 input value can properly be set on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat4()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat4Value;
+
+            Vector4 inputValue = substance.GetFloat4(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float4Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetFloat4Value;
+
+            bool success = substance.TrySetFloat4(setValue.Float4Value, setValue.Parameter);
+
+            inputValue = substance.GetFloat4(setValue.Parameter);
+
+            Assert.IsTrue(success);
+            Assert.AreEqual(setValue.Float4Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if attempting to set a non-existant float4 input value properly returns false when setting its value on a target SubstanceGraphSO asset using the try set method.")]
+        public void TrySetFloat4Fail()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue defaultValue = SubstanceGraphTestAsset.DefaultFloat4Value;
+
+            Vector4 inputValue = substance.GetFloat4(defaultValue.Parameter);
+
+            Assert.AreEqual(defaultValue.Float4Value, inputValue);
+
+            bool success = substance.TrySetFloat4(Vector2.one, "I am a great magician.");
+
+            substance.TryGetFloat4(out inputValue, "I am a great magician.");
 
             Assert.IsFalse(success);
             Assert.AreEqual(Vector4.zero, inputValue);
@@ -931,8 +1151,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a texture input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetTexture()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultTextureValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultTextureValue;
 
             Texture2D inputValue = substance.GetTexture(parameterValue.Parameter);
 
@@ -942,8 +1162,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a null texture input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetNullTexture()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultTextureNullValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultTextureNullValue;
 
             Texture2D inputValue = substance.GetTexture(parameterValue.Parameter);
 
@@ -953,8 +1173,8 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a texture input value can properly be referenced on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetTexture()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultTextureValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultTextureValue;
 
             bool success = substance.TryGetTexture(out Texture2D inputValue, parameterValue.Parameter);
 
@@ -965,7 +1185,7 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a default texture value can properly be returned when referencing a non-existant input on a target SubstanceGraphSO asset using the try get method.")]
         public void TryGetTextureFail()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
 
             bool success = substance.TryGetTexture(out Texture2D inputValue, "I mean, I'm no doctor.");
 
@@ -980,12 +1200,31 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an $outputsize input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetOutputSize()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultOutputSizeValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultOutputSizeValue;
 
             Vector2Int inputValue = substance.GetOutputSize();
 
             Assert.AreEqual(parameterValue.Int2Value, inputValue);
+        }
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an $outputsize input value can properly be set on a target SubstanceGraphSO asset.")]
+        public void SetOutputSize()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultOutputSizeValue;
+
+            Vector2Int inputValue = substance.GetOutputSize();
+
+            Assert.AreEqual(parameterValue.Int2Value, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetOutputSizeValue;
+
+            substance.SetOutputSize(setValue.Int2Value);
+
+            inputValue = substance.GetOutputSize(setValue.Parameter);
+
+            Assert.AreEqual(setValue.Int2Value, inputValue);
         }
 
         #endregion
@@ -995,22 +1234,49 @@ namespace SOS.SubstanceExtensions.Tests
         [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a $randomseed input value can properly be referenced on a target SubstanceGraphSO asset.")]
         public void GetRandomSeed()
         {
-            SubstanceGraphSO substance = SubstanceFileTestAsset.Substance;
-            SubstanceParameterValue parameterValue = SubstanceFileTestAsset.DefaultRandomSeedValue;
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultRandomSeedValue;
 
             int inputValue = substance.GetRandomSeed();
 
             Assert.AreEqual(parameterValue.IntValue, inputValue);
         }
 
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a $randomseed input value can properly be set on a target SubstanceGraphSO asset.")]
+        public void SetRandomSeed()
+        {
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceParameterValue parameterValue = SubstanceGraphTestAsset.DefaultRandomSeedValue;
+
+            int inputValue = substance.GetRandomSeed();
+
+            Assert.AreEqual(parameterValue.IntValue, inputValue);
+
+            SubstanceParameterValue setValue = SubstanceGraphTestAsset.SetRandomSeedValue;
+
+            substance.SetRandomSeed(setValue.IntValue);
+
+            inputValue = substance.GetRandomSeed(setValue.Parameter);
+
+            Assert.AreEqual(setValue.IntValue, inputValue);
+        }
+
         #endregion
 
-        /*[UnityTest]
-        public IEnumerator SubstanceFileTestsWithEnumeratorPasses()
+        #region Output
+
+        [Test, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an output map can properly be referenced on a target SubstanceGraphSO asset.")]
+        public void GetOutputMap()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
-        }*/
+            SubstanceGraphSO substance = SubstanceGraphTestAsset.Substance;
+            SubstanceOutput outputMap = SubstanceGraphTestAsset.OutputMap;
+            Texture2D outputValue = SubstanceGraphTestAsset.OutputValue;
+
+            Texture2D outputTexture = substance.GetOutputMap(outputMap.Name);
+
+            Assert.AreEqual(outputValue, outputTexture);
+        }
+
+        #endregion
     }
 }

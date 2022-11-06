@@ -9,9 +9,12 @@ namespace SOS.SubstanceExtensionsEditor
     [CustomPropertyDrawer(typeof(SubstanceOutput))]
     public class SubstanceOutputDrawer : GUIDReferenceDrawer<SubstanceGraphSO>
     {
-        private static readonly GUIContent SearchWindowTitle = new GUIContent("Substance Outputs");
+        protected const string kSearchWindowTitle = "{0} Outputs";
+        protected const string kDefaultSubstanceName = "<No Substance>";
+
         private static readonly SubstanceOutputData[] DefaultOutputs = new SubstanceOutputData[0];
 
+        private Dictionary<string, GUIContent> graphLabels = new Dictionary<string, GUIContent>();
         private Dictionary<string, GUIContent[]> outputLabels = new Dictionary<string, GUIContent[]>();
         private Dictionary<string, SubstanceOutputData[]> outputMappings = new Dictionary<string, SubstanceOutputData[]>();
 
@@ -64,7 +67,7 @@ namespace SOS.SubstanceExtensionsEditor
 
                 property.serializedObject.ApplyModifiedProperties();
             },
-            SearchWindowTitle);
+            GetGraphLabel(assetGuid));
         }
 
 
@@ -124,6 +127,25 @@ namespace SOS.SubstanceExtensionsEditor
             bool success = outputMappings.TryGetValue(assetGuid, out SubstanceOutputData[] outputs);
 
             return success ? outputs : DefaultOutputs;
+        }
+
+
+        private GUIContent GetGraphLabel(string assetGuid)
+        {
+            bool success = graphLabels.TryGetValue(assetGuid, out GUIContent graphLabel);
+
+            if(!success)
+            {
+                SubstanceGraphSO substance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
+
+                if(substance == null) return new GUIContent(string.Format(kSearchWindowTitle, kDefaultSubstanceName));
+
+                graphLabel = new GUIContent(string.Format(kSearchWindowTitle, substance.Name));
+
+                graphLabels.Add(assetGuid, graphLabel);
+            }
+
+            return graphLabel;
         }
     }
 }
