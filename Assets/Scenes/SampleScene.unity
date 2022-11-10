@@ -803,12 +803,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   substanceGraph: {fileID: 0}
   parameter:
-    guid: 9307f27bb5da44530b7989023af589af
-    name: 
+    guid: 6f7ac17eb4bd7451fb69d341d4ecdacb
+    name: inputBool
     graphGuid: 
-    index: 0
-    type: 0
-    widgetType: 0
+    index: 2
+    type: 4
+    widgetType: 4
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
     rangeIntMin:
@@ -823,11 +823,11 @@ MonoBehaviour:
       w: 0
   paramValue:
     parameter:
-      guid: f24f6394d9309114d91449f5c8adb17f
-      name: 
+      guid: 6f7ac17eb4bd7451fb69d341d4ecdacb
+      name: $outputsize
       graphGuid: 
       index: 0
-      type: 0
+      type: 5
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -837,20 +837,21 @@ MonoBehaviour:
         z: 0
         w: 0
       rangeIntMax:
-        x: 0
-        y: 0
+        x: 1
+        y: 1
         z: 0
         w: 0
     vectorValue: {x: 1, y: 0, z: 0, w: 0.7647059}
     vectorIntValue:
-      x: 0
-      y: 0
+      x: 10
+      y: 10
       z: 0
       w: 0
     stringValue: Pretty cool.
     textureValue: {fileID: 2800000, guid: f582f763e5df3c241b43ca4f4eac7f4c, type: 3}
   output:
-    guid: 5f19ac5cee01e440a9b4a0625f3b0930
-    name: metallic
+    guid: 6f7ac17eb4bd7451fb69d341d4ecdacb
+    name: basecolor
     graphId: 0
-    index: 3
+    index: 0
+  transformMatrix: {x: 1, y: 0, z: 0, w: 1}
