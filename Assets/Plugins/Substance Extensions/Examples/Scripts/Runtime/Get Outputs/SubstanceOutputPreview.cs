@@ -16,7 +16,7 @@ namespace SOS.SubstanceExtensions.Examples
         {
             previewImage.texture = texture;
             outputIdentifierLabel.text = identifier;
-            outputNameLabel.text = texture.name;
+            outputNameLabel.text = texture != null ? texture.name : "<NULL>";
         }
     }
 }
