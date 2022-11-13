@@ -1,6 +1,7 @@
 using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
+using System.Threading.Tasks;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -262,6 +263,35 @@ namespace SOS.SubstanceExtensions
             this.textureValue = null;
         }
 
+        public SubstanceParameterValue(SubstanceParameter parameter, int[] value)
+        {
+            this.parameter = parameter;
+            this.vectorValue = Vector4.zero;
+            this.stringValue = "";
+            this.textureValue = null;
+
+            if(value == null || value.Length == 0)
+            {
+                this.vectorIntValue = Vector4Int.zero;
+            }
+            else if (value.Length >= 4)
+            {
+                this.vectorIntValue = new Vector4Int(value[0], value[1], value[2], value[3]);
+            }
+            else if(value.Length == 3)
+            {
+                this.vectorIntValue = new Vector4Int(value[0], value[1], value[2], 0);
+            }
+            else if (value.Length == 2)
+            {
+                this.vectorIntValue = new Vector4Int(value[0], value[1], 0, 0);
+            }
+            else
+            {
+                this.vectorIntValue = new Vector4Int(value[0], 0, 0, 0);
+            }
+        }
+
         public SubstanceParameterValue(SubstanceParameter parameter, float value)
         {
             this.parameter = parameter;
@@ -348,43 +378,44 @@ namespace SOS.SubstanceExtensions
 
         /// <summary>
         /// Update the given handler with this parameter's values.
+        /// Note: When setting texture values, it is recommended to use <see cref="SetValueAsync"/>, otherwise your texture must be read/writable.
         /// </summary>
-        /// <param name="handler">Handler to update values on.</param>
+        /// <param name="nativeGraph">Runtime graph to update values on.</param>
         /// <returns>True if the handler has the target parameter set.</returns>
-        public bool SetValue(SubstanceNativeGraph handler)
+        public bool SetValue(SubstanceNativeGraph nativeGraph)
         {
             switch(Type)
             {
                 case SubstanceValueType.Float:
-                    handler.SetInputFloat(Index, FloatValue);
+                    nativeGraph.SetInputFloat(Index, FloatValue);
                     return true;
                 case SubstanceValueType.Float2:
-                    handler.SetInputFloat2(Index, Float2Value);
+                    nativeGraph.SetInputFloat2(Index, Float2Value);
                     return true;
                 case SubstanceValueType.Float3:
-                    handler.SetInputFloat3(Index, Float3Value);
+                    nativeGraph.SetInputFloat3(Index, Float3Value);
                     return true;
                 case SubstanceValueType.Float4:
-                    handler.SetInputFloat4(Index, Float4Value);
+                    nativeGraph.SetInputFloat4(Index, Float4Value);
                     return true;
                 case SubstanceValueType.Int:
-                    handler.SetInputInt(Index, IntValue);
+                    nativeGraph.SetInputInt(Index, IntValue);
                     return true;
                 case SubstanceValueType.Int2:
-                    handler.SetInputInt2(Index, Int2Value);
+                    nativeGraph.SetInputInt2(Index, Int2Value);
                     return true;
                 case SubstanceValueType.Int3:
-                    handler.SetInputInt3(Index, Int3Value);
+                    nativeGraph.SetInputInt3(Index, Int3Value);
                     return true;
                 case SubstanceValueType.Int4:
-                    handler.SetInputInt4(Index, Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w);
+                    nativeGraph.SetInputInt4(Index, Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w);
                     return true;
                 case SubstanceValueType.String:
-                    handler.SetInputString(Index, StringValue);
+                    nativeGraph.SetInputString(Index, StringValue);
                     return true;
                 case SubstanceValueType.Image:
-                    Debug.LogWarning("Broken in 0.0.100...");
-                    //handler.SetInputTexture2D(TextureValue, Index, GraphId);
+                    if(TextureValue == null) nativeGraph.SetInputTexture2DNull(Index);
+                    else nativeGraph.SetInputTextureCPU(Index, TextureValue);
                     return true;
             }
 
@@ -433,12 +464,62 @@ namespace SOS.SubstanceExtensions
                     stringInput.Data = StringValue;
                     return true;
                 case SubstanceInputTexture textureInput:
-                    Debug.LogWarning("Broken in 0.0.100...");
+                    Debug.LogWarning("Texture assignments to inputs are broken since 0.0.100...");
                     //textureInput.Data = TextureValue;
                     return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Asynchronously update the given handler with this parameter's values.
+        /// </summary>
+        /// <param name="nativeGraph">Runtime graph to update values on.</param>
+        /// <returns>Task representing the set operation. Only texture assignments should require asynchronous execution, all other value types are set instantly.</returns>
+        public async Task SetValueAsync(SubstanceNativeGraph nativeGraph)
+        {
+            switch(Type)
+            {
+                case SubstanceValueType.Float:
+                    nativeGraph.SetInputFloat(Index, FloatValue);
+                    return;
+                case SubstanceValueType.Float2:
+                    nativeGraph.SetInputFloat2(Index, Float2Value);
+                    return;
+                case SubstanceValueType.Float3:
+                    nativeGraph.SetInputFloat3(Index, Float3Value);
+                    return;
+                case SubstanceValueType.Float4:
+                    nativeGraph.SetInputFloat4(Index, Float4Value);
+                    return;
+                case SubstanceValueType.Int:
+                    nativeGraph.SetInputInt(Index, IntValue);
+                    return;
+                case SubstanceValueType.Int2:
+                    nativeGraph.SetInputInt2(Index, Int2Value);
+                    return;
+                case SubstanceValueType.Int3:
+                    nativeGraph.SetInputInt3(Index, Int3Value);
+                    return;
+                case SubstanceValueType.Int4:
+                    nativeGraph.SetInputInt4(Index, Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w);
+                    return;
+                case SubstanceValueType.String:
+                    nativeGraph.SetInputString(Index, StringValue);
+                    return;
+                case SubstanceValueType.Image:
+                    if (TextureValue == null)
+                    {
+                        nativeGraph.SetInputTexture2DNull(Index);
+                        return;
+                    }
+                    else
+                    {
+                        await nativeGraph.SetInputTextureGPUAsync(Index, TextureValue);
+                    }
+                    break;
+            }
         }
     }
 }

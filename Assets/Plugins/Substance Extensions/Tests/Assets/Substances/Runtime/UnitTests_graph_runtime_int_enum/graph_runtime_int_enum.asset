@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: graph_runtime_int_enum
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Runtime/UnitTests.sbsar
+  OutputPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Runtime/UnitTests_graph_runtime_int_enum
+  RawData: {fileID: -244192453324840774, guid: 5136ee6aee06046d4b5032a82d9c2824, type: 3}
+  Name: graph_runtime_int_enum
+  IsRoot: 1
+  FlagedForDelete: 0
+  GUID: 1999a197-9f8a-451d-aa4c-81409ab395a9
+  Index: 9
+  Input:
+  - rid: 1000
+  - rid: 1001
+  - rid: 1002
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 1
+    Description:
+      Identifier: basecolor
+      Label: basecolor
+      Index: 0
+      Type: 8
+      Channel: baseColor
+    OutputTexture: {fileID: 0}
+    sRGB: 1
+    IsVirtual: 0
+    IsStandardOutput: 1
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  HasThumbnail: 0
+  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://Int_Enum\" label=\"\" >\n  <presetinput
+    identifier=\"$outputsize\" uid=\"3578507854\" type=\"8\" value=\"9,9\" />\n 
+    <presetinput identifier=\"shape\" uid=\"3096757534\" type=\"4\" value=\"2\" />\n
+    </sbspreset>\n"
+  IsRuntimeOnly: 1
+  GenerateAllOutputs: 0
+  GenerateAllMipmaps: 1
+  OutputMaterial: {fileID: 2100000, guid: 19de97bef272147c28461c36c350a133, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://Int_Enum\" label=\"\" >\n  <presetinput
+    identifier=\"$outputsize\" uid=\"3578507854\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+  MaterialShader: Standard
+  RenderTextures: 0
+  OutputRemaped: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 0
+        Description:
+          Identifier: $outputsize
+          Label: $outputsize
+          GuiGroup: 
+          GuiDescription: 
+          Type: 5
+          WidgetType: 0
+        Data: {x: 9, y: 9}
+        NumericalDescription:
+          DefaultValue: {x: 8, y: 8}
+          MinValue: {x: 0, y: 0}
+          MaxValue: {x: 1, y: 1}
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1001
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 1
+        Description:
+          Identifier: $randomseed
+          Label: $randomseed
+          GuiGroup: 
+          GuiDescription: 
+          Type: 4
+          WidgetType: 0
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1002
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 2
+        Description:
+          Identifier: shape
+          Label: Shape
+          GuiGroup: 
+          GuiDescription: 
+          Type: 4
+          WidgetType: 5
+        Data: 2
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 4
+          EnumValues:
+          - Value: 1
+            Label: Star
+          - Value: 2
+            Label: Square
+          - Value: 3
+            Label: Circle
+          - Value: 4
+            Label: Gradient

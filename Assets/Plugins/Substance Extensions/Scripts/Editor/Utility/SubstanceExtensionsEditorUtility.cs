@@ -25,24 +25,24 @@ namespace SOS.SubstanceExtensionsEditor
             public class Matrix
             {
                 public static readonly GUIContent RotationLabel = new GUIContent("Rotation");
-                public static readonly GUIContent RotationAngleLabel = new GUIContent("Angle");
-                public static readonly GUIContent RotationApplyLabel = new GUIContent("Apply Angle");
-                public static readonly GUIContent Rotation180Label = new GUIContent("180");
-                public static readonly GUIContent Rotaiton90Label_CW = new GUIContent("90 cw");
-                public static readonly GUIContent Rotation90Label_CCW = new GUIContent("90 ccw");
+                public static readonly GUIContent RotationAngleLabel = new GUIContent("Angle", "Degrees (counterclockwise) to rotate the current matrix value by.");
+                public static readonly GUIContent RotationApplyLabel = new GUIContent("Apply Angle", "Apply the given angle (counterclockwise, in degrees) to the current matrix value.");
+                public static readonly GUIContent Rotation180Label = new GUIContent("180", "Rotate the current matrix 180 degrees.");
+                public static readonly GUIContent Rotaiton90Label_CW = new GUIContent("90 cw", "Rotate the current matrix 90 degrees clockwise.");
+                public static readonly GUIContent Rotation90Label_CCW = new GUIContent("90 ccw", "Rotate the current matrix 90 degrees counterclockwise.");
                 public static readonly GUIContent StretchLabel = new GUIContent("Stretch");
                 public static readonly GUIContent StretchWidthLabel = new GUIContent("Width");
                 public static readonly GUIContent StretchHeightLabel = new GUIContent("Height");
-                public static readonly GUIContent StretchApplyWidthLabel = new GUIContent("Apply Width");
-                public static readonly GUIContent StretchApplyHeightLabel = new GUIContent("Apply Height");
+                public static readonly GUIContent StretchApplyWidthLabel = new GUIContent("Apply Width", "Apply the given stretch width percentage to the current matrix value.");
+                public static readonly GUIContent StretchApplyHeightLabel = new GUIContent("Apply Height", "Apply the given stretch height percentage to the current matrix value.");
                 public static readonly GUIContent StretchPercentLabel = new GUIContent("%");
                 //Misc
-                public static readonly GUIContent MirrorHorizontalLabel = new GUIContent("Hori Mirror");
-                public static readonly GUIContent MirrorVerticalLabel = new GUIContent("Vert Mirror");
-                public static readonly GUIContent Mul2Label = new GUIContent("x2");
-                public static readonly GUIContent Div2Label = new GUIContent("/2");
+                public static readonly GUIContent MirrorHorizontalLabel = new GUIContent("Hori Mirror", "Mirror the current matrix value horizontally.");
+                public static readonly GUIContent MirrorVerticalLabel = new GUIContent("Vert Mirror", "Mirror the current matrix value vertically.");
+                public static readonly GUIContent Mul2Label = new GUIContent("x2", "Multiply the current matrix value by 2.");
+                public static readonly GUIContent Div2Label = new GUIContent("/2", "Divide the current matrix value by 2.");
                 //Swap
-                public static readonly GUIContent SwapMatrixLabel = new GUIContent("Edit Matrix Values");
+                public static readonly GUIContent SwapMatrixLabel = new GUIContent("Edit Matrix Values", "Edit the raw Float4 value of the matrix.");
                 public static readonly GUIContent SwapRawLabel = new GUIContent("Back");
                 //Raw Matrix
                 public static GUIContent RawMatrixX1Label = new GUIContent("X1");

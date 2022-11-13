@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks;
 using Adobe.Substance;
 using SOS.SubstanceExtensions;
 
@@ -28,12 +29,39 @@ namespace SOS.SubstanceExtensions.Tests
             }
         }
 
+
+        public async Task SetDefaultValuesAsync(SubstanceNativeGraph handler)
+        {
+            Task[] tasks = new Task[defaultValues.Length];
+
+            for(int i=0; i < defaultValues.Length; i++)
+            {
+                tasks[i] = defaultValues[i].SetValueAsync(handler);
+            }
+
+            await Task.WhenAll(tasks);
+        }
+
+
         public void SetRenderValues(SubstanceNativeGraph handler)
         {
-            for(int i = 0; i < renderValues.Length; i++)
+            for(int i=0; i < renderValues.Length; i++)
             {
                 renderValues[i].SetValue(handler);
             }
+        }
+
+
+        public async Task SetRenderValuesAsync(SubstanceNativeGraph handler)
+        {
+            Task[] tasks = new Task[renderValues.Length];
+
+            for(int i=0; i < renderValues.Length; i++)
+            {
+                tasks[i] = renderValues[i].SetValueAsync(handler);
+            }
+
+            await Task.WhenAll(tasks);
         }
     }
 }

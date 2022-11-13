@@ -14,6 +14,7 @@ namespace SOS.SubstanceExtensions.Tests
 {
     public class SubstanceGraphRuntimeTests
     {
+        //private const float kValidationTimeout = 30f;
         private const string kNoAssetWarning = "No test asset exists.";
         private const string kNoSceneWarning = "No test scene has been set up.";
         private const string kValidationInvalidMessage = "Validation test manually failed!.";
@@ -153,6 +154,64 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
+        private IEnumerator TestGroupAsyncCoroutine(SubstanceGraphRuntimeTestGroup testGroup)
+        {
+            while (!testSceneLoaded) yield return null;
+
+            confirmationView.ShowResults(testGroup.expectedVisual, testAsset.PlaceholderRenderTexture, "", null);
+
+            SubstanceGraphSO testGraph = testGroup.substance;
+            SubstanceNativeGraph nativeGraph = GetNativeGraph(testGraph);
+            bool wait = true;
+
+            TestGroupDefaultsAsync(testGroup, nativeGraph, () => { wait = false; });
+
+            while (wait) yield return null;
+
+            wait = true;
+
+            TestGroupRendersAsync(testGroup, nativeGraph, () => { wait = false; });
+
+            while (wait) yield return null;
+
+            IntPtr renderResult = nativeGraph.Render();
+
+            while(nativeGraph.InRenderWork) yield return null;
+
+            testGraph.UpdateOutputTextures(renderResult);
+
+            wait = true;
+            int validationStatus = 0;
+
+            //Allow and wait for user input.
+            confirmationView.ShowResults(testGroup.expectedVisual, testGraph.GetOutputMap(testGroup.resultOutput.Name), testGroup.notes, (status) =>
+            {
+                validationStatus = status;
+                wait = false;
+            });
+
+            while(wait) yield return null;
+
+            AssertValidationStatus(validationStatus);
+        }
+
+
+        private async void TestGroupDefaultsAsync(SubstanceGraphRuntimeTestGroup testGroup, SubstanceNativeGraph nativeGraph, System.Action callback)
+        {
+            await testGroup.SetDefaultValuesAsync(nativeGraph);
+
+            callback.Invoke();
+        }
+
+
+        private async void TestGroupRendersAsync(SubstanceGraphRuntimeTestGroup testGroup, SubstanceNativeGraph nativeGraph, System.Action callback)
+        {
+            await testGroup.SetRenderValuesAsync(nativeGraph);
+
+            callback.Invoke();
+        }
+
+
         [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a string parameter can be set and looks correct after rendering.")]
         public IEnumerator StringTest()
         {
@@ -163,6 +222,231 @@ namespace SOS.SubstanceExtensions.Tests
             }
 
             SubstanceGraphRuntimeTestGroup testGroup = testAsset.StringTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a bool parameter can be set and looks correct after rendering.")]
+        public IEnumerator BoolTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.BoolTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an enum parameter can be set and looks correct after rendering.")]
+        public IEnumerator EnumTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.EnumTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int parameter can be set and looks correct after rendering.")]
+        public IEnumerator IntTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.IntTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int2 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Int2Test()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Int2Test;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int3 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Int3Test()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Int3Test;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an int4 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Int4Test()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Int4Test;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float parameter can be set and looks correct after rendering.")]
+        public IEnumerator FloatTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.FloatTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float2 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Float2Test()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Float2Test;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a float3 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Float3Test()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Float3Test;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a color float4 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Float4ColorTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Float4ColorTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a matrix float4 parameter can be set and looks correct after rendering.")]
+        public IEnumerator Float4MatrixTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.Float4MatrixTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a CPU based read/write enabled texture parameter can be set and looks correct after rendering.")]
+        public IEnumerator TextureCPUTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.TextureCPUTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if a GPU based texture parameter can be set and looks correct after rendering.")]
+        public IEnumerator TextureGPUTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.TextureGPUTest;
+
+            yield return TestGroupAsyncCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an $outputsize parameter can be set and looks correct after rendering.")]
+        public IEnumerator OutputSizeTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.OutputSizeTest;
+
+            yield return TestGroupCoroutine(testGroup);
+        }
+
+
+        [UnityTest, TestOf(typeof(SubstanceGraphExtensions)), Author("Chris Ingerson"), Description("Tests if an $randomseed parameter can be set and looks correct after rendering.")]
+        public IEnumerator RandomSeedTest()
+        {
+            if (breakoutOfTests)
+            {
+                Assert.Ignore(breakoutMessage);
+                yield break;
+            }
+
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.RandomSeedTest;
 
             yield return TestGroupCoroutine(testGroup);
         }

@@ -556,7 +556,7 @@ namespace SOS.SubstanceExtensionsEditor
                                 position.y += position.height + EditorGUIUtility.standardVerticalSpacing;
                                 int3Val.y = EditorGUI.IntSlider(position, Labels.YLabel, int3Val.y, int3Min.y, int3Max.y);
                                 position.y += position.height + EditorGUIUtility.standardVerticalSpacing;
-                                int3Val.z = EditorGUI.IntSlider(position, Labels.WLabel, int3Val.z, int3Min.z, int3Max.z);
+                                int3Val.z = EditorGUI.IntSlider(position, Labels.ZLabel, int3Val.z, int3Min.z, int3Max.z);
                             }
                             else
                             {

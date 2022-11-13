@@ -35,14 +35,19 @@ namespace SOS.SubstanceExtensions.Tests
         private SubstanceGraphRuntimeTestGroup float2Test = new SubstanceGraphRuntimeTestGroup();
         [SerializeField, Tooltip("Data for a unit test of a render focused on a float3 parameter.")]
         private SubstanceGraphRuntimeTestGroup float3Test = new SubstanceGraphRuntimeTestGroup();
-        [SerializeField, Tooltip("Data for a unit test of a render focused on a float4 parameter.")]
-        private SubstanceGraphRuntimeTestGroup float4Test = new SubstanceGraphRuntimeTestGroup();
-        [SerializeField, Tooltip("Data for a unit test of a render focused on a texture parameter.")]
-        private SubstanceGraphRuntimeTestGroup textureTest = new SubstanceGraphRuntimeTestGroup();
+        [SerializeField, Tooltip("Data for a unit test of a render focused on a color float4 parameter.")]
+        private SubstanceGraphRuntimeTestGroup float4ColorTest = new SubstanceGraphRuntimeTestGroup();
+        [SerializeField, Tooltip("Data for a unit test of a render focused on a matrix float4 parameter.")]
+        private SubstanceGraphRuntimeTestGroup float4MatrixTest = new SubstanceGraphRuntimeTestGroup();
+        [SerializeField, Tooltip("Data for a unit test of a render focused on a CPU texture parameter.")]
+        private SubstanceGraphRuntimeTestGroup textureCPUTest = new SubstanceGraphRuntimeTestGroup();
+        [SerializeField, Tooltip("Data for a unit test of a render focused on a GPU texture parameter.")]
+        private SubstanceGraphRuntimeTestGroup textureGPUTest = new SubstanceGraphRuntimeTestGroup();
         [SerializeField, Tooltip("Data for a unit test of a render focused on an output size parameter.")]
         private SubstanceGraphRuntimeTestGroup outputSizeTest = new SubstanceGraphRuntimeTestGroup();
         [SerializeField, Tooltip("Data for a unit test of a render focused on a random seed parameter.")]
         private SubstanceGraphRuntimeTestGroup randomSeedTest = new SubstanceGraphRuntimeTestGroup();
+        //TODO: $time test?
 
         private static SubstanceGraphRuntimeTestAsset instance = null;
 
@@ -80,8 +85,8 @@ namespace SOS.SubstanceExtensions.Tests
                 {
                     stringTest, boolTest, enumTest,
                     intTest, int2Test, int3Test, Int4Test,
-                    floatTest, float2Test, float3Test, float4Test,
-                    textureTest, outputSizeTest, randomSeedTest
+                    floatTest, float2Test, float3Test, float4ColorTest,
+                    textureCPUTest, outputSizeTest, randomSeedTest
                 };
             }
         }
@@ -152,15 +157,27 @@ namespace SOS.SubstanceExtensions.Tests
         }
 
 
-        public SubstanceGraphRuntimeTestGroup Float4Test
+        public SubstanceGraphRuntimeTestGroup Float4ColorTest
         {
-            get { return float4Test; }
+            get { return float4ColorTest; }
         }
 
 
-        public SubstanceGraphRuntimeTestGroup TextureTest
+        public SubstanceGraphRuntimeTestGroup Float4MatrixTest
         {
-            get { return textureTest; }
+            get { return float4MatrixTest; }
+        }
+
+
+        public SubstanceGraphRuntimeTestGroup TextureCPUTest
+        {
+            get { return textureCPUTest; }
+        }
+
+
+        public SubstanceGraphRuntimeTestGroup TextureGPUTest
+        {
+            get { return textureGPUTest; }
         }
 
 
