@@ -6,15 +6,15 @@ namespace SOS.SubstanceExtensions
     public class SubstanceTest : MonoBehaviour
     {
         [SerializeField]
-        private SubstanceFileSO substanceGraph = null;
+        public SubstanceFileSO substanceGraph = null;
         [SerializeField]
-        private SubstanceParameter parameter = new SubstanceParameter();
+        public SubstanceParameter parameter = new SubstanceParameter();
         [SerializeField]
-        private SubstanceParameterValue paramValue = new SubstanceParameterValue();
+        public SubstanceParameterValue paramValue = new SubstanceParameterValue();
         [SerializeField]
-        private SubstanceOutput output = new SubstanceOutput();
+        public SubstanceOutput output = new SubstanceOutput();
         [SerializeField, TransformMatrix]
-        private Vector4 transformMatrix = new Vector4(1, 0, 0, 1);
+        public Vector4 transformMatrix = new Vector4(1, 0, 0, 1);
 
 
         private void UpdateSubstance()

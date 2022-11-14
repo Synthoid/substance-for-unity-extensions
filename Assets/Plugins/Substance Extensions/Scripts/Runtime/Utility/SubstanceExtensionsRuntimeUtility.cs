@@ -1,4 +1,8 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
+using Adobe.Substance;
+using UnityEditor.Graphs;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,28 +15,28 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     public static class SubstanceExtensionsRuntimeUtility
     {
-#region Utility
+        #region Utility
 
         public class FileData
         {
             public class Names
             {
-                public const string EngineLinux = "libsubstance_ogl3_blend.so";
-                public const string EngineMacOS = "libsubstance_ogl3_blend.dylib";
-                public const string EngineWindows = "substance_d3d11pc_blend.dll";
-                public const string PluginLinux = "libsbsario.so";
-                public const string PluginMacOS = "libsbsario.dylib";
-                public const string PluginWindows = "sbsario.dll";
+                public const string kEngineLinux = "libsubstance_ogl3_blend.so";
+                public const string kEngineMacOS = "libsubstance_mtl_blend.dylib";
+                public const string kEngineWindows = "substance_d3d11pc_blend.dll";
+                public const string kPluginLinux = "libsbsario.so";
+                public const string kPluginMacOS = "libsbsario.dylib";
+                public const string kPluginWindows = "sbsario.dll";
             }
 
             public class GUIDs
             {
-                public const string EngineLinux = "659d27409e79e7740ad0aebc20f2090f";
-                public const string EngineMacOS = "80f5b5aab5950443fbafbe1cfbdb4d08";
-                public const string EngineWindows = "4d93358a4514fe54981d37196b1bb9c7";
-                public const string PluginLinux = "9b40b6fe75dcdffaf9b0b0db569525bd";
-                public const string PluginMacOS = "e913fe577a00848c58367b3e775b8a2c";
-                public const string PluginWindows = "6e45d854f55a342e6b904a84e42d4e69";
+                public const string kEngineLinux = "659d27409e79e7740ad0aebc20f2090f";
+                public const string kEngineMacOS = "576b1a9b12cf24674bcf8e9a334f688c";
+                public const string kEngineWindows = "4d93358a4514fe54981d37196b1bb9c7";
+                public const string kPluginLinux = "9b40b6fe75dcdffaf9b0b0db569525bd";
+                public const string kPluginMacOS = "e913fe577a00848c58367b3e775b8a2c";
+                public const string kPluginWindows = "6e45d854f55a342e6b904a84e42d4e69";
             }
         }
 
@@ -45,12 +49,21 @@ namespace SOS.SubstanceExtensions
 
         #region Plugin Loading
 
+
 #if UNITY_EDITOR
-        [MenuItem("Window/SOS/Substance/Log Plugin Paths")]
+        [MenuItem("Window/SOS/Substance/Log Plugin Paths (Adobe)")]
 #endif
-        public static void LogPluginPaths()
+        public static void LogPluginPathsAdobe()
         {
-            Debug.Log($"Substance Engine and Plugin Info\nEngine (local): {GetEngineLocalPath()}\nPlugin (local): {GetPluginLocalPath()}\nEngine (absolute): {GetEnginePath()}\nPlugin (absolute): {GetPluginPath()}");
+            Debug.Log($"Substance Engine and Plugin Info (Adobe)\nEngine (absolute): {PlatformUtils.GetEnginePath()}\nPlugin (absolute): {PlatformUtils.GetPluginPath()}");
+        }
+
+#if UNITY_EDITOR
+        [MenuItem("Window/SOS/Substance/Log Plugin Paths (Custom)")]
+#endif
+        public static void LogPluginPathsCustom()
+        {
+            Debug.Log($"Substance Engine and Plugin Info (Custom)\nEngine (local): {GetEngineLocalPath()}\nPlugin (local): {GetPluginLocalPath()}\nEngine (absolute): {GetEnginePath()}\nPlugin (absolute): {GetPluginPath()}");
         }
 
         /// <summary>
@@ -63,13 +76,22 @@ namespace SOS.SubstanceExtensions
             {
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.LinuxPlayer:
-                    return FileData.Names.EngineLinux;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.LinuxServer:
+#endif
+                    return FileData.Names.kEngineLinux;
                 case RuntimePlatform.OSXEditor:
                 case RuntimePlatform.OSXPlayer:
-                    return FileData.Names.EngineMacOS;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.OSXServer:
+#endif
+                    return FileData.Names.kEngineMacOS;
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.WindowsPlayer:
-                    return FileData.Names.EngineWindows;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.WindowsServer:
+#endif
+                    return FileData.Names.kEngineWindows;
             }
 
             return string.Empty;
@@ -85,13 +107,22 @@ namespace SOS.SubstanceExtensions
             {
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.LinuxPlayer:
-                    return FileData.GUIDs.EngineLinux;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.LinuxServer:
+#endif
+                    return FileData.GUIDs.kEngineLinux;
                 case RuntimePlatform.OSXEditor:
                 case RuntimePlatform.OSXPlayer:
-                    return FileData.GUIDs.EngineMacOS;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.OSXServer:
+#endif
+                    return FileData.GUIDs.kEngineMacOS;
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.WindowsPlayer:
-                    return FileData.GUIDs.EngineWindows;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.WindowsServer:
+#endif
+                    return FileData.GUIDs.kEngineWindows;
             }
 
             return string.Empty;
@@ -156,13 +187,22 @@ namespace SOS.SubstanceExtensions
             {
                 case RuntimePlatform.LinuxPlayer:
                 case RuntimePlatform.LinuxEditor:
-                    return FileData.Names.PluginLinux;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.LinuxServer:
+#endif
+                    return FileData.Names.kPluginLinux;
                 case RuntimePlatform.OSXEditor:
                 case RuntimePlatform.OSXPlayer:
-                    return FileData.Names.PluginMacOS;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.OSXServer:
+#endif
+                    return FileData.Names.kPluginMacOS;
                 case RuntimePlatform.WindowsPlayer:
                 case RuntimePlatform.WindowsEditor:
-                    return FileData.Names.PluginWindows;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.WindowsServer:
+#endif
+                    return FileData.Names.kPluginWindows;
             }
 
             return string.Empty;
@@ -178,13 +218,22 @@ namespace SOS.SubstanceExtensions
             {
                 case RuntimePlatform.LinuxPlayer:
                 case RuntimePlatform.LinuxEditor:
-                    return FileData.GUIDs.PluginLinux;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.LinuxServer:
+#endif
+                    return FileData.GUIDs.kPluginLinux;
                 case RuntimePlatform.OSXEditor:
                 case RuntimePlatform.OSXPlayer:
-                    return FileData.GUIDs.PluginMacOS;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.OSXServer:
+#endif
+                    return FileData.GUIDs.kPluginMacOS;
                 case RuntimePlatform.WindowsPlayer:
                 case RuntimePlatform.WindowsEditor:
-                    return FileData.GUIDs.PluginWindows;
+#if UNITY_2021_3_OR_NEWER
+                case RuntimePlatform.WindowsServer:
+#endif
+                    return FileData.GUIDs.kPluginWindows;
             }
 
             return string.Empty;

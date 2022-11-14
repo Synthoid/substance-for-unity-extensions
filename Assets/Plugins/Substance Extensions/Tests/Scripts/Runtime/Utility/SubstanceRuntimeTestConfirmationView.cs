@@ -40,8 +40,8 @@ namespace SOS.SubstanceExtensions.Tests
         private const KeyCode kBreakKey = KeyCode.Escape;
 #endif
 
-        [SerializeField, Tooltip("Label displaying instructions for the current test.")]
-        private TMP_Text instructionsLabel = null;
+        //[SerializeField, Tooltip("Label displaying instructions for the current test.")]
+        //private TMP_Text instructionsLabel = null;
         [SerializeField, Tooltip("Label displaying notes for the current test.")]
         private TMP_Text notesLabel = null;
         [Header("Expected")]

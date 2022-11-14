@@ -2762,34 +2762,5 @@ namespace SOS.SubstanceExtensions
         }
 
         #endregion
-
-        #region Runtime Editing
-
-        /// <summary>
-        /// Initialize a substance for runtime and return a handler to begin editing it. Note, the returned handler must be disposed when you are done with it.
-        /// </summary>
-        /// <param name="substance">Substance to begin editing.</param>
-        /// <returns><see cref="SubstanceNativeHandler"/> controlling the substance editing.</returns>
-        public static SubstanceNativeGraph BeginRuntimeEditing(this SubstanceGraphSO substance)
-        {
-            SubstanceNativeGraph handler = Engine.OpenFile(substance.RawData.FileContent, substance.Index);
-
-            substance.RuntimeInitialize(handler, true);
-
-            /*for(int i = 0; i < substance.Instances.Count; i++)
-            {
-                substance.Instances[i].RuntimeInitialize(handler);
-            }*/
-
-            return handler;
-        }
-
-
-        public static void EndRuntimeEditing(this SubstanceGraphSO substance, SubstanceNativeGraph handler)
-        {
-            handler.Dispose();
-        }
-
-        #endregion
     }
 }

@@ -15,6 +15,9 @@ namespace SOS.SubstanceExtensions.Examples
         public void Initialize(string identifier, Texture2D texture)
         {
             previewImage.texture = texture;
+
+            previewImage.enabled = texture != null;
+
             outputIdentifierLabel.text = identifier;
             outputNameLabel.text = texture != null ? texture.name : "<NULL>";
         }

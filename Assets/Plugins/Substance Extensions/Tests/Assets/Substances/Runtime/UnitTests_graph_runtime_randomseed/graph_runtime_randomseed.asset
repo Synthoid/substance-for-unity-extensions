@@ -46,7 +46,9 @@ MonoBehaviour:
   Thumbnail: 
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://RandomSeed\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"799520594\" type=\"8\" value=\"9,9\" />\n </sbspreset>\n"
+    identifier=\"$outputsize\" uid=\"799520594\" type=\"8\" value=\"9,9\" />\n  <presetinput
+    identifier=\"$randomseed\" uid=\"2027266304\" type=\"4\" value=\"10000\" />\n
+    </sbspreset>\n"
   IsRuntimeOnly: 1
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -89,7 +91,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 0
-        Data: 0
+        Data: 10000
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0

@@ -8,25 +8,45 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private KeyCode renderKey = KeyCode.Space;
         [SerializeField]
+        private bool cacheRenderHandle = true;
+        [SerializeField]
         private SubstanceGraphSO substance = null;
-        [SerializeField]
-        private SubstanceOutput outputField = new SubstanceOutput();
-        [SerializeField]
-        private SubstanceParameterValue targetParameter = new SubstanceParameterValue();
         [SerializeField, Tooltip("Test Tooltip")]
         private SubstanceParameterValue[] targetParameters = new SubstanceParameterValue[0];
 
-        //private SubstanceNativeHandler cachedHandler = null;
+        private SubstanceNativeGraph cachedHandler = null;
 
-        private void RenderSubstance()
+        private async void RenderSubstanceAsync()
         {
-            //substance.SetInputAndRender(targetParameter);
-            //substance.SetInputsAndRender(targetParameters);
+            if(cachedHandler == null) cachedHandler = substance.BeginRuntimeEditing();
+
+            await cachedHandler.SetInputValuesAsync(targetParameters);
+
+            await substance.RenderAsync(cachedHandler);
+        }
+
+
+        private async void RenderSubstance()
+        {
+            //Debug.Log("Start render...");
+
+            //Debug.Log("Begin runtime editing...");
 
             SubstanceNativeGraph handler = substance.BeginRuntimeEditing();
-            substance.SetInputs(targetParameters);
-            substance.Render(handler);
+
+            //Debug.Log("Set input values...");
+
+            await handler.SetInputValuesAsync(targetParameters);
+
+            //Debug.Log("Render async...");
+
+            await substance.RenderAsync(handler);
+
+            //Debug.Log("Finish rendering...");
+
             substance.EndRuntimeEditing(handler);
+
+            //Debug.Log("Complete!");
 
             //TODO: Seems like directly setting parameters on the substance updates (semi) correctly.
             //But the below doesn't...
@@ -44,7 +64,7 @@ namespace SOS.SubstanceExtensions
 
         private void OnDestroy()
         {
-            //if(cachedHandler != null) cachedHandler.Dispose();
+            if(cachedHandler != null) cachedHandler.Dispose();
         }
 
 
@@ -52,7 +72,14 @@ namespace SOS.SubstanceExtensions
         {
             if(Input.GetKeyDown(renderKey))
             {
-                RenderSubstance();
+                if(cacheRenderHandle)
+                {
+                    RenderSubstanceAsync();
+                }
+                else
+                {
+                    RenderSubstance();
+                }
             }
         }
     }

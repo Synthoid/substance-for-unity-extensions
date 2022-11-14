@@ -8,7 +8,7 @@ namespace SOS.SubstanceExtensions.Examples
     /// <summary>
     /// Example class showing how to reference substance input parameters and get their values.
     /// </summary>
-    public class GetInputsExample : MonoBehaviour
+    public class GetInputValuesExample : MonoBehaviour
     {
         [SerializeField, Tooltip("Label showing output text.")]
         private Text label = null;

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Adobe.Substance;
 
@@ -11,6 +13,39 @@ namespace SOS.SubstanceExtensions
     public static class SubstanceNativeGraphExtensions
     {
         #region Set
+
+
+
+        public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
+        {
+            for (int i = 0; i < values.Count; i++)
+            {
+                values[i].SetValue(nativeGraph);
+            }
+        }
+
+
+        public static async Task SetInputValuesAsync(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
+        {
+            List<Task> tasks = new List<Task>();
+
+            for (int i = 0; i < values.Count; i++)
+            {
+                if(values[i].Type == SubstanceValueType.Image)
+                {
+                    tasks.Add(values[i].SetValueAsync(nativeGraph));
+                }
+                else
+                {
+                    values[i].SetValue(nativeGraph);
+                }
+            }
+
+            if(tasks.Count > 0)
+            {
+                await Task.WhenAll(tasks);
+            }
+        }
 
         /// <summary>
         /// Set an input value on the runtime graph.
@@ -82,6 +117,39 @@ namespace SOS.SubstanceExtensions
             }
 
             nativeGraph.SetInputTexture2D(inputID, texture.GetPixels32(), texture.width, texture.height);
+        }
+
+        #endregion
+
+        #region Render
+
+        /// <summary>
+        /// Asynchronously render the given native graph.
+        /// </summary>
+        /// <param name="nativeGraph">Native graph to render.</param>
+        /// <returns><see cref="Task"/> representing the render operaion. Task result is the result pointer for the render operation.</returns>
+        public static Task<IntPtr> RenderAsync(this SubstanceNativeGraph nativeGraph)
+        {
+            //SubstanceAsyncRenderResult result;
+            TaskCompletionSource<IntPtr> completionSource = new TaskCompletionSource<IntPtr>();
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    IntPtr renderResult = nativeGraph.Render();
+
+                    completionSource.SetResult(renderResult);
+                    //result = new SubstanceAsyncRenderResult(renderResult, null);
+                }
+                catch(Exception e)
+                {
+                    completionSource.SetException(e);
+                    //result = new SubstanceAsyncRenderResult(e);
+                }
+            });
+
+            return completionSource.Task;
         }
 
         #endregion
