@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446183eeef5834a079c824f2a4fa17fb, type: 3}
+  m_Name: Example - Runtime Control Data
+  m_EditorClassIdentifier: 
+  invalidControlPrefab: {fileID: 4046550352881571166, guid: 30e6e8f684b1b41c39bd89926864f6a6, type: 3}
+  controlGroups:
+  - valueType: 0
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 3570143788516330413, guid: 4d92aa370fbb14cb9ae15419bd3ed7af, type: 3}
+    - widget: 1
+      prefab: {fileID: 149663733, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}

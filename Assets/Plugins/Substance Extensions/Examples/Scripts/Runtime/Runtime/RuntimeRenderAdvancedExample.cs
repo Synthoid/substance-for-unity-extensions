@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using Adobe.Substance;
+using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions.Examples
 {
@@ -13,9 +15,13 @@ namespace SOS.SubstanceExtensions.Examples
         private Toggle autoRenderToggle = null;
         [SerializeField]
         private Button renderButton = null;
-        //TODO: Runtime UI controls for parameters.
+        [SerializeField]
+        private RectTransform controlsParent = null;
+        [SerializeField, Tooltip("Asset containing data for spawnable controls.")]
+        private RuntimeParameterControlsAsset controlsData = null;
 
         private SubstanceNativeGraph nativeGraph = null;
+        private List<RuntimeParameterControl> controls = new List<RuntimeParameterControl>();
 
         private bool AutoRender
         {
@@ -28,12 +34,36 @@ namespace SOS.SubstanceExtensions.Examples
             //Initialize substance...
             if(nativeGraph == null) nativeGraph = substance.BeginRuntimeEditing();
 
-            //TODO: Set input values
-
             //Render substance...
             await substance.RenderAsync(nativeGraph);
 
             //TODO: Add label for showing starting render, setting inputs, rendering, complete.
+        }
+
+
+        private void SetupInputControls()
+        {
+            if(substance == null || controlsData == null) return;
+            if(nativeGraph == null) nativeGraph = substance.BeginRuntimeEditing();
+
+            List<ISubstanceInput> inputs = substance.Input;
+
+            for(int i=0; i < inputs.Count; i++)
+            {
+                RuntimeParameterControl controlPrefab = controlsData.GetControlPrefab(inputs[i]);
+                RuntimeParameterControl control = Instantiate<RuntimeParameterControl>(controlPrefab, controlsParent);
+
+                control.Initialize(nativeGraph, inputs[i]);
+                control.onValueChanged.AddListener(OnControlValueChanged);
+
+                controls.Add(control);
+            }
+        }
+
+
+        private void OnControlValueChanged()
+        {
+            if(AutoRender) OnRenderClicked();
         }
 
 
@@ -57,7 +87,12 @@ namespace SOS.SubstanceExtensions.Examples
 
         private void Start()
         {
+            autoRenderToggle.onValueChanged.AddListener(OnAutoRenderToggled);
+            renderButton.onClick.AddListener(OnRenderClicked);
+
             renderButton.interactable = !AutoRender;
+
+            SetupInputControls();
         }
     }
 }
