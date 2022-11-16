@@ -31,13 +31,11 @@ namespace SOS.SubstanceExtensions.Examples
 
         private async void RenderSubstanceAsync()
         {
-            //Initialize substance...
+            //Initialize substance if needed...
             if(nativeGraph == null) nativeGraph = substance.BeginRuntimeEditing();
 
             //Render substance...
             await substance.RenderAsync(nativeGraph);
-
-            //TODO: Add label for showing starting render, setting inputs, rendering, complete.
         }
 
 

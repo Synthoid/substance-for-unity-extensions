@@ -3,6 +3,32 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.340.0] - 2022-11-16
+
+### Added
+- Unit tests for interacting with substance assets and runtime graphs.
+- Extension methods for SubstanceGraphSO and SubstanceNativeGraph to streamline runtime rendering.
+- Extension methods for SubstanceNativeGraph to set Texture input values synchronously with CPU textures (read/write enabled) and asynchronously with GPU textures.
+- TransformMatrixAttribute for drawing Vector4 fields in a similar manner to SubstanceDesigner's matrix attribute fields.
+- FloatExtensions and VectorExtensions classes.
+- Example scenes showcasing extension code functionality.
+
+### Changed
+- Updated supported plugin version to 3.3.4 release.
+- SubstanceParameter and SubstanceOutput now target SubstanceGraphSO instead of SubstanceFileSO assets.
+- SubstanceParameter and SubstanceOutput popup search windows now display the name of the graph being interacted with.
+- SubstanceParameter and SubstanceParameterValue now display input types and identifiers as part of their labels.
+- SubstanceOutput now displays output identifier and channel information as part of its labels.
+- Moved existing test substances to Tests folder.
+- None options in controls are now stylized as "<None>" to separate them from possible actual values called "None".
+
+### Fixed
+- SubstanceParameterValue inspector for Int3 values now uses XYZ labels instead of XYW.
+- Inspector indenting no longer breaks SubstanceParameter or SubstanceOutput inspector visuals.
+
+### Removed
+- SubstanceFileExtensions.cs as its functionality should be instead accessed through SubstanceGraphExtensions.cs now.
+
 ## [0.1.1] - 2022-06-09
 
 ### Added

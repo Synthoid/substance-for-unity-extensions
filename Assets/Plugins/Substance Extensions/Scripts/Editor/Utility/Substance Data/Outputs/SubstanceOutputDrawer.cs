@@ -102,7 +102,7 @@ namespace SOS.SubstanceExtensionsEditor
                             outputs[index].Description.Identifier);
 
                         newLabels.Add(label);
-                        parameters.Add(new SubstanceOutputData(outputs[index])); //TODO: This will break for labels with the same values, ie $outputSize
+                        parameters.Add(new SubstanceOutputData(outputs[index]));
                     }
                 }
                 else

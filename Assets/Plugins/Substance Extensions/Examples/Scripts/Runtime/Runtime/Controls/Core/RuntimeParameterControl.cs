@@ -13,10 +13,54 @@ namespace SOS.SubstanceExtensions.Examples
 
         protected const string kNumberFormat = "0.0";
 
+        [SerializeField]
+        protected InputControlLogic.InputLogicType type = InputControlLogic.InputLogicType.None;
+        [SerializeField]
+        protected InputControlLogic logic = null;
         [SerializeField, Tooltip("Label for the control. Show's the bound input's label value.")]
         protected Text label = null;
         [SerializeField, Tooltip("Invoked when the control's value is changed.")]
         protected ControlEvent m_OnValueChanged = new ControlEvent();
+
+        public InputControlLogic Logic
+        {
+            get
+            {
+                if(logic == null)
+                {
+                    switch(type)
+                    {
+                        case InputControlLogic.InputLogicType.Float:
+                            logic = ScriptableObject.CreateInstance<FloatInputControlLogic>();
+                            break;
+                        case InputControlLogic.InputLogicType.Float2:
+                            break;
+                        case InputControlLogic.InputLogicType.Float3:
+                            break;
+                        case InputControlLogic.InputLogicType.Float4:
+                            break;
+                        case InputControlLogic.InputLogicType.Int:
+                            logic = ScriptableObject.CreateInstance<IntegerInputControlLogic>();
+                            break;
+                        case InputControlLogic.InputLogicType.Int2:
+                            break;
+                        case InputControlLogic.InputLogicType.Int3:
+                            break;
+                        case InputControlLogic.InputLogicType.Int4:
+                            break;
+                        case InputControlLogic.InputLogicType.String:
+                            logic = ScriptableObject.CreateInstance<StringInputControlLogic>();
+                            break;
+                        case InputControlLogic.InputLogicType.Texture:
+                            break;
+                    }
+
+                    if(logic == null) logic = ScriptableObject.CreateInstance<InvalidControlLogic>();
+                }
+
+                return logic;
+            }
+        }
 
         public ControlEvent onValueChanged
         {
@@ -24,23 +68,33 @@ namespace SOS.SubstanceExtensions.Examples
             set { m_OnValueChanged = value; }
         }
 
-        public SubstanceNativeGraph CachedNativeGraph { get; protected set; }
-        public int InputIndex { get; protected set; }
+        //public SubstanceNativeGraph CachedNativeGraph { get; protected set; }
+        //public int InputIndex { get; protected set; }
 
         /// <summary>
         /// Get the bound input value on the native graph.
         /// </summary>
         /// <returns>object representing the current value on the cached native graph's target input.</returns>
-        public abstract object GetInputValueRaw();
+        public virtual object GetInputValueRaw()
+        {
+            return Logic.GetInputValueRaw();
+        }
         /// <summary>
         /// Set the bound input value on the native graph.
         /// </summary>
-        public abstract void SetInputValue();
+        public virtual void SetInputValue()
+        {
+            Logic.SetInputValueFromControl(this);
+            Logic.SetInputValue();
+            onValueChanged.Invoke();
+        }
 
         public virtual void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
-            CachedNativeGraph = nativeGraph;
-            InputIndex = input.Index;
+            //CachedNativeGraph = nativeGraph;
+            //InputIndex = input.Index;
+            Logic.Initialize(nativeGraph, input);
+            Logic.SetControlValues(this);
 
             label.text = input.Description.Label;
         }
@@ -48,47 +102,7 @@ namespace SOS.SubstanceExtensions.Examples
 
         public void Cleanup()
         {
-            CachedNativeGraph = null;
-        }
-    }
-
-
-    public abstract class RuntimeParameterControl<T> : RuntimeParameterControl
-    {
-        protected T value;
-
-        public virtual T Value
-        {
-            get { return value; }
-            protected set
-            {
-                this.value = value;
-
-                SetInputValue();
-
-                onValueChanged.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// Get the bound input value on the native graph.
-        /// </summary>
-        /// <returns>Cast value representing the current value on the cached native graph's target input.</returns>
-        public abstract T GetInputValue();
-
-        /// <summary>
-        /// Update the visuals for the control without firing any events.
-        /// </summary>
-        /// <param name="value">New value for the control.</param>
-        public virtual void SetValueWithoutNotify(T value)
-        {
-            this.value = value;
-        }
-
-
-        public override object GetInputValueRaw()
-        {
-            return GetInputValue();
+            if(logic) logic.Release();
         }
     }
 }

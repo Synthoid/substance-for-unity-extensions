@@ -18,6 +18,18 @@ MonoBehaviour:
     defaultControl: 0
     controls:
     - widget: 0
-      prefab: {fileID: 3570143788516330413, guid: 4d92aa370fbb14cb9ae15419bd3ed7af, type: 3}
+      prefab: {fileID: 8087868851485436916, guid: 5bfde7324f77949b99fdc783e928d8fa, type: 3}
     - widget: 1
-      prefab: {fileID: 149663733, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      prefab: {fileID: 9039487249304320964, guid: 07f44f288114e4ed9a5fe778bfa04cb9, type: 3}
+  - valueType: 4
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 5747489417622162079, guid: cf38376b9a7c04d708c27e73bf8b3290, type: 3}
+    - widget: 1
+      prefab: {fileID: 5636562070571403443, guid: bbd18163e9b3a4ccba962eeb305f5225, type: 3}
+  - valueType: 9
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 1266319818428090269, guid: fa99bc5be23d5461793e2cf143ec92e5, type: 3}

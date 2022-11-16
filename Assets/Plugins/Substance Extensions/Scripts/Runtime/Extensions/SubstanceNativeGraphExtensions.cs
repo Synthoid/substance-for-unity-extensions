@@ -130,7 +130,6 @@ namespace SOS.SubstanceExtensions
         /// <returns><see cref="Task"/> representing the render operaion. Task result is the result pointer for the render operation.</returns>
         public static Task<IntPtr> RenderAsync(this SubstanceNativeGraph nativeGraph)
         {
-            //SubstanceAsyncRenderResult result;
             TaskCompletionSource<IntPtr> completionSource = new TaskCompletionSource<IntPtr>();
 
             Task.Run(() =>
@@ -140,12 +139,10 @@ namespace SOS.SubstanceExtensions
                     IntPtr renderResult = nativeGraph.Render();
 
                     completionSource.SetResult(renderResult);
-                    //result = new SubstanceAsyncRenderResult(renderResult, null);
                 }
                 catch(Exception e)
                 {
                     completionSource.SetException(e);
-                    //result = new SubstanceAsyncRenderResult(e);
                 }
             });
 
