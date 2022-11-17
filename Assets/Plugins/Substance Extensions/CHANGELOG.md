@@ -3,17 +3,20 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [0.340.0] - 2022-11-16
+## [Unreleased]
+
+## [0.340.0] - 2022-11-17
 
 ### Added
-- Unit tests for interacting with substance assets and runtime graphs.
 - Extension methods for SubstanceGraphSO and SubstanceNativeGraph to streamline runtime rendering.
 - Extension methods for SubstanceNativeGraph to set Texture input values synchronously with CPU textures (read/write enabled) and asynchronously with GPU textures.
 - Convenience extension methods for working with Vector4Int values in native graph and input classes.
 - TransformMatrixAttribute for drawing Vector4 fields in a similar manner to SubstanceDesigner's matrix attribute fields.
 - FloatExtensions and VectorExtensions classes.
-- Example scenes showcasing extension code functionality.
 - Vector4Int constructor that accepts an array of ints.
+- RuntimeGraphOnlyAttribute to show a warning when referencing SubstanceGraphSO assets that are not marked as runtime only.
+- Example scenes showcasing extension code functionality.
+- Unit tests for interacting with substance assets and runtime graphs.
 
 ### Changed
 - Updated supported plugin version to 3.3.4 release.
