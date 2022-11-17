@@ -100,16 +100,61 @@ namespace SOS.SubstanceExtensions
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get { return x * x + y * y + z * z + w * w; }
-		}
+        }
 
-		/// <summary>
-		/// Creates a new vector with the given x, y, z, w components.
-		/// </summary>
-		/// <param name="x">X component of the vector.</param>
-		/// <param name="y">Y component of the vector.</param>
-		/// <param name="z">Z component of the vector.</param>
-		/// <param name="w">W component of the vector.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <summary>
+        /// Creates a new vector with the given int array.
+        /// </summary>
+        /// <param name="values">Array containing vector values.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4Int(int[] values)
+        {
+			if(values.Length >= 4)
+			{
+                x = values[0];
+                y = values[1];
+                z = values[2];
+                w = values[3];
+				return;
+            }
+
+			switch(values.Length)
+			{
+				case 3:
+					x = values[0];
+                    y = values[1];
+                    z = values[2];
+					w = 0;
+                    break;
+				case 2:
+                    x = values[0];
+                    y = values[1];
+					z = 0;
+					w = 0;
+                    break;
+                case 1:
+                    x = values[0];
+                    y = 0;
+                    z = 0;
+                    w = 0;
+                    break;
+                default:
+                    x = 0;
+                    y = 0;
+                    z = 0;
+                    w = 0;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new vector with the given x, y, z, w components.
+        /// </summary>
+        /// <param name="x">X component of the vector.</param>
+        /// <param name="y">Y component of the vector.</param>
+        /// <param name="z">Z component of the vector.</param>
+        /// <param name="w">W component of the vector.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public Vector4Int(int x, int y, int z, int w)
         {
 			this.x = x;

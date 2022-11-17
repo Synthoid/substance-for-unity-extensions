@@ -6,6 +6,9 @@ using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions.Examples
 {
+    /// <summary>
+    /// Example script showing how to set up UI for controlling substance input parameter values at and rendering graphs at runtime.
+    /// </summary>
     public class RuntimeRenderAdvancedExample : MonoBehaviour
     {
         [SerializeField]

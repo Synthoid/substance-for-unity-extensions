@@ -11,7 +11,7 @@ namespace SOS.SubstanceExtensions.Examples
         [System.Serializable]
         public class ControlEvent : UnityEvent { }
 
-        protected const string kNumberFormat = "0.0";
+        protected const string kNumberFormat = "G2";
 
         [SerializeField]
         protected InputControlLogic.InputLogicType type = InputControlLogic.InputLogicType.None;
@@ -19,6 +19,8 @@ namespace SOS.SubstanceExtensions.Examples
         protected InputControlLogic logic = null;
         [SerializeField, Tooltip("Label for the control. Show's the bound input's label value.")]
         protected Text label = null;
+        [SerializeField, Tooltip("Label for the input's identifier.")]
+        protected Text identifierLabel = null;
         [SerializeField, Tooltip("Invoked when the control's value is changed.")]
         protected ControlEvent m_OnValueChanged = new ControlEvent();
 
@@ -34,19 +36,25 @@ namespace SOS.SubstanceExtensions.Examples
                             logic = ScriptableObject.CreateInstance<FloatInputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Float2:
+                            logic = ScriptableObject.CreateInstance<Float2InputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Float3:
+                            logic = ScriptableObject.CreateInstance<Float3InputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Float4:
+                            logic = ScriptableObject.CreateInstance<Float4InputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Int:
                             logic = ScriptableObject.CreateInstance<IntegerInputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Int2:
+                            logic = ScriptableObject.CreateInstance<Integer2InputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Int3:
+                            logic = ScriptableObject.CreateInstance<Integer3InputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Int4:
+                            logic = ScriptableObject.CreateInstance<Integer4InputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.String:
                             logic = ScriptableObject.CreateInstance<StringInputControlLogic>();
@@ -97,6 +105,7 @@ namespace SOS.SubstanceExtensions.Examples
             Logic.SetControlValues(this);
 
             label.text = input.Description.Label;
+            identifierLabel.text = input.Description.Identifier;
         }
 
 

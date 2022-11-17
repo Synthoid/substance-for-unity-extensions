@@ -3,6 +3,9 @@ using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions.Examples
 {
+    /// <summary>
+    /// Simple example script showing how to initialize, render, and release a runtime graph.
+    /// </summary>
     public class RuntimeRenderExample : MonoBehaviour
     {
         [SerializeField]

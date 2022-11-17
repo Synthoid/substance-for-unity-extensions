@@ -12,9 +12,22 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     public static class SubstanceNativeGraphExtensions
     {
+        #region Utility
+
+        /// <summary>
+        /// Sets an int4 input's value.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set the value on.</param>
+        /// <param name="inputID">Index for the target input.</param>
+        /// <param name="value">New value for the target input.</param>
+        public static void SetInputInt4(this SubstanceNativeGraph nativeGraph, int inputID, Vector4Int value)
+        {
+            nativeGraph.SetInputInt4(inputID, value.x, value.y, value.z, value.w);
+        }
+
+        #endregion
+
         #region Set
-
-
 
         public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
         {

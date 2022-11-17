@@ -3,6 +3,9 @@ using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions.Examples
 {
+    /// <summary>
+    /// Example script showing how to set input parameter values on runtime graphs.
+    /// </summary>
     public class SetInputValuesExample : MonoBehaviour
     {
         [SerializeField, Tooltip("Substance to render.")]

@@ -20,8 +20,6 @@ namespace SOS.SubstanceExtensions.Examples
 
         public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
-
             if (input.TryGetNumericalDescription(out ISubstanceInputDescNumerical description))
             {
                 switch(description)
@@ -37,6 +35,8 @@ namespace SOS.SubstanceExtensions.Examples
                         break;
                 }
             }
+
+            base.Initialize(nativeGraph, input);
         }
 
 

@@ -21,6 +21,21 @@ MonoBehaviour:
       prefab: {fileID: 8087868851485436916, guid: 5bfde7324f77949b99fdc783e928d8fa, type: 3}
     - widget: 1
       prefab: {fileID: 9039487249304320964, guid: 07f44f288114e4ed9a5fe778bfa04cb9, type: 3}
+  - valueType: 1
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 4029168648350779391, guid: 456b49cf5eaf44751b20e0e9b35f51f6, type: 3}
+  - valueType: 2
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 8753816249123398828, guid: 4d1b3ed1f44944df2a3e7af2825d3f7a, type: 3}
+  - valueType: 3
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 3746655697004029779, guid: 25f3d3229c65e4b10b9f899076eb6ad7, type: 3}
   - valueType: 4
     defaultControl: 0
     controls:
@@ -28,6 +43,21 @@ MonoBehaviour:
       prefab: {fileID: 5747489417622162079, guid: cf38376b9a7c04d708c27e73bf8b3290, type: 3}
     - widget: 1
       prefab: {fileID: 5636562070571403443, guid: bbd18163e9b3a4ccba962eeb305f5225, type: 3}
+  - valueType: 5
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 5065842431381619800, guid: f87c0a69059744cba8baf9948076f663, type: 3}
+  - valueType: 6
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 5962110336245772478, guid: d47b449425f1447fd9877b50ab5d924b, type: 3}
+  - valueType: 7
+    defaultControl: 0
+    controls:
+    - widget: 0
+      prefab: {fileID: 7698733643886034494, guid: 2be9104d4d781458fa82f43359caff12, type: 3}
   - valueType: 9
     defaultControl: 0
     controls:
