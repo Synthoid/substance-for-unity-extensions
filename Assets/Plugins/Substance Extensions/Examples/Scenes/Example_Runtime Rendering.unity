@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   substance: {fileID: 11400000, guid: 17e802490d72e412184b42eb1880c1e2, type: 2}
+  renderAsync: 0
   parameters:
   - parameter:
       guid: 17e802490d72e412184b42eb1880c1e2

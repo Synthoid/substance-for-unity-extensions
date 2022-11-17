@@ -21,7 +21,7 @@ namespace SOS.SubstanceExtensions.Examples
         {
             for(int i=0; i < outputs.Length; i++)
             {
-                Texture2D texture = substance.GetOutputMap(outputs[i].Name);
+                Texture2D texture = substance.GetOutputTexture(outputs[i].Name);
 
                 SubstanceOutputPreview preview = Instantiate(outputPreviewPrefab, outputParent);
 

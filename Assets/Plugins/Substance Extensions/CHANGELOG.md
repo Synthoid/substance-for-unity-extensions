@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - SubstanceOutput now displays output identifier and channel information as part of its labels.
 - Moved existing test substances to Tests folder.
 - None options in controls are now stylized as "<None>" to separate them from possible actual values called "None".
+- Renamed SubstanceGraphExtensions.GetOutputMap() to GetOutputTexture().
 
 ### Fixed
 - SubstanceParameterValue inspector for Int3 values now uses XYZ labels instead of XYW.

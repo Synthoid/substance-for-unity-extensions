@@ -1272,7 +1272,7 @@ namespace SOS.SubstanceExtensions.Tests
             SubstanceOutput outputMap = SubstanceGraphTestAsset.OutputMap;
             Texture2D outputValue = SubstanceGraphTestAsset.OutputValue;
 
-            Texture2D outputTexture = substance.GetOutputMap(outputMap.Name);
+            Texture2D outputTexture = substance.GetOutputTexture(outputMap.Name);
 
             Assert.AreEqual(outputValue, outputTexture);
         }

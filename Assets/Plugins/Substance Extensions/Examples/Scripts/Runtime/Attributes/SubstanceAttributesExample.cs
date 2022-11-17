@@ -8,13 +8,6 @@ namespace SOS.SubstanceExtensions.Examples
     /// </summary>
     public class SubstanceAttributesExample : MonoBehaviour
     {
-        [System.Serializable]
-        public class Temp
-        {
-            [RuntimeGraphOnly, Tooltip("SubstanceGraphSO marked as runtime only. This is a standard")]
-            public SubstanceGraphSO runtimeGraph = null;
-        }
-
         [Header("Runtime Graph Only")]
         [RuntimeGraphOnly, Tooltip("SubstanceGraphSO marked as runtime only. This will display no warnings.")]
         public SubstanceGraphSO runtimeGraph = null;

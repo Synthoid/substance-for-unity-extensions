@@ -29,6 +29,11 @@ namespace SOS.SubstanceExtensions
 
         #region Set
 
+        /// <summary>
+        /// Set all native graph input values targeted in the given IList.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set input values on.</param>
+        /// <param name="values">New values for graph inputs.</param>
         public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
         {
             for (int i = 0; i < values.Count; i++)
@@ -37,7 +42,12 @@ namespace SOS.SubstanceExtensions
             }
         }
 
-
+        /// <summary>
+        /// Asynchronously set all native graph input values targeted in the given IList. This allows for GPU based texture assignments.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set input values on.</param>
+        /// <param name="values">New values for graph inputs.</param>
+        /// <returns>Task for the set operation.</returns>
         public static async Task SetInputValuesAsync(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
         {
             List<Task> tasks = new List<Task>();
@@ -137,7 +147,7 @@ namespace SOS.SubstanceExtensions
         #region Render
 
         /// <summary>
-        /// Asynchronously render the given native graph.
+        /// Asynchronously render the given native graph. Note that after rendering the native graph, you will need to call <see cref="SubstanceGraphSO.UpdateOutputTextures(IntPtr)"/> on the original graph asset to see the updated textures.
         /// </summary>
         /// <param name="nativeGraph">Native graph to render.</param>
         /// <returns><see cref="Task"/> representing the render operaion. Task result is the result pointer for the render operation.</returns>

@@ -142,7 +142,7 @@ namespace SOS.SubstanceExtensions.Tests
             int validationStatus = 0;
 
             //Allow and wait for user input.
-            confirmationView.ShowResults(testGroup.expectedVisual, testGraph.GetOutputMap(testGroup.resultOutput.Name), testGroup.notes, (status) =>
+            confirmationView.ShowResults(testGroup.expectedVisual, testGraph.GetOutputTexture(testGroup.resultOutput.Name), testGroup.notes, (status) =>
             {
                 validationStatus = status;
                 wait = false;
@@ -184,7 +184,7 @@ namespace SOS.SubstanceExtensions.Tests
             int validationStatus = 0;
 
             //Allow and wait for user input.
-            confirmationView.ShowResults(testGroup.expectedVisual, testGraph.GetOutputMap(testGroup.resultOutput.Name), testGroup.notes, (status) =>
+            confirmationView.ShowResults(testGroup.expectedVisual, testGraph.GetOutputTexture(testGroup.resultOutput.Name), testGroup.notes, (status) =>
             {
                 validationStatus = status;
                 wait = false;

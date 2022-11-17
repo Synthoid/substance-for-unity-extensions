@@ -12,7 +12,13 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     public static class SubstanceGraphExtensions
     {
+        /// <summary>
+        /// Identifier for output size inputs.
+        /// </summary>
         public const string kOutputSize = "$outputsize";
+        /// <summary>
+        /// Identifier for random seed inputs.
+        /// </summary>
         public const string kRandomSeed = "$randomseed";
 
         #region Inputs
@@ -2746,13 +2752,19 @@ namespace SOS.SubstanceExtensions
 
         #region Outputs
 
-        public static Texture2D GetOutputMap(this SubstanceGraphSO substance, string name)
+        /// <summary>
+        /// Get the output texture associated with the given output identifier.
+        /// </summary>
+        /// <param name="substance">Substance to pull output textures from.</param>
+        /// <param name="identifier">Identifier for the target output texture. This is the output identifier specified in Substance Designer, ie "basecolor"</param>
+        /// <returns>Texture on the graph associated with the given identifier, or null if one isn't found.</returns>
+        public static Texture2D GetOutputTexture(this SubstanceGraphSO substance, string identifier)
         {
             List<SubstanceOutputTexture> outputs = substance.Output;
 
             for(int i=0; i < outputs.Count; i++)
             {
-                if(outputs[i].Description.Identifier == name)
+                if(outputs[i].Description.Identifier == identifier)
                 {
                     return outputs[i].OutputTexture;
                 }
