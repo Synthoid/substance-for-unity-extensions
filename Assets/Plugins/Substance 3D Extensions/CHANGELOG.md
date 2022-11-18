@@ -19,7 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Unit tests for interacting with substance assets and runtime graphs.
 
 ### Changed
-- Updated supported plugin version to 3.3.4 release.
+- Updated supported plugin version to 3.4.0 release.
+- Renamed root "Substance Extensions" folder to "Substance 3D Extensions"
 - SubstanceParameter and SubstanceOutput now target SubstanceGraphSO instead of SubstanceFileSO assets.
 - SubstanceParameter and SubstanceOutput popup search windows now display the name of the graph being interacted with.
 - SubstanceParameter and SubstanceParameterValue now display input types and identifiers as part of their labels.
