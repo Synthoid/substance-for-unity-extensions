@@ -1,5 +1,5 @@
 # Documentation
-Welcome to the Substance 3D for Unity extensions repo documentation page! This page contains links to various classes that extend the core functionality of the Substance 3D for Unity plugin.
+Welcome to the Substance 3D for Unity extensions repo documentation page! This page contains information on various classes that extend the core functionality of the Substance 3D for Unity plugin. All extension and utility classes are contained in the `SOS.SubstanceExtensions.Runtime` assembly definition and the `SOS.SubstanceExtensions` namespace.
 
 ## Utility
 These scripts make referencing and working with substance values easier.
@@ -37,3 +37,28 @@ Several extension methods have been created to help make runtime Substance rende
 After calling `substanceGraph.BeginRuntimeEditing();` you can set input values on the native graph before calling either `substanceGraph.Render(nativerGraph)` or `substanceGraph.RenderAsync(nativeGraph)` to render the Substance using the new input values. Once your render is complete, you can then call `substanceGraph.EndRuntimeEditing()` to dispose of the native graph, or you can keep a reference to it if you are going to rerender the Substance graph again.
 
 **See the various runtime example scenes for more details on how these methods can be used.**
+
+## Attributes
+These attributes can streamline working with substance asset in your inspectors.
+
+### RuntimeGraphOnlyAttribute
+Displays a warning if a referenced `SubstanceGraphSO` asset is not marked as runtime only. You can customize the shown warning if desired.
+
+<picture>
+  <img alt="RuntimeGraphOnly fields" src="img/Inspectors/Attributes/AttributeRuntimeGraphOnly.png" width="354" height="144">
+</picture>
+
+### TransformMatrixAttribute
+Draws a `Vector4` field with similar controls to Substance Designer's transform matrix fields.
+
+<picture>
+  <img alt="RuntimeGraphOnly fields" src="img/Inspectors/Attributes/AttributeTransformMatrix01.png" width="354" height="228">
+</picture>
+
+***Standard Matrix View***
+
+<picture>
+  <img alt="RuntimeGraphOnly fields" src="img/Inspectors/Attributes/AttributeTransformMatrix02.png" width="354" height="120">
+</picture>
+
+***Raw Matrix View***
