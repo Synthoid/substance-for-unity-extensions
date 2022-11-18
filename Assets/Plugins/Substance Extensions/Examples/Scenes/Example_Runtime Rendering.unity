@@ -168,14 +168,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0033e71cf3fe24023ad6faeb672d8324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  substance: {fileID: 11400000, guid: 17e802490d72e412184b42eb1880c1e2, type: 2}
+  substance: {fileID: 11400000, guid: 85e8d8f3a85a74268a43cf1ff8cd836c, type: 2}
   renderAsync: 0
+  renderDelay: 3
   parameters:
   - parameter:
-      guid: 17e802490d72e412184b42eb1880c1e2
+      guid: 85e8d8f3a85a74268a43cf1ff8cd836c
       name: text
       graphGuid: 
-      index: 2
+      index: 4
       type: 9
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
@@ -198,20 +199,20 @@ MonoBehaviour:
       w: 0
     stringValue: 'Hello
 
-      World'
+      World!'
     textureValue: {fileID: 0}
   outputParent: {fileID: 1115667044}
   previewPrefab: {fileID: 7402228417667452309, guid: 3cb47a31b69bf4b41bc1b2fded836f60, type: 3}
   outputs:
-  - guid: 17e802490d72e412184b42eb1880c1e2
+  - guid: 85e8d8f3a85a74268a43cf1ff8cd836c
     name: basecolor
     graphId: 0
     index: 0
-  - guid: 17e802490d72e412184b42eb1880c1e2
+  - guid: 85e8d8f3a85a74268a43cf1ff8cd836c
     name: normal
     graphId: 0
     index: 1
-  - guid: 17e802490d72e412184b42eb1880c1e2
+  - guid: 85e8d8f3a85a74268a43cf1ff8cd836c
     name: metallic
     graphId: 0
     index: 3
@@ -660,7 +661,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46d54acbc8f03447bbd72c1e6d31be0b, type: 2}
+  - {fileID: 2100000, guid: 680a57f0a07e54b16bfa1f6cee16879f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1235,7 +1236,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press Play to render and see substance output values...
+  m_Text: Press Play to render and see substance output values. Render will happen
+    after a short delay.
 --- !u!222 &1821374852
 CanvasRenderer:
   m_ObjectHideFlags: 0

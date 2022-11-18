@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions.Examples
@@ -12,6 +13,8 @@ namespace SOS.SubstanceExtensions.Examples
         private SubstanceGraphSO substance = null;
         [SerializeField, Tooltip("If true, rendering will be done asynchronously on a separate thread. This typically prevents frame drops from rendering a substance.")]
         private bool renderAsync = false;
+        [SerializeField, Tooltip("Delay (in seconds) before the render occurs.")]
+        private float renderDelay = 3f;
         [SerializeField, Tooltip("Input values to set on the target substance.")]
         private SubstanceParameterValue[] parameters = new SubstanceParameterValue[0];
         [Header("Outputs")]
@@ -70,8 +73,18 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
 
-        private void Start()
+        private IEnumerator Start()
         {
+            float t = 0f;
+
+            //Delay before rendering. There seems to be some weirdness around rendering immediately on start...
+            //Notably async rendering does NOT have this issue.
+            while(t < renderDelay)
+            {
+                t += Time.deltaTime;
+                yield return null;
+            }
+
             if (renderAsync)
             {
                 RenderSubstanceAsync();

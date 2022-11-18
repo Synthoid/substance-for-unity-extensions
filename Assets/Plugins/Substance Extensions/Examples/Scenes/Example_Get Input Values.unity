@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 736007358}
-  substance: {fileID: 11400000, guid: e2e75300cbf82464fa456cf581b4ccf0, type: 2}
+  substance: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}
   targetInputs:
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
+  - guid: b59550b7efb314202848f15744836227
     name: $outputsize
     graphGuid: 
     index: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
       y: 1
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
+  - guid: b59550b7efb314202848f15744836227
     name: $randomseed
     graphGuid: 
     index: 1
@@ -191,14 +191,14 @@ MonoBehaviour:
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputBool
+  - guid: b59550b7efb314202848f15744836227
+    name: hue
     graphGuid: 
     index: 2
-    type: 4
-    widgetType: 4
+    type: 0
+    widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
+    rangeMax: {x: 0.5, y: 0, z: 0, w: 0}
     rangeIntMin:
       x: 0
       y: 0
@@ -209,30 +209,30 @@ MonoBehaviour:
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputEnum
+  - guid: b59550b7efb314202848f15744836227
+    name: scale
     graphGuid: 
     index: 3
     type: 4
-    widgetType: 5
+    widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
     rangeIntMin:
-      x: 0
+      x: 2
       y: 0
       z: 0
       w: 0
     rangeIntMax:
-      x: 0
+      x: 32
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputInt
+  - guid: b59550b7efb314202848f15744836227
+    name: text
     graphGuid: 
     index: 4
-    type: 4
-    widgetType: 1
+    type: 9
+    widgetType: 0
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
     rangeIntMin:
@@ -241,54 +241,54 @@ MonoBehaviour:
       z: 0
       w: 0
     rangeIntMax:
-      x: 10
+      x: 0
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputInt2
+  - guid: b59550b7efb314202848f15744836227
+    name: strokeWidth
     graphGuid: 
     index: 5
-    type: 5
+    type: 0
     widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
+    rangeMax: {x: 1, y: 0, z: 0, w: 0}
     rangeIntMin:
       x: 0
       y: 0
       z: 0
       w: 0
     rangeIntMax:
-      x: 10
-      y: 10
+      x: 0
+      y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputInt3
+  - guid: b59550b7efb314202848f15744836227
+    name: textPosition
     graphGuid: 
     index: 6
-    type: 6
+    type: 1
     widgetType: 1
-    rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
+    rangeMin: {x: -1, y: -1, z: 0, w: 0}
+    rangeMax: {x: 1, y: 1, z: 0, w: 0}
     rangeIntMin:
       x: 0
       y: 0
       z: 0
       w: 0
     rangeIntMax:
-      x: 10
-      y: 10
-      z: 10
+      x: 0
+      y: 0
+      z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputInt4
+  - guid: b59550b7efb314202848f15744836227
+    name: tileRough
     graphGuid: 
     index: 7
-    type: 7
+    type: 0
     widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
+    rangeMax: {x: 1, y: 0, z: 0, w: 0}
     rangeIntMin:
       x: 0
       y: 0
@@ -299,8 +299,8 @@ MonoBehaviour:
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputFloat1
+  - guid: b59550b7efb314202848f15744836227
+    name: rough
     graphGuid: 
     index: 8
     type: 0
@@ -317,50 +317,14 @@ MonoBehaviour:
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputFloat2
+  - guid: b59550b7efb314202848f15744836227
+    name: tileMetallic
     graphGuid: 
     index: 9
-    type: 1
-    widgetType: 7
-    rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
-    rangeIntMin:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    rangeIntMax:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputFloat3
-    graphGuid: 
-    index: 10
-    type: 2
-    widgetType: 3
-    rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
-    rangeIntMin:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    rangeIntMax:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputFloat4
-    graphGuid: 
-    index: 11
-    type: 3
+    type: 0
     widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 1, y: 1, z: 1, w: 1}
+    rangeMax: {x: 1, y: 0, z: 0, w: 0}
     rangeIntMin:
       x: 0
       y: 0
@@ -371,14 +335,14 @@ MonoBehaviour:
       y: 0
       z: 0
       w: 0
-  - guid: e2e75300cbf82464fa456cf581b4ccf0
-    name: inputString
+  - guid: b59550b7efb314202848f15744836227
+    name: metallic
     graphGuid: 
-    index: 12
-    type: 9
-    widgetType: 0
+    index: 10
+    type: 0
+    widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
-    rangeMax: {x: 0, y: 0, z: 0, w: 0}
+    rangeMax: {x: 1, y: 0, z: 0, w: 0}
     rangeIntMin:
       x: 0
       y: 0
@@ -930,7 +894,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f264dde0fdfad44cf92a8d48c661bbb6, type: 2}
+  - {fileID: 2100000, guid: 5c11e9cf5724941f5a3adc5689b2d3ac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

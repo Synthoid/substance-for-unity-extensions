@@ -36,7 +36,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="values">New values for graph inputs.</param>
         public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
         {
-            for (int i = 0; i < values.Count; i++)
+            for (int i=0; i < values.Count; i++)
             {
                 values[i].SetValue(nativeGraph);
             }
@@ -52,7 +52,7 @@ namespace SOS.SubstanceExtensions
         {
             List<Task> tasks = new List<Task>();
 
-            for (int i = 0; i < values.Count; i++)
+            for (int i=0; i < values.Count; i++)
             {
                 if(values[i].Type == SubstanceValueType.Image)
                 {

@@ -99,8 +99,11 @@ MonoBehaviour:
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://AnimatedExample\" label=\"\" >\n
-    </sbspreset>\n"
+  CurrentStatePreset: ' <sbspreset pkgurl="pkg://AnimatedExample" label="" >
+
+    </sbspreset>
+
+'
   IsRuntimeOnly: 1
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1

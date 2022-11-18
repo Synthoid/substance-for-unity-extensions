@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeGraph: {fileID: 11400000, guid: 85e8d8f3a85a74268a43cf1ff8cd836c, type: 2}
-  staticGraph: {fileID: 11400000, guid: e2e75300cbf82464fa456cf581b4ccf0, type: 2}
-  staticGraphCustom: {fileID: 11400000, guid: e2e75300cbf82464fa456cf581b4ccf0, type: 2}
+  staticGraph: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}
+  staticGraphCustom: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}
   matrix: {x: 1, y: 0, z: 0, w: 1}
 --- !u!1 &869815718
 GameObject:
