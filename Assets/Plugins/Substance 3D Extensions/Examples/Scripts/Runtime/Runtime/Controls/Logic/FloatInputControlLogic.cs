@@ -8,9 +8,9 @@ namespace SOS.SubstanceExtensions.Examples
 {
     public class FloatInputControlLogic : InputControlLogic<float>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
 
             SubstanceInputFloat valueInput = (SubstanceInputFloat)input;
 

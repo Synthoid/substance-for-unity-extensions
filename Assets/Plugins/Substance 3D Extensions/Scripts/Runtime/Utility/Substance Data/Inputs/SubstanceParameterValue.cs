@@ -381,8 +381,9 @@ namespace SOS.SubstanceExtensions
         /// Note: When setting texture values, it is recommended to use <see cref="SetValueAsync"/>, otherwise your texture must be read/writable.
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to update values on.</param>
+        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
         /// <returns>True if the handler has the target parameter set.</returns>
-        public bool SetValue(SubstanceNativeGraph nativeGraph)
+        public bool SetValue(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance=null)
         {
             switch(Type)
             {
@@ -402,7 +403,15 @@ namespace SOS.SubstanceExtensions
                     nativeGraph.SetInputInt(Index, IntValue);
                     return true;
                 case SubstanceValueType.Int2:
-                    nativeGraph.SetInputInt2(Index, Int2Value);
+                    if(Name == SubstanceNativeGraphExtensions.kOutputSizeIdentifier && substance != null)
+                    {
+                        nativeGraph.SetOutputSize(Index, Int2Value, substance);
+                        return true;
+                    }
+                    else
+                    {
+                        nativeGraph.SetInputInt2(Index, Int2Value);
+                    }
                     return true;
                 case SubstanceValueType.Int3:
                     nativeGraph.SetInputInt3(Index, Int3Value);
@@ -476,8 +485,9 @@ namespace SOS.SubstanceExtensions
         /// Asynchronously update the given handler with this parameter's values.
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to update values on.</param>
+        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
         /// <returns>Task representing the set operation. Only texture assignments should require asynchronous execution, all other value types are set instantly.</returns>
-        public async Task SetValueAsync(SubstanceNativeGraph nativeGraph)
+        public async Task SetValueAsync(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance=null)
         {
             switch(Type)
             {
@@ -497,7 +507,14 @@ namespace SOS.SubstanceExtensions
                     nativeGraph.SetInputInt(Index, IntValue);
                     return;
                 case SubstanceValueType.Int2:
-                    nativeGraph.SetInputInt2(Index, Int2Value);
+                    if (Name == SubstanceNativeGraphExtensions.kOutputSizeIdentifier && substance != null)
+                    {
+                        nativeGraph.SetOutputSize(Index, Int2Value, substance);
+                    }
+                    else
+                    {
+                        nativeGraph.SetInputInt2(Index, Int2Value);
+                    }
                     return;
                 case SubstanceValueType.Int3:
                     nativeGraph.SetInputInt3(Index, Int3Value);

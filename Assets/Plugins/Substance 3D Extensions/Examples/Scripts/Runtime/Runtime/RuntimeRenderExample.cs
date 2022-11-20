@@ -31,7 +31,8 @@ namespace SOS.SubstanceExtensions.Examples
             SubstanceNativeGraph nativeGraph = substance.BeginRuntimeEditing();
 
             //Set input values on the native graph.
-            nativeGraph.SetInputValues(parameters);
+            //Note that the substance only needs to be passed if $outputsize will be set.
+            nativeGraph.SetInputValues(parameters, substance);
 
             //Render the native graph and update output textures on the substance graph.
             substance.Render(nativeGraph);
@@ -49,7 +50,8 @@ namespace SOS.SubstanceExtensions.Examples
             SubstanceNativeGraph nativeGraph = substance.BeginRuntimeEditing();
 
             //Set input values on the native graph.
-            await nativeGraph.SetInputValuesAsync(parameters);
+            //Note that the substance only needs to be passed if $outputsize will be set.
+            await nativeGraph.SetInputValuesAsync(parameters, substance);
 
             //Render the native graph asynchronously and update output textures on the substance graph.
             await substance.RenderAsync(nativeGraph);

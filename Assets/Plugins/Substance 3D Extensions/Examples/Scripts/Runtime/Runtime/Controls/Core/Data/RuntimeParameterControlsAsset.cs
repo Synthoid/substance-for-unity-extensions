@@ -29,7 +29,7 @@ namespace SOS.SubstanceExtensions.Examples
 
             if(controlGroup == null) return invalidControlPrefab;
 
-            RuntimeParameterControl controlPrefab = controlGroup.GetControlPrefab(input.Description.WidgetType);
+            RuntimeParameterControl controlPrefab = controlGroup.GetControlPrefab(input);
 
             return controlPrefab != null ? controlPrefab : invalidControlPrefab;
         }

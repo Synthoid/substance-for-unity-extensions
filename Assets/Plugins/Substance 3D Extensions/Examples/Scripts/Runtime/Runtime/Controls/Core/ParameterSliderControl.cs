@@ -18,7 +18,7 @@ namespace SOS.SubstanceExtensions.Examples
             set { slider.value = value; }
         }
 
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
             if (input.TryGetNumericalDescription(out ISubstanceInputDescNumerical description))
             {
@@ -36,7 +36,7 @@ namespace SOS.SubstanceExtensions.Examples
                 }
             }
 
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
         }
 
 

@@ -9,9 +9,9 @@ namespace SOS.SubstanceExtensions.Examples
 {
     public class Float2InputControlLogic : InputControlLogic<Vector2>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
 
             SubstanceInputFloat2 valueInput = (SubstanceInputFloat2)input;
 
@@ -41,7 +41,7 @@ namespace SOS.SubstanceExtensions.Examples
                         xValue = 0f;
                     }
 
-                    if (!float.TryParse(control.Text, out float yValue))
+                    if (!float.TryParse(control.Text2, out float yValue))
                     {
                         yValue = 0f;
                     }

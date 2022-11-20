@@ -9,9 +9,9 @@ namespace SOS.SubstanceExtensions.Examples
 {
     public class StringInputControlLogic : InputControlLogic<string>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
 
             SubstanceInputString valueInput = (SubstanceInputString)input;
 

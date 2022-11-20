@@ -9,9 +9,9 @@ namespace SOS.SubstanceExtensions.Examples
 {
     public class Integer3InputControlLogic : InputControlLogic<Vector3Int>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
 
             SubstanceInputInt3 valueInput = (SubstanceInputInt3)input;
 
@@ -41,12 +41,12 @@ namespace SOS.SubstanceExtensions.Examples
                         xValue = 0;
                     }
 
-                    if (!int.TryParse(control.Text, out int yValue))
+                    if (!int.TryParse(control.Text2, out int yValue))
                     {
                         yValue = 0;
                     }
 
-                    if (!int.TryParse(control.Text, out int zValue))
+                    if (!int.TryParse(control.Text3, out int zValue))
                     {
                         zValue = 0;
                     }

@@ -5,6 +5,13 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+
+## [0.2.1]
+
+### Added
+- Example scene comprised entirely of runtime substance materials.
+
 ## [0.2.0] - 2022-11-17
 
 ### Added

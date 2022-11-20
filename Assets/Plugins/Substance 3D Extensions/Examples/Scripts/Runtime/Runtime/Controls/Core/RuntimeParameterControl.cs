@@ -93,15 +93,15 @@ namespace SOS.SubstanceExtensions.Examples
         public virtual void SetInputValue()
         {
             Logic.SetInputValueFromControl(this);
-            Logic.SetInputValue();
+
             onValueChanged.Invoke();
         }
 
-        public virtual void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public virtual void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
             //CachedNativeGraph = nativeGraph;
             //InputIndex = input.Index;
-            Logic.Initialize(nativeGraph, input);
+            Logic.Initialize(nativeGraph, substance, input);
             Logic.SetControlValues(this);
 
             label.text = input.Description.Label;

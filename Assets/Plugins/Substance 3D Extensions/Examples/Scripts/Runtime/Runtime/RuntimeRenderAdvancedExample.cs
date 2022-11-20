@@ -39,6 +39,10 @@ namespace SOS.SubstanceExtensions.Examples
 
             //Render substance...
             await substance.RenderAsync(nativeGraph);
+
+            //Texture2D tex = null;
+            //tex.Resize(0, 0, tex.format, tex.mipmapCount > 0);
+            //tex.Reinitialize()
         }
 
 
@@ -54,7 +58,7 @@ namespace SOS.SubstanceExtensions.Examples
                 RuntimeParameterControl controlPrefab = controlsData.GetControlPrefab(inputs[i]);
                 RuntimeParameterControl control = Instantiate<RuntimeParameterControl>(controlPrefab, controlsParent);
 
-                control.Initialize(nativeGraph, inputs[i]);
+                control.Initialize(nativeGraph, substance, inputs[i]);
                 control.onValueChanged.AddListener(OnControlValueChanged);
 
                 controls.Add(control);
@@ -95,5 +99,11 @@ namespace SOS.SubstanceExtensions.Examples
 
             SetupInputControls();
         }
+
+
+        /*private void Update()
+        {
+            Debug.Log(substance.OutputRemaped);
+        }*/
     }
 }

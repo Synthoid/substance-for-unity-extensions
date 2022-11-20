@@ -6,9 +6,9 @@ namespace SOS.SubstanceExtensions.Examples
 {
     public class IntegerInputControlLogic : InputControlLogic<int>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
 
             SubstanceInputInt valueInput = (SubstanceInputInt)input;
 

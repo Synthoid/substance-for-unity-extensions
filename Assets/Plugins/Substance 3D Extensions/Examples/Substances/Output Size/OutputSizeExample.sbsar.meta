@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9135d22e4172e4d918695a56f006d310
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 65b83339b6bbb42a582122b6c9ae12af, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Output Size/OutputSizeExample.sbsar

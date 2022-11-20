@@ -12,9 +12,9 @@ namespace SOS.SubstanceExtensions.Examples
         [SerializeField]
         private Text errorLabel = null;
 
-        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, input);
+            base.Initialize(nativeGraph, substance, input);
 
             errorLabel.text = string.Format(kErrorFormatText, input.ValueType, input.Description.WidgetType);
         }
