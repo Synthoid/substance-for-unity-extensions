@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Adobe.Substance;
+using System.Drawing;
 
 namespace SOS.SubstanceExtensions
 {
@@ -16,31 +17,25 @@ namespace SOS.SubstanceExtensions
 
         #region Utility
 
-        public static void SetOutputSize(this SubstanceNativeGraph nativeGraph, int inputID, Vector2Int size, SubstanceGraphSO substance=null)
+        public static void SetOutputSize(this SubstanceNativeGraph nativeGraph, int inputID, Vector2Int size)
         {
-            //Only flag the substance for texture regeneration if setting $outputsize to a different value
-            if(substance != null && nativeGraph.GetInputInt2(inputID) != size)
-            {
-                substance.OutputRemaped = true;
-            }
+            nativeGraph.SetInputInt2(inputID, size);
+        }
+
+
+        public static void SetOutputSize(this SubstanceNativeGraph nativeGraph, int inputID, SbsOutputSize width, SbsOutputSize height)
+        {
+            Vector2Int size = new Vector2Int((int)width, (int)height);
 
             nativeGraph.SetInputInt2(inputID, size);
         }
 
 
-        public static void SetOutputSize(this SubstanceNativeGraph nativeGraph, int inputID, SbsOutputSize width, SbsOutputSize height, SubstanceGraphSO substance=null)
+        public static void SetOutputSize(this SubstanceNativeGraph nativeGraph, int inputID, SbsOutputSize size)
         {
-            Vector2Int newValue = new Vector2Int((int)width, (int)height);
+            Vector2Int newSize = new Vector2Int((int)size, (int)size);
 
-            SetOutputSize(nativeGraph, inputID, newValue, substance);
-        }
-
-
-        public static void SetOutputSize(this SubstanceNativeGraph nativeGraph, int inputID, SbsOutputSize size, SubstanceGraphSO substance=null)
-        {
-            Vector2Int newValue = new Vector2Int((int)size, (int)size);
-
-            SetOutputSize(nativeGraph, inputID, newValue, substance);
+            nativeGraph.SetInputInt2(inputID, newSize);
         }
 
         /// <summary>
@@ -63,12 +58,12 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="nativeGraph">Graph to set input values on.</param>
         /// <param name="values">New values for graph inputs.</param>
-        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
-        public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values, SubstanceGraphSO substance=null)
+        /// <returns>True if any value set will require output textures to be resized.</returns>
+        public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
         {
             for (int i=0; i < values.Count; i++)
             {
-                values[i].SetValue(nativeGraph, substance);
+                values[i].SetValue(nativeGraph);
             }
         }
 
@@ -77,9 +72,8 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="nativeGraph">Graph to set input values on.</param>
         /// <param name="values">New values for graph inputs.</param>
-        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
-        /// <returns>Task for the set operation.</returns>
-        public static async Task SetInputValuesAsync(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values, SubstanceGraphSO substance=null)
+        /// <returns>Task for the set operation. Task result will be true if any value set will require output textures to be resized.</returns>
+        public static async Task SetInputValuesAsync(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
         {
             List<Task> tasks = new List<Task>();
 
@@ -87,18 +81,15 @@ namespace SOS.SubstanceExtensions
             {
                 if(values[i].Type == SubstanceValueType.Image)
                 {
-                    tasks.Add(values[i].SetValueAsync(nativeGraph, substance));
+                    tasks.Add(values[i].SetValueAsync(nativeGraph));
                 }
                 else
                 {
-                    values[i].SetValue(nativeGraph, substance);
+                    values[i].SetValue(nativeGraph);
                 }
             }
 
-            if(tasks.Count > 0)
-            {
-                await Task.WhenAll(tasks);
-            }
+            if(tasks.Count > 0) await Task.WhenAll(tasks);
         }
 
         /// <summary>
@@ -106,11 +97,10 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to set an input value on.</param>
         /// <param name="parameterValue">Data for the target input and its new value.</param>
-        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
         /// <returns>True if the graph input value is properly set.</returns>
-        public static bool SetInputValue(this SubstanceNativeGraph nativeGraph, SubstanceParameterValue parameterValue, SubstanceGraphSO substance=null)
+        public static void SetInputValue(this SubstanceNativeGraph nativeGraph, SubstanceParameterValue parameterValue)
         {
-            return parameterValue.SetValue(nativeGraph, substance);
+            parameterValue.SetValue(nativeGraph);
         }
 
         /// <summary>
@@ -118,11 +108,10 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to set an input value on.</param>
         /// <param name="parameterValue">Data for the target input and its new value.</param>
-        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
-        /// <returns>Task representing the set operation.</returns>
-        public static Task SetInputValueAsync(this SubstanceNativeGraph nativeGraph, SubstanceParameterValue parameterValue, SubstanceGraphSO substance=null)
+        /// <returns>Task for the set operation. Task result will be true if any value set will require output textures to be resized.</returns>
+        public static Task SetInputValueAsync(this SubstanceNativeGraph nativeGraph, SubstanceParameterValue parameterValue)
         {
-            return parameterValue.SetValueAsync(nativeGraph, substance);
+            return parameterValue.SetValueAsync(nativeGraph);
         }
 
 

@@ -1,12 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Adobe.Substance;
-using Adobe.Substance.Runtime;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace SOS.SubstanceExtensions
 {
@@ -124,21 +120,9 @@ namespace SOS.SubstanceExtensions
         /// <param name="nativeGraph">Native graph used for rendering.</param>
         public static void Render(this SubstanceGraphSO graph, SubstanceNativeGraph nativeGraph)
         {
-            if (graph.OutputRemaped)
-            {
-                graph.OutputRemaped = false;
+            IntPtr renderResult = nativeGraph.Render();
 
-                IntPtr renderResult = nativeGraph.Render();
-
-                graph.CreateAndUpdateOutputTextures(renderResult, nativeGraph, true);
-                MaterialUtils.AssignOutputTexturesToMaterial(graph);
-            }
-            else
-            {
-                IntPtr renderResult = nativeGraph.Render();
-
-                graph.UpdateOutputTextures(renderResult);
-            }
+            UpdateOutputTextureSizes(graph, renderResult);
         }
 
         /// <summary>
@@ -161,36 +145,36 @@ namespace SOS.SubstanceExtensions
         {
             if(nativeGraph == null) return;
 
-            Debug.Log("Render Async!");
+            Task<IntPtr> renderTask = nativeGraph.RenderAsync();
 
-            if(graph.OutputRemaped)
+            await renderTask;
+
+            UpdateOutputTextureSizes(graph, renderTask.Result);
+        }
+
+        /// <summary>
+        /// Wrapper for <see cref="SubstanceGraphSO.UpdateOutputTextures(IntPtr)"/> that will resize output textures if needed based on the given render result.
+        /// </summary>
+        /// <param name="graph">Graph that was rendered.</param>
+        /// <param name="renderResult">Result from a render operation.</param>
+        public static void UpdateOutputTextureSizes(this SubstanceGraphSO graph, IntPtr renderResult)
+        {
+            List<(int, Vector2Int)> renderResultSizes = graph.GetResizedOutputs(renderResult);
+
+            for(int i=0; i < renderResultSizes.Count; i++)
             {
-                Debug.Log("Output Remapped!");
-                graph.OutputRemaped = false; //TODO: Editor engine may be detecting this flag itself and utilizting it before we can render?
-                //When setting output size and immediately rendering, it's fine. When rendering sometime after setting this, we get a texture error...
+                int index = renderResultSizes[i].Item1;
+                Vector2Int size = renderResultSizes[i].Item2;
+                SubstanceOutputTexture outputTexture = graph.Output[index];
 
-                Task<IntPtr> renderTask = nativeGraph.RenderAsync();
-
-                await renderTask;
-
-                graph.CreateAndUpdateOutputTextures(renderTask.Result, nativeGraph, true);
-                MaterialUtils.AssignOutputTexturesToMaterial(graph);
-            }
-            else
-            {
-                Debug.Log("Update Existing!");
-                Task<IntPtr> renderTask = nativeGraph.RenderAsync();
-
-                await renderTask;
-
-                graph.UpdateOutputTextures(renderTask.Result);
+#if UNITY_2021_2_OR_NEWER
+                outputTexture.OutputTexture.Reinitialize(size.x, size.y);
+#else
+                outputTexture.OutputTexture.Resize(size.x, size.y);
+#endif
             }
 
-            //Task<IntPtr> renderTask = nativeGraph.RenderAsync();
-
-            //await renderTask;
-
-            //graph.UpdateOutputTextures(renderTask.Result);
+            graph.UpdateOutputTextures(renderResult);
         }
 
         /// <summary>
@@ -218,66 +202,6 @@ namespace SOS.SubstanceExtensions
             await RenderAsync(graph, nativeGraph);
 
             EndRuntimeEditing(graph, nativeGraph);
-        }
-
-
-        public static void UpdateOutputTexturesAndResizeIfNeeded(this SubstanceGraphSO graph, SubstanceNativeGraph nativeGraph, IntPtr renderResultPtr)
-        {
-            //Vector2 size = nativeGraph.GetInputInt2(0);
-
-            if(graph.OutputRemaped)
-            {
-                graph.OutputRemaped = false;
-
-                IntPtr renderResult = nativeGraph.Render();
-
-                graph.CreateAndUpdateOutputTextures(renderResult, nativeGraph, true);
-                MaterialUtils.AssignOutputTexturesToMaterial(graph);
-            }
-            else
-            {
-                IntPtr renderResult = nativeGraph.Render();
-
-                graph.UpdateOutputTextures(renderResult);
-            }
-
-            //TODO: If size doesn't match existing output resolution, regenerate textures
-            //graph.CreateAndUpdateOutputTextures(renderResultPtr, nativeGraph, true);
-            //graph.UpdateOutputTextures(renderResultPtr);
-            /*unsafe
-            {
-                foreach(var output in graph.Output)
-                {
-                    var texture = output.OutputTexture;
-
-                    if(texture == null)
-                    {
-                        continue;
-                    }
-
-                    var index = output.VirtualOutputIndex;
-                    IntPtr dataPtr = renderResultPtr + (index * sizeof(NativeData));
-                    NativeData data = Marshal.PtrToStructure<NativeData>(dataPtr);
-
-                    if (data.ValueType != ValueType.SBSARIO_VALUE_IMAGE)
-                    {
-                        Debug.LogError($"Fail to update substance output: output is not an image.");
-                        continue;
-                    }
-
-                    NativeDataImage srcImage = data.Data.ImageData;
-
-                    if (texture.format != TextureFormat.RGBA32 && texture.format != TextureFormat.BGRA32)
-                    {
-                        Debug.LogError($"Fail to update target texture. Output textures are expected to be RGBA32 or BGRA32.");
-                        continue;
-                    }
-
-                    var size = GenerateAllMipmaps ? srcImage.GetSizeWithMipMaps() : srcImage.GetSize();
-                    texture.LoadRawTextureData(srcImage.data, size);
-                    texture.Apply();
-                }
-            }*/
         }
 
 
@@ -402,7 +326,7 @@ namespace SOS.SubstanceExtensions
             return tcs.Task;
         }*/
 
-        #endregion
+#endregion
 
     }
 }

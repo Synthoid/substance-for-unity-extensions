@@ -1,9 +1,8 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace SOS.SubstanceExtensions
 {
@@ -95,7 +94,7 @@ namespace SOS.SubstanceExtensions
                 case SubstanceInputInt3 int3Input: return int3Input.Data;
                 case SubstanceInputInt4 int4Input: return new Vector4Int(int4Input.Data0, int4Input.Data1, int4Input.Data2, int4Input.Data3);
                 case SubstanceInputString stringInput: return stringInput.Data;
-                case SubstanceInputTexture textureInput: return GetTextureInternal(textureInput);
+                case SubstanceInputTexture textureInput: return textureInput.GetTexture();
             }
 
             return null;
@@ -168,7 +167,7 @@ namespace SOS.SubstanceExtensions
                         value = stringInput.Data;
                         break;
                     case SubstanceInputTexture textureInput:
-                        value = GetTextureInternal(textureInput);
+                        value = textureInput.GetTexture();
                         break;
                     default:
                         value = null;
@@ -249,7 +248,7 @@ namespace SOS.SubstanceExtensions
                     stringInput.Data = (string)value;
                     break;
                 case SubstanceInputTexture textureInput:
-                    SetTextureInternal(textureInput, (Texture2D)value);
+                    textureInput.SetTexture((Texture2D)value);
                     break;
             }
         }
@@ -345,7 +344,7 @@ namespace SOS.SubstanceExtensions
                 case SubstanceInputTexture textureInput:
                     if(!(value is Texture2D)) return false;
 
-                    SetTextureInternal(textureInput, (Texture2D)value);
+                    textureInput.SetTexture((Texture2D)value);
                     break;
                 default:
                     Debug.LogWarning("Input type not recognized!");
@@ -356,22 +355,6 @@ namespace SOS.SubstanceExtensions
         }
 
         #region Texture
-
-        private static FieldInfo textureDataField = null;
-
-        private static FieldInfo TextureDataField
-        {
-            get
-            {
-                if(textureDataField == null)
-                {
-                    Type inputType = typeof(SubstanceInputTexture);
-                    textureDataField = inputType.GetField("Data", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                }
-
-                return textureDataField;
-            }
-        }
 
         /// <summary>
         /// Get the <see cref="Texture2D"/> value for the target input on the substance.
@@ -405,7 +388,7 @@ namespace SOS.SubstanceExtensions
         {
             SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index);
 
-            return input == null ? null : GetTextureInternal(input);
+            return input == null ? null : input.GetTexture();
         }
 
         /// <summary>
@@ -445,8 +428,7 @@ namespace SOS.SubstanceExtensions
 
             if(input != null)
             {
-                //value = input.Data;
-                value = GetTextureInternal(input);
+                value = input.GetTexture();
 
                 return true;
             }
@@ -488,7 +470,7 @@ namespace SOS.SubstanceExtensions
         {
             SubstanceInputTexture input = GetInput<SubstanceInputTexture>(substance, index);
 
-            if(input != null) SetTextureInternal(input, value);
+            if(input != null) input.SetTexture(value);
         }
 
         /// <summary>
@@ -528,21 +510,9 @@ namespace SOS.SubstanceExtensions
 
             if(input == null) return false;
 
-            SetTextureInternal(input, value);
+            input.SetTexture(value);
 
             return true;
-        }
-
-
-        private static Texture2D GetTextureInternal(SubstanceInputTexture input)
-        {
-            return (Texture2D)TextureDataField.GetValue(input);
-        }
-
-
-        private static void SetTextureInternal(SubstanceInputTexture input, Texture2D value)
-        {
-            TextureDataField.SetValue(input, value);
         }
 
         #endregion

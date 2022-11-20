@@ -381,54 +381,42 @@ namespace SOS.SubstanceExtensions
         /// Note: When setting texture values, it is recommended to use <see cref="SetValueAsync"/>, otherwise your texture must be read/writable.
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to update values on.</param>
-        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
-        /// <returns>True if the handler has the target parameter set.</returns>
-        public bool SetValue(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance=null)
+        public void SetValue(SubstanceNativeGraph nativeGraph)
         {
             switch(Type)
             {
                 case SubstanceValueType.Float:
                     nativeGraph.SetInputFloat(Index, FloatValue);
-                    return true;
+                    break;
                 case SubstanceValueType.Float2:
                     nativeGraph.SetInputFloat2(Index, Float2Value);
-                    return true;
+                    break;
                 case SubstanceValueType.Float3:
                     nativeGraph.SetInputFloat3(Index, Float3Value);
-                    return true;
+                    break;
                 case SubstanceValueType.Float4:
                     nativeGraph.SetInputFloat4(Index, Float4Value);
-                    return true;
+                    break;
                 case SubstanceValueType.Int:
                     nativeGraph.SetInputInt(Index, IntValue);
-                    return true;
+                    break;
                 case SubstanceValueType.Int2:
-                    if(Name == SubstanceNativeGraphExtensions.kOutputSizeIdentifier && substance != null)
-                    {
-                        nativeGraph.SetOutputSize(Index, Int2Value, substance);
-                        return true;
-                    }
-                    else
-                    {
-                        nativeGraph.SetInputInt2(Index, Int2Value);
-                    }
-                    return true;
+                    nativeGraph.SetInputInt2(Index, Int2Value);
+                    break;
                 case SubstanceValueType.Int3:
                     nativeGraph.SetInputInt3(Index, Int3Value);
-                    return true;
+                    break;
                 case SubstanceValueType.Int4:
-                    nativeGraph.SetInputInt4(Index, Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w);
-                    return true;
+                    nativeGraph.SetInputInt4(Index, Int4Value);
+                    break;
                 case SubstanceValueType.String:
                     nativeGraph.SetInputString(Index, StringValue);
-                    return true;
+                    break;
                 case SubstanceValueType.Image:
                     if(TextureValue == null) nativeGraph.SetInputTexture2DNull(Index);
                     else nativeGraph.SetInputTextureCPU(Index, TextureValue);
-                    return true;
+                    break;
             }
-
-            return false;
         }
 
         /// <summary>
@@ -473,9 +461,9 @@ namespace SOS.SubstanceExtensions
                     stringInput.Data = StringValue;
                     return true;
                 case SubstanceInputTexture textureInput:
-                    Debug.LogWarning("Texture assignments to inputs are broken since 0.0.100...");
-                    //textureInput.Data = TextureValue;
-                    return true;
+                    //Since the texture variable is private, need to use reflection to set the graph input's texture value.
+                    textureInput.SetTexture(TextureValue);
+                    return false;
             }
 
             return false;
@@ -485,51 +473,49 @@ namespace SOS.SubstanceExtensions
         /// Asynchronously update the given handler with this parameter's values.
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to update values on.</param>
-        /// <param name="substance">[Optional] Substance asset that will be rendered. Must be assigned if setting $outputsize value for texture assets to properly resize.</param>
         /// <returns>Task representing the set operation. Only texture assignments should require asynchronous execution, all other value types are set instantly.</returns>
-        public async Task SetValueAsync(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance=null)
+        public async Task SetValueAsync(SubstanceNativeGraph nativeGraph)
         {
             switch(Type)
             {
                 case SubstanceValueType.Float:
                     nativeGraph.SetInputFloat(Index, FloatValue);
-                    return;
+                    break;
                 case SubstanceValueType.Float2:
                     nativeGraph.SetInputFloat2(Index, Float2Value);
-                    return;
+                    break;
                 case SubstanceValueType.Float3:
                     nativeGraph.SetInputFloat3(Index, Float3Value);
-                    return;
+                    break;
                 case SubstanceValueType.Float4:
                     nativeGraph.SetInputFloat4(Index, Float4Value);
-                    return;
+                    break;
                 case SubstanceValueType.Int:
                     nativeGraph.SetInputInt(Index, IntValue);
-                    return;
+                    break;
                 case SubstanceValueType.Int2:
-                    if (Name == SubstanceNativeGraphExtensions.kOutputSizeIdentifier && substance != null)
+                    if (Name == SubstanceNativeGraphExtensions.kOutputSizeIdentifier)
                     {
-                        nativeGraph.SetOutputSize(Index, Int2Value, substance);
+                        nativeGraph.SetOutputSize(Index, Int2Value);
                     }
                     else
                     {
                         nativeGraph.SetInputInt2(Index, Int2Value);
                     }
-                    return;
+                    break;
                 case SubstanceValueType.Int3:
                     nativeGraph.SetInputInt3(Index, Int3Value);
-                    return;
+                    break;
                 case SubstanceValueType.Int4:
                     nativeGraph.SetInputInt4(Index, Int4Value.x, Int4Value.y, Int4Value.z, Int4Value.w);
-                    return;
+                    break;
                 case SubstanceValueType.String:
                     nativeGraph.SetInputString(Index, StringValue);
-                    return;
+                    break;
                 case SubstanceValueType.Image:
                     if (TextureValue == null)
                     {
                         nativeGraph.SetInputTexture2DNull(Index);
-                        return;
                     }
                     else
                     {

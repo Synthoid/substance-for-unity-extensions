@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
-using UnityEngine;
 
 namespace SOS.SubstanceExtensions.Examples
 {
@@ -27,7 +25,6 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
         public SubstanceNativeGraph CachedNativeGraph { get; protected set; }
-        public SubstanceGraphSO CachedSubstance { get; protected set; }
         public string InputIdentifier { get; protected set; }
         public int InputIndex { get; protected set; }
 
@@ -46,10 +43,9 @@ namespace SOS.SubstanceExtensions.Examples
         /// </summary>
         public abstract void SetInputValue();
 
-        public virtual void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
+        public virtual void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
             CachedNativeGraph = nativeGraph;
-            CachedSubstance = substance;
             InputIdentifier = input.Description.Identifier;
             InputIndex = input.Index;
         }
@@ -62,7 +58,6 @@ namespace SOS.SubstanceExtensions.Examples
         public void Release()
         {
             CachedNativeGraph = null;
-            CachedSubstance = null;
         }
     }
 

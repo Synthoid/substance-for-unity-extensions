@@ -139,7 +139,7 @@ namespace SOS.SubstanceExtensions.Tests
 
             while(nativeGraph.InRenderWork) yield return null;
 
-            testGraph.UpdateOutputTextures(renderResult);
+            testGraph.UpdateOutputTextureSizes(renderResult);
 
             bool wait = true;
             int validationStatus = 0;
@@ -181,7 +181,7 @@ namespace SOS.SubstanceExtensions.Tests
 
             while(nativeGraph.InRenderWork) yield return null;
 
-            testGraph.UpdateOutputTextures(renderResult);
+            testGraph.UpdateOutputTextureSizes(renderResult);
 
             wait = true;
             int validationStatus = 0;
@@ -434,10 +434,9 @@ namespace SOS.SubstanceExtensions.Tests
                 yield break;
             }
 
-            Assert.Ignore("Cannot resize output textures as of 3.4.0");
-            //SubstanceGraphRuntimeTestGroup testGroup = testAsset.OutputSizeTest;
+            SubstanceGraphRuntimeTestGroup testGroup = testAsset.OutputSizeTest;
 
-            //yield return TestGroupCoroutine(testGroup);
+            yield return TestGroupCoroutine(testGroup);
         }
 
 

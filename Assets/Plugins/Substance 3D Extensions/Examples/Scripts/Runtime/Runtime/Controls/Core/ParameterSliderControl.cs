@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using Adobe.Substance;
 using Adobe.Substance.Input;
 using Adobe.Substance.Input.Description;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 namespace SOS.SubstanceExtensions.Examples
 {
@@ -18,7 +17,7 @@ namespace SOS.SubstanceExtensions.Examples
             set { slider.value = value; }
         }
 
-        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
             if (input.TryGetNumericalDescription(out ISubstanceInputDescNumerical description))
             {
@@ -36,7 +35,7 @@ namespace SOS.SubstanceExtensions.Examples
                 }
             }
 
-            base.Initialize(nativeGraph, substance, input);
+            base.Initialize(nativeGraph, input);
         }
 
 

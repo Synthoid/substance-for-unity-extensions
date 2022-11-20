@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
-using UnityEngine;
 
 namespace SOS.SubstanceExtensions.Examples
 {
     public class Integer2InputControlLogic : InputControlLogic<Vector2Int>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, substance, input);
+            base.Initialize(nativeGraph, input);
 
             SubstanceInputInt2 valueInput = (SubstanceInputInt2)input;
 
@@ -28,7 +26,7 @@ namespace SOS.SubstanceExtensions.Examples
         {
             if(InputIdentifier == SubstanceNativeGraphExtensions.kOutputSizeIdentifier)
             {
-                CachedNativeGraph.SetOutputSize(InputIndex, Value, CachedSubstance);
+                CachedNativeGraph.SetOutputSize(InputIndex, Value);
             }
             else
             {

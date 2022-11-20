@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
-using UnityEngine;
 
 namespace SOS.SubstanceExtensions.Examples
 {
     public class Integer4InputControlLogic : InputControlLogic<Vector4Int>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, substance, input);
+            base.Initialize(nativeGraph, input);
 
             SubstanceInputInt4 valueInput = (SubstanceInputInt4)input;
 

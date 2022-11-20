@@ -76,9 +76,6 @@ namespace SOS.SubstanceExtensions.Examples
             set { m_OnValueChanged = value; }
         }
 
-        //public SubstanceNativeGraph CachedNativeGraph { get; protected set; }
-        //public int InputIndex { get; protected set; }
-
         /// <summary>
         /// Get the bound input value on the native graph.
         /// </summary>
@@ -97,11 +94,9 @@ namespace SOS.SubstanceExtensions.Examples
             onValueChanged.Invoke();
         }
 
-        public virtual void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
+        public virtual void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
-            //CachedNativeGraph = nativeGraph;
-            //InputIndex = input.Index;
-            Logic.Initialize(nativeGraph, substance, input);
+            Logic.Initialize(nativeGraph, input);
             Logic.SetControlValues(this);
 
             label.text = input.Description.Label;

@@ -191,8 +191,8 @@ MonoBehaviour:
         w: 0
     vectorValue: {x: 0, y: 0, z: 0, w: 0}
     vectorIntValue:
-      x: 10
-      y: 10
+      x: 5
+      y: 5
       z: 0
       w: 0
     stringValue: 

@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using Adobe.Substance;
 using Adobe.Substance.Input;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
-using UnityEngine;
 
 namespace SOS.SubstanceExtensions.Examples
 {
     public class Integer3InputControlLogic : InputControlLogic<Vector3Int>
     {
-        public override void Initialize(SubstanceNativeGraph nativeGraph, SubstanceGraphSO substance, ISubstanceInput input)
+        public override void Initialize(SubstanceNativeGraph nativeGraph, ISubstanceInput input)
         {
-            base.Initialize(nativeGraph, substance, input);
+            base.Initialize(nativeGraph, input);
 
             SubstanceInputInt3 valueInput = (SubstanceInputInt3)input;
 

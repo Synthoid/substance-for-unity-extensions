@@ -1,14 +1,16 @@
 using UnityEngine;
-using System;
 using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions.Examples
 {
+    /// <summary>
+    /// Example script showing how to set an $outputsize input value.
+    /// </summary>
     public class SetOutputSizeExample : MonoBehaviour
     {
-        [SerializeField, Tooltip("")]
+        [SerializeField, Tooltip("Substance to render.")]
         private SubstanceGraphSO substance = null;
-        [SerializeField, Tooltip("")]
+        [SerializeField, Tooltip("$outputsize parameter on the target substance.")]
         private SubstanceParameterValue outputSize = new SubstanceParameterValue();
 
         private async void RenderAsync()
@@ -23,12 +25,7 @@ namespace SOS.SubstanceExtensions.Examples
 
             SubstanceNativeGraph nativeGraph = substance.BeginRuntimeEditing();
 
-            nativeGraph.SetInputValue(outputSize, substance);
-
-            //IntPtr renderResult = await nativeGraph.RenderAsync();
-
-            //substance.CreateAndUpdateOutputTextures(renderResult, nativeGraph, true);
-            //MaterialUtils.AssignOutputTexturesToMaterial(substance);
+            nativeGraph.SetInputValue(outputSize);
 
             await substance.RenderAsync(nativeGraph);
 

@@ -7,10 +7,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
-## [0.2.1]
+## [0.2.1] - 2022-11-20
 
 ### Added
 - Example scene comprised entirely of runtime substance materials.
+- Advanced runtime example now uses a custom control prefab for output size inputs.
+- SubstanceGraphRuntimeExtensions.UpdateOutputTextureSizes method to handle resizing output textures when $outputsize has been changed.
+
+### Changed
+- SubstanceGraphRuntimeExtensions' Render and RenderAsync methods now account for $outputsize changes and properly resize output textures as needed.
+- SubstanceParameterValue SetValue and SetValueAsync for SubstanceNativeGraph no longer return bool values.
+- Moved texture input SetTexture and GetTexture extension methods to SubstanceInputExtensions.
+
+### Fixed
+- Advanced runtime example multi-input controls now properly populate values.
 
 ## [0.2.0] - 2022-11-17
 
