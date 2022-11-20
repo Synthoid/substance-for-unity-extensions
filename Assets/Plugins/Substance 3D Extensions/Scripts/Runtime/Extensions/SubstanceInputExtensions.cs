@@ -6,7 +6,7 @@ using Adobe.Substance.Input;
 namespace SOS.SubstanceExtensions
 {
     /// <summary>
-    /// Extension methods for substanve input classes.
+    /// Extension methods for substance input classes.
     /// </summary>
     public static class SubstanceInputExtensions
     {
