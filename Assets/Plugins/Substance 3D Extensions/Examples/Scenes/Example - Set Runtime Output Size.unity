@@ -169,7 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   substance: {fileID: 11400000, guid: 65b83339b6bbb42a582122b6c9ae12af, type: 2}
-  outputSize:
+  setMethod: 0
+  outputSizeParameter:
     parameter:
       guid: 65b83339b6bbb42a582122b6c9ae12af
       name: $outputsize
@@ -197,6 +198,8 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
+  outputSize: 5
+  rawOutputSize: {x: 5, y: 5}
 --- !u!1 &736007356
 GameObject:
   m_ObjectHideFlags: 0

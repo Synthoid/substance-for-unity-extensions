@@ -8,13 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [0.2.1] - 2022-11-21
 
 ### Added
+- `SubstanceGraphRuntimeExtensions.UpdateOutputTextureSizes()` method to handle resizing output textures when $outputsize has been changed.
 - Advanced runtime example now uses a custom control prefab for output size inputs.
 - Texture control for advanced runtime example.
-- SubstanceGraphRuntimeExtensions.UpdateOutputTextureSizes method to handle resizing output textures when $outputsize has been changed.
+- Set $outputsize example scene showcasing several ways to set a substance's output size input.
 
 ### Changed
-- SubstanceGraphRuntimeExtensions' Render and RenderAsync methods now account for $outputsize changes and properly resize output textures as needed.
-- SubstanceParameterValue SetValue and SetValueAsync for SubstanceNativeGraph no longer return bool values.
+- `SubstanceGraphRuntimeExtension`s' `Render()` and `RenderAsync()` methods now account for $outputsize changes and properly resize output textures as needed.
+- `SubstanceParameterValue` `SetValue(SubstanceNativeGraph)` and `SetValueAsync(SubstanceNativeGraph)` methods no longer return bool values.
 - Moved texture input SetTexture and GetTexture extension methods to SubstanceInputExtensions.
 
 ### Fixed
@@ -23,30 +24,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [0.2.0] - 2022-11-17
 
 ### Added
-- Extension methods for SubstanceGraphSO and SubstanceNativeGraph to streamline runtime rendering.
-- Extension methods for SubstanceNativeGraph to set Texture input values synchronously with CPU textures (read/write enabled) and asynchronously with GPU textures.
-- Convenience extension methods for working with Vector4Int values in native graph and input classes.
-- TransformMatrixAttribute for drawing Vector4 fields in a similar manner to SubstanceDesigner's matrix attribute fields.
-- FloatExtensions and VectorExtensions classes.
-- Vector4Int constructor that accepts an array of ints.
-- RuntimeGraphOnlyAttribute to show a warning when referencing SubstanceGraphSO assets that are not marked as runtime only.
+- Extension methods for `SubstanceGraphSO` and `SubstanceNativeGraph` to streamline runtime rendering.
+- Extension methods for `SubstanceNativeGraph` to set Texture input values synchronously with CPU textures (read/write enabled) and asynchronously with GPU textures.
+- Convenience extension methods for working with `Vector4Int` values in native graph and input classes.
+- `TransformMatrixAttribute` for drawing Vector4 fields in a similar manner to SubstanceDesigner's matrix attribute fields.
+- `FloatExtensions` and `VectorExtensions` classes.
+- `Vector4Int` constructor that accepts an array of ints.
+- `RuntimeGraphOnlyAttribute` to show a warning when referencing SubstanceGraphSO assets that are not marked as runtime only.
 - Example scenes showcasing extension code functionality.
 - Unit tests for interacting with substance assets and runtime graphs.
 
 ### Changed
 - Updated supported plugin version to 3.4.0 release.
 - Renamed root "Substance Extensions" folder to "Substance 3D Extensions"
-- SubstanceParameter and SubstanceOutput now target SubstanceGraphSO instead of SubstanceFileSO assets.
-- SubstanceParameter and SubstanceOutput popup search windows now display the name of the graph being interacted with.
-- SubstanceParameter and SubstanceParameterValue now display input types and identifiers as part of their labels.
-- SubstanceOutput now displays output identifier and channel information as part of its labels.
+- `SubstanceParameter` and `SubstanceOutput` now target `SubstanceGraphSO` instead of `SubstanceFileSO` assets.
+- `SubstanceParameter` and `SubstanceOutput` popup search windows now display the name of the graph being interacted with.
+- `SubstanceParameter` and `SubstanceParameterValue` now display input types and identifiers as part of their labels.
+- `SubstanceOutput` now displays output identifier and channel information as part of its labels.
 - Moved existing test substances to Tests folder.
 - None options in controls are now stylized as "<None>" to separate them from possible actual values called "None".
-- Renamed SubstanceGraphExtensions.GetOutputMap() to GetOutputTexture().
+- Renamed `SubstanceGraphExtensions.GetOutputMap()` to `GetOutputTexture()`.
 
 ### Fixed
-- SubstanceParameterValue inspector for Int3 values now uses XYZ labels instead of XYW.
-- Inspector indenting no longer breaks SubstanceParameter or SubstanceOutput inspector visuals.
+- `SubstanceParameterValue` inspector for Int3 values now uses XYZ labels instead of XYW.
+- Inspector indenting no longer breaks `SubstanceParameter` or `SubstanceOutput` inspector visuals.
 
 ### Removed
 - SubstanceFileExtensions.cs as its functionality should be instead accessed through SubstanceGraphExtensions.cs now.
