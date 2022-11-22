@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Adobe.Substance;
-using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions.Examples
 {
