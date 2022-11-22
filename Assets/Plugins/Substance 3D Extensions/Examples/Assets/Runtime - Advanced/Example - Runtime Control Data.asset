@@ -74,3 +74,9 @@ MonoBehaviour:
     controls:
     - widget: 0
       prefab: {fileID: 1266319818428090269, guid: fa99bc5be23d5461793e2cf143ec92e5, type: 3}
+  - valueType: 8
+    defaultControl: 0
+    selectLogic: {fileID: 0}
+    controls:
+    - widget: 0
+      prefab: {fileID: 5162370705952706414, guid: afe04e754e7c04447b2f7c6ab99f98a0, type: 3}

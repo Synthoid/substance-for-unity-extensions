@@ -60,6 +60,7 @@ namespace SOS.SubstanceExtensions.Examples
                             logic = ScriptableObject.CreateInstance<StringInputControlLogic>();
                             break;
                         case InputControlLogic.InputLogicType.Texture:
+                            logic = ScriptableObject.CreateInstance<TextureInputControlLogic>();
                             break;
                     }
 
