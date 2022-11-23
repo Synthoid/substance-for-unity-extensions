@@ -8,6 +8,13 @@ namespace SOS.SubstanceExtensions.Examples
     /// </summary>
     public class SubstanceAttributesExample : MonoBehaviour
     {
+        [Header("SubstanceParameter Filtering")]
+        [Tooltip("Standard SubstanceParameter that can select all substance inputs.")]
+        public SubstanceParameter allInputs = new SubstanceParameter();
+        [SubstanceInputTypeFilter(SbsInputTypeFilter.Int | SbsInputTypeFilter.Int2 | SbsInputTypeFilter.Int3 | SbsInputTypeFilter.Int4), Tooltip("SubstanceParameter that can select only int, int2, int3, and int4 substance inputs.")]
+        public SubstanceParameter intInputs = new SubstanceParameter();
+        [SubstanceInputTypeFilter(SbsInputTypeFilter.Image), Tooltip("SubstanceParameter that can select only image substance inputs.")]
+        public SubstanceParameter imageInputs = new SubstanceParameter();
         [Header("Runtime Graph Only")]
         [RuntimeGraphOnly, Tooltip("SubstanceGraphSO marked as runtime only. This will display no warnings.")]
         public SubstanceGraphSO runtimeGraph = null;

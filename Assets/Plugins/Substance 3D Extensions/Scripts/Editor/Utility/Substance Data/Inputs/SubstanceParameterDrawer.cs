@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System.Reflection;
 using SOS.SubstanceExtensions;
 using Adobe.Substance;
 using Adobe.Substance.Input;
@@ -26,11 +27,13 @@ namespace SOS.SubstanceExtensionsEditor
         {
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
+            SubstanceInputTypeFilterAttribute filterAttribute = fieldInfo.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+            SbsInputTypeFilter inputFilter = filterAttribute != null ? filterAttribute.filter : SbsInputTypeFilter.Everything;
+
             int index = -1;
-            //string graphGuid = property.FindPropertyRelative("graphGuid").stringValue;
             string assetGuid = assetProperty.stringValue;
             string currentValue = valueProperty.stringValue;
-            GUIContent[] labels = GetLabels(assetGuid);
+            GUIContent[] labels = GetLabels(assetGuid, inputFilter);
             SubstanceParameterData[] inputs = GetParameters(assetGuid);
 
             for(int i=0; i < labels.Length; i++)
@@ -62,7 +65,6 @@ namespace SOS.SubstanceExtensionsEditor
                 }
                 else
                 {
-                    //property.FindPropertyRelative("graphGuid").stringValue = inputs[selectionIndex].graphGuid;
                     property.FindPropertyRelative("index").intValue = inputs[selectionIndex].index;
                     property.FindPropertyRelative("type").intValue = (int)inputs[selectionIndex].type;
                     property.FindPropertyRelative("widgetType").intValue = (int)inputs[selectionIndex].widget;
@@ -75,14 +77,11 @@ namespace SOS.SubstanceExtensionsEditor
                 valueProperty.serializedObject.ApplyModifiedProperties();
             },
             GetGraphLabel(assetGuid));
-            //new GUIContent(string.Format(kSearchWindowTitle, )));
-            //SearchWindowTitle);
         }
 
 
         private void ResetParameterProperty(SerializedProperty property)
         {
-            property.FindPropertyRelative("graphGuid").stringValue = "";
             property.FindPropertyRelative("index").intValue = 0;
             property.FindPropertyRelative("type").intValue = (int)SubstanceValueType.Float;
             property.FindPropertyRelative("widgetType").intValue = (int)SubstanceWidgetType.NoWidget;
@@ -93,7 +92,7 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
 
-        private GUIContent[] GetLabels(string assetGuid)
+        private GUIContent[] GetLabels(string assetGuid, SbsInputTypeFilter filter)
         {
             parameterLabels.TryGetValue(assetGuid, out GUIContent[] labels);
 
@@ -109,20 +108,20 @@ namespace SOS.SubstanceExtensionsEditor
 
                     for(int j = 0; j < inputs.Count; j++)
                     {
-                        if(inputs[j].IsValid)
-                        {
-                            int index = j;
+                        if(!inputs[j].IsValid) continue; //Skip invalid inputs
+                        if((filter & inputs[j].ValueType.ToFilter()) == 0) continue; //Skip inputs not included in the filter.
 
-                            GUIContent label = new GUIContent(string.Format("{0}{1} ({2}) [{3}]",
-                                string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("{0}/", inputs[index].Description.GuiGroup),
-                                inputs[index].Description.Label,
-                                inputs[index].Description.Identifier,
-                                inputs[index].Description.Type),
-                                inputs[index].Description.Identifier);
+                        int index = j;
 
-                            newLabels.Add(label);
-                            parameters.Add(new SubstanceParameterData(inputs[index], substance.GUID));
-                        }
+                        GUIContent label = new GUIContent(string.Format("{0}{1} ({2}) [{3}]",
+                            string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("{0}/", inputs[index].Description.GuiGroup),
+                            inputs[index].Description.Label,
+                            inputs[index].Description.Identifier,
+                            inputs[index].Description.Type),
+                            inputs[index].Description.Identifier);
+
+                        newLabels.Add(label);
+                        parameters.Add(new SubstanceParameterData(inputs[index], substance.GUID));
                     }
                 }
                 else

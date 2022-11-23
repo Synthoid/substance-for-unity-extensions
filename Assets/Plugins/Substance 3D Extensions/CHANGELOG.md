@@ -5,6 +5,16 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased]
+
+## [0.2.2]
+
+### Added
+- README file in project folder.
+- Example scene comprised entirely of runtime substance materials.
+- Example scene showcasing Timeline functionality.
+- Custom importer to force reimport substances when an `.sbsar` file is updated.
+
 ## [0.2.1] - 2022-11-21
 
 ### Added

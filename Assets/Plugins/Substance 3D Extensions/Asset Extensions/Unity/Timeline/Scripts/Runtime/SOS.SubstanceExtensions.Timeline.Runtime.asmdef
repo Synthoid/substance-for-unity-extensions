@@ -1,0 +1,18 @@
+{
+    "name": "SOS.SubstanceExtensions.Timeline.Runtime",
+    "rootNamespace": "SOS.SubstanceExtensions.Timeline",
+    "references": [
+        "GUID:f06555f75b070af458a003d92f9efb00",
+        "GUID:0322a29457affe94ab4ade0a1555000f",
+        "GUID:cedc11e2794ad3849821c494089f6e9d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
