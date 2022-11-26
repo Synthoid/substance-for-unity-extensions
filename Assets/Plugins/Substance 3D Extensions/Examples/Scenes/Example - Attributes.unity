@@ -302,33 +302,6 @@ MonoBehaviour:
       w: 0
     stringValue: 
     textureValue: {fileID: 0}
-  arrayTest:
-  - parameter:
-      guid: 85e8d8f3a85a74268a43cf1ff8cd836c
-      name: 
-      index: 0
-      valueType: 0
-      widgetType: 0
-      rangeMin: {x: 0, y: 0, z: 0, w: 0}
-      rangeMax: {x: 0, y: 0, z: 0, w: 0}
-      rangeIntMin:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-      rangeIntMax:
-        x: 0
-        y: 0
-        z: 0
-        w: 0
-    vectorValue: {x: 0, y: 0, z: 0, w: 0}
-    vectorIntValue:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-    stringValue: 
-    textureValue: {fileID: 0}
   runtimeGraph: {fileID: 11400000, guid: 85e8d8f3a85a74268a43cf1ff8cd836c, type: 2}
   staticGraph: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}
   staticGraphCustom: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}

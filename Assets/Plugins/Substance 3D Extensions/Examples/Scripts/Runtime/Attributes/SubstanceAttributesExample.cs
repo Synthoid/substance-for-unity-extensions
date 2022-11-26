@@ -4,7 +4,7 @@ using Adobe.Substance;
 namespace SOS.SubstanceExtensions.Examples
 {
     /// <summary>
-    /// Example class showcasing various attributes for working with substances.
+    /// Example class showcasing various attributes for working with substances in the inspector.
     /// </summary>
     public class SubstanceAttributesExample : MonoBehaviour
     {
@@ -22,10 +22,6 @@ namespace SOS.SubstanceExtensions.Examples
         public SubstanceParameterValue intInputValues = new SubstanceParameterValue();
         [SubstanceInputTypeFilter(SbsInputTypeFilter.Image), Tooltip("SubstanceParameterValue that can select only image substance inputs.")]
         public SubstanceParameterValue imageInputValues = new SubstanceParameterValue();
-        [Header("Array Test")]
-        public SubstanceParameterValue[] arrayTest = new SubstanceParameterValue[0];
-        [SubstanceInputTypeFilter(SbsInputTypeFilter.Int | SbsInputTypeFilter.Int2 | SbsInputTypeFilter.Int3 | SbsInputTypeFilter.Int4)]
-        public SubstanceParameterValue[] arrayFilterTest = new SubstanceParameterValue[0];
         [Header("Runtime Graph Only")]
         [RuntimeGraphOnly, Tooltip("SubstanceGraphSO marked as runtime only. This will display no warnings.")]
         public SubstanceGraphSO runtimeGraph = null;

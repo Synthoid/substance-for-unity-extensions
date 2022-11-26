@@ -6,8 +6,14 @@ using System.Reflection;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Extension methods for <see cref="SerializedProperty"/>.
+    /// </summary>
     public static class SerializedPropertyExtensions
     {
+        /// <summary>
+        /// Prefix for array element serialized property paths.
+        /// </summary>
         private const string kArrayPropertyPathPrefix = ".Array.data[";
 
         /// <summary>
@@ -51,7 +57,11 @@ namespace SOS.SubstanceExtensionsEditor
             return property.serializedObject.FindProperty(parentPath);
         }
 
-
+        /// <summary>
+        /// Get the <see cref="FieldInfo"/> for the target serialized property.
+        /// </summary>
+        /// <param name="property">Property to obtain field info from.</param>
+        /// <returns><see cref="FieldInfo"/> associated with the target property.</returns>
         public static FieldInfo GetPropertyFieldInfo(this SerializedProperty property)
         {
             string propertyPath = property.propertyPath.Replace(kArrayPropertyPathPrefix, "[");
@@ -78,10 +88,11 @@ namespace SOS.SubstanceExtensionsEditor
             return sourceType.GetField(paths[paths.Length - 1], BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         }
 
-
-
-
-
+        /// <summary>
+        /// Get the raw object value for the target serialized property.
+        /// </summary>
+        /// <param name="property">Property to obtain the raw object value of.</param>
+        /// <returns>object value for the target property.</returns>
         public static object GetPropertyObject(this SerializedProperty property)
         {
             string propertyPath = property.propertyPath.Replace(kArrayPropertyPathPrefix, "[");

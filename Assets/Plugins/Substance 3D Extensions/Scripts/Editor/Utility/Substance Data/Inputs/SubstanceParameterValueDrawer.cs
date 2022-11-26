@@ -701,12 +701,6 @@ namespace SOS.SubstanceExtensionsEditor
                     EnumFieldLabels.Add(guid, new Dictionary<int, GUIContent>());
                 }
 
-                /*if(!containsIndex)
-                {
-                    EnumValues[guid].Add(graphIndex, new Dictionary<int, int[]>());
-                    EnumFieldLabels[guid].Add(graphIndex, new Dictionary<int, GUIContent>());
-                }*/
-
                 EnumValues[guid].Add(parameterIndex, enumLabelValues);
                 EnumFieldLabels[guid].Add(parameterIndex, label);
             }
@@ -715,11 +709,6 @@ namespace SOS.SubstanceExtensionsEditor
                 enumLabelValues = EnumValues[guid][parameterIndex];
                 label = EnumFieldLabels[guid][parameterIndex];
             }
-
-            /*if(!containsIndex)
-            {
-                indexes.Add(graphIndex, indexes);
-            }*/
 
             if(!containsIndexes)
             {
@@ -772,7 +761,6 @@ namespace SOS.SubstanceExtensionsEditor
                         label.text = string.Format("{0} [{1}]", parameterName, type);
                     }
                 }
-                //TODO: Get parameter name and type. Maybe append info to tooltip as well? ie (Name (Type), Original Tooltip\n\nInput description?)
 
                 ArrayLabels.Add(propertyPath, label);
             }

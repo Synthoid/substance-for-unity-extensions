@@ -16,6 +16,7 @@ namespace SOS.SubstanceExtensionsEditor
         private Dictionary<string, GUIContent> graphLabels = new Dictionary<string, GUIContent>();
         private Dictionary<string, GUIContent[]> parameterLabels = new Dictionary<string, GUIContent[]>();
         private Dictionary<string, SubstanceParameterData[]> parameterMappings = new Dictionary<string, SubstanceParameterData[]>();
+        private Dictionary<string, SbsInputTypeFilter> parameterFilters = new Dictionary<string, SbsInputTypeFilter>();
 
         public override string AssetField { get { return "guid"; } }
         public override string ValueField { get { return "name"; } }
@@ -24,27 +25,27 @@ namespace SOS.SubstanceExtensionsEditor
         {
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
-            //TODO: Cache this with a dictionary of <propertyPath, filter
-            SubstanceInputTypeFilterAttribute filterAttribute = fieldInfo.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
-
-            //No direct filter attribute found. Check immediate parent for filter attribute.
-            if(filterAttribute == null)
+            if(!parameterFilters.TryGetValue(property.propertyPath, out SbsInputTypeFilter inputFilter))
             {
-                SerializedProperty parentProp = property.GetParentProperty();
+                SubstanceInputTypeFilterAttribute filterAttribute = fieldInfo.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
 
-                if(parentProp != null)
+                //No direct filter attribute found. Check immediate parent for filter attribute.
+                if(filterAttribute == null)
                 {
-                    FieldInfo parentField = parentProp == null ? null : parentProp.GetPropertyFieldInfo();
+                    SerializedProperty parentProperty = property.GetParentProperty();
 
-                    filterAttribute = parentField.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+                    if(parentProperty != null)
+                    {
+                        FieldInfo parentField = parentProperty.GetPropertyFieldInfo();
+
+                        filterAttribute = parentField.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+                    }
                 }
+
+                inputFilter = filterAttribute != null ? filterAttribute.filter : SbsInputTypeFilter.Everything;
+
+                parameterFilters.Add(property.propertyPath, inputFilter);
             }
-
-            SbsInputTypeFilter inputFilter = filterAttribute != null ? filterAttribute.filter : SbsInputTypeFilter.Everything;
-
-            //Debug.Log($"Path: {property.propertyPath}\nProp Obj: {propObj == null}\nParent Prop: {parentProp == null}\nParent Obj: {parentObj == null}\nParent Field: {parentField == null}");
-
-            //fieldInfo.GetParentCustomAttribute<SubstanceInputTypeFilterAttribute>();
 
             int index = -1;
             string assetGuid = assetProperty.stringValue;
