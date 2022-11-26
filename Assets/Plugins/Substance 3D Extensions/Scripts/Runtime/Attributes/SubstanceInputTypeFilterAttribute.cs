@@ -5,6 +5,7 @@ namespace SOS.SubstanceExtensions
     /// <summary>
     /// Attribute for <see cref="SubstanceParameter"/> and <see cref="SubstanceParameterValue"/> fields that filters what inputs are selectable based on their value type.
     /// </summary>
+    [System.AttributeUsage(System.AttributeTargets.Field)]
     public class SubstanceInputTypeFilterAttribute : PropertyAttribute
     {
         /// <summary>

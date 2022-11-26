@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using SOS.SubstanceExtensions;
 using Adobe.Substance;
@@ -11,8 +13,6 @@ namespace SOS.SubstanceExtensionsEditor
     public static class SubstanceExtensionsEditorUtility
     {
         #region Utility
-
-        public const float kSpaceHeight = 8f;
 
         public class Labels
         {
@@ -50,6 +50,50 @@ namespace SOS.SubstanceExtensionsEditor
                 public static GUIContent RawMatrixY1Label = new GUIContent("Y1");
                 public static GUIContent RawMatrixY2Label = new GUIContent("Y2");
             }
+        }
+
+        public const float kSpaceHeight = 8f;
+
+        public const string kInputSearchWindowTitle = "{0} Inputs";
+        public const string kOutputSearchWindowTitle = "{0} Outputs";
+        public const string kDefaultSubstanceName = "<No Substance>";
+
+        public static readonly GUIContent kDefaultNoneLabel = new GUIContent("<None>", "");
+
+
+        public static Tuple<GUIContent[], SubstanceParameterData[]> GetInputData(SubstanceGraphSO substance, SbsInputTypeFilter filter)
+        {
+            List<GUIContent> newLabels = new List<GUIContent>() { kDefaultNoneLabel };
+            List<SubstanceParameterData> parameters = new List<SubstanceParameterData>() { new SubstanceParameterData() };
+
+            if (substance != null)
+            {
+                List<ISubstanceInput> inputs = substance.Input;
+
+                for (int j = 0; j < inputs.Count; j++)
+                {
+                    if (!inputs[j].IsValid) continue; //Skip invalid inputs
+                    if ((filter & inputs[j].ValueType.ToFilter()) == 0) continue; //Skip inputs not included in the filter.
+
+                    int index = j;
+
+                    GUIContent label = new GUIContent(string.Format("{0}{1} ({2}) [{3}]",
+                        string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("{0}/", inputs[index].Description.GuiGroup),
+                        inputs[index].Description.Label,
+                        inputs[index].Description.Identifier,
+                        inputs[index].Description.Type),
+                        inputs[index].Description.Identifier);
+
+                    newLabels.Add(label);
+                    parameters.Add(new SubstanceParameterData(inputs[index], substance.GUID));
+                }
+            }
+            else
+            {
+                newLabels[0].text = "None <No Substance>";
+            }
+
+            return Tuple.Create(newLabels.ToArray(), parameters.ToArray());
         }
 
         #endregion
@@ -136,7 +180,6 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
         #endregion
-
 
         #region TransformMatrix
 

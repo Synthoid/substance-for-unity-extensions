@@ -7,7 +7,7 @@ namespace SOS.SubstanceExtensions.Timeline
     /// Version of <see cref="SubstanceParameter"/> that uses a Timeline track binding as the target substance.
     /// </summary>
     [System.Serializable]
-    public struct SubstanceBindingParameter
+    public struct SubstanceBindingParameter : ISubstanceInputParameter
     {
         /// <summary>
         /// Name for the target parameter.
@@ -23,7 +23,7 @@ namespace SOS.SubstanceExtensions.Timeline
         /// Value type for the parameter.
         /// </summary>
         [SerializeField]
-        private SubstanceValueType type;
+        private SubstanceValueType valueType;
         /// <summary>
         /// Widget type for the parameter.
         /// </summary>
@@ -50,71 +50,45 @@ namespace SOS.SubstanceExtensions.Timeline
         [SerializeField]
         private Vector4Int rangeIntMax;
 
-        /// <summary>
-        /// Name for the input parameter. This is based on the input's identifier value.
-        /// </summary>
         public string Name
         {
             get { return name; }
         }
 
-        /// <summary>
-        /// Index for the input parameter on the target graph.
-        /// </summary>
         public int Index
         {
             get { return index; }
         }
 
-        /// <summary>
-        /// Value type for the parameter.
-        /// </summary>
-        public SubstanceValueType Type
+        public SubstanceValueType ValueType
         {
-            get { return type; }
+            get { return valueType; }
         }
 
-        /// <summary>
-        /// Inspector widget used for the input parameter. This is primarily used for tooling purposes.
-        /// </summary>
         public SubstanceWidgetType WidgetType
         {
             get { return widgetType; }
         }
 
-        /// <summary>
-        /// Min slider values used for float parameters. X is used for Float parameters. X, Y for Float2, etc.
-        /// </summary>
         public Vector4 RangeMin
         {
             get { return rangeMin; }
         }
 
-        /// <summary>
-        /// Max slider values used for float parameters. X is used for Float parameters. X, Y for Float2, etc.
-        /// </summary>
         public Vector4 RangeMax
         {
             get { return rangeMax; }
         }
 
-        /// <summary>
-        /// Min slider values used for integer parameters. X is used for Int parameters. X, Y for Int2, etc.
-        /// </summary>
         public Vector4Int RangeIntMin
         {
             get { return rangeIntMin; }
         }
 
-        /// <summary>
-        /// Max slider values used for integer parameters. X is used for Int parameters. X, Y for Int2, etc.
-        /// </summary>
         public Vector4Int RangeIntMax
         {
             get { return rangeIntMax; }
         }
-
-
 
         #region Constructors
 
@@ -166,16 +140,16 @@ namespace SOS.SubstanceExtensions.Timeline
 
         #endregion
 
-        public SubstanceBindingParameter(int index, SubstanceValueType type, string name) : this(index, type, name, SubstanceWidgetType.NoWidget, default, default, default, default)
+        public SubstanceBindingParameter(int index, SubstanceValueType valueType, string name) : this(index, valueType, name, SubstanceWidgetType.NoWidget, default, default, default, default)
         {
 
         }
 
-        public SubstanceBindingParameter(int index, SubstanceValueType type, string name = "", SubstanceWidgetType widgetType = SubstanceWidgetType.NoWidget, Vector4 sliderMin = default, Vector4 sliderMax = default, Vector4Int sliderIntMin = default, Vector4Int sliderIntMax = default)
+        public SubstanceBindingParameter(int index, SubstanceValueType valueType, string name="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget, Vector4 sliderMin=default, Vector4 sliderMax=default, Vector4Int sliderIntMin=default, Vector4Int sliderIntMax=default)
         {
             this.name = name;
             this.index = index;
-            this.type = type;
+            this.valueType = valueType;
             this.widgetType = widgetType;
             this.rangeMin = sliderMin;
             this.rangeMax = sliderMax;

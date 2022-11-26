@@ -11,9 +11,6 @@ namespace SOS.SubstanceExtensionsEditor
     [CustomPropertyDrawer(typeof(SubstanceParameter))]
     public class SubstanceParameterDrawer : GUIDReferenceDrawer<SubstanceGraphSO>
     {
-        protected const string kSearchWindowTitle = "{0} Inputs";
-        protected const string kDefaultSubstanceName = "<No Substance>";
-
         private static readonly SubstanceParameterData[] DefaultParameters = new SubstanceParameterData[0];
 
         private Dictionary<string, GUIContent> graphLabels = new Dictionary<string, GUIContent>();
@@ -27,8 +24,27 @@ namespace SOS.SubstanceExtensionsEditor
         {
             if(string.IsNullOrEmpty(assetProperty.stringValue)) return;
 
+            //TODO: Cache this with a dictionary of <propertyPath, filter
             SubstanceInputTypeFilterAttribute filterAttribute = fieldInfo.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+
+            //No direct filter attribute found. Check immediate parent for filter attribute.
+            if(filterAttribute == null)
+            {
+                SerializedProperty parentProp = property.GetParentProperty();
+
+                if(parentProp != null)
+                {
+                    FieldInfo parentField = parentProp == null ? null : parentProp.GetPropertyFieldInfo();
+
+                    filterAttribute = parentField.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+                }
+            }
+
             SbsInputTypeFilter inputFilter = filterAttribute != null ? filterAttribute.filter : SbsInputTypeFilter.Everything;
+
+            //Debug.Log($"Path: {property.propertyPath}\nProp Obj: {propObj == null}\nParent Prop: {parentProp == null}\nParent Obj: {parentObj == null}\nParent Field: {parentField == null}");
+
+            //fieldInfo.GetParentCustomAttribute<SubstanceInputTypeFilterAttribute>();
 
             int index = -1;
             string assetGuid = assetProperty.stringValue;
@@ -66,7 +82,7 @@ namespace SOS.SubstanceExtensionsEditor
                 else
                 {
                     property.FindPropertyRelative("index").intValue = inputs[selectionIndex].index;
-                    property.FindPropertyRelative("type").intValue = (int)inputs[selectionIndex].type;
+                    property.FindPropertyRelative("valueType").intValue = (int)inputs[selectionIndex].type;
                     property.FindPropertyRelative("widgetType").intValue = (int)inputs[selectionIndex].widget;
                     property.FindPropertyRelative("rangeMin").vector4Value = inputs[selectionIndex].rangeMin;
                     property.FindPropertyRelative("rangeMax").vector4Value = inputs[selectionIndex].rangeMax;
@@ -83,7 +99,7 @@ namespace SOS.SubstanceExtensionsEditor
         private void ResetParameterProperty(SerializedProperty property)
         {
             property.FindPropertyRelative("index").intValue = 0;
-            property.FindPropertyRelative("type").intValue = (int)SubstanceValueType.Float;
+            property.FindPropertyRelative("valueType").intValue = (int)SubstanceValueType.Float;
             property.FindPropertyRelative("widgetType").intValue = (int)SubstanceWidgetType.NoWidget;
             property.FindPropertyRelative("rangeMin").vector4Value = Vector4.zero;
             property.FindPropertyRelative("rangeMax").vector4Value = Vector4.zero;
@@ -94,45 +110,17 @@ namespace SOS.SubstanceExtensionsEditor
 
         private GUIContent[] GetLabels(string assetGuid, SbsInputTypeFilter filter)
         {
-            parameterLabels.TryGetValue(assetGuid, out GUIContent[] labels);
+            bool success = parameterLabels.TryGetValue(assetGuid, out GUIContent[] labels);
 
-            if(labels == null)
+            if(!success)
             {
                 SubstanceGraphSO substance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
-                List<GUIContent> newLabels = new List<GUIContent>() { new GUIContent("<None>", "") };
-                List<SubstanceParameterData> parameters = new List<SubstanceParameterData>() { new SubstanceParameterData() };
+                System.Tuple<GUIContent[], SubstanceParameterData[]> results = SubstanceExtensionsEditorUtility.GetInputData(substance, filter);
 
-                if(substance != null)
-                {
-                    List<ISubstanceInput> inputs = substance.Input;
-
-                    for(int j = 0; j < inputs.Count; j++)
-                    {
-                        if(!inputs[j].IsValid) continue; //Skip invalid inputs
-                        if((filter & inputs[j].ValueType.ToFilter()) == 0) continue; //Skip inputs not included in the filter.
-
-                        int index = j;
-
-                        GUIContent label = new GUIContent(string.Format("{0}{1} ({2}) [{3}]",
-                            string.IsNullOrEmpty(inputs[index].Description.GuiGroup) ? "" : string.Format("{0}/", inputs[index].Description.GuiGroup),
-                            inputs[index].Description.Label,
-                            inputs[index].Description.Identifier,
-                            inputs[index].Description.Type),
-                            inputs[index].Description.Identifier);
-
-                        newLabels.Add(label);
-                        parameters.Add(new SubstanceParameterData(inputs[index], substance.GUID));
-                    }
-                }
-                else
-                {
-                    newLabels[0].text = "None <No Substance>";
-                }
-
-                labels = newLabels.ToArray();
+                labels = results.Item1;
 
                 parameterLabels.Add(assetGuid, labels);
-                parameterMappings.Add(assetGuid, parameters.ToArray());
+                parameterMappings.Add(assetGuid, results.Item2);
             }
 
             return labels;
@@ -155,9 +143,9 @@ namespace SOS.SubstanceExtensionsEditor
             {
                 SubstanceGraphSO substance = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(assetGuid));
 
-                if(substance == null) return new GUIContent(string.Format(kSearchWindowTitle, kDefaultSubstanceName));
+                if(substance == null) return new GUIContent(string.Format(SubstanceExtensionsEditorUtility.kInputSearchWindowTitle, SubstanceExtensionsEditorUtility.kDefaultSubstanceName));
 
-                graphLabel = new GUIContent(string.Format(kSearchWindowTitle, substance.Name));
+                graphLabel = new GUIContent(string.Format(SubstanceExtensionsEditorUtility.kInputSearchWindowTitle, substance.Name));
 
                 graphLabels.Add(assetGuid, graphLabel);
             }

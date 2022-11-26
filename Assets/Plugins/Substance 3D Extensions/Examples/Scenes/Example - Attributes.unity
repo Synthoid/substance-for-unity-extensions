@@ -170,9 +170,8 @@ MonoBehaviour:
   allInputs:
     guid: 85e8d8f3a85a74268a43cf1ff8cd836c
     name: hue
-    graphGuid: 
     index: 2
-    type: 0
+    valueType: 0
     widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0.5, y: 0, z: 0, w: 0}
@@ -189,9 +188,8 @@ MonoBehaviour:
   intInputs:
     guid: 85e8d8f3a85a74268a43cf1ff8cd836c
     name: scale
-    graphGuid: 
     index: 3
-    type: 4
+    valueType: 4
     widgetType: 1
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -208,9 +206,8 @@ MonoBehaviour:
   imageInputs:
     guid: 85e8d8f3a85a74268a43cf1ff8cd836c
     name: 
-    graphGuid: 
     index: 0
-    type: 0
+    valueType: 0
     widgetType: 0
     rangeMin: {x: 0, y: 0, z: 0, w: 0}
     rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -224,6 +221,114 @@ MonoBehaviour:
       y: 0
       z: 0
       w: 0
+  allInputValues:
+    parameter:
+      guid: 85e8d8f3a85a74268a43cf1ff8cd836c
+      name: text
+      index: 4
+      valueType: 9
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: Test
+    textureValue: {fileID: 0}
+  intInputValues:
+    parameter:
+      guid: 85e8d8f3a85a74268a43cf1ff8cd836c
+      name: $outputsize
+      index: 0
+      valueType: 5
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 1
+        y: 1
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 10
+      y: 10
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  imageInputValues:
+    parameter:
+      guid: 85e8d8f3a85a74268a43cf1ff8cd836c
+      name: 
+      index: 0
+      valueType: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  arrayTest:
+  - parameter:
+      guid: 85e8d8f3a85a74268a43cf1ff8cd836c
+      name: 
+      index: 0
+      valueType: 0
+      widgetType: 0
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
   runtimeGraph: {fileID: 11400000, guid: 85e8d8f3a85a74268a43cf1ff8cd836c, type: 2}
   staticGraph: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}
   staticGraphCustom: {fileID: 11400000, guid: b59550b7efb314202848f15744836227, type: 2}

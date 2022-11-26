@@ -55,10 +55,20 @@ namespace SOS.SubstanceExtensions
         /// <summary>
         /// Set all native graph input values targeted in the given IList.
         /// </summary>
+        /// <typeparam name="T">Expected type for the values data.</typeparam>
         /// <param name="nativeGraph">Graph to set input values on.</param>
         /// <param name="values">New values for graph inputs.</param>
-        /// <returns>True if any value set will require output textures to be resized.</returns>
-        public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
+        public static void SetInputValues<T>(this SubstanceNativeGraph nativeGraph, IList<T> values) where T : ISubstanceInputParameterValue
+        {
+            SetInputValues(nativeGraph, (IList<ISubstanceInputParameterValue>)values);
+        }
+
+        /// <summary>
+        /// Set all native graph input values targeted in the given IList.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set input values on.</param>
+        /// <param name="values">New values for graph inputs.</param>
+        public static void SetInputValues(this SubstanceNativeGraph nativeGraph, IList<ISubstanceInputParameterValue> values)
         {
             for (int i=0; i < values.Count; i++)
             {
@@ -69,16 +79,28 @@ namespace SOS.SubstanceExtensions
         /// <summary>
         /// Asynchronously set all native graph input values targeted in the given IList. This allows for GPU based texture assignments.
         /// </summary>
+        /// <typeparam name="T">Expected type for the values data.</typeparam>
         /// <param name="nativeGraph">Graph to set input values on.</param>
         /// <param name="values">New values for graph inputs.</param>
-        /// <returns>Task for the set operation. Task result will be true if any value set will require output textures to be resized.</returns>
-        public static async Task SetInputValuesAsync(this SubstanceNativeGraph nativeGraph, IList<SubstanceParameterValue> values)
+        /// <returns>Task for the set operation.</returns>
+        public static Task SetInputValuesAsync<T>(this SubstanceNativeGraph nativeGraph, IList<T> values) where T : ISubstanceInputParameterValue
+        {
+            return SetInputValuesAsync(nativeGraph, (IList<ISubstanceInputParameterValue>)values);
+        }
+
+        /// <summary>
+        /// Asynchronously set all native graph input values targeted in the given IList. This allows for GPU based texture assignments.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set input values on.</param>
+        /// <param name="values">New values for graph inputs.</param>
+        /// <returns>Task for the set operation.</returns>
+        public static async Task SetInputValuesAsync(this SubstanceNativeGraph nativeGraph, IList<ISubstanceInputParameterValue> values)
         {
             List<Task> tasks = new List<Task>();
 
             for (int i=0; i < values.Count; i++)
             {
-                if(values[i].Type == SubstanceValueType.Image)
+                if(values[i].ValueType == SubstanceValueType.Image)
                 {
                     tasks.Add(values[i].SetValueAsync(nativeGraph));
                 }
@@ -96,8 +118,7 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to set an input value on.</param>
         /// <param name="parameterValue">Data for the target input and its new value.</param>
-        /// <returns>True if the graph input value is properly set.</returns>
-        public static void SetInputValue(this SubstanceNativeGraph nativeGraph, SubstanceParameterValue parameterValue)
+        public static void SetInputValue(this SubstanceNativeGraph nativeGraph, ISubstanceInputParameterValue parameterValue)
         {
             parameterValue.SetValue(nativeGraph);
         }
@@ -107,8 +128,8 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="nativeGraph">Runtime graph to set an input value on.</param>
         /// <param name="parameterValue">Data for the target input and its new value.</param>
-        /// <returns>Task for the set operation. Task result will be true if any value set will require output textures to be resized.</returns>
-        public static Task SetInputValueAsync(this SubstanceNativeGraph nativeGraph, SubstanceParameterValue parameterValue)
+        /// <returns>Task for the set operation.</returns>
+        public static Task SetInputValueAsync(this SubstanceNativeGraph nativeGraph, ISubstanceInputParameterValue parameterValue)
         {
             return parameterValue.SetValueAsync(nativeGraph);
         }
@@ -122,7 +143,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputID">Index for the input being set.</param>
         /// <param name="texture">Texture to assign.</param>
         /// <returns>Awaitable <see cref="Task"/> representing the set operation.</returns>
-        public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture2D texture)
+        public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture)
         {
             bool wait = true;
             byte[] bytes = null;

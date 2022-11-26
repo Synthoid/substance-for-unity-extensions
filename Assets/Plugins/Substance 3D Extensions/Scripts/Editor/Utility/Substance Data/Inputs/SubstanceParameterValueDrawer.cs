@@ -96,7 +96,7 @@ namespace SOS.SubstanceExtensionsEditor
                 if(string.IsNullOrEmpty(property.FindPropertyRelative("parameter.name").stringValue)) return height;
                 if(string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(property.FindPropertyRelative("parameter.guid").stringValue))) return height;
 
-                SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
+                SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.valueType").intValue;
                 SubstanceWidgetType widgetType;
 
                 switch(valueType)
@@ -215,7 +215,7 @@ namespace SOS.SubstanceExtensionsEditor
                 if(string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(property.FindPropertyRelative("parameter.guid").stringValue))) return;
 
                 EditorGUI.indentLevel++;
-                SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
+                SubstanceValueType valueType = (SubstanceValueType)property.FindPropertyRelative("parameter.valueType").intValue;
 
                 switch(valueType)
                 {
@@ -767,7 +767,7 @@ namespace SOS.SubstanceExtensionsEditor
                     }
                     else
                     {
-                        type = (SubstanceValueType)property.FindPropertyRelative("parameter.type").intValue;
+                        type = (SubstanceValueType)property.FindPropertyRelative("parameter.valueType").intValue;
 
                         label.text = string.Format("{0} [{1}]", parameterName, type);
                     }

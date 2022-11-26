@@ -107,7 +107,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns null.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetValue(this SubstanceGraphSO substance, out object value, SubstanceParameter inputParameter)
+        public static bool TryGetValue(this SubstanceGraphSO substance, out object value, ISubstanceInputParameter inputParameter)
         {
             return TryGetValue(substance, out value, inputParameter.Index);
         }
@@ -188,7 +188,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetValue(this SubstanceGraphSO substance, object value, SubstanceParameter inputParameter)
+        public static void SetValue(this SubstanceGraphSO substance, object value, ISubstanceInputParameter inputParameter)
         {
             SetValue(substance, value, inputParameter.Index);
         }
@@ -260,7 +260,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetValue(this SubstanceGraphSO substance, object value, SubstanceParameter inputParameter)
+        public static bool TrySetValue(this SubstanceGraphSO substance, object value, ISubstanceInputParameter inputParameter)
         {
             return TrySetValue(substance, value, inputParameter.Index);
         }
@@ -354,6 +354,38 @@ namespace SOS.SubstanceExtensions
             return true;
         }
 
+        [System.Obsolete("Use SetValues instead.")]
+        public static void SetInputs(this SubstanceGraphSO substance, IList<ISubstanceInputParameterValue> values)
+        {
+            for (int i = 0; i < values.Count; i++)
+            {
+                values[i].SetValue(substance);
+            }
+        }
+
+        /// <summary>
+        /// Set values for the given inputs.
+        /// </summary>
+        /// <param name="substance">Substance asset to set values on.</param>
+        /// <param name="values">Values to set on the target substance.</param>
+        public static void SetValues<T>(this SubstanceGraphSO substance, IList<T> values) where T : ISubstanceInputParameterValue
+        {
+            SetValues(substance, (IList<ISubstanceInputParameterValue>)values);
+        }
+
+        /// <summary>
+        /// Set values for the given inputs.
+        /// </summary>
+        /// <param name="substance">Substance asset to set values on.</param>
+        /// <param name="values">Values to set on the target substance.</param>
+        public static void SetValues(this SubstanceGraphSO substance, IList<ISubstanceInputParameterValue> values)
+        {
+            for (int i = 0; i < values.Count; i++)
+            {
+                values[i].SetValue(substance);
+            }
+        }
+
         #region Texture
 
         /// <summary>
@@ -362,7 +394,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Texture2D"/> representing the target input's value.</returns>
-        public static Texture2D GetTexture(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Texture2D GetTexture(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetTexture(substance, inputParameter.Index);
         }
@@ -398,7 +430,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns null.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetTexture(this SubstanceGraphSO substance, out Texture2D value, SubstanceParameter inputParameter)
+        public static bool TryGetTexture(this SubstanceGraphSO substance, out Texture2D value, ISubstanceInputParameter inputParameter)
         {
             return TryGetTexture(substance, out value, inputParameter.Index);
         }
@@ -444,7 +476,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetTexture(this SubstanceGraphSO substance, Texture2D value, SubstanceParameter inputParameter)
+        public static void SetTexture(this SubstanceGraphSO substance, Texture2D value, ISubstanceInputParameter inputParameter)
         {
             SetTexture(substance, value, inputParameter.Index);
         }
@@ -480,7 +512,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetTexture(this SubstanceGraphSO substance, Texture2D value, SubstanceParameter inputParameter)
+        public static bool TrySetTexture(this SubstanceGraphSO substance, Texture2D value, ISubstanceInputParameter inputParameter)
         {
             return TrySetTexture(substance, value, inputParameter.Index);
         }
@@ -525,7 +557,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>string representing the target input's value.</returns>
-        public static string GetString(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static string GetString(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetString(substance, inputParameter.Index);
         }
@@ -561,7 +593,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns an empty string.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetString(this SubstanceGraphSO substance, out string value, SubstanceParameter inputParameter)
+        public static bool TryGetString(this SubstanceGraphSO substance, out string value, ISubstanceInputParameter inputParameter)
         {
             return TryGetString(substance, out value, inputParameter.Index);
         }
@@ -607,7 +639,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetString(this SubstanceGraphSO substance, string value, SubstanceParameter inputParameter)
+        public static void SetString(this SubstanceGraphSO substance, string value, ISubstanceInputParameter inputParameter)
         {
             SetString(substance, value, inputParameter.Index);
         }
@@ -643,7 +675,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetString(this SubstanceGraphSO substance, string value, SubstanceParameter inputParameter)
+        public static bool TrySetString(this SubstanceGraphSO substance, string value, ISubstanceInputParameter inputParameter)
         {
             return TrySetString(substance, value, inputParameter.Index);
         }
@@ -688,7 +720,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>float representing the target input's value.</returns>
-        public static float GetFloat(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static float GetFloat(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetFloat(substance, inputParameter.Index);
         }
@@ -724,7 +756,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat(this SubstanceGraphSO substance, out float value, SubstanceParameter inputParameter)
+        public static bool TryGetFloat(this SubstanceGraphSO substance, out float value, ISubstanceInputParameter inputParameter)
         {
             return TryGetFloat(substance, out value, inputParameter.Index);
         }
@@ -770,7 +802,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetFloat(this SubstanceGraphSO substance, float value, SubstanceParameter inputParameter)
+        public static void SetFloat(this SubstanceGraphSO substance, float value, ISubstanceInputParameter inputParameter)
         {
             SetFloat(substance, value, inputParameter.Index);
         }
@@ -806,7 +838,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat(this SubstanceGraphSO substance, float value, SubstanceParameter inputParameter)
+        public static bool TrySetFloat(this SubstanceGraphSO substance, float value, ISubstanceInputParameter inputParameter)
         {
             return TrySetFloat(substance, value, inputParameter.Index);
         }
@@ -851,7 +883,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Vector2"/> representing the target input's value.</returns>
-        public static Vector2 GetFloat2(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector2 GetFloat2(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetFloat2(substance, inputParameter.Index);
         }
@@ -887,7 +919,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector2.zero"/>.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat2(this SubstanceGraphSO substance, out Vector2 value, SubstanceParameter inputParameter)
+        public static bool TryGetFloat2(this SubstanceGraphSO substance, out Vector2 value, ISubstanceInputParameter inputParameter)
         {
             return TryGetFloat2(substance, out value, inputParameter.Index);
         }
@@ -933,7 +965,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetFloat2(this SubstanceGraphSO substance, Vector2 value, SubstanceParameter inputParameter)
+        public static void SetFloat2(this SubstanceGraphSO substance, Vector2 value, ISubstanceInputParameter inputParameter)
         {
             SetFloat2(substance, value, inputParameter.Index);
         }
@@ -969,7 +1001,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat2(this SubstanceGraphSO substance, Vector2 value, SubstanceParameter inputParameter)
+        public static bool TrySetFloat2(this SubstanceGraphSO substance, Vector2 value, ISubstanceInputParameter inputParameter)
         {
             return TrySetFloat2(substance, value, inputParameter.Index);
         }
@@ -1014,7 +1046,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Vector3"/> representing the target input's value.</returns>
-        public static Vector3 GetFloat3(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector3 GetFloat3(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetFloat3(substance, inputParameter.Index);
         }
@@ -1050,7 +1082,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector3.zero"/>.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat3(this SubstanceGraphSO substance, out Vector3 value, SubstanceParameter inputParameter)
+        public static bool TryGetFloat3(this SubstanceGraphSO substance, out Vector3 value, ISubstanceInputParameter inputParameter)
         {
             return TryGetFloat3(substance, out value, inputParameter.Index);
         }
@@ -1096,7 +1128,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetFloat3(this SubstanceGraphSO substance, Vector3 value, SubstanceParameter inputParameter)
+        public static void SetFloat3(this SubstanceGraphSO substance, Vector3 value, ISubstanceInputParameter inputParameter)
         {
             SetFloat3(substance, value, inputParameter.Index);
         }
@@ -1132,7 +1164,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat3(this SubstanceGraphSO substance, Vector3 value, SubstanceParameter inputParameter)
+        public static bool TrySetFloat3(this SubstanceGraphSO substance, Vector3 value, ISubstanceInputParameter inputParameter)
         {
             return TrySetFloat3(substance, value, inputParameter.Index);
         }
@@ -1177,7 +1209,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Vector4"/> representing the target input's value.</returns>
-        public static Vector4 GetFloat4(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector4 GetFloat4(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetFloat4(substance, inputParameter.Index);
         }
@@ -1213,7 +1245,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector4.zero"/>.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetFloat4(this SubstanceGraphSO substance, out Vector4 value, SubstanceParameter inputParameter)
+        public static bool TryGetFloat4(this SubstanceGraphSO substance, out Vector4 value, ISubstanceInputParameter inputParameter)
         {
             return TryGetFloat4(substance, out value, inputParameter.Index);
         }
@@ -1259,7 +1291,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetFloat4(this SubstanceGraphSO substance, Vector4 value, SubstanceParameter inputParameter)
+        public static void SetFloat4(this SubstanceGraphSO substance, Vector4 value, ISubstanceInputParameter inputParameter)
         {
             SetFloat4(substance, value, inputParameter.Index);
         }
@@ -1295,7 +1327,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetFloat4(this SubstanceGraphSO substance, Vector4 value, SubstanceParameter inputParameter)
+        public static bool TrySetFloat4(this SubstanceGraphSO substance, Vector4 value, ISubstanceInputParameter inputParameter)
         {
             return TrySetFloat4(substance, value, inputParameter.Index);
         }
@@ -1340,7 +1372,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the $randomseed input.</param>
         /// <returns>int representing the substance's $randomseed value.</returns>
-        public static int GetRandomSeed(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static int GetRandomSeed(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt(substance, inputParameter.Index);
         }
@@ -1361,7 +1393,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the $randomseed value on.</param>
         /// <param name="value">New value for the $randomseed input.</param>
         /// <param name="inputParameter">Parameter data for the $randomseed input.</param>
-        public static void SetRandomSeed(this SubstanceGraphSO substance, int value, SubstanceParameter inputParameter)
+        public static void SetRandomSeed(this SubstanceGraphSO substance, int value, ISubstanceInputParameter inputParameter)
         {
             SetInt(substance, value, inputParameter.Index);
         }
@@ -1384,7 +1416,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>bool representing the target input's value. False if 0, true if anything else.</returns>
-        public static bool GetBool(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static bool GetBool(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetBool(substance, inputParameter.Index);
         }
@@ -1420,7 +1452,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns false.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetBool(this SubstanceGraphSO substance, out bool value, SubstanceParameter inputParameter)
+        public static bool TryGetBool(this SubstanceGraphSO substance, out bool value, ISubstanceInputParameter inputParameter)
         {
             return TryGetBool(substance, out value, inputParameter.Index);
         }
@@ -1466,7 +1498,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetBool(this SubstanceGraphSO substance, bool value, SubstanceParameter inputParameter)
+        public static void SetBool(this SubstanceGraphSO substance, bool value, ISubstanceInputParameter inputParameter)
         {
             SetBool(substance, value, inputParameter.Index);
         }
@@ -1502,7 +1534,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetBool(this SubstanceGraphSO substance, bool value, SubstanceParameter inputParameter)
+        public static bool TrySetBool(this SubstanceGraphSO substance, bool value, ISubstanceInputParameter inputParameter)
         {
             return TrySetBool(substance, value, inputParameter.Index);
         }
@@ -1543,7 +1575,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <param name="defaultValue">Default value returned if the target input is not found.</param>
         /// <returns>Enum value cast from the target input's int value.</returns>
-        public static TEnum GetEnum<TEnum>(this SubstanceGraphSO substance, SubstanceParameter inputParameter, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        public static TEnum GetEnum<TEnum>(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter, TEnum defaultValue=default(TEnum)) where TEnum : Enum
         {
             return GetEnum<TEnum>(substance, inputParameter.Index, defaultValue);
         }
@@ -1585,7 +1617,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <param name="defaultValue">Default value returned if the target input is not found.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetEnum<TEnum>(this SubstanceGraphSO substance, out TEnum value, SubstanceParameter inputParameter, TEnum defaultValue=default(TEnum)) where TEnum : Enum
+        public static bool TryGetEnum<TEnum>(this SubstanceGraphSO substance, out TEnum value, ISubstanceInputParameter inputParameter, TEnum defaultValue=default(TEnum)) where TEnum : Enum
         {
             return TryGetEnum<TEnum>(substance, out value, inputParameter.Index, defaultValue);
         }
@@ -1636,7 +1668,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetEnum<TEnum>(this SubstanceGraphSO substance, TEnum value, SubstanceParameter inputParameter) where TEnum : Enum
+        public static void SetEnum<TEnum>(this SubstanceGraphSO substance, TEnum value, ISubstanceInputParameter inputParameter) where TEnum : Enum
         {
             SetEnum<TEnum>(substance, value, inputParameter.Index);
         }
@@ -1675,7 +1707,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetEnum<TEnum>(this SubstanceGraphSO substance, TEnum value, SubstanceParameter inputParameter) where TEnum : Enum
+        public static bool TrySetEnum<TEnum>(this SubstanceGraphSO substance, TEnum value, ISubstanceInputParameter inputParameter) where TEnum : Enum
         {
             return TrySetEnum<TEnum>(substance, value, inputParameter.Index);
         }
@@ -1720,7 +1752,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>int representing the target input's value.</returns>
-        public static int GetInt(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static int GetInt(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt(substance, inputParameter.Index);
         }
@@ -1756,7 +1788,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns 0.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt(this SubstanceGraphSO substance, out int value, SubstanceParameter inputParameter)
+        public static bool TryGetInt(this SubstanceGraphSO substance, out int value, ISubstanceInputParameter inputParameter)
         {
             return TryGetInt(substance, out value, inputParameter.Index);
         }
@@ -1802,7 +1834,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetInt(this SubstanceGraphSO substance, int value, SubstanceParameter inputParameter)
+        public static void SetInt(this SubstanceGraphSO substance, int value, ISubstanceInputParameter inputParameter)
         {
             SetInt(substance, value, inputParameter.Index);
         }
@@ -1838,7 +1870,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt(this SubstanceGraphSO substance, int value, SubstanceParameter inputParameter)
+        public static bool TrySetInt(this SubstanceGraphSO substance, int value, ISubstanceInputParameter inputParameter)
         {
             return TrySetInt(substance, value, inputParameter.Index);
         }
@@ -1883,7 +1915,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the $outputsize input.</param>
         /// <returns><see cref="Vector2Int"/> representing the substance's $outputsize value.</returns>
-        public static Vector2Int GetOutputSize(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector2Int GetOutputSize(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt2(substance, inputParameter.Index);
         }
@@ -1960,7 +1992,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Vector2Int"/> representing the target input's value.</returns>
-        public static Vector2Int GetInt2(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector2Int GetInt2(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt2(substance, inputParameter.Index);
         }
@@ -1996,7 +2028,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector2Int.zero"/>.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt2(this SubstanceGraphSO substance, out Vector2Int value, SubstanceParameter inputParameter)
+        public static bool TryGetInt2(this SubstanceGraphSO substance, out Vector2Int value, ISubstanceInputParameter inputParameter)
         {
             return TryGetInt2(substance, out value, inputParameter.Index);
         }
@@ -2042,7 +2074,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetInt2(this SubstanceGraphSO substance, Vector2Int value, SubstanceParameter inputParameter)
+        public static void SetInt2(this SubstanceGraphSO substance, Vector2Int value, ISubstanceInputParameter inputParameter)
         {
             SetInt2(substance, value, inputParameter.Index);
         }
@@ -2078,7 +2110,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt2(this SubstanceGraphSO substance, Vector2Int value, SubstanceParameter inputParameter)
+        public static bool TrySetInt2(this SubstanceGraphSO substance, Vector2Int value, ISubstanceInputParameter inputParameter)
         {
             return TrySetInt2(substance, value, inputParameter.Index);
         }
@@ -2123,7 +2155,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Vector3Int"/> representing the target input's value.</returns>
-        public static Vector3Int GetInt3(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector3Int GetInt3(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt3(substance, inputParameter.Index);
         }
@@ -2159,7 +2191,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector3Int.zero"/>.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt3(this SubstanceGraphSO substance, out Vector3Int value, SubstanceParameter inputParameter)
+        public static bool TryGetInt3(this SubstanceGraphSO substance, out Vector3Int value, ISubstanceInputParameter inputParameter)
         {
             return TryGetInt3(substance, out value, inputParameter.Index);
         }
@@ -2205,7 +2237,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetInt3(this SubstanceGraphSO substance, Vector3Int value, SubstanceParameter inputParameter)
+        public static void SetInt3(this SubstanceGraphSO substance, Vector3Int value, ISubstanceInputParameter inputParameter)
         {
             SetInt3(substance, value, inputParameter.Index);
         }
@@ -2241,7 +2273,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt3(this SubstanceGraphSO substance, Vector3Int value, SubstanceParameter inputParameter)
+        public static bool TrySetInt3(this SubstanceGraphSO substance, Vector3Int value, ISubstanceInputParameter inputParameter)
         {
             return TrySetInt3(substance, value, inputParameter.Index);
         }
@@ -2286,7 +2318,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="int[]"/> representing the target input's value.</returns>
-        public static int[] GetInt4(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static int[] GetInt4(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt4(substance, inputParameter.Index);
         }
@@ -2322,7 +2354,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns an array with four 0 values.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt4(this SubstanceGraphSO substance, out int[] value, SubstanceParameter inputParameter)
+        public static bool TryGetInt4(this SubstanceGraphSO substance, out int[] value, ISubstanceInputParameter inputParameter)
         {
             return TryGetInt4(substance, out value, inputParameter.Index);
         }
@@ -2368,7 +2400,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <param name="value">Array of int values to populate. This must have at least 4 elements.</param>
-        public static void GetInt4NonAlloc(this SubstanceGraphSO substance, SubstanceParameter inputParameter, int[] value)
+        public static void GetInt4NonAlloc(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter, int[] value)
         {
             GetInt4NonAlloc(substance, inputParameter.Index, value);
         }
@@ -2416,7 +2448,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Array of int values to populate. This must have at least 4 elements.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt4NonAlloc(this SubstanceGraphSO substance, int[] value, SubstanceParameter inputParameter)
+        public static bool TryGetInt4NonAlloc(this SubstanceGraphSO substance, int[] value, ISubstanceInputParameter inputParameter)
         {
             return TryGetInt4NonAlloc(substance, value, inputParameter.Index);
         }
@@ -2468,7 +2500,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the input value from.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns><see cref="Vector4Int"/> representing the target input's value.</returns>
-        public static Vector4Int GetInt4Vector(this SubstanceGraphSO substance, SubstanceParameter inputParameter)
+        public static Vector4Int GetInt4Vector(this SubstanceGraphSO substance, ISubstanceInputParameter inputParameter)
         {
             return GetInt4Vector(substance, inputParameter.Index);
         }
@@ -2504,7 +2536,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">Value for the target input if found. Otherwise returns <see cref="Vector4Int.zero"/>.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the value was found or false if the input was not found.</returns>
-        public static bool TryGetInt4Vector(this SubstanceGraphSO substance, out Vector4Int value, SubstanceParameter inputParameter)
+        public static bool TryGetInt4Vector(this SubstanceGraphSO substance, out Vector4Int value, ISubstanceInputParameter inputParameter)
         {
             return TryGetInt4Vector(substance, out value, inputParameter.Index);
         }
@@ -2550,7 +2582,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetInt4(this SubstanceGraphSO substance, int[] value, SubstanceParameter inputParameter)
+        public static void SetInt4(this SubstanceGraphSO substance, int[] value, ISubstanceInputParameter inputParameter)
         {
             SetInt4(substance, value, inputParameter.Index);
         }
@@ -2592,7 +2624,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt4(this SubstanceGraphSO substance, int[] value, SubstanceParameter inputParameter)
+        public static bool TrySetInt4(this SubstanceGraphSO substance, int[] value, ISubstanceInputParameter inputParameter)
         {
             return TrySetInt4(substance, value, inputParameter.Index);
         }
@@ -2636,7 +2668,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="substance"><see cref="SubstanceGraphSO"/> to set the input value on.</param>
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
-        public static void SetInt4(this SubstanceGraphSO substance, Vector4Int value, SubstanceParameter inputParameter)
+        public static void SetInt4(this SubstanceGraphSO substance, Vector4Int value, ISubstanceInputParameter inputParameter)
         {
             SetInt4(substance, value, inputParameter.Index);
         }
@@ -2678,7 +2710,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="value">New value for the input.</param>
         /// <param name="inputParameter">Parameter data for the target input.</param>
         /// <returns>True if the input value was set or false otherwise.</returns>
-        public static bool TrySetInt4(this SubstanceGraphSO substance, Vector4Int value, SubstanceParameter inputParameter)
+        public static bool TrySetInt4(this SubstanceGraphSO substance, Vector4Int value, ISubstanceInputParameter inputParameter)
         {
             return TrySetInt4(substance, value, inputParameter.Index);
         }

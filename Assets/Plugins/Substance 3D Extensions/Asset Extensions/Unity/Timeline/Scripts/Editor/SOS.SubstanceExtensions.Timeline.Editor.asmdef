@@ -1,0 +1,23 @@
+{
+    "name": "SOS.SubstanceExtensions.Timeline.Editor",
+    "rootNamespace": "SOS.SubstanceExtensionsEditor.Timeline",
+    "references": [
+        "GUID:f06555f75b070af458a003d92f9efb00",
+        "GUID:0322a29457affe94ab4ade0a1555000f",
+        "GUID:cedc11e2794ad3849821c494089f6e9d",
+        "GUID:98fb2a53de62d435f986a9c302cd116f",
+        "GUID:02f771204943f4a40949438e873e3eff",
+        "GUID:a74ce1a7630ecbd4ba6c23e544d5bd39"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

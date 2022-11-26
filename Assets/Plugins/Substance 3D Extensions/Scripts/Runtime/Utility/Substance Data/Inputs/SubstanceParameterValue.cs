@@ -13,7 +13,7 @@ namespace SOS.SubstanceExtensions
     /// Convenience struct allowing substance input parameter values to be set up in the inspector.
     /// </summary>
     [System.Serializable]
-    public struct SubstanceParameterValue
+    public struct SubstanceParameterValue : ISubstanceInputParameterValue
     {
         #region Fields
 
@@ -47,34 +47,16 @@ namespace SOS.SubstanceExtensions
 
         #region Properties
 
-        /// <summary>
-        /// Parameter being referenced.
-        /// </summary>
-        public SubstanceParameter Parameter
+        public ISubstanceInputParameter Parameter
         {
             get { return parameter; }
         }
 
-        /// <summary>
-        /// Name for the input parameter associated with this value.
-        /// </summary>
         public string Name
         {
             get { return parameter.Name; }
         }
 
-
-        /// <summary>
-        /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
-        /// </summary>
-        /*public string GraphGuid
-        {
-            get { return parameter.GraphGuid; }
-        }*/
-
-        /// <summary>
-        /// Index for the input parameter associated with this value.
-        /// </summary>
         public int Index
         {
             get { return parameter.Index; }
@@ -90,124 +72,91 @@ namespace SOS.SubstanceExtensions
         }
 #endif
 
-        /// <summary>
-        /// Value type for the input parameter associated with this value.
-        /// </summary>
+#if UNITY_EDITOR
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+#endif
+        [System.Obsolete("Use ValueType instead.")]
         public SubstanceValueType Type
         {
-            get { return parameter.Type; }
+            get { return parameter.ValueType; }
         }
 
-        /// <summary>
-        /// Inspector widget used for the input parameter associated with this value.
-        /// </summary>
+        public SubstanceValueType ValueType
+        {
+            get { return parameter.ValueType; }
+        }
+
         public SubstanceWidgetType WidgetType
         {
             get { return parameter.WidgetType; }
         }
         
-        /// <summary>
-        /// Bool value for the target input parameter.
-        /// </summary>
         public bool BoolValue
         {
             get { return vectorIntValue.x != 0; }
             set { vectorIntValue.x = value ? 1 : 0; }
         }
 
-        /// <summary>
-        /// Int value for the target input parameter.
-        /// </summary>
         public int IntValue
         {
             get { return vectorIntValue.x; }
             set { vectorIntValue.x = value; }
         }
 
-        /// <summary>
-        /// Int2 value for the target input parameter.
-        /// </summary>
         public Vector2Int Int2Value
         {
             get { return (Vector2Int)vectorIntValue; }
             set { vectorIntValue = new Vector4Int(value.x, value.y, 0, 0); }
         }
 
-        /// <summary>
-        /// Int3 value for the target input parameter.
-        /// </summary>
         public Vector3Int Int3Value
         {
             get { return (Vector3Int)vectorIntValue; }
             set { vectorIntValue = new Vector4Int(value.x, value.y, value.z, 0); }
         }
 
-        /// <summary>
-        /// Int4 value for the target input parameter.
-        /// </summary>
         public Vector4Int Int4Value
         {
             get { return vectorIntValue; }
             set { vectorIntValue = value; }
         }
 
-        /// <summary>
-        /// Float value for the target input parameter.
-        /// </summary>
         public float FloatValue
         {
             get { return vectorValue.x; }
             set { vectorValue.x = value; }
         }
 
-        /// <summary>
-        /// Float2 value for the target input parameter.
-        /// </summary>
         public Vector2 Float2Value
         {
             get { return vectorValue; }
             set { vectorValue = value; }
         }
 
-        /// <summary>
-        /// Float3 value for the target input parameter.
-        /// </summary>
         public Vector3 Float3Value
         {
             get { return vectorValue; }
             set { vectorValue = value; }
         }
 
-        /// <summary>
-        /// Float4 value for the target input parameter.
-        /// </summary>
         public Vector4 Float4Value
         {
             get { return vectorValue; }
             set { vectorValue = value; }
         }
 
-        /// <summary>
-        /// Color value for the target input parameter.
-        /// </summary>
         public Color ColorValue
         {
             get { return vectorValue; }
             set { vectorValue = value; }
         }
 
-        /// <summary>
-        /// String value for the target input parameter.
-        /// </summary>
         public string StringValue
         {
             get { return stringValue; }
             set { stringValue = value; }
         }
 
-        /// <summary>
-        /// Texture value for the target input parameter.
-        /// </summary>
         public Texture2D TextureValue
         {
             get { return textureValue; }
@@ -357,33 +306,22 @@ namespace SOS.SubstanceExtensions
 
         #endregion
 
-        /// <summary>
-        /// Returns the input on the given <see cref="SubstanceGraphSO"/> targeted by this parameter.
-        /// </summary>
-        /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the target input from.</param>
+
         public ISubstanceInput GetInput(SubstanceGraphSO substance)
         {
             return substance.Input[Index];
         }
 
-        /// <summary>
-        /// Returns the input on the given <see cref="SubstanceGraphSO"/> targeted by this parameter.
-        /// </summary>
-        /// <typeparam name="T">Expected type for the input data.</typeparam>
-        /// <param name="substance"><see cref="SubstanceGraphSO"/> to obtain the target input from.</param>
+
         public T GetInput<T>(SubstanceGraphSO substance) where T : ISubstanceInput
         {
             return (T)GetInput(substance);
         }
 
-        /// <summary>
-        /// Update the given handler with this parameter's values.
-        /// Note: When setting texture values, it is recommended to use <see cref="SetValueAsync"/>, otherwise your texture must be read/writable.
-        /// </summary>
-        /// <param name="nativeGraph">Runtime graph to update values on.</param>
+
         public void SetValue(SubstanceNativeGraph nativeGraph)
         {
-            switch(Type)
+            switch(ValueType)
             {
                 case SubstanceValueType.Float:
                     nativeGraph.SetInputFloat(Index, FloatValue);
@@ -419,11 +357,7 @@ namespace SOS.SubstanceExtensions
             }
         }
 
-        /// <summary>
-        /// Update the given substance with this parameter's values.
-        /// </summary>
-        /// <param name="substance">Substance to update values on.</param>
-        /// <returns>True if the substance has the target parameter set.</returns>
+
         public bool SetValue(SubstanceGraphSO substance)
         {
             ISubstanceInput input = substance.GetInput(Index);
@@ -469,14 +403,10 @@ namespace SOS.SubstanceExtensions
             return false;
         }
 
-        /// <summary>
-        /// Asynchronously update the given handler with this parameter's values.
-        /// </summary>
-        /// <param name="nativeGraph">Runtime graph to update values on.</param>
-        /// <returns>Task representing the set operation. Only texture assignments should require asynchronous execution, all other value types are set instantly.</returns>
+
         public async Task SetValueAsync(SubstanceNativeGraph nativeGraph)
         {
-            switch(Type)
+            switch(ValueType)
             {
                 case SubstanceValueType.Float:
                     nativeGraph.SetInputFloat(Index, FloatValue);

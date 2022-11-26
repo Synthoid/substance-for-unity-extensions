@@ -12,7 +12,7 @@ namespace SOS.SubstanceExtensions
     /// Convenience struct that allows easy selection of <see cref="SubstanceGraphSO"/> input parameters in the inspector.
     /// </summary>
     [System.Serializable]
-    public struct SubstanceParameter
+    public struct SubstanceParameter : ISubstanceInputParameter
     {
         #region Fields
 
@@ -26,13 +26,6 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         [SerializeField]
         private string name;
-
-        /// <summary>
-        /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
-        /// </summary>
-        [SerializeField]
-        private string graphGuid;
-
         /// <summary>
         /// Index for the target parameter.
         /// </summary>
@@ -41,8 +34,8 @@ namespace SOS.SubstanceExtensions
         /// <summary>
         /// Value type for the parameter.
         /// </summary>
-        [SerializeField]
-        private SubstanceValueType type;
+        [SerializeField, UnityEngine.Serialization.FormerlySerializedAs("type")]
+        private SubstanceValueType valueType;
         /// <summary>
         /// Widget type for the parameter.
         /// </summary>
@@ -81,26 +74,11 @@ namespace SOS.SubstanceExtensions
             get { return guid; }
         }
 
-        /// <summary>
-        /// Name for the input parameter. This is based on the input's identifier value.
-        /// </summary>
         public string Name
         {
             get { return name; }
         }
-
-        /// <summary>
-        /// GUID for the <see cref="SubstanceGraphSO"/> containing the target parameter.
-        /// </summary>
-        [System.Obsolete("Use GUID instead.")]
-        public string GraphGuid
-        {
-            get { return graphGuid; }
-        }
-
-        /// <summary>
-        /// Index for the input parameter on the target graph.
-        /// </summary>
+        
         public int Index
         {
             get { return index; }
@@ -117,49 +95,40 @@ namespace SOS.SubstanceExtensions
         }
 #endif
 
-        /// <summary>
-        /// Value type for the parameter.
-        /// </summary>
+#if UNITY_EDITOR
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+#endif
+        [System.Obsolete("Use ValueType instead.")]
         public SubstanceValueType Type
         {
-            get { return type; }
+            get { return valueType; }
         }
 
-        /// <summary>
-        /// Inspector widget used for the input parameter. This is primarily used for tooling purposes.
-        /// </summary>
+        public SubstanceValueType ValueType
+        {
+            get { return valueType; }
+        }
+
         public SubstanceWidgetType WidgetType
         {
             get { return widgetType; }
         }
 
-        /// <summary>
-        /// Min slider values used for float parameters. X is used for Float parameters. X, Y for Float2, etc.
-        /// </summary>
         public Vector4 RangeMin
         {
             get { return rangeMin; }
         }
 
-        /// <summary>
-        /// Max slider values used for float parameters. X is used for Float parameters. X, Y for Float2, etc.
-        /// </summary>
         public Vector4 RangeMax
         {
             get { return rangeMax; }
         }
 
-        /// <summary>
-        /// Min slider values used for integer parameters. X is used for Int parameters. X, Y for Int2, etc.
-        /// </summary>
         public Vector4Int RangeIntMin
         {
             get { return rangeIntMin; }
         }
 
-        /// <summary>
-        /// Max slider values used for integer parameters. X is used for Int parameters. X, Y for Int2, etc.
-        /// </summary>
         public Vector4Int RangeIntMax
         {
             get { return rangeIntMax; }
@@ -217,18 +186,17 @@ namespace SOS.SubstanceExtensions
 
         #endregion
 
-        public SubstanceParameter(int index, SubstanceValueType type, string name, string graphGuid="") : this(index, type, name, graphGuid, "", SubstanceWidgetType.NoWidget, default, default, default, default)
+        public SubstanceParameter(int index, SubstanceValueType valueType, string name, string graphGuid="") : this(index, valueType, name, graphGuid, "", SubstanceWidgetType.NoWidget, default, default, default, default)
         {
 
         }
 
-        public SubstanceParameter(int index, SubstanceValueType type, string name="", string graphGuid="", string guid="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget, Vector4 sliderMin=default, Vector4 sliderMax=default, Vector4Int sliderIntMin=default, Vector4Int sliderIntMax=default)
+        public SubstanceParameter(int index, SubstanceValueType valueType, string name="", string graphGuid="", string guid="", SubstanceWidgetType widgetType=SubstanceWidgetType.NoWidget, Vector4 sliderMin=default, Vector4 sliderMax=default, Vector4Int sliderIntMin=default, Vector4Int sliderIntMax=default)
         {
             this.guid = guid;
             this.name = name;
-            this.graphGuid = graphGuid;
             this.index = index;
-            this.type = type;
+            this.valueType = valueType;
             this.widgetType = widgetType;
             this.rangeMin = sliderMin;
             this.rangeMax = sliderMax;

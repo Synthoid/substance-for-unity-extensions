@@ -4,7 +4,7 @@ using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions.Timeline
 {
-    [TrackColor(0.1f, 0.8f, 0.2f)]
+    [TrackColor(0.6f, 0.9f, 0.25f)]
     [TrackClipType(typeof(SetSubstanceInputColorAsset))]
     [TrackBindingType(typeof(SubstanceGraphSO))]
     public class SubstanceTrack : TrackAsset

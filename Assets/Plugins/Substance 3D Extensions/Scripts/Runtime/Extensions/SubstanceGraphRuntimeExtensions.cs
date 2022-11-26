@@ -205,15 +205,6 @@ namespace SOS.SubstanceExtensions
         }
 
 
-        public static void SetInputs(this SubstanceGraphSO substance, IList<SubstanceParameterValue> values)
-        {
-            for(int i = 0; i < values.Count; i++)
-            {
-                values[i].SetValue(substance);
-            }
-        }
-
-
         /*public static void SetInputs(this SubstanceGraphSO substance, SubstanceNativeGraph handler, IList<SubstanceParameterValue> values)
         {
             for(int i = 0; i < values.Count; i++)

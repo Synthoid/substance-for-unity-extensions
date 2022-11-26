@@ -10,10 +10,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [0.2.2]
 
 ### Added
-- README file in project folder.
+- README file to project folder.
+- `ISubstanceInputParameter` and `ISubstanceInputParameterValue` interfaces.
+- Timeline support for setting substance native graph values and rendering substances.
 - Example scene comprised entirely of runtime substance materials.
 - Example scene showcasing Timeline functionality.
 - Custom importer to force reimport substances when an `.sbsar` file is updated.
+
+### Changed
+- Extension methods previously using `SubstanceParameter` and `SubstanceParameterValue` arguments now use `ISubstanceInputParameter` and `ISubstanceInputParameterValue` arguments.
+- `SubstanceNativeGraphExtensions.SetInputTextureGPUAsync()` can now accept any `Texture` value, not just `Texture2D` values.
+- `SubstanceInputTypeFilterAttribute` can now be applied to `SubstanceParameterValue` fields to limit selectable inputs by value type.
+
+## Deprecated
+- `SubstanceParameter` and `SubstanceParameterValue` `Type` properties are now deprecated. Use `ValueType` instead.
+- `SubstanceGraphSO` `SetInputs()` extension method. Should use `SetValues()` extension methods instead.
 
 ## [0.2.1] - 2022-11-21
 
