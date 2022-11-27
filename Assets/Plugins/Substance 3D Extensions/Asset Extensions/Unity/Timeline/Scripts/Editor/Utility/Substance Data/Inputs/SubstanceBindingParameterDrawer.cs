@@ -16,6 +16,7 @@ namespace SOS.SubstanceExtensionsEditor.Timeline
         private Dictionary<int, GUIContent> graphLabels = new Dictionary<int, GUIContent>();
         private Dictionary<int, GUIContent[]> parameterLabels = new Dictionary<int, GUIContent[]>();
         private Dictionary<int, SubstanceParameterData[]> parameterMappings = new Dictionary<int, SubstanceParameterData[]>();
+        private Dictionary<string, SbsInputTypeFilter> parameterFilters = new Dictionary<string, SbsInputTypeFilter>();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -27,8 +28,27 @@ namespace SOS.SubstanceExtensionsEditor.Timeline
                 return;
             }
 
-            SubstanceInputTypeFilterAttribute filterAttribute = fieldInfo.GetCustomAttribute<SubstanceInputTypeFilterAttribute>(true);
-            SbsInputTypeFilter inputFilter = filterAttribute != null ? filterAttribute.filter : SbsInputTypeFilter.Everything;
+            if(!parameterFilters.TryGetValue(property.propertyPath, out SbsInputTypeFilter inputFilter))
+            {
+                SubstanceInputTypeFilterAttribute filterAttribute = fieldInfo.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+
+                //No direct filter attribute found. Check immediate parent for filter attribute.
+                if(filterAttribute == null)
+                {
+                    SerializedProperty parentProperty = property.GetParentProperty();
+
+                    if(parentProperty != null)
+                    {
+                        FieldInfo parentField = parentProperty.GetPropertyFieldInfo();
+
+                        filterAttribute = parentField.GetCustomAttribute<SubstanceInputTypeFilterAttribute>();
+                    }
+                }
+
+                inputFilter = filterAttribute != null ? filterAttribute.filter : SbsInputTypeFilter.Everything;
+
+                parameterFilters.Add(property.propertyPath, inputFilter);
+            }
 
             int index = -1;
             int substanceInstanceId = substance == null ? 0 : substance.GetInstanceID();
@@ -36,17 +56,17 @@ namespace SOS.SubstanceExtensionsEditor.Timeline
             GUIContent[] labels = GetLabels(substance, substanceInstanceId, inputFilter);
             SubstanceParameterData[] inputs = GetParameters(substance, substanceInstanceId);
 
-            for (int i = 0; i < labels.Length; i++)
+            for(int i=0; i < labels.Length; i++)
             {
                 //Get current label index
-                if (labels[i].tooltip == currentValue)
+                if(labels[i].tooltip == currentValue)
                 {
                     index = i;
                     break;
                 }
             }
 
-            if (index < 0)
+            if(index < 0)
             {
                 index = 0;
                 property.FindPropertyRelative("name").stringValue = labels[index].tooltip;
@@ -55,11 +75,11 @@ namespace SOS.SubstanceExtensionsEditor.Timeline
 
             SubstanceExtensionsEditorUtility.DrawPopupSearchWindow(position, label, index, labels, (int selectionIndex) =>
             {
-                if (index == selectionIndex) return;
+                if(index == selectionIndex) return;
 
                 property.FindPropertyRelative("name").stringValue = labels[selectionIndex].tooltip;
 
-                if (selectionIndex == 0)
+                if(selectionIndex == 0)
                 {
                     ResetParameterProperty(property);
                 }
@@ -96,7 +116,7 @@ namespace SOS.SubstanceExtensionsEditor.Timeline
         {
             bool success = parameterLabels.TryGetValue(instanceId, out GUIContent[] labels);
 
-            if (!success)
+            if(!success)
             {
                 System.Tuple<GUIContent[], SubstanceParameterData[]> results = SubstanceExtensionsEditorUtility.GetInputData(substance, filter);
 
@@ -122,7 +142,7 @@ namespace SOS.SubstanceExtensionsEditor.Timeline
         {
             bool success = graphLabels.TryGetValue(instanceId, out GUIContent graphLabel);
 
-            if (!success)
+            if(!success)
             {
                 if(substance == null) return new GUIContent(string.Format(SubstanceExtensionsEditorUtility.kInputSearchWindowTitle, SubstanceExtensionsEditorUtility.kDefaultSubstanceName));
 

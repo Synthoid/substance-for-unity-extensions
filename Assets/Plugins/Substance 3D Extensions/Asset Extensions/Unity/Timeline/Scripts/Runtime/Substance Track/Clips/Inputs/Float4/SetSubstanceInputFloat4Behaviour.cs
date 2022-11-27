@@ -5,11 +5,12 @@ using SOS.SubstanceExtensions;
 namespace SOS.SubstanceExtensions.Timeline
 {
     [System.Serializable]
-    public class SetSubstanceInputColorBehaviour : SetSubstanceInputValueBehaviour
+    public class SetSubstanceInputFloat4Behaviour : SetSubstanceInputValueBehaviour
     {
-        [SubstanceInputTypeFilter(SbsInputTypeFilter.Float4)]
+        [SubstanceInputTypeFilter(SbsInputTypeFilter.Float4), Tooltip("Input to adjust.")]
         public SubstanceBindingParameter parameter = new SubstanceBindingParameter();
-        public Color value = Color.white;
+        [Tooltip("Value for the target input.")]
+        public Vector4 value = Vector4.zero;
 
         public override ISubstanceInputParameter Parameter
         {

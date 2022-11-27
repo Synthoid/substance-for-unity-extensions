@@ -10,6 +10,31 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     public static class SubstanceInputExtensions
     {
+        /// <summary>
+        /// Get the object value for a substance input.
+        /// </summary>
+        /// <param name="input">Input to get the value of.</param>
+        /// <returns>object value for the target input.</returns>
+        public static object GetValue(this ISubstanceInput input)
+        {
+            switch(input)
+            {
+                case SubstanceInputFloat castInput: return castInput.Data;
+                case SubstanceInputFloat2 castInput: return castInput.Data;
+                case SubstanceInputFloat3 castInput: return castInput.Data;
+                case SubstanceInputFloat4 castInput: return castInput.Data;
+                case SubstanceInputInt castInput: return castInput.Data;
+                case SubstanceInputInt2 castInput: return castInput.Data;
+                case SubstanceInputInt3 castInput: return castInput.Data;
+                case SubstanceInputInt4 castInput: return castInput.DataVector4Int();
+                case SubstanceInputString castInput: return castInput.Data;
+                case SubstanceInputTexture castInput: return castInput.GetTexture();
+                case SubstanceInputFont castInput: return castInput.Data;
+            }
+
+            return null;
+        }
+
         #region Int4
 
         /// <summary>

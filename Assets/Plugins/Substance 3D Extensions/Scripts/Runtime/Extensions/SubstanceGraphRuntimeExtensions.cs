@@ -67,7 +67,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="nativeGraph">Native graph to dispose.</param>
         public static void DisposeNativeGraph(this SubstanceGraphSO graph, SubstanceNativeGraph nativeGraph)
         {
-            if (nativeGraph == null) return;
+            if(nativeGraph == null) return;
 
             RuntimeNativeGraphs.Remove(graph.GetInstanceID());
 

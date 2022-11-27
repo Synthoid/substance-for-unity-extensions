@@ -8,7 +8,7 @@ namespace SOS.SubstanceExtensions
     public static class VectorExtensions
     {
         #region Utility
-
+        
         /// <summary>
         /// High precision version of the standard <see cref="Vector2.ToString"/> method.
         /// </summary>

@@ -145,6 +145,12 @@ namespace SOS.SubstanceExtensions
         /// <returns>Awaitable <see cref="Task"/> representing the set operation.</returns>
         public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture)
         {
+            if(texture == null)
+            {
+                nativeGraph.SetInputTexture2DNull(inputID);
+                return;
+            }
+
             bool wait = true;
             byte[] bytes = null;
 

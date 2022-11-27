@@ -32,12 +32,12 @@ namespace SOS.SubstanceExtensions.Timeline
         /// <summary>
         /// Min value for float sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
         /// </summary>
-        [SerializeField]
+        [SerializeField, HideInInspector]
         private Vector4 rangeMin;
         /// <summary>
         /// Max value for float sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
         /// </summary>
-        [SerializeField]
+        [SerializeField, HideInInspector]
         private Vector4 rangeMax;
         /// <summary>
         /// Min value for int sliders. Only applies when the widget type is set to <see cref="SubstanceWidgetType.Slider"/>.
