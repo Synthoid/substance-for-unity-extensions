@@ -9,13 +9,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [0.2.2]
 
+### Pending
+- Custom importer to force reimport substances when an `.sbsar` file is updated.
+- Example scene comprised entirely of runtime substance materials.
+
 ### Added
 - README file to project folder.
 - `ISubstanceInputParameter` and `ISubstanceInputParameterValue` interfaces.
 - Timeline support for setting substance native graph values and rendering substances.
-- Example scene comprised entirely of runtime substance materials.
+- NoFoldoutAttribute for drawing classes without the usual foldout control.
 - Example scene showcasing Timeline functionality.
-- Custom importer to force reimport substances when an `.sbsar` file is updated.
 
 ### Changed
 - Extension methods previously using `SubstanceParameter` and `SubstanceParameterValue` arguments now use `ISubstanceInputParameter` and `ISubstanceInputParameterValue` arguments.

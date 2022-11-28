@@ -30,7 +30,7 @@ namespace SOS.SubstanceExtensions.Timeline
     [System.Serializable]
     public abstract class SetSubstanceInputValueAsset<T> : SetSubstanceInputValueAsset where T : SetSubstanceInputValueBehaviour, new()
     {
-        [SerializeField]
+        [SerializeField, NoFoldout]
         protected T template = new T();
 
         public override ISubstanceInputParameter TargetInputParameter

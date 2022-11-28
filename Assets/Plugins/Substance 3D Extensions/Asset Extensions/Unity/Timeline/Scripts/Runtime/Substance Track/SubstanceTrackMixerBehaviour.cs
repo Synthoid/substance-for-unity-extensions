@@ -347,6 +347,8 @@ namespace SOS.SubstanceExtensions.Timeline
                     if(previousTexture == textures[s]) continue;
                     else previousTextures[s] = textures[s];
 
+                    //playable.GetGraph().Stop();
+
                     _ = drivenNativeGraph.SetInputTextureGPUAsync(s, textures[s]); //Should cache previous value
                 }
             }

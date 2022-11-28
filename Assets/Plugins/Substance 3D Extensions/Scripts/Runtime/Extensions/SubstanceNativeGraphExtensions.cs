@@ -136,7 +136,44 @@ namespace SOS.SubstanceExtensions
 
 
         /// <summary>
-        /// Asynchronously set a texture input value on the target <see cref="SubstanceNativeGraph"/>.
+        /// Set a texture input value on the target native graph.
+        /// This uses an <see cref="AsyncGPUReadbackRequest"/> so the given texture doesn't need it's read/write flag enabled.
+        /// NOTE: This method will halt the main thread while the texture is read. Use SetInputTextureGPUAsync() for better performance.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set an input texture value on.</param>
+        /// <param name="inputID">Index for the input being set.</param>
+        /// <param name="texture">Texture to assign.</param>
+        public static void SetInputTextureGPU(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture)
+        {
+            if(texture == null)
+            {
+                nativeGraph.SetInputTexture2DNull(inputID);
+                return;
+            }
+
+            byte[] bytes = null;
+
+            AsyncGPUReadbackRequest request = AsyncGPUReadback.Request(texture, 0, (request) =>
+            {
+                bytes = request.GetData<byte>().ToArray();
+            });
+
+            request.WaitForCompletion();
+
+            Color32[] pixels = new Color32[bytes.Length / 4];
+
+            for(int i=0; i < pixels.Length; i++)
+            {
+                int index = i * 4;
+                pixels[i] = new Color32(bytes[index], bytes[index + 1], bytes[index + 2], bytes[index + 3]);
+            }
+
+            nativeGraph.SetInputTexture2D(inputID, pixels, texture.width, texture.height);
+        }
+
+
+        /// <summary>
+        /// Asynchronously set a texture input value on the target native graph.
         /// This uses an <see cref="AsyncGPUReadbackRequest"/> so the given texture doesn't need it's read/write flag enabled.
         /// </summary>
         /// <param name="nativeGraph">Graph to set an input texture value on.</param>
