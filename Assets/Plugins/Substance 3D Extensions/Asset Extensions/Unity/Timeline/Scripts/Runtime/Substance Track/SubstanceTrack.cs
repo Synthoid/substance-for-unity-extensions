@@ -21,7 +21,7 @@ namespace SOS.SubstanceExtensions.Timeline
     [TrackClipType(typeof(SetSubstanceInputInt4Asset))]
     [TrackClipType(typeof(SetSubstanceInputStringAsset))]
     [TrackClipType(typeof(SetSubstanceInputTextureAsset))]
-    [TrackClipType(typeof(RenderSubstancesAsset))]
+    [TrackClipType(typeof(RenderSubstanceAsset))]
     public class SubstanceTrack : TrackAsset
     {
         private const string kDisplayNameFormat = "{0} - {1}";

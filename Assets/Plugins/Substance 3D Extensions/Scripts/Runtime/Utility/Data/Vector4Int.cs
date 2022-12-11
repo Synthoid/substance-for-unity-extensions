@@ -236,20 +236,20 @@ namespace SOS.SubstanceExtensions
 			return new Vector4Int(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
 		}
 
-		/// <summary>
-		/// Converts a  Vector3 to a Vector3Int by doing a Floor to each value.
-		/// </summary>
-		/// <param name="v"></param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        /// <summary>
+        /// Converts a Vector4 to a Vector4Int by doing a Floor to each value.
+        /// </summary>
+        /// <param name="v">Vector to perform a floor operation on.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Vector4Int FloorToInt(Vector4 v)
 		{
 			return new Vector4Int(Mathf.FloorToInt(v.x), Mathf.FloorToInt(v.y), Mathf.FloorToInt(v.z), Mathf.FloorToInt(v.w));
 		}
 
 		/// <summary>
-		/// Converts a  Vector3 to a Vector3Int by doing a Ceiling to each value.
+		/// Converts a Vector4 to a Vector4Int by doing a Ceiling to each value.
 		/// </summary>
-		/// <param name="v"></param>
+		/// <param name="v">Vector to perform a ceiling operation on.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Vector4Int CeilToInt(Vector4 v)
 		{
@@ -257,9 +257,9 @@ namespace SOS.SubstanceExtensions
 		}
 
 		/// <summary>
-		/// Converts a  Vector3 to a Vector3Int by doing a Round to each value.
+		/// Converts a Vector4 to a Vector4Int by doing a Round to each value.
 		/// </summary>
-		/// <param name="v"></param>
+		/// <param name="v">Vector to round.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Vector4Int RoundToInt(Vector4 v)
 		{

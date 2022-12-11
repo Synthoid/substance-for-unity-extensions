@@ -7,14 +7,14 @@ namespace SOS.SubstanceExtensions.Timeline
     [System.ComponentModel.DisplayName("Render Substance Clip")]
 #endif
     [System.Serializable]
-    public class RenderSubstancesAsset : PlayableAsset
+    public class RenderSubstanceAsset : PlayableAsset
     {
         [SerializeField, NoFoldout]
-        private RenderSubstancesBehaviour template = new RenderSubstancesBehaviour();
+        private RenderSubstanceBehaviour template = new RenderSubstanceBehaviour();
 
         public override Playable CreatePlayable(PlayableGraph graph, GameObject go)
         {
-            return ScriptPlayable<RenderSubstancesBehaviour>.Create(graph, template);
+            return ScriptPlayable<RenderSubstanceBehaviour>.Create(graph, template);
         }
     }
 }

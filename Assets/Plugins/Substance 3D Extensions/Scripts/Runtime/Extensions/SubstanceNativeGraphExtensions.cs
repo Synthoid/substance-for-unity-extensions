@@ -179,8 +179,9 @@ namespace SOS.SubstanceExtensions
         /// <param name="nativeGraph">Graph to set an input texture value on.</param>
         /// <param name="inputID">Index for the input being set.</param>
         /// <param name="texture">Texture to assign.</param>
+        /// <param name="callback">[Optional] Callback invoked when the operation completes.</param>
         /// <returns>Awaitable <see cref="Task"/> representing the set operation.</returns>
-        public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture)
+        public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture, System.Action callback=null)
         {
             if(texture == null)
             {
@@ -208,6 +209,8 @@ namespace SOS.SubstanceExtensions
             }
 
             nativeGraph.SetInputTexture2D(inputID, pixels, texture.width, texture.height);
+
+            if(callback != null) callback.Invoke();
         }
 
         /// <summary>

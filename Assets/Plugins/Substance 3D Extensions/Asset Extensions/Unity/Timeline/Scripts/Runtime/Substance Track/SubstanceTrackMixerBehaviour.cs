@@ -13,9 +13,7 @@ namespace SOS.SubstanceExtensions.Timeline
     {
         private SubstanceGraphSO drivenGraph = null;
         private SubstanceNativeGraph drivenNativeGraph = null;
-
-        //TODO: CanRender property?
-        public bool CanRender { get { return true; } }
+        private SbsRenderType renderType = SbsRenderType.None;
 
         //Clip values, referenced by target input index
         private Dictionary<int, object> defaultPropertyValues = new Dictionary<int, object>();
@@ -36,8 +34,11 @@ namespace SOS.SubstanceExtensions.Timeline
         {
             if(drivenNativeGraph == null) return;
 
-            drivenGraph.EndRuntimeEditing(drivenNativeGraph);
+            SubstanceTimelineUtility.DequeueSubstance(drivenGraph);
+
+            //drivenGraph.EndRuntimeEditing(drivenNativeGraph);
         }
+
 
         public override void ProcessFrame(Playable playable, FrameData info, object playerData)
         {
@@ -54,6 +55,7 @@ namespace SOS.SubstanceExtensions.Timeline
             if(drivenNativeGraph == null) return;
 
             int inputCount = playable.GetInputCount();
+            bool valueSet = false;
 
             //Clear current values...
             weights.Clear();
@@ -84,6 +86,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
 
+                    valueSet = true;
+
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
                         weights[behaviour.Parameter.Index] += inputWeight;
@@ -102,6 +106,8 @@ namespace SOS.SubstanceExtensions.Timeline
                     SetSubstanceInputFloat2Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputFloat2Behaviour>)inputPlayable).GetBehaviour();
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
+
+                    valueSet = true;
 
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
@@ -122,6 +128,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
 
+                    valueSet = true;
+
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
                         weights[behaviour.Parameter.Index] += inputWeight;
@@ -141,6 +149,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
 
+                    valueSet = true;
+
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
                         weights[behaviour.Parameter.Index] += inputWeight;
@@ -159,6 +169,8 @@ namespace SOS.SubstanceExtensions.Timeline
                     SetSubstanceInputColorBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputColorBehaviour>)inputPlayable).GetBehaviour();
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
+
+                    valueSet = true;
 
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
@@ -180,6 +192,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
 
+                    valueSet = true;
+
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
                         weights[behaviour.Parameter.Index] += inputWeight;
@@ -198,6 +212,8 @@ namespace SOS.SubstanceExtensions.Timeline
                     SetSubstanceInputInt2Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputInt2Behaviour>)inputPlayable).GetBehaviour();
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
+
+                    valueSet = true;
 
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
@@ -218,6 +234,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
 
+                    valueSet = true;
+
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
                         weights[behaviour.Parameter.Index] += inputWeight;
@@ -236,6 +254,8 @@ namespace SOS.SubstanceExtensions.Timeline
                     SetSubstanceInputInt4Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputInt4Behaviour>)inputPlayable).GetBehaviour();
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
+
+                    valueSet = true;
 
                     if(!weights.TryAdd(behaviour.Parameter.Index, inputWeight))
                     {
@@ -256,6 +276,8 @@ namespace SOS.SubstanceExtensions.Timeline
                     SetSubstanceInputStringBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputStringBehaviour>)inputPlayable).GetBehaviour();
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
+
+                    valueSet = true;
 
                     if(strings.TryAdd(behaviour.Parameter.Index, behaviour.value))
                     {
@@ -278,6 +300,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     if(string.IsNullOrEmpty(behaviour.Parameter.Name)) continue;
 
+                    valueSet = true;
+
                     if(textures.TryAdd(behaviour.Parameter.Index, behaviour.value))
                     {
                         weights[behaviour.Parameter.Index] = inputWeight;
@@ -291,73 +315,87 @@ namespace SOS.SubstanceExtensions.Timeline
 
                     continue;
                 }
-
-                //Floats
-                foreach(int s in floats.Keys)
-                {
-                    drivenNativeGraph.SetInputFloat(s, Mathf.Lerp(0f, floats[s], weights[s]));
-                }
-
-                foreach(int s in float2s.Keys)
-                {
-                    drivenNativeGraph.SetInputFloat2(s, Vector2.Lerp((Vector2)defaultPropertyValues[s], float2s[s], weights[s]));
-                }
-
-                foreach(int s in float3s.Keys)
-                {
-                    drivenNativeGraph.SetInputFloat3(s, Vector3.Lerp((Vector3)defaultPropertyValues[s], float3s[s], weights[s]));
-                }
-
-                foreach(int s in float4s.Keys)
-                {
-                    drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
-                }
-
-                //Integers
-                foreach(int s in integers.Keys)
-                {
-                    drivenNativeGraph.SetInputInt(s, Mathf.RoundToInt(Mathf.Lerp(0f, integers[s], weights[s])));
-                }
-
-                foreach(int s in integer2s.Keys)
-                {
-                    drivenNativeGraph.SetInputInt2(s, Vector2Int.RoundToInt(Vector2.Lerp((Vector2)(Vector2Int)defaultPropertyValues[s], float2s[s], weights[s])));
-                }
-
-                foreach(int s in integer3s.Keys)
-                {
-                    drivenNativeGraph.SetInputInt3(s, Vector3Int.RoundToInt(Vector3.Lerp((Vector3)(Vector3Int)defaultPropertyValues[s], float3s[s], weights[s])));
-                }
-
-                foreach(int s in integer4s.Keys)
-                {
-                    drivenNativeGraph.SetInputInt4(s, Vector4Int.RoundToInt(Vector4.Lerp((Vector4)(Vector4Int)defaultPropertyValues[s], float4s[s], weights[s])));
-                }
-
-                //Non-lerpable values
-                foreach(int s in strings.Keys)
-                {
-                    drivenNativeGraph.SetInputString(s, strings[s]);
-                }
-                
-                foreach(int s in textures.Keys)
-                {
-                    previousTextures.TryGetValue(s, out Texture previousTexture);
-
-                    if(previousTexture == textures[s]) continue;
-                    else previousTextures[s] = textures[s];
-
-                    //playable.GetGraph().Stop();
-
-                    _ = drivenNativeGraph.SetInputTextureGPUAsync(s, textures[s]); //Should cache previous value
-                }
             }
+
+            if(valueSet)
+            {
+                if(renderType != SbsRenderType.Deferred) renderType = SbsRenderType.Immediate;
+            }
+
+            //Floats
+            foreach(int s in floats.Keys)
+            {
+                drivenNativeGraph.SetInputFloat(s, Mathf.Lerp((float)defaultPropertyValues[s], floats[s], weights[s]));
+            }
+
+            foreach(int s in float2s.Keys)
+            {
+                drivenNativeGraph.SetInputFloat2(s, Vector2.Lerp((Vector2)defaultPropertyValues[s], float2s[s], weights[s]));
+            }
+
+            foreach(int s in float3s.Keys)
+            {
+                drivenNativeGraph.SetInputFloat3(s, Vector3.Lerp((Vector3)defaultPropertyValues[s], float3s[s], weights[s]));
+            }
+
+            foreach(int s in float4s.Keys)
+            {
+                drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
+            }
+
+            //Integers
+            foreach(int s in integers.Keys)
+            {
+                drivenNativeGraph.SetInputInt(s, Mathf.RoundToInt(Mathf.Lerp((float)(int)defaultPropertyValues[s], integers[s], weights[s])));
+            }
+
+            foreach(int s in integer2s.Keys)
+            {
+                drivenNativeGraph.SetInputInt2(s, Vector2Int.RoundToInt(Vector2.Lerp((Vector2)(Vector2Int)defaultPropertyValues[s], float2s[s], weights[s])));
+            }
+
+            foreach(int s in integer3s.Keys)
+            {
+                drivenNativeGraph.SetInputInt3(s, Vector3Int.RoundToInt(Vector3.Lerp((Vector3)(Vector3Int)defaultPropertyValues[s], float3s[s], weights[s])));
+            }
+
+            foreach(int s in integer4s.Keys)
+            {
+                drivenNativeGraph.SetInputInt4(s, Vector4Int.RoundToInt(Vector4.Lerp((Vector4)(Vector4Int)defaultPropertyValues[s], float4s[s], weights[s])));
+            }
+
+            //Non-lerpable values
+            foreach(int s in strings.Keys)
+            {
+                drivenNativeGraph.SetInputString(s, strings[s]);
+            }
+
+            foreach(int s in textures.Keys)
+            {
+                previousTextures.TryGetValue(s, out Texture previousTexture);
+
+                if(previousTexture == textures[s]) continue;
+                else previousTextures[s] = textures[s]; //Cache previous value, no need to set texture pixels every frame.
+
+                renderType = SbsRenderType.Deferred;
+
+                Debug.Log("Deferring render...");
+
+                _ = drivenNativeGraph.SetInputTextureGPUAsync(s, textures[s], () => {
+                    Debug.Log("<Set Render>");
+                    renderType = SbsRenderType.Immediate;
+                });
+            }
+
+            SubstanceTimelineUtility.SetQueuedRenderType(drivenGraph, renderType);
         }
 
 
         private void InitializeDefaultValues(SubstanceGraphSO graph, Playable playable)
         {
             if(graph == null || drivenNativeGraph != null) return;
+
+            //SubstanceTimelineUtility.QueueSubstance(graph, SbsRenderType.Deferred);
 
             drivenNativeGraph = graph.BeginRuntimeEditing();
 
