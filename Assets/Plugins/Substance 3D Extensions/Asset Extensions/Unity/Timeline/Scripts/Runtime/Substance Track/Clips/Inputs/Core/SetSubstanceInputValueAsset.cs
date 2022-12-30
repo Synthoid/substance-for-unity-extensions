@@ -20,7 +20,10 @@ namespace SOS.SubstanceExtensions.Timeline
 
         public abstract ISubstanceInputParameter TargetInputParameter { get; }
 
-        public abstract string GetClipName();
+        public virtual string GetClipName()
+        {
+            return (TargetInputParameter == null || string.IsNullOrEmpty(TargetInputParameter.Name)) ? "<Null>" : TargetInputParameter.Name;
+        }
     }
 
     /// <summary>
@@ -52,9 +55,9 @@ namespace SOS.SubstanceExtensions.Timeline
         }
 
 
-        public override string GetClipName()
+        /*public override string GetClipName()
         {
             return string.Format(kClipNameFormat, string.IsNullOrEmpty(template.Parameter.Name) ? "<None>" : template.Parameter.Name, template.ValueRaw.ToString());
-        }
+        }*/
     }
 }

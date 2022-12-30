@@ -151,6 +151,12 @@ namespace SOS.SubstanceExtensions
                 return;
             }
 
+            if(texture.IsCompressed())
+            {
+                Debug.LogWarning("[Substance Extensions - SetInputTextureGPU]\nOnly uncompressed texture formats are supported currently. This will be addressed in a later update.");
+                return;
+            }
+
             byte[] bytes = null;
 
             AsyncGPUReadbackRequest request = AsyncGPUReadback.Request(texture, 0, (request) =>
@@ -186,6 +192,18 @@ namespace SOS.SubstanceExtensions
             if(texture == null)
             {
                 nativeGraph.SetInputTexture2DNull(inputID);
+
+                if(callback != null) callback.Invoke();
+
+                return;
+            }
+
+            if(texture.IsCompressed())
+            {
+                Debug.LogWarning("[Substance Extensions - SetInputTextureGPUAsync]\nOnly uncompressed texture formats are supported currently. This will be addressed in a later update.");
+
+                if(callback != null) callback.Invoke();
+
                 return;
             }
 

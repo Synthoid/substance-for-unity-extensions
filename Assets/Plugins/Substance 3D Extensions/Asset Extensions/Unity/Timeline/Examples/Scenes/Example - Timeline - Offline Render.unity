@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 79396421}
+  - component: {fileID: 79396422}
   m_Layer: 0
   m_Name: Example - Offline Render
   m_TagString: Untagged
@@ -156,6 +157,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79396422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79396420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80feb579efc63b9479a7efbcab5efcde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  substanceGraph: {fileID: 0}
+  parameter:
+    guid: 091f6017f9a7b46c88131a4c4d430cb9
+    name: color
+    index: 7
+    valueType: 3
+    widgetType: 3
+    rangeMin: {x: 0, y: 0, z: 0, w: 0}
+    rangeMax: {x: 0, y: 0, z: 0, w: 0}
+    rangeIntMin:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    rangeIntMax:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+  paramValue:
+    parameter:
+      guid: 091f6017f9a7b46c88131a4c4d430cb9
+      name: logo
+      index: 2
+      valueType: 8
+      widgetType: 6
+      rangeMin: {x: 0, y: 0, z: 0, w: 0}
+      rangeMax: {x: 0, y: 0, z: 0, w: 0}
+      rangeIntMin:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      rangeIntMax:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+    vectorValue: {x: 0, y: 0, z: 0, w: 0}
+    vectorIntValue:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    stringValue: 
+    textureValue: {fileID: 0}
+  output:
+    guid: 
+    name: 
+    graphId: 0
+    index: 0
+  transformMatrix: {x: 1, y: 0, z: 0, w: 1}
 --- !u!1 &393997565
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +316,7 @@ GameObject:
   - component: {fileID: 1337104245}
   - component: {fileID: 1337104247}
   - component: {fileID: 1337104246}
+  - component: {fileID: 1337104248}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -293,7 +359,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f06e9ebfab3c44cd2b679f708086138f, type: 2}
+  - {fileID: 2100000, guid: dab16bfe389b60f4e8667b15c1ef3703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -323,6 +389,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337104244}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1337104248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337104244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3075f3a0be64e44e49d686e0b3092e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: 0, y: 60, z: 0}
 --- !u!1 &2028625204
 GameObject:
   m_ObjectHideFlags: 0

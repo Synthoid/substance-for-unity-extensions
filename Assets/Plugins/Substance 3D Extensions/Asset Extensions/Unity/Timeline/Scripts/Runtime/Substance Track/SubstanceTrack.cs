@@ -24,8 +24,6 @@ namespace SOS.SubstanceExtensions.Timeline
     [TrackClipType(typeof(RenderSubstanceAsset))]
     public class SubstanceTrack : TrackAsset
     {
-        private const string kDisplayNameFormat = "{0} - {1}";
-
         public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
         {
             return ScriptPlayable<SubstanceTrackMixerBehaviour>.Create(graph, inputCount);

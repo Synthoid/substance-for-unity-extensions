@@ -22,6 +22,7 @@ namespace SOS.SubstanceExtensions.Timeline
         private Dictionary<int, Vector2> float2s = new Dictionary<int, Vector2>();
         private Dictionary<int, Vector3> float3s = new Dictionary<int, Vector3>();
         private Dictionary<int, Vector4> float4s = new Dictionary<int, Vector4>();
+        private Dictionary<int, Color> colors = new Dictionary<int, Color>();
         private Dictionary<int, float> integers = new Dictionary<int, float>();
         private Dictionary<int, Vector2> integer2s = new Dictionary<int, Vector2>();
         private Dictionary<int, Vector3> integer3s = new Dictionary<int, Vector3>();
@@ -63,6 +64,7 @@ namespace SOS.SubstanceExtensions.Timeline
             float2s.Clear();
             float3s.Clear();
             float4s.Clear();
+            colors.Clear();
             integers.Clear();
             integer2s.Clear();
             integer3s.Clear();
@@ -80,7 +82,7 @@ namespace SOS.SubstanceExtensions.Timeline
                 Type playableType = inputPlayable.GetPlayableType();
 
                 //Floats
-                if(playableType == typeof(SetSubstanceInputFloatAsset))
+                if(playableType == typeof(SetSubstanceInputFloatBehaviour))
                 {
                     SetSubstanceInputFloatBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputFloatBehaviour>)inputPlayable).GetBehaviour();
 
@@ -101,7 +103,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputFloat2Asset))
+                if(playableType == typeof(SetSubstanceInputFloat2Behaviour))
                 {
                     SetSubstanceInputFloat2Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputFloat2Behaviour>)inputPlayable).GetBehaviour();
 
@@ -122,7 +124,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputFloat3Asset))
+                if(playableType == typeof(SetSubstanceInputFloat3Behaviour))
                 {
                     SetSubstanceInputFloat3Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputFloat3Behaviour>)inputPlayable).GetBehaviour();
 
@@ -143,7 +145,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputFloat4Asset))
+                if(playableType == typeof(SetSubstanceInputFloat4Behaviour))
                 {
                     SetSubstanceInputFloat4Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputFloat4Behaviour>)inputPlayable).GetBehaviour();
 
@@ -164,7 +166,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputColorAsset))
+                if(playableType == typeof(SetSubstanceInputColorBehaviour))
                 {
                     SetSubstanceInputColorBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputColorBehaviour>)inputPlayable).GetBehaviour();
 
@@ -177,7 +179,7 @@ namespace SOS.SubstanceExtensions.Timeline
                         weights[behaviour.Parameter.Index] += inputWeight;
                     }
 
-                    if(!float4s.TryAdd(behaviour.Parameter.Index, behaviour.value * inputWeight))
+                    if(!float4s.TryAdd(behaviour.Parameter.Index, (Vector4)(behaviour.value * inputWeight)))
                     {
                         float4s[behaviour.Parameter.Index] += (Vector4)(behaviour.value * inputWeight);
                     }
@@ -186,7 +188,7 @@ namespace SOS.SubstanceExtensions.Timeline
                 }
 
                 //Integers
-                if(playableType == typeof(SetSubstanceInputIntAsset))
+                if(playableType == typeof(SetSubstanceInputIntBehaviour))
                 {
                     SetSubstanceInputIntBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputIntBehaviour>)inputPlayable).GetBehaviour();
 
@@ -207,7 +209,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputInt2Asset))
+                if(playableType == typeof(SetSubstanceInputInt2Behaviour))
                 {
                     SetSubstanceInputInt2Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputInt2Behaviour>)inputPlayable).GetBehaviour();
 
@@ -228,7 +230,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputInt3Asset))
+                if(playableType == typeof(SetSubstanceInputInt3Behaviour))
                 {
                     SetSubstanceInputInt3Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputInt3Behaviour>)inputPlayable).GetBehaviour();
 
@@ -249,7 +251,7 @@ namespace SOS.SubstanceExtensions.Timeline
                     continue;
                 }
 
-                if(playableType == typeof(SetSubstanceInputInt4Asset))
+                if(playableType == typeof(SetSubstanceInputInt4Behaviour))
                 {
                     SetSubstanceInputInt4Behaviour behaviour = ((ScriptPlayable<SetSubstanceInputInt4Behaviour>)inputPlayable).GetBehaviour();
 
@@ -271,7 +273,7 @@ namespace SOS.SubstanceExtensions.Timeline
                 }
 
                 //Strings
-                if(playableType == typeof(SetSubstanceInputStringAsset))
+                if(playableType == typeof(SetSubstanceInputStringBehaviour))
                 {
                     SetSubstanceInputStringBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputStringBehaviour>)inputPlayable).GetBehaviour();
 
@@ -294,7 +296,7 @@ namespace SOS.SubstanceExtensions.Timeline
                 }
 
                 //Textures
-                if(playableType == typeof(SetSubstanceInputTextureAsset))
+                if(playableType == typeof(SetSubstanceInputTextureBehaviour))
                 {
                     SetSubstanceInputTextureBehaviour behaviour = ((ScriptPlayable<SetSubstanceInputTextureBehaviour>)inputPlayable).GetBehaviour();
 
@@ -340,8 +342,22 @@ namespace SOS.SubstanceExtensions.Timeline
 
             foreach(int s in float4s.Keys)
             {
-                drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
+                //drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
+                try
+                {
+                    drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
+                }
+                catch
+                {
+                    //TODO: Somehow, logo, a texture input, is being referenced here... Maybe my inputs need to be refreshed?
+                    Debug.LogWarning($"[{drivenGraph.Input[s].Description.Identifier}]\nDefault: {defaultPropertyValues[s]} ({defaultPropertyValues[s].GetType().Name})\nTarget: {float4s[s]} ({float4s[s].GetType().Name})");
+                }
             }
+
+            /*foreach(int s in colors.Keys)
+            {
+                drivenNativeGraph.SetInputFloat4(s, (Vector4)Color.Lerp((Color)defaultPropertyValues[s], colors[s], weights[s]));
+            }*/
 
             //Integers
             foreach(int s in integers.Keys)
@@ -351,17 +367,17 @@ namespace SOS.SubstanceExtensions.Timeline
 
             foreach(int s in integer2s.Keys)
             {
-                drivenNativeGraph.SetInputInt2(s, Vector2Int.RoundToInt(Vector2.Lerp((Vector2)(Vector2Int)defaultPropertyValues[s], float2s[s], weights[s])));
+                drivenNativeGraph.SetInputInt2(s, Vector2Int.RoundToInt(Vector2.Lerp((Vector2)(Vector2Int)defaultPropertyValues[s], integer2s[s], weights[s])));
             }
 
             foreach(int s in integer3s.Keys)
             {
-                drivenNativeGraph.SetInputInt3(s, Vector3Int.RoundToInt(Vector3.Lerp((Vector3)(Vector3Int)defaultPropertyValues[s], float3s[s], weights[s])));
+                drivenNativeGraph.SetInputInt3(s, Vector3Int.RoundToInt(Vector3.Lerp((Vector3)(Vector3Int)defaultPropertyValues[s], integer3s[s], weights[s])));
             }
 
             foreach(int s in integer4s.Keys)
             {
-                drivenNativeGraph.SetInputInt4(s, Vector4Int.RoundToInt(Vector4.Lerp((Vector4)(Vector4Int)defaultPropertyValues[s], float4s[s], weights[s])));
+                drivenNativeGraph.SetInputInt4(s, Vector4Int.RoundToInt(Vector4.Lerp((Vector4)(Vector4Int)defaultPropertyValues[s], integer4s[s], weights[s])));
             }
 
             //Non-lerpable values
@@ -375,7 +391,7 @@ namespace SOS.SubstanceExtensions.Timeline
                 previousTextures.TryGetValue(s, out Texture previousTexture);
 
                 if(previousTexture == textures[s]) continue;
-                else previousTextures[s] = textures[s]; //Cache previous value, no need to set texture pixels every frame.
+                else previousTextures[s] = textures[s]; //Cache previous value, no need to set texture pixels every frame if the texture input has not changed.
 
                 renderType = SbsRenderType.Deferred;
 
@@ -410,7 +426,7 @@ namespace SOS.SubstanceExtensions.Timeline
 
                 defaultPropertyValues.Add(index, value);
 
-                if(value is Texture)
+                if(graph.Input[index].Description.Type == SubstanceValueType.Image)//value is Texture)
                 {
                     previousTextures.TryAdd(index, (Texture)value);
                 }

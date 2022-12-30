@@ -53,8 +53,8 @@ MonoBehaviour:
   template:
     parameter:
       name: color
-      index: 2
-      valueType: 0
+      index: 7
+      valueType: 3
       widgetType: 3
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}
@@ -471,7 +471,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: textColor - RGBA(0.149, 0.216, 0.149, 1.000)
+    m_DisplayName: textColor
   - m_Version: 1
     m_Start: 5
     m_ClipIn: 0
@@ -522,7 +522,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: textColor - RGBA(1.000, 0.000, 0.000, 1.000)
+    m_DisplayName: textColor
   m_Markers:
     m_Objects: []
 --- !u!114 &-4730395028974791744
@@ -583,7 +583,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -596,7 +614,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: textOpacity - 1
+    m_DisplayName: textOpacity
   - m_Version: 1
     m_Start: 3
     m_ClipIn: 0
@@ -610,7 +628,25 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -647,7 +683,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: textOpacity - 0
+    m_DisplayName: textOpacity
   - m_Version: 1
     m_Start: 5
     m_ClipIn: 0
@@ -716,7 +752,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: textOpacity - 1
+    m_DisplayName: textOpacity
   m_Markers:
     m_Objects: []
 --- !u!114 &-3915378366476356889
@@ -949,7 +985,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -962,7 +1016,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: color - RGBA(0.604, 0.773, 0.612, 1.000)
+    m_DisplayName: color
   - m_Version: 1
     m_Start: 3
     m_ClipIn: 0
@@ -976,7 +1030,25 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -995,7 +1067,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: color - RGBA(0.000, 0.000, 0.000, 1.000)
+    m_DisplayName: color
   m_Markers:
     m_Objects: []
 --- !u!114 &2048493909188351128
@@ -1364,7 +1436,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: text - 3:30
+    m_DisplayName: text
   - m_Version: 1
     m_Start: 1
     m_ClipIn: 0
@@ -1433,7 +1505,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: text - 3:31
+    m_DisplayName: text
   - m_Version: 1
     m_Start: 2
     m_ClipIn: 0
@@ -1502,7 +1574,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: text - 3:32
+    m_DisplayName: text
   - m_Version: 1
     m_Start: 5
     m_ClipIn: 0
@@ -1571,7 +1643,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: text - 3:33
+    m_DisplayName: text
   m_Markers:
     m_Objects: []
 --- !u!114 &4909403140425337411
@@ -1707,8 +1779,8 @@ MonoBehaviour:
   template:
     parameter:
       name: color
-      index: 2
-      valueType: 0
+      index: 7
+      valueType: 3
       widgetType: 3
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}

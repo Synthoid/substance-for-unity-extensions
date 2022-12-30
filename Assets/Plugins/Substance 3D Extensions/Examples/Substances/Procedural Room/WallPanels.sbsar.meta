@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: be3c05217567efd4198f77c2cdf1f7fc
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 08efa5ad27b68804b8fcd87264e2bf9a, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Procedural
+    Room/WallPanels.sbsar

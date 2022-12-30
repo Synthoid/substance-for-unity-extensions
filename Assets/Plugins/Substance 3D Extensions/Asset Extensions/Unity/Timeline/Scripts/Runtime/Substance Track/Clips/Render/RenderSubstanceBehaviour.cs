@@ -48,6 +48,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
             if(renderType == SbsRenderType.Immediate)
             {
+                Debug.Log($"REF: {renderEveryFrame}\nHas Rendered: {hasRendered}");
+
                 if(renderEveryFrame || !hasRendered)
                 {
                     hasRendered = true;

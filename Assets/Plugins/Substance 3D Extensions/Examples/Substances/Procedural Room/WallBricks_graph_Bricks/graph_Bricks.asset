@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
-  m_Name: graph_example_timeline
+  m_Name: graph_Bricks
   m_EditorClassIdentifier: 
-  AssetPath: Assets/Plugins/Substance 3D Extensions/Asset Extensions/Unity/Timeline/Examples/Substances/TimelineExample.sbsar
-  OutputPath: Assets/Plugins/Substance 3D Extensions/Asset Extensions/Unity/Timeline/Examples/Substances/TimelineExample_graph_example_timeline
-  RawData: {fileID: -244192453324840774, guid: 831788cf0d3374dd49b2b286fd75c146, type: 3}
-  Name: graph_example_timeline
+  AssetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Procedural
+    Room/WallBricks.sbsar
+  OutputPath: Assets\Plugins\Substance 3D Extensions\Examples\Substances\Procedural
+    Room\WallBricks_graph_Bricks
+  RawData: {fileID: -244192453324840774, guid: 65df169fe714de34cb0c1a31af689847, type: 3}
+  Name: graph_Bricks
   IsRoot: 1
   FlagedForDelete: 0
-  GUID: 2271b6e5-3a8e-45ca-ba68-b26449732f0d
+  GUID: 721bc04a-eba5-45db-ac21-0f8a67ec86e5
   Index: 0
   Input:
   - rid: 1000
@@ -32,10 +34,6 @@ MonoBehaviour:
   - rid: 1008
   - rid: 1009
   - rid: 1010
-  - rid: 1011
-  - rid: 1012
-  - rid: 1013
-  - rid: 1014
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -106,17 +104,13 @@ MonoBehaviour:
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TimelineExample\" label=\"\" >\n 
-    <presetinput identifier=\"text\" uid=\"2322360296\" type=\"6\" value=\"3:30\"
-    />\n  <presetinput identifier=\"color\" uid=\"2322360102\" type=\"3\" value=\"0.602083,0.773585,0.611901,1\"
-    />\n  <presetinput identifier=\"textColor\" uid=\"2322360127\" type=\"3\" value=\"0.150916,0.216981,0.148407,1\"
-    />\n </sbspreset>\n"
+  CurrentStatePreset: 
   IsRuntimeOnly: 1
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
-  OutputMaterial: {fileID: 2100000, guid: dab16bfe389b60f4e8667b15c1ef3703, type: 2}
-  DefaultPreset: " <sbspreset pkgurl=\"pkg://TimelineExample\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"3886396035\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+  OutputMaterial: {fileID: 2100000, guid: 36c4a1d5f343c6445a42db8e72d3388c, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://WallBricks\" label=\"\" >\n  <presetinput
+    identifier=\"$outputsize\" uid=\"1737355145\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
@@ -134,7 +128,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 5
           WidgetType: 0
-        Data: {x: 8, y: 8}
+        Data: {x: 10, y: 10}
         NumericalDescription:
           DefaultValue: {x: 8, y: 8}
           MinValue: {x: 0, y: 0}
@@ -165,36 +159,47 @@ MonoBehaviour:
           EnumValueCount: 0
           EnumValues: []
     - rid: 1002
-      type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
         Description:
-          Identifier: logo
-          Label: Logo
+          Identifier: tileCountX
+          Label: Tile Count X
           GuiGroup: 
-          GuiDescription: Texture for the clock's logo. If left empty, no logo will
-            be displayed.
-          Type: 8
-          WidgetType: 6
-        Data: {fileID: 0}
+          GuiDescription: Number of tiles on the X axis.
+          Type: 4
+          WidgetType: 1
+        Data: 4
+        NumericalDescription:
+          DefaultValue: 4
+          MinValue: 1
+          MaxValue: 64
+          SliderStep: 1
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
     - rid: 1003
-      type: {class: SubstanceInputFloat2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 3
         Description:
-          Identifier: logoOffset
-          Label: Offset
-          GuiGroup: Logo
-          GuiDescription: Offset for the logo, from the center of the texture.
-          Type: 1
+          Identifier: tileCountY
+          Label: Tile Count Y
+          GuiGroup: 
+          GuiDescription: Number of tiles on the Y axis.
+          Type: 4
           WidgetType: 1
-        Data: {x: 0, y: -0.5}
+        Data: 8
         NumericalDescription:
-          DefaultValue: {x: 0, y: -0.5}
-          MinValue: {x: -0.5, y: -0.5}
-          MaxValue: {x: 0.5, y: 0.5}
-          SliderStep: 0.01
+          DefaultValue: 8
+          MinValue: 1
+          MaxValue: 64
+          SliderStep: 1
           SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
     - rid: 1004
@@ -202,15 +207,15 @@ MonoBehaviour:
       data:
         Index: 4
         Description:
-          Identifier: logoMatrix
-          Label: Matrix
-          GuiGroup: Logo
-          GuiDescription: Matrix controlling the logo's rotation and scaling.
+          Identifier: color
+          Label: Tiles
+          GuiGroup: Color
+          GuiDescription: Base color for tiles.
           Type: 3
-          WidgetType: 0
-        Data: {x: 2, y: 0, z: 0, w: 2}
+          WidgetType: 3
+        Data: {x: 1, y: 0, z: 0, w: 1}
         NumericalDescription:
-          DefaultValue: {x: 2, y: 0, z: 0, w: 2}
+          DefaultValue: {x: 1, y: 0, z: 0, w: 1}
           MinValue: {x: 0, y: 0, z: 0, w: 0}
           MaxValue: {x: 0, y: 0, z: 0, w: 0}
           SliderStep: 0
@@ -218,26 +223,74 @@ MonoBehaviour:
           EnumValueCount: 0
           EnumValues: []
     - rid: 1005
-      type: {class: SubstanceInputString, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      type: {class: SubstanceInputFloat3, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 5
         Description:
-          Identifier: text
-          Label: Text
-          GuiGroup: Text
-          GuiDescription: Text shown on the texture.
-          Type: 9
-          WidgetType: 0
-        Data: 3:30
+          Identifier: hslRandom
+          Label: HSL Random
+          GuiGroup: Color
+          GuiDescription: Random HSL offsets applied to tile colors.
+          Type: 2
+          WidgetType: 1
+        Data: {x: 0.08, y: 0, z: 0}
+        NumericalDescription:
+          DefaultValue: {x: 0.08, y: 0, z: 0}
+          MinValue: {x: -1, y: -1, z: -1}
+          MaxValue: {x: 1, y: 1, z: 1}
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
     - rid: 1006
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 6
         Description:
-          Identifier: textOpacity
-          Label: Opacity
-          GuiGroup: Text
-          GuiDescription: Opacity for the shown text.
+          Identifier: mortarColor
+          Label: Mortar
+          GuiGroup: Color
+          GuiDescription: Color for the mortar between tiles.
+          Type: 3
+          WidgetType: 3
+        Data: {x: 0, y: 0, z: 0, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 0, y: 0, z: 0, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1007
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 7
+        Description:
+          Identifier: rough
+          Label: Tiles
+          GuiGroup: Rough
+          GuiDescription: Roughness value for tiles.
+          Type: 0
+          WidgetType: 1
+        Data: 0.5
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1008
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 8
+        Description:
+          Identifier: mortarRough
+          Label: Mortar
+          GuiGroup: Rough
+          GuiDescription: Roughness value for the mortar between tiles.
           Type: 0
           WidgetType: 1
         Data: 1
@@ -249,60 +302,20 @@ MonoBehaviour:
           SliderClamp: 1
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1007
-      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 7
-        Description:
-          Identifier: color
-          Label: Base
-          GuiGroup: Color
-          GuiDescription: Base color for the texture.
-          Type: 3
-          WidgetType: 3
-        Data: {x: 0.6020826, y: 0.7735849, z: 0.6119012, w: 1}
-        NumericalDescription:
-          DefaultValue: {x: 0, y: 0, z: 0, w: 1}
-          MinValue: {x: 0, y: 0, z: 0, w: 0}
-          MaxValue: {x: 0, y: 0, z: 0, w: 0}
-          SliderStep: 0
-          SliderClamp: 0
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 1008
-      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 8
-        Description:
-          Identifier: textColor
-          Label: Text
-          GuiGroup: Color
-          GuiDescription: Color for the shown text.
-          Type: 3
-          WidgetType: 3
-        Data: {x: 0.1509157, y: 0.21698111, z: 0.1484069, w: 1}
-        NumericalDescription:
-          DefaultValue: {x: 1, y: 0, z: 0, w: 1}
-          MinValue: {x: 0, y: 0, z: 0, w: 0}
-          MaxValue: {x: 0, y: 0, z: 0, w: 0}
-          SliderStep: 0
-          SliderClamp: 0
-          EnumValueCount: 0
-          EnumValues: []
     - rid: 1009
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 9
         Description:
-          Identifier: rough
-          Label: Base
-          GuiGroup: Rough
-          GuiDescription: Base rough value for the texxture.
+          Identifier: metallic
+          Label: Tiles
+          GuiGroup: Metallic
+          GuiDescription: Metallic value for tiles.
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0
         NumericalDescription:
-          DefaultValue: 1
+          DefaultValue: 0
           MinValue: 0
           MaxValue: 1
           SliderStep: 0.01
@@ -314,92 +327,10 @@ MonoBehaviour:
       data:
         Index: 10
         Description:
-          Identifier: textRough
-          Label: Text
-          GuiGroup: Rough
-          GuiDescription: Rough value for the shown text.
-          Type: 0
-          WidgetType: 1
-        Data: 1
-        NumericalDescription:
-          DefaultValue: 1
-          MinValue: 0
-          MaxValue: 1
-          SliderStep: 0.01
-          SliderClamp: 1
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 1011
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 11
-        Description:
-          Identifier: logoRough
-          Label: Logo
-          GuiGroup: Rough
-          GuiDescription: Rough value for the displayed brand logo. If no logo texture
-            is referenced, this will not affect anything.
-          Type: 0
-          WidgetType: 1
-        Data: 1
-        NumericalDescription:
-          DefaultValue: 1
-          MinValue: 0
-          MaxValue: 1
-          SliderStep: 0.01
-          SliderClamp: 1
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 1012
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 12
-        Description:
-          Identifier: metallic
-          Label: Base
+          Identifier: mortarMetallic
+          Label: Mortar
           GuiGroup: Metallic
-          GuiDescription: Base metallic value for the texture.
-          Type: 0
-          WidgetType: 1
-        Data: 0
-        NumericalDescription:
-          DefaultValue: 0
-          MinValue: 0
-          MaxValue: 1
-          SliderStep: 0.01
-          SliderClamp: 1
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 1013
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 13
-        Description:
-          Identifier: textMetallic
-          Label: Text
-          GuiGroup: Metallic
-          GuiDescription: Metallic value for the shown text.
-          Type: 0
-          WidgetType: 1
-        Data: 0
-        NumericalDescription:
-          DefaultValue: 0
-          MinValue: 0
-          MaxValue: 1
-          SliderStep: 0.01
-          SliderClamp: 1
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 1014
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 14
-        Description:
-          Identifier: logoMetallic
-          Label: Logo
-          GuiGroup: Metallic
-          GuiDescription: Metallic value for the displayed brand logo. If no logo
-            texture is referenced, this will not affect anything.
+          GuiDescription: Metallic value for the mortar between tiles.
           Type: 0
           WidgetType: 1
         Data: 0
