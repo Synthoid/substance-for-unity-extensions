@@ -1,6 +1,6 @@
 # Timeline and Substance for Unity
 
-This is the documentation index for added Timeline functionality to Substance for Unity.
+This is the documentation index for Timeline functionality added to Substance for Unity.
 
 <picture>
   <img alt="Substance in Timeline" src="/docs/img/Extensions/Timeline/TimelineExample.png" width="515" height="228">
@@ -11,7 +11,7 @@ This is the documentation index for added Timeline functionality to Substance fo
 All Timeline functionality for Substance for Unity is controlled by the `SubstanceTrack`. This track accepts a `SubstanceGraphSO` asset as a binding and can be used to drive input values and render the bound substance.
 
 ## Clips
-These classes handle interacting with substances via Timeline.
+These classes handle interacting with substances via Timeline. You can add these clips to a `SubstanceTrack` by right clicking on an empty area on the track and selecting the desired clip.
 
 ### Values
 Clips that set input values on bound substances' associated `SubstanceNativeGraph`.

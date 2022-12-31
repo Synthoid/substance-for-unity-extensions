@@ -28,7 +28,7 @@ public class SubstanceOutputExample : MonoBehaviour
 
     private void Start()
     {
-        SpawnOutputPreviews();
+        LogOutputTextureName();
     }
 }
 ```

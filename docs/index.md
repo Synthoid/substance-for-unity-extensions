@@ -18,7 +18,7 @@ These attributes streamline working with substance assets in your inspectors.
 | Class | Description |
 | ----- | ----------- |
 | [RuntimeGraphOnlyAttribute](scripting/Attributes/RuntimeGraphOnlyAttribute.md) | Displays a warning if a referenced `SubstanceGraphSO` asset is not marked as runtime only. |
-| [TransformMatrixAttribute)](scripting/Attributes/TransformMatrixAttribute.md) | Draws a `Vector4` field with similar controls to Substance Designer's transform matrix fields. |
+| [TransformMatrixAttribute](scripting/Attributes/TransformMatrixAttribute.md) | Draws a `Vector4` field with similar controls to Substance Designer's transform matrix fields. |
 | [SubstanceInputTypeFilterAttribute](scripting/Attributes/SubstanceInputTypeFilterAttribute.md) | Filters selectable inputs for `SubstanceParameter` fields. |
 
 ## Package Extensions
