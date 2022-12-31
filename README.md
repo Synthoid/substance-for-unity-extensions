@@ -6,7 +6,7 @@ Repo containing extension methods for Adobe's Substance 3D for Unity plugin.
 
 For stable code that can be easily imported into existing projects, see the [Release page](https://github.com/Synthoid/substance-for-unity-extensions/releases)
 
-Change notes can be found [here](Assets/Plugins/Substance%20Extensions/CHANGELOG.md).
+Change notes can be found [here](Assets/Plugins/Substance%203D%20Extensions/CHANGELOG.md).
 
 Documentation can be found [here](docs/index.md).
 
