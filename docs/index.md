@@ -62,3 +62,9 @@ Draws a `Vector4` field with similar controls to Substance Designer's transform 
 </picture>
 
 ***Raw Matrix View***
+
+## Package Extensions
+
+Extended functionality to support various Unity packages.
+
+ - [Timeline](extensions/timeline/index.md)
