@@ -14,12 +14,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Example scene comprised entirely of runtime substance materials.
 
 ### Added
+- Timeline support for setting substance native graph values and rendering substances.
+- Example scene showcasing Timeline functionality.
 - README file to project folder.
 - `ISubstanceInputParameter` and `ISubstanceInputParameterValue` interfaces.
 - Optional callback to `SetInputTextureGPUAsync()` extension method.
-- Timeline support for setting substance native graph values and rendering substances.
 - `NoFoldoutAttribute` for drawing classes without the usual foldout control.
-- Example scene showcasing Timeline functionality.
 
 ### Changed
 - Extension methods previously using `SubstanceParameter` and `SubstanceParameterValue` arguments now use `ISubstanceInputParameter` and `ISubstanceInputParameterValue` arguments.
@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 - Oversight in `SubstanceNativeGraphExtensions`' `SetInputValues<T>()` and `SetInputValuesAsync<T>()` extension methods that threw casting errors.
+- `SubstanceOutput`'s `EditorAsset` property now properly references the target `SubstanceGraphSO` asset instead of attempting to load a `SubstanceFileSO` asset.
 
 ### Deprecated
 - `SubstanceParameter` and `SubstanceParameterValue` `Type` properties are now deprecated. Use `ValueType` instead.
