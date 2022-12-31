@@ -107,7 +107,8 @@ MonoBehaviour:
   Thumbnail: 
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TimelineExample\" label=\"\" >\n 
-    <presetinput identifier=\"text\" uid=\"2322360296\" type=\"6\" value=\"3:30\"
+    <presetinput identifier=\"$outputsize\" uid=\"3886396035\" type=\"8\" value=\"9,9\"
+    />\n  <presetinput identifier=\"text\" uid=\"2322360296\" type=\"6\" value=\"3:30\"
     />\n  <presetinput identifier=\"color\" uid=\"2322360102\" type=\"3\" value=\"0.602083,0.773585,0.611901,1\"
     />\n  <presetinput identifier=\"textColor\" uid=\"2322360127\" type=\"3\" value=\"0.150916,0.216981,0.148407,1\"
     />\n </sbspreset>\n"
@@ -134,7 +135,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 5
           WidgetType: 0
-        Data: {x: 8, y: 8}
+        Data: {x: 9, y: 9}
         NumericalDescription:
           DefaultValue: {x: 8, y: 8}
           MinValue: {x: 0, y: 0}

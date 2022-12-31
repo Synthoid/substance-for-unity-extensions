@@ -22,7 +22,6 @@ namespace SOS.SubstanceExtensions.Timeline
         private Dictionary<int, Vector2> float2s = new Dictionary<int, Vector2>();
         private Dictionary<int, Vector3> float3s = new Dictionary<int, Vector3>();
         private Dictionary<int, Vector4> float4s = new Dictionary<int, Vector4>();
-        private Dictionary<int, Color> colors = new Dictionary<int, Color>();
         private Dictionary<int, float> integers = new Dictionary<int, float>();
         private Dictionary<int, Vector2> integer2s = new Dictionary<int, Vector2>();
         private Dictionary<int, Vector3> integer3s = new Dictionary<int, Vector3>();
@@ -43,10 +42,6 @@ namespace SOS.SubstanceExtensions.Timeline
 
         public override void ProcessFrame(Playable playable, FrameData info, object playerData)
         {
-            //TODO: Should get the playable graph and manually evaluate it when all textures have been set?
-            //Move actual render code to a specific clip type? This clip can wait until all set value clips are ready in the graph on this frame?
-            //playable.GetGraph().Evaluate()
-
             if(!Application.isPlaying) return;
 
             drivenGraph = (SubstanceGraphSO)playerData;
@@ -64,7 +59,6 @@ namespace SOS.SubstanceExtensions.Timeline
             float2s.Clear();
             float3s.Clear();
             float4s.Clear();
-            colors.Clear();
             integers.Clear();
             integer2s.Clear();
             integer3s.Clear();
@@ -342,22 +336,8 @@ namespace SOS.SubstanceExtensions.Timeline
 
             foreach(int s in float4s.Keys)
             {
-                //drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
-                try
-                {
-                    drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
-                }
-                catch
-                {
-                    //TODO: Somehow, logo, a texture input, is being referenced here... Maybe my inputs need to be refreshed?
-                    Debug.LogWarning($"[{drivenGraph.Input[s].Description.Identifier}]\nDefault: {defaultPropertyValues[s]} ({defaultPropertyValues[s].GetType().Name})\nTarget: {float4s[s]} ({float4s[s].GetType().Name})");
-                }
+                drivenNativeGraph.SetInputFloat4(s, Vector4.Lerp((Vector4)defaultPropertyValues[s], float4s[s], weights[s]));
             }
-
-            /*foreach(int s in colors.Keys)
-            {
-                drivenNativeGraph.SetInputFloat4(s, (Vector4)Color.Lerp((Color)defaultPropertyValues[s], colors[s], weights[s]));
-            }*/
 
             //Integers
             foreach(int s in integers.Keys)
@@ -393,12 +373,9 @@ namespace SOS.SubstanceExtensions.Timeline
                 if(previousTexture == textures[s]) continue;
                 else previousTextures[s] = textures[s]; //Cache previous value, no need to set texture pixels every frame if the texture input has not changed.
 
-                renderType = SbsRenderType.Deferred;
-
-                Debug.Log("Deferring render...");
+                renderType = SbsRenderType.Deferred; //Defer render until the texture colors can be extracted.
 
                 _ = drivenNativeGraph.SetInputTextureGPUAsync(s, textures[s], () => {
-                    Debug.Log("<Set Render>");
                     renderType = SbsRenderType.Immediate;
                 });
             }
@@ -410,8 +387,6 @@ namespace SOS.SubstanceExtensions.Timeline
         private void InitializeDefaultValues(SubstanceGraphSO graph, Playable playable)
         {
             if(graph == null || drivenNativeGraph != null) return;
-
-            //SubstanceTimelineUtility.QueueSubstance(graph, SbsRenderType.Deferred);
 
             drivenNativeGraph = graph.BeginRuntimeEditing();
 
@@ -426,7 +401,7 @@ namespace SOS.SubstanceExtensions.Timeline
 
                 defaultPropertyValues.Add(index, value);
 
-                if(graph.Input[index].Description.Type == SubstanceValueType.Image)//value is Texture)
+                if(graph.Input[index].Description.Type == SubstanceValueType.Image)
                 {
                     previousTextures.TryAdd(index, (Texture)value);
                 }

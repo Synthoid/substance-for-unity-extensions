@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.Playables;
-using System.Collections;
-using System.Collections.Generic;
 using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions.Timeline
@@ -9,14 +7,15 @@ namespace SOS.SubstanceExtensions.Timeline
     [System.Serializable]
     public class RenderSubstanceBehaviour : PlayableBehaviour
     {
-        //TODO: Need a class that knows about all substances in a timeline and can wait for all of them to be ready then render them...
-        [Tooltip("[True] - Render the track's bound substance every frame.\n[False] - Render the track's bound substance once at the start of this clip.")]
-        public bool renderEveryFrame = true;
+        [SerializeField, Tooltip("[True] - Render the track's bound substance every frame.\n[False] - Render the track's bound substance once at the start of this clip.")]
+        private bool renderEveryFrame = true;
+        [SerializeField, Tooltip("If true, the native handle for the track's bound substance will be released when the graph stops playing.\n\nSet this to false if you want to continue to edit and render the substance after the timeline has finished playing.")]
+        private bool releaseSubstanceOnStop = true;
+        //Render async option?
 
         private SubstanceGraphSO drivenGraph = null;
         private SubstanceNativeGraph drivenNativeGraph = null;
         private bool hasRendered = false;
-        //private List<SubstanceTrackMixerBehaviour> mixerBehaviours = new List<SubstanceTrackMixerBehaviour>();
 
         public override void OnGraphStop(Playable playable)
         {
@@ -24,7 +23,7 @@ namespace SOS.SubstanceExtensions.Timeline
 
             SubstanceTimelineUtility.DequeueSubstance(drivenGraph);
 
-            drivenGraph.EndRuntimeEditing(drivenNativeGraph);
+            if(releaseSubstanceOnStop) drivenGraph.EndRuntimeEditing(drivenNativeGraph);
 
             drivenGraph = null;
             drivenNativeGraph = null;
@@ -33,7 +32,6 @@ namespace SOS.SubstanceExtensions.Timeline
 
         public override void ProcessFrame(Playable playable, FrameData info, object playerData)
         {
-            //TODO: Need to figure out when to dispose of the native graph... OnGraphStop?
             if(!Application.isPlaying) return;
 
             drivenGraph = (SubstanceGraphSO)playerData;
@@ -44,69 +42,21 @@ namespace SOS.SubstanceExtensions.Timeline
 
             SbsRenderType renderType = SubstanceTimelineUtility.GetQueuedRenderType(drivenGraph);
 
-            Debug.Log(renderType);
-
             if(renderType == SbsRenderType.Immediate)
             {
-                Debug.Log($"REF: {renderEveryFrame}\nHas Rendered: {hasRendered}");
-
                 if(renderEveryFrame || !hasRendered)
                 {
                     hasRendered = true;
 
                     drivenGraph.Render(drivenNativeGraph);
-
-                    Debug.Log("Render...");
                 }
             }
-
-            //mixerBehaviours.Clear();
-
-            //TODO: This seems to get child playables (ie clips) but NOT the mixer behaviour...
-            //int count = playable.GetGraph().GetBehaviours<SubstanceTrackMixerBehaviour>(mixerBehaviours);
-
-            //Debug.Log(count);
-            //if(!Application.isPlaying) return;
-            //playable.GetGraph().get
-            /*PlayableGraph graph = playable.GetGraph();
-            int count = graph.GetOutputCount();
-
-            //Debug.Log(count);
-
-            //graph.GetOutputByType<SubstanceTrack>(0);
-
-            for(int i=0; i < count; i++)
-            {
-                SubstanceTrack track = (SubstanceTrack)graph.GetOutput(i).GetReferenceObject();
-
-                if(track == null) continue;
-
-                //track.GetClips().First();
-                //https://forum.unity.com/threads/get-all-behaviours-from-a-timeline.1275197/
-                //TODO: Get all behaviours from a track and check that they are ready to render...
-
-                //((SetSubstanceInputValueAsset)track.GetClips().First().asset).
-                //Debug.Log(track.outputs.Count());
-                //IEnumerator<PlayableBinding> outputs = track.outputs.GetEnumerator();
-
-                //outputs.MoveNext();
-
-
-
-                //track.timelineAsset.editorSettings.frameRate;
-                //Debug.Log(graph.GetOutput(i).GetUserData().name); //Gets track binding
-                //Debug.Log(graph.GetOutput(i).GetReferenceObject()); //Gets the track asset
-                //Debug.Log(graph.GetOutput(i).GetReferenceObject()); //Gets the track asset
-            }*/
-
-            //base.ProcessFrame(playable, info, playerData);
         }
 
         private void InitializeDefaultValues(SubstanceGraphSO graph, Playable playable)
         {
             if(graph == null || drivenNativeGraph != null) return;
 
-            //TODO: Move to a try add method...
             SubstanceTimelineUtility.QueueSubstance(graph, SbsRenderType.None);
 
             drivenNativeGraph = graph.BeginRuntimeEditing();
