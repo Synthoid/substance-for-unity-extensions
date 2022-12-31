@@ -4,3 +4,16 @@ Allows quick and easy selection of Substance inputs via the inspector. If an inp
 <picture>
   <img alt="SubstanceParameter search window" src="/docs/img/Inspectors/SubstanceParameter01.png" width="354" height="448">
 </picture>
+
+***Example Script***
+```C#
+using UnityEngine;
+using Adobe.Substance;
+using SOS.SubstanceExtensions;
+
+public class SubstanceParameterExample : MonoBehaviour
+{
+    [Tooltip("Input to reference.")]
+    public SubstanceParameter input = new SubstanceParameter();
+}
+```

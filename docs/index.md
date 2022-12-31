@@ -13,7 +13,7 @@ These classes make referencing and working with substance values easier.
 | [SubstanceOutput](scripting/Utility/SubstanceOutput.md) | Allows easy selection of Substance output textures via the inspector. |
 
 ## Attributes
-These attributes can streamline working with substance asset in your inspectors.
+These attributes streamline working with substance assets in your inspectors.
 
 | Class | Description |
 | ----- | ----------- |

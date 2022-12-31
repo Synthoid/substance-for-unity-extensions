@@ -35,8 +35,6 @@ namespace SOS.SubstanceExtensions.Timeline
             if(drivenNativeGraph == null) return;
 
             SubstanceTimelineUtility.DequeueSubstance(drivenGraph);
-
-            //drivenGraph.EndRuntimeEditing(drivenNativeGraph);
         }
 
 
@@ -315,7 +313,7 @@ namespace SOS.SubstanceExtensions.Timeline
 
             if(valueSet)
             {
-                if(renderType != SbsRenderType.Deferred) renderType = SbsRenderType.Immediate;
+                if(renderType != SbsRenderType.Deferred && renderType != SbsRenderType.Rendering) renderType = SbsRenderType.Queued;
             }
 
             //Floats
@@ -376,7 +374,7 @@ namespace SOS.SubstanceExtensions.Timeline
                 renderType = SbsRenderType.Deferred; //Defer render until the texture colors can be extracted.
 
                 _ = drivenNativeGraph.SetInputTextureGPUAsync(s, textures[s], () => {
-                    renderType = SbsRenderType.Immediate;
+                    renderType = SbsRenderType.Queued;
                 });
             }
 

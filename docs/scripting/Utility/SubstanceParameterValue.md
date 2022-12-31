@@ -4,3 +4,16 @@ Handles referencing a Substance input and displaying an appropriate value field 
 <picture>
   <img alt="SubstanceParameterValues displaying various input controls." src="/docs/img/Inspectors/SubstanceParameterValue02.png" width="354" height="540">
 </picture>
+
+***Example Script***
+```C#
+using UnityEngine;
+using Adobe.Substance;
+using SOS.SubstanceExtensions;
+
+public class SubstanceParameterValueExample : MonoBehaviour
+{
+    [Tooltip("Input to reference.")]
+    public SubstanceParameterValue input = new SubstanceParameterValue();
+}
+```

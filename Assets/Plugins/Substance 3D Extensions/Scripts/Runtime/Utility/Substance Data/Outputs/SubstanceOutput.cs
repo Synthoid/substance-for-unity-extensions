@@ -35,7 +35,7 @@ namespace SOS.SubstanceExtensions
         private int index;
 
         /// <summary>
-        /// [Editor Only] GUID for the <see cref="SubstanceMaterialInstanceSO"/> asset containing the target output. Primarily used for editor tooling, not used at runtime.
+        /// [Editor Only] GUID for the <see cref="SubstanceGraphSO"/> asset containing the target output. Primarily used for editor tooling, not used at runtime.
         /// </summary>
         public string GUID
         {
@@ -68,11 +68,11 @@ namespace SOS.SubstanceExtensions
 
 #if UNITY_EDITOR
         /// <summary>
-        /// [Editor Only] <see cref="SubstanceFileSO"/> asset referenced for output values.
+        /// [Editor Only] <see cref="SubstanceGraphSO"/> asset referenced for output values.
         /// </summary>
-        public SubstanceFileSO EditorAsset
+        public SubstanceGraphSO EditorAsset
         {
-            get { return AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(AssetDatabase.GUIDToAssetPath(guid)); }
+            get { return AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guid)); }
         }
 #endif
     }

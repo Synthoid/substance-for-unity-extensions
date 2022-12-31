@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -170,14 +170,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   substance: {fileID: 11400000, guid: 85e8d8f3a85a74268a43cf1ff8cd836c, type: 2}
   renderAsync: 0
-  renderDelay: 3
+  renderDelay: 1
   parameters:
   - parameter:
       guid: 85e8d8f3a85a74268a43cf1ff8cd836c
       name: text
-      graphGuid: 
       index: 4
-      type: 9
+      valueType: 9
       widgetType: 0
       rangeMin: {x: 0, y: 0, z: 0, w: 0}
       rangeMax: {x: 0, y: 0, z: 0, w: 0}

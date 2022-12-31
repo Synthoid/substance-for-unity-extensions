@@ -24,3 +24,28 @@ Optional attribute for `SubstanceParameter` and `SubstanceParameterValue` fields
 <picture>
   <img alt="SubstanceInputTypeFilter fields" src="/docs/img/Inspectors/Attributes/AttributeInputFilter04.png" width="354" height="396">
 </picture>
+
+***Example Script***
+```C#
+using UnityEngine;
+using Adobe.Substance;
+using SOS.SubstanceExtensions;
+
+public class SubstanceInputTypeFilterAttributeExample : MonoBehaviour
+{
+    [Header("SubstanceParameter Filtering")]
+    [Tooltip("Standard SubstanceParameter that can select all substance inputs.")]
+    public SubstanceParameter allInputs = new SubstanceParameter();
+    [SubstanceInputTypeFilter(SbsInputTypeFilter.Int | SbsInputTypeFilter.Int2 | SbsInputTypeFilter.Int3 | SbsInputTypeFilter.Int4), Tooltip("SubstanceParameter that can select only int, int2, int3, and int4 substance inputs.")]
+    public SubstanceParameter intInputs = new SubstanceParameter();
+    [SubstanceInputTypeFilter(SbsInputTypeFilter.Image), Tooltip("SubstanceParameter that can select only image substance inputs.")]
+    public SubstanceParameter imageInputs = new SubstanceParameter();
+    [Header("SubstanceParameterValue Filtering")]
+    [Tooltip("Standard SubstanceParameterValue that can select all substance inputs.")]
+    public SubstanceParameterValue allInputValues = new SubstanceParameterValue();
+    [SubstanceInputTypeFilter(SbsInputTypeFilter.Int | SbsInputTypeFilter.Int2 | SbsInputTypeFilter.Int3 | SbsInputTypeFilter.Int4), Tooltip("SubstanceParameterValue that can select only int, int2, int3, and int4 substance inputs.")]
+    public SubstanceParameterValue intInputValues = new SubstanceParameterValue();
+    [SubstanceInputTypeFilter(SbsInputTypeFilter.Image), Tooltip("SubstanceParameterValue that can select only image substance inputs.")]
+    public SubstanceParameterValue imageInputValues = new SubstanceParameterValue();
+}
+```

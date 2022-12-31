@@ -10,9 +10,9 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         None        = 0,
         /// <summary>
-        /// Substance should render immediately.
+        /// Substance should be queued for immediate rendering.
         /// </summary>
-        Immediate   = 1,
+        Queued   = 1,
         /// <summary>
         /// Substance should defer rendering.
         /// </summary>

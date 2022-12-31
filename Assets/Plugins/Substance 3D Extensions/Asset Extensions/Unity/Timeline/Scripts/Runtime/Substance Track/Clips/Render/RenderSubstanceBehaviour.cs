@@ -42,13 +42,17 @@ namespace SOS.SubstanceExtensions.Timeline
 
             SbsRenderType renderType = SubstanceTimelineUtility.GetQueuedRenderType(drivenGraph);
 
-            if(renderType == SbsRenderType.Immediate)
+            if(renderType == SbsRenderType.Queued)
             {
                 if(renderEveryFrame || !hasRendered)
                 {
                     hasRendered = true;
 
+                    SubstanceTimelineUtility.SetQueuedRenderType(drivenGraph, SbsRenderType.Rendering);
+
                     drivenGraph.Render(drivenNativeGraph);
+
+                    SubstanceTimelineUtility.SetQueuedRenderType(drivenGraph, SbsRenderType.Rendered);
                 }
             }
         }

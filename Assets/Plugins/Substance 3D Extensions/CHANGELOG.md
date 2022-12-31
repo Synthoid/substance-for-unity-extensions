@@ -18,13 +18,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - `ISubstanceInputParameter` and `ISubstanceInputParameterValue` interfaces.
 - Optional callback to `SetInputTextureGPUAsync()` extension method.
 - Timeline support for setting substance native graph values and rendering substances.
-- NoFoldoutAttribute for drawing classes without the usual foldout control.
+- `NoFoldoutAttribute` for drawing classes without the usual foldout control.
 - Example scene showcasing Timeline functionality.
 
 ### Changed
 - Extension methods previously using `SubstanceParameter` and `SubstanceParameterValue` arguments now use `ISubstanceInputParameter` and `ISubstanceInputParameterValue` arguments.
 - `SubstanceNativeGraphExtensions.SetInputTextureGPUAsync()` can now accept any `Texture` value, not just `Texture2D` values.
+- `SubstanceNativeGraphExtensions.SetInputTextureGPU()` methods now log a warning when attempting to pass a compressed texture. This will be addressed in a later update.
 - `SubstanceInputTypeFilterAttribute` can now be applied to `SubstanceParameterValue` fields to limit selectable inputs by value type.
+
+### Fixed
+- Oversight in `SubstanceNativeGraphExtensions`' `SetInputValues<T>()` and `SetInputValuesAsync<T>()` extension methods that threw casting errors.
 
 ### Deprecated
 - `SubstanceParameter` and `SubstanceParameterValue` `Type` properties are now deprecated. Use `ValueType` instead.

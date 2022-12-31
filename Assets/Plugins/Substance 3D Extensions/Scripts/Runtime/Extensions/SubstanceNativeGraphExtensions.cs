@@ -60,7 +60,10 @@ namespace SOS.SubstanceExtensions
         /// <param name="values">New values for graph inputs.</param>
         public static void SetInputValues<T>(this SubstanceNativeGraph nativeGraph, IList<T> values) where T : ISubstanceInputParameterValue
         {
-            SetInputValues(nativeGraph, (IList<ISubstanceInputParameterValue>)values);
+            for(int i = 0; i < values.Count; i++)
+            {
+                values[i].SetValue(nativeGraph);
+            }
         }
 
         /// <summary>
@@ -83,9 +86,23 @@ namespace SOS.SubstanceExtensions
         /// <param name="nativeGraph">Graph to set input values on.</param>
         /// <param name="values">New values for graph inputs.</param>
         /// <returns>Task for the set operation.</returns>
-        public static Task SetInputValuesAsync<T>(this SubstanceNativeGraph nativeGraph, IList<T> values) where T : ISubstanceInputParameterValue
+        public static async Task SetInputValuesAsync<T>(this SubstanceNativeGraph nativeGraph, IList<T> values) where T : ISubstanceInputParameterValue
         {
-            return SetInputValuesAsync(nativeGraph, (IList<ISubstanceInputParameterValue>)values);
+            List<Task> tasks = new List<Task>();
+
+            for(int i = 0; i < values.Count; i++)
+            {
+                if(values[i].ValueType == SubstanceValueType.Image)
+                {
+                    tasks.Add(values[i].SetValueAsync(nativeGraph));
+                }
+                else
+                {
+                    values[i].SetValue(nativeGraph);
+                }
+            }
+
+            if(tasks.Count > 0) await Task.WhenAll(tasks);
         }
 
         /// <summary>
