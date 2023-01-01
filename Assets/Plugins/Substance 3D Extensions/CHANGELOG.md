@@ -5,6 +5,15 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.2.3] - [Unreleased]
+
+### Pending
+- Custom importer to force reimport substances when an `.sbsar` file is updated.
+- Example scene comprised entirely of runtime substance materials.
+
+## Added
+- `SceneSubstanceGraphData` for conveniently obtaining references to `SubstanceGraphSO` assets with materials in open scenes.
+
 ## [0.2.2] - 2022-12-31
 
 ### Added
