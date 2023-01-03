@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditor.Experimental.GraphView;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using SOS.SubstanceExtensions;
 using Adobe.Substance;
 using Adobe.Substance.Input;
@@ -743,5 +746,171 @@ namespace SOS.SubstanceExtensionsEditor
 
         #endregion
 
+        #region Scene Substances
+
+        private static readonly string kSubstanceGraphSearchString = "t:" + typeof(SubstanceGraphSO).FullName;
+
+        /// <summary>
+        /// Obtain references to <see cref="SubstanceGraphSO"/> assets associated with materials in open scenes.
+        /// This is done by finding all <see cref="Renderer"/> components in the scene(s) then evaluating their materials.
+        /// </summary>
+        /// <param name="graphTypes">Valid graphs to reference. Can be runtime only, static only, or both.</param>
+        /// <param name="sceneType">How to handle referencing substances when multiple scenes are open.\n\n[All] - Reference substances in all open scenes.\n[Active Only] - Only reference substances in the currently active scene.</param>
+        /// <param name="includeInactive">If true, inactive renderers will be included in the search. If false, only active renderers will be included.</param>
+        /// <param name="logSubstances">If true, the console will log a list of found substance graphs.</param>
+        /// <returns>Array of substance graph assets associated with scene materials.</returns>
+        public static SubstanceGraphSO[] GetSceneGraphs(SceneGraphType graphTypes=SceneGraphType.All, SceneReferenceType sceneType=SceneReferenceType.All, bool includeInactive=true, bool logSubstances=false)
+        {
+            List<SubstanceGraphSO> substances = new List<SubstanceGraphSO>();
+
+            GetSceneGraphs(substances, graphTypes, sceneType, includeInactive, logSubstances);
+
+            return substances.ToArray();
+        }
+
+        /// <summary>
+        /// Obtain references to <see cref="SubstanceGraphSO"/> assets associated with materials in open scenes.
+        /// This is done by finding all <see cref="Renderer"/> components in the scene(s) then evaluating their materials.
+        /// </summary>
+        /// <param name="substances">List of substance graph assets to populate.</param>
+        /// <param name="graphTypes">Valid graphs to reference. Can be runtime only, static only, or both.</param>
+        /// <param name="sceneType">How to handle referencing substances when multiple scenes are open.\n\n[All] - Reference substances in all open scenes.\n[Active Only] - Only reference substances in the currently active scene.</param>
+        /// <param name="includeInactive">If true, inactive renderers will be included in the search. If false, only active renderers will be included.</param>
+        /// <param name="logSubstances">If true, the console will log a list of found substance graphs.</param>
+        /// <returns>Number of valid substances found.</returns>
+        public static int GetSceneGraphs(List<SubstanceGraphSO> substances, SceneGraphType graphTypes=SceneGraphType.All, SceneReferenceType sceneType=SceneReferenceType.All, bool includeInactive=true, bool logSubstances=false)
+        {
+            EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", "Grabbing Renderers...", 0.2f);
+
+            Renderer[] renderers = GameObject.FindObjectsOfType<Renderer>(includeInactive);
+
+            //Cull non-active scene content if desired...
+            if(sceneType == SceneReferenceType.ActiveOnly)
+            {
+                EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", "Culling Renderers from extra scenes...", 0f);
+
+                Scene activeScene = EditorSceneManager.GetActiveScene();
+                GameObject[] rootObjects = activeScene.GetRootGameObjects();
+                Transform[] rootTransforms = new Transform[rootObjects.Length];
+
+                for(int i = 0; i < rootTransforms.Length; i++)
+                {
+                    rootTransforms[i] = rootObjects[i].transform;
+                }
+
+                List<Renderer> newRenderers = new List<Renderer>();
+
+                float rendererDelta = 1f / (float)renderers.Length;
+
+                for(int i = 0; i < renderers.Length; i++)
+                {
+                    EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", "Culling Renderers from extra scenes...", rendererDelta * i);
+
+                    if(rootTransforms.Contains(renderers[i].transform.root))
+                    {
+                        newRenderers.Add(renderers[i]);
+                    }
+                }
+
+                if(newRenderers.Count != renderers.Length) renderers = newRenderers.ToArray();
+            }
+
+            //Get materials...
+            List<Material> materials = new List<Material>(renderers.Length);
+            List<Material> sharedMaterials = new List<Material>();
+            float delta = 1f / (float)renderers.Length;
+
+            for(int i = 0; i < renderers.Length; i++)
+            {
+                EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", string.Format("Grabbing materials [{0}]...", renderers[i].name), delta * i);
+
+                sharedMaterials.Clear();
+
+                renderers[i].GetSharedMaterials(sharedMaterials);
+
+                sharedMaterials.ForEach((m) =>
+                {
+                    //Only add materials not already included in the list...
+                    if(!materials.Contains(m)) materials.Add(m);
+                });
+            }
+
+            //Get Substances...
+            List<SubstanceGraphSO> runtimeSubstances = new List<SubstanceGraphSO>();
+            List<SubstanceGraphSO> staticSubstances = new List<SubstanceGraphSO>();
+            string[] searchFolders = new string[1];
+
+            delta = 1f / (float)materials.Count;
+
+            for(int i = 0; i < materials.Count; i++)
+            {
+                EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", string.Format("Checking substance materials [{0}]...", materials[i].name), delta * i);
+
+                string folderPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(materials[i].GetInstanceID()));
+
+                if(string.IsNullOrEmpty(folderPath)) continue; //Skip non-asset materials...
+                if(folderPath == "Resources") continue; //Skip internal folders...
+
+                searchFolders[0] = folderPath;
+
+                string[] guids = AssetDatabase.FindAssets(kSubstanceGraphSearchString, searchFolders);
+
+                for(int j = 0; j < guids.Length; j++)
+                {
+                    SubstanceGraphSO graph = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guids[j]));
+
+                    if(graph.OutputMaterial == materials[i])
+                    {
+                        //Only reference runtime/static substances when desired...
+                        if((graph.IsRuntimeOnly && (graphTypes & SceneGraphType.Runtime) > 0))
+                        {
+                            runtimeSubstances.Add(graph);
+                        }
+
+                        if((!graph.IsRuntimeOnly && (graphTypes & SceneGraphType.Static) > 0))
+                        {
+                            staticSubstances.Add(graph);
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            EditorUtility.ClearProgressBar();
+
+            //Sort substances alphabetically and generate a single list...
+            runtimeSubstances.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
+            staticSubstances.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
+
+            substances.Clear();
+
+            substances.AddRange(runtimeSubstances);
+            substances.AddRange(staticSubstances);
+
+            //Log referenced substances...
+            if(!logSubstances) return substances.Count;
+
+            StringBuilder referenceOutput = new StringBuilder(string.Format("Updated Scene Substance References: [{0}]\n<color=blue>Runtime</color>: [{1}]\n", substances.Count, runtimeSubstances.Count));
+
+            runtimeSubstances.ForEach((rs) =>
+            {
+                referenceOutput.AppendLine(rs.Name);
+            });
+
+            referenceOutput.AppendLine("");
+            referenceOutput.AppendLine(string.Format("<color=blue>Static</color>: [{0}]", staticSubstances.Count));
+
+            staticSubstances.ForEach((rs) =>
+            {
+                referenceOutput.AppendLine(rs.Name);
+            });
+
+            Debug.Log(referenceOutput.ToString());
+
+            return substances.Count;
+        }
+
+        #endregion
     }
 }
