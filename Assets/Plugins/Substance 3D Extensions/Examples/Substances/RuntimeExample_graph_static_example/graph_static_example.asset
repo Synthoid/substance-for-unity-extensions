@@ -41,7 +41,7 @@ MonoBehaviour:
       Index: 0
       Type: 8
       Channel: baseColor
-    OutputTexture: {fileID: 2800000, guid: 78cd00c6234864d9582d9a02c40404ce, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 1
     IsVirtual: 0
     IsStandardOutput: 1
@@ -57,7 +57,7 @@ MonoBehaviour:
       Index: 1
       Type: 8
       Channel: normal
-    OutputTexture: {fileID: 2800000, guid: d4349e719286c4b5385146524d1d4bb5, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
     IsStandardOutput: 1
@@ -89,7 +89,7 @@ MonoBehaviour:
       Index: 3
       Type: 8
       Channel: metallic
-    OutputTexture: {fileID: 2800000, guid: 8c8b5b6c552c746118f2b32bba693dda, type: 3}
+    OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
     IsStandardOutput: 1
@@ -102,7 +102,11 @@ MonoBehaviour:
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: 
+  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://RuntimeExample\" label=\"\" >\n 
+    <presetinput identifier=\"$outputsize\" uid=\"3117870049\" type=\"8\" value=\"10,10\"
+    />\n  <presetinput identifier=\"$randomseed\" uid=\"4003790259\" type=\"4\" value=\"8164\"
+    />\n  <presetinput identifier=\"tileRough\" uid=\"3557603098\" type=\"0\" value=\"0.093\"
+    />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -264,7 +268,7 @@ MonoBehaviour:
           GuiDescription: Roughness for tiles.
           Type: 0
           WidgetType: 1
-        Data: 0.4
+        Data: 0.093
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0

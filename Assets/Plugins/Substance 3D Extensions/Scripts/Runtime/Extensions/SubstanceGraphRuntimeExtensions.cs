@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using Adobe.Substance;
+using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions
 {
@@ -12,8 +13,24 @@ namespace SOS.SubstanceExtensions
     public static class SubstanceGraphRuntimeExtensions
     {
 
+        #region Inputs
+
+        /// <summary>
+        /// Set the input values on the graph asset to match the inputs on the given native graph.
+        /// </summary>
+        /// <param name="graph">Graph asset to set input values on.</param>
+        /// <param name="nativeGraph">Native graph to copy values from.</param>
+        public static void SetInputValues(this SubstanceGraphSO graph, SubstanceNativeGraph nativeGraph)
+        {
+            List<ISubstanceInput> inputs = nativeGraph.GetInputs();
+
+            graph.SetInputValues(inputs);
+        }
+
+        #endregion
+
         #region Rendering
-        
+
         private static Dictionary<int, SubstanceNativeGraph> RuntimeNativeGraphs = new Dictionary<int, SubstanceNativeGraph>();
 
         /// <summary>

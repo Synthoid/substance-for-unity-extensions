@@ -1,0 +1,602 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: graph_Pedestal
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Procedural
+    Room/Pedestal.sbsar
+  OutputPath: Assets\Plugins\Substance 3D Extensions\Examples\Substances\Procedural
+    Room\Pedestal_graph_Pedestal
+  RawData: {fileID: -244192453324840774, guid: 668cea15e32192a408b9a19c2c1a8c7a, type: 3}
+  Name: graph_Pedestal
+  IsRoot: 1
+  FlagedForDelete: 0
+  GUID: 6c013453-785a-43d1-90fb-41592270287d
+  Index: 0
+  Input:
+  - rid: 1000
+  - rid: 1001
+  - rid: 1002
+  - rid: 1003
+  - rid: 1004
+  - rid: 1005
+  - rid: 1006
+  - rid: 1007
+  - rid: 1008
+  - rid: 1009
+  - rid: 1010
+  - rid: 1011
+  - rid: 1012
+  - rid: 1013
+  - rid: 1014
+  - rid: 1015
+  - rid: 1016
+  - rid: 1017
+  - rid: 1018
+  - rid: 1019
+  - rid: 1020
+  - rid: 1021
+  - rid: 1022
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 4
+    Description:
+      Identifier: basecolor
+      Label: basecolor
+      Index: 0
+      Type: 8
+      Channel: baseColor
+    OutputTexture: {fileID: 0}
+    sRGB: 1
+    IsVirtual: 0
+    IsStandardOutput: 1
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+  - Index: 1
+    VirtualOutputIndex: 5
+    Description:
+      Identifier: normal
+      Label: normal
+      Index: 1
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsStandardOutput: 1
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+  - Index: 2
+    VirtualOutputIndex: 6
+    Description:
+      Identifier: roughness
+      Label: roughness
+      Index: 2
+      Type: 8
+      Channel: roughness
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsStandardOutput: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+  - Index: 3
+    VirtualOutputIndex: 7
+    Description:
+      Identifier: metallic
+      Label: metallic
+      Index: 3
+      Type: 8
+      Channel: metallic
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsStandardOutput: 1
+    IsAlphaAssignable: 1
+    AlphaChannel: roughness
+    InvertAssignedAlpha: 1
+    Flags: 0
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  HasThumbnail: 0
+  CurrentStatePreset: 
+  IsRuntimeOnly: 1
+  GenerateAllOutputs: 0
+  GenerateAllMipmaps: 1
+  OutputMaterial: {fileID: 2100000, guid: 8fb041b0332a1734ca9c57562a28efc1, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://Pedestal\" label=\"\" >\n  <presetinput
+    identifier=\"$outputsize\" uid=\"3248949264\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+  MaterialShader: Standard
+  RenderTextures: 0
+  OutputRemaped: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 0
+        Description:
+          Identifier: $outputsize
+          Label: $outputsize
+          GuiGroup: 
+          GuiDescription: 
+          Type: 5
+          WidgetType: 0
+        Data: {x: 10, y: 10}
+        NumericalDescription:
+          DefaultValue: {x: 8, y: 8}
+          MinValue: {x: 0, y: 0}
+          MaxValue: {x: 1, y: 1}
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1001
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 1
+        Description:
+          Identifier: $randomseed
+          Label: $randomseed
+          GuiGroup: 
+          GuiDescription: 
+          Type: 4
+          WidgetType: 0
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1002
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 2
+        Description:
+          Identifier: plinthPattern
+          Label: Plinth Pattern
+          GuiGroup: 
+          GuiDescription: Pattern shown on the plinth's main area.
+          Type: 4
+          WidgetType: 5
+        Data: 2
+        NumericalDescription:
+          DefaultValue: 2
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 3
+          EnumValues:
+          - Value: 1
+            Label: None
+          - Value: 2
+            Label: Columns
+          - Value: 3
+            Label: Emblem
+    - rid: 1003
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 3
+        Description:
+          Identifier: columnSpacing
+          Label: Spacing
+          GuiGroup: Columns
+          GuiDescription: Spacing between columns.
+          Type: 0
+          WidgetType: 1
+        Data: 0.15
+        NumericalDescription:
+          DefaultValue: 0.15
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1004
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 4
+        Description:
+          Identifier: columnCount
+          Label: Count
+          GuiGroup: Columns
+          GuiDescription: Number of columns shown.
+          Type: 4
+          WidgetType: 1
+        Data: 3
+        NumericalDescription:
+          DefaultValue: 3
+          MinValue: 0
+          MaxValue: 10
+          SliderStep: 1
+          SliderClamp: 1
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1005
+      type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 5
+        Description:
+          Identifier: emblemMask
+          Label: Emblem Mask
+          GuiGroup: Emblem
+          GuiDescription: Mask used for the plinth emblem.
+          Type: 8
+          WidgetType: 6
+        Data: {fileID: 0}
+    - rid: 1006
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 6
+        Description:
+          Identifier: scaleEmblem
+          Label: Scale Emblem
+          GuiGroup: Emblem
+          GuiDescription: If true, the emblem mask will be scaled to 50% so it fits
+            within the plinth's main area. For repeating patterns, this should be
+            false.
+          Type: 4
+          WidgetType: 4
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1007
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 7
+        Description:
+          Identifier: crackHardness
+          Label: Crack Hardness
+          GuiGroup: Emblem
+          GuiDescription: Hardness of the emblem's cracks.
+          Type: 0
+          WidgetType: 1
+        Data: 0.5
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1008
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 8
+        Description:
+          Identifier: cracksOpacity
+          Label: Cracks Opacity
+          GuiGroup: Emblem
+          GuiDescription: Opacity of the emblem's cracks.
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1009
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 9
+        Description:
+          Identifier: cracksScale
+          Label: Cracks Scale
+          GuiGroup: Emblem
+          GuiDescription: Scale of the emblem's crack pattern.
+          Type: 4
+          WidgetType: 1
+        Data: 16
+        NumericalDescription:
+          DefaultValue: 16
+          MinValue: 1
+          MaxValue: 32
+          SliderStep: 1
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1010
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 10
+        Description:
+          Identifier: color
+          Label: Base
+          GuiGroup: Color
+          GuiDescription: Base color for the texture.
+          Type: 3
+          WidgetType: 3
+        Data: {x: 0.708846, y: 0.740728, z: 0.752874, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 0.708846, y: 0.740728, z: 0.752874, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1011
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 11
+        Description:
+          Identifier: accentColor
+          Label: Accent
+          GuiGroup: Color
+          GuiDescription: Color for accents on the texture.
+          Type: 3
+          WidgetType: 3
+        Data: {x: 1, y: 1, z: 1, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 1, y: 1, z: 1, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1012
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 12
+        Description:
+          Identifier: accentSwirlColor
+          Label: Accent Swirl
+          GuiGroup: Color
+          GuiDescription: Color for the accent pattern's swirl.
+          Type: 3
+          WidgetType: 3
+        Data: {x: 0.176917, y: 0.22689, z: 0.321839, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 0.176917, y: 0.22689, z: 0.321839, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1013
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 13
+        Description:
+          Identifier: accentCenterColor
+          Label: Accent Center
+          GuiGroup: Color
+          GuiDescription: Color for the accent pattern's center.
+          Type: 3
+          WidgetType: 3
+        Data: {x: 0.0000414931, y: 0, z: 0.00574713, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 0.0000414931, y: 0, z: 0.00574713, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1014
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 14
+        Description:
+          Identifier: coarseness
+          Label: Coarseness
+          GuiGroup: Normal
+          GuiDescription: Intensity for the dirt covering the plinth.
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1015
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 15
+        Description:
+          Identifier: rough
+          Label: Base
+          GuiGroup: Rough
+          GuiDescription: Base roughness for the texture.
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1016
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 16
+        Description:
+          Identifier: accentRough
+          Label: Accent
+          GuiGroup: Rough
+          GuiDescription: Rough value for accents on the texture. (Emblem, columns,
+            etc)
+          Type: 0
+          WidgetType: 1
+        Data: 0.8
+        NumericalDescription:
+          DefaultValue: 0.8
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1017
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 17
+        Description:
+          Identifier: accentSwirlRough
+          Label: Accent Swirl
+          GuiGroup: Rough
+          GuiDescription: Rough value for the accent pattern's swirl.
+          Type: 0
+          WidgetType: 1
+        Data: 0.5
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1018
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 18
+        Description:
+          Identifier: accentCenterRough
+          Label: Accent Center
+          GuiGroup: Rough
+          GuiDescription: Rough value for the accent pattern's center.
+          Type: 0
+          WidgetType: 1
+        Data: 0.5
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1019
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 19
+        Description:
+          Identifier: metallic
+          Label: Base
+          GuiGroup: Metallic
+          GuiDescription: Base metallic value for the texture.
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1020
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 20
+        Description:
+          Identifier: accentMetallic
+          Label: Accent
+          GuiGroup: Metallic
+          GuiDescription: Metallic value for accents on the texture. (Emblem, columns,
+            etc)
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1021
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 21
+        Description:
+          Identifier: accentSwirlMetallic
+          Label: Accent Swirl
+          GuiGroup: Metallic
+          GuiDescription: Metallic value for the accent swirl.
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1022
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 22
+        Description:
+          Identifier: accentCenterMetallic
+          Label: Accent Center
+          GuiGroup: Metallic
+          GuiDescription: Metallic value for the accent's center.
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []

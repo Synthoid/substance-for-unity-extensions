@@ -354,6 +354,23 @@ namespace SOS.SubstanceExtensions
             return true;
         }
 
+        /// <summary>
+        /// Set the input values on the graph asset to match the given list of inputs.
+        /// </summary>
+        /// <param name="substance">Graph asset to set input values on.</param>
+        /// <param name="inputs">Inputs to copy data from.</param>
+        public static void SetInputValues(this SubstanceGraphSO substance, IList<ISubstanceInput> inputs)
+        {
+            for(int i=0; i < inputs.Count; i++)
+            {
+                if(!inputs[i].CopyTo(substance.Input[inputs[i].Index]))
+                {
+                    Debug.LogWarning(string.Format("Could not update input [{0}]", inputs[i].Description.Identifier));
+                }
+            }
+        }
+
+
         [System.Obsolete("Use SetValues instead.")]
         public static void SetInputs(this SubstanceGraphSO substance, IList<ISubstanceInputParameterValue> values)
         {

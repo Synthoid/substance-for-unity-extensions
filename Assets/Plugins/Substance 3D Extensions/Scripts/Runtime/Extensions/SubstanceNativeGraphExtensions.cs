@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Adobe.Substance;
+using Adobe.Substance.Input;
 
 namespace SOS.SubstanceExtensions
 {
@@ -46,6 +47,48 @@ namespace SOS.SubstanceExtensions
         public static void SetInputInt4(this SubstanceNativeGraph nativeGraph, int inputID, Vector4Int value)
         {
             nativeGraph.SetInputInt4(inputID, value.x, value.y, value.z, value.w);
+        }
+
+        #endregion
+
+        #region Get
+
+        /// <summary>
+        /// Get data for the inputs on a native graph.
+        /// </summary>
+        /// <param name="nativeGraph">Native graph to get inputs from.</param>
+        /// <returns>List of input data for the native graph.</returns>
+        public static List<ISubstanceInput> GetInputs(this SubstanceNativeGraph nativeGraph)
+        {
+            int count = nativeGraph.GetInputCount();
+            List<ISubstanceInput> inputs = new List<ISubstanceInput>(count);
+
+            for(int i=0; i < count; i++)
+            {
+                inputs.Add(nativeGraph.GetInputObject(i));
+            }
+
+            return inputs;
+        }
+
+        /// <summary>
+        /// Populate a list of inputs from a native graph.
+        /// </summary>
+        /// <param name="nativeGraph">Native graph to get inputs from.</param>
+        /// <param name="inputs">List populated by native graph input data.</param>
+        /// <returns>Number of inputs contained by the native graph.</returns>
+        public static int GetInputs(this SubstanceNativeGraph nativeGraph, List<ISubstanceInput> inputs)
+        {
+            int count = nativeGraph.GetInputCount();
+
+            inputs.Clear();
+
+            for(int i = 0; i < count; i++)
+            {
+                inputs.Add(nativeGraph.GetInputObject(i));
+            }
+
+            return count;
         }
 
         #endregion
