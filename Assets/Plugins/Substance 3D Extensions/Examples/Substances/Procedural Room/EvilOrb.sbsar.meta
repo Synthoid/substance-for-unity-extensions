@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cfde8a8dd6149134bb3c38b2928a92f9
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 1472600a57373594c85c296ee55c1965, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Procedural
+    Room/EvilOrb.sbsar

@@ -12,6 +12,7 @@ namespace SOS.SubstanceExtensionsEditor
         //Types
         private static Type scriptableSingletonType = null;
         private static Type editorEngineType = null;
+        private static Type importerEditorType = null;
         //Properties
         private static PropertyInfo instanceInfo = null;
         //Methods
@@ -58,6 +59,19 @@ namespace SOS.SubstanceExtensionsEditor
                 }
 
                 return editorEngineType;
+            }
+        }
+
+        public static Type ImporterEditorType
+        {
+            get
+            {
+                if(importerEditorType == null)
+                {
+                    importerEditorType = EditorAssembly.GetType("Adobe.SubstanceEditor.Importer.SubstanceImporterEditor");
+                }
+
+                return importerEditorType;
             }
         }
 

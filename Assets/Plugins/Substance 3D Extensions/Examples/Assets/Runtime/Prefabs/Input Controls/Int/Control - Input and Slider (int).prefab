@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5818885443968451480
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 414592149, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 414592149, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 935086836, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 935086836, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232028591665122091, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983386, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_Name
+      value: Control - Input and Slider (int)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983387, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983387, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983387, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983387, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983387, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946252728523983387, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389762840736389548, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_ContentType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389762840736389548, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_KeyboardType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389762840736389548, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1810f296ced5c4498b23838e8d0e77ea, type: 3}

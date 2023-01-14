@@ -361,7 +361,7 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputs">Inputs to copy data from.</param>
         public static void SetInputValues(this SubstanceGraphSO substance, IList<ISubstanceInput> inputs)
         {
-            for(int i=0; i < inputs.Count; i++)
+            for(int i=0; i < inputs.Count && i < substance.Input.Count; i++)
             {
                 if(!inputs[i].CopyTo(substance.Input[inputs[i].Index]))
                 {

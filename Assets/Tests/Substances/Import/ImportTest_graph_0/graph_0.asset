@@ -21,10 +21,11 @@ MonoBehaviour:
   GUID: 6925bda0-8100-4ef1-a8d3-f1857ec95fb5
   Index: 0
   Input:
-  - rid: 1000
-  - rid: 1001
-  - rid: 1002
-  - rid: 1003
+  - rid: 106129594459095122
+  - rid: 106129594459095123
+  - rid: 106129594459095124
+  - rid: 106129594459095125
+  - rid: 106129594459095126
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -97,8 +98,8 @@ MonoBehaviour:
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://ImportTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"866856966\" type=\"8\" value=\"10,10\" />\n 
-    <presetinput identifier=\"color\" uid=\"1579770764\" type=\"3\" value=\"1,0,0,1\"
-    />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0\"
+    <presetinput identifier=\"color\" uid=\"1579770764\" type=\"3\" value=\"1,1,0,1\"
+    />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0.5\"
     />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
@@ -112,7 +113,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1000
+    - rid: 106129594459095122
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1001
+    - rid: 106129594459095123
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -153,7 +154,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1002
+    - rid: 106129594459095124
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
@@ -164,7 +165,7 @@ MonoBehaviour:
           GuiDescription: Color for the texture.
           Type: 3
           WidgetType: 3
-        Data: {x: 1, y: 0, z: 0, w: 1}
+        Data: {x: 1, y: 1, z: 0, w: 1}
         NumericalDescription:
           DefaultValue: {x: 0.5, y: 0.5, z: 0.5, w: 1}
           MinValue: {x: 0, y: 0, z: 0, w: 0}
@@ -173,7 +174,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1003
+    - rid: 106129594459095125
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 3
@@ -184,9 +185,29 @@ MonoBehaviour:
           GuiDescription: Roughness for the texture.
           Type: 0
           WidgetType: 1
-        Data: 0
+        Data: 0.5
         NumericalDescription:
           DefaultValue: 0.25
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 106129594459095126
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 4
+        Description:
+          Identifier: metallic
+          Label: Metallic
+          GuiGroup: 
+          GuiDescription: Metallic value for the texture.
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
           MinValue: 0
           MaxValue: 1
           SliderStep: 0.01
