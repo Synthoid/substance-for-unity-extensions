@@ -24,7 +24,7 @@ namespace SOS.SubstanceExtensionsEditor
         {
             return new SettingsProvider("Project/Adobe Substance 3D Extensions", SettingsScope.Project)
             {
-                keywords = new string[4] { "Adobe", "Substance", "3D", "Extensions" },
+                keywords = new string[] { "Adobe", "Substance", "3D", "Extensions", "sbsar" },
                 guiHandler = OnProjectSettingsGUI,
                 activateHandler = OnActivate,
                 deactivateHandler = OnDeactivate

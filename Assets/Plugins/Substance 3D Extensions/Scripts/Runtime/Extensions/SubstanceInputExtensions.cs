@@ -250,8 +250,6 @@ namespace SOS.SubstanceExtensions
                     continue;
                 }
 
-                Debug.Log($"Updating {source[index].Description.Identifier} from {destination[targetIndex].GetValue()} to {source[index].GetValue()}");
-
                 //Skip if input failed to update for some reason.
                 if(!source[index].CopyTo(destination[targetIndex]))
                 {

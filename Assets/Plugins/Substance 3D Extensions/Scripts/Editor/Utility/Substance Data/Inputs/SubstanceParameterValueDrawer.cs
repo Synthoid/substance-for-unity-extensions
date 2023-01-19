@@ -487,7 +487,7 @@ namespace SOS.SubstanceExtensionsEditor
 
                             //Link button
                             EditorGUI.BeginChangeCheck();
-                            isLinked = SubstanceExtensionsEditorUtility.DrawLinkedButton(position, isLinked, Labels.LinkedLabel, Labels.UnlinkedLabel);
+                            isLinked = SubstanceExtensionsEditorGUI.DrawLinkedButton(position, isLinked, Labels.LinkedLabel, Labels.UnlinkedLabel);
                             if(EditorGUI.EndChangeCheck())
                             {
                                 int2Property.FindPropertyRelative("x").isExpanded = isLinked;

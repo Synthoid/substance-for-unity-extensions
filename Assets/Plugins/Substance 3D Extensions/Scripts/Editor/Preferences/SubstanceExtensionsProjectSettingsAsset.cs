@@ -3,17 +3,22 @@ using UnityEditor;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Contains settings for susbtance extension functionality in the project.
+    /// </summary>
     public class SubstanceExtensionsProjectSettingsAsset : ScriptableObject
     {
         private const string kEditorAssetsFolderGUID = "9a5abde39963be843a45e77531d57bb3";
 
-        [Tooltip("If true, .sbsar files will not automatically update their graphs instances when their file is modified (ie by replacing the .sbsar file).")]
+        [Tooltip("If true, .sbsar files will not automatically update their graph instances when the file is modified (ie by replacing the .sbsar file).")]
         public bool disableAutoImports = false;
 
 
         private static SubstanceExtensionsProjectSettingsAsset instance = null;
 
-
+        /// <summary>
+        /// Instance for the asset storing settings in the project. If one does not exist, this will create one.
+        /// </summary>
         public static SubstanceExtensionsProjectSettingsAsset Instance
         {
             get

@@ -35,7 +35,7 @@ namespace SOS.SubstanceExtensionsEditor
                 }
 
                 height += EditorGUIUtility.standardVerticalSpacing;
-                height += rawEdits[property.propertyPath] ? SubstanceExtensionsEditorUtility.GetMatrixRawHeight() : SubstanceExtensionsEditorUtility.GetMatrixHeight();
+                height += rawEdits[property.propertyPath] ? SubstanceExtensionsEditorGUI.GetMatrixRawHeight() : SubstanceExtensionsEditorGUI.GetMatrixHeight();
             }
 
             return height;
@@ -71,11 +71,11 @@ namespace SOS.SubstanceExtensionsEditor
 
                 if(rawEdits[property.propertyPath])
                 {
-                    SubstanceExtensionsEditorUtility.DrawTransformMatrixRaw(position, property, ref swapMode);
+                    SubstanceExtensionsEditorGUI.DrawTransformMatrixRaw(position, property, ref swapMode);
                 }
                 else
                 {
-                    SubstanceExtensionsEditorUtility.DrawTransformMatrix(position, property, Attr.type, ref angle, ref stretchWidth, ref stretchHeight, ref swapMode);
+                    SubstanceExtensionsEditorGUI.DrawTransformMatrix(position, property, Attr.type, ref angle, ref stretchWidth, ref stretchHeight, ref swapMode);
 
                     angles[property.propertyPath] = angle;
                     stretchWidths[property.propertyPath] = stretchWidth;

@@ -10,5 +10,6 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
   _instancesCopy:
   - {fileID: 11400000, guid: 4fd93dfae8355e043b0c03f249a45c9e, type: 2}
-  _fileAsset: {instanceID: 0}
+  - {fileID: 11400000, guid: fb68f416fe023e843a36cb339a4f5bb0, type: 2}
+  _fileAsset: {fileID: 349431513902975818, guid: 263087d23c579f6429b17c46228ee2b1, type: 3}
   _assetPath: Assets/Tests/Substances/Import/ImportTest.sbsar

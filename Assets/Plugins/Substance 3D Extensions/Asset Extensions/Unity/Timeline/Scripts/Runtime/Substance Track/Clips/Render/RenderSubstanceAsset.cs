@@ -3,6 +3,9 @@ using UnityEngine.Playables;
 
 namespace SOS.SubstanceExtensions.Timeline
 {
+    /// <summary>
+    /// Timeline clip for rendering a track's bound substance graph.
+    /// </summary>
 #if UNITY_EDITOR
     [System.ComponentModel.DisplayName("Render Substance Clip")]
 #endif
