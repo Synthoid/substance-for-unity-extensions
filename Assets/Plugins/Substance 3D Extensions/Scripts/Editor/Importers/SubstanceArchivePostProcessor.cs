@@ -23,7 +23,7 @@ namespace SOS.SubstanceExtensionsEditor
             //Only affect .sbsar files
             if(!assetPath.EndsWith(kSubstanceArchiveExtension, System.StringComparison.OrdinalIgnoreCase)) return;
             //If disable auto refresh is enabled, don't do anything.
-            if(SubstanceExtensionsProjectSettingsAsset.Instance.disableAutoImports) return;
+            if(SubstanceExtensionsProjectSettingsAsset.Instance.disableAutoUpdates) return;
 
             SubstanceImporter importer = assetImporter as SubstanceImporter;
 
@@ -38,7 +38,7 @@ namespace SOS.SubstanceExtensionsEditor
         public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths, bool didDomainReload)
         {
             if(validPaths.Count == 0) return;
-            if(SubstanceExtensionsProjectSettingsAsset.Instance.disableAutoImports) return;
+            if(SubstanceExtensionsProjectSettingsAsset.Instance.disableAutoUpdates) return;
 
             //Destroy substance editors loaded into memory to prevent serialized object errors...
             bool editorsCulled = SubstanceExtensionsEditorUtility.CullSubstanceEditors();
@@ -75,8 +75,6 @@ namespace SOS.SubstanceExtensionsEditor
             }
 
             EditorApplication.update -= DoEditorUpdateDelay;
-
-            Debug.Log("TEST");
 
             Selection.objects = new Object[0]; //Set selected objects to nothing, only if there was a SubstanceGraphSOEditor or SubstanceImporterEditor in memory.
         }

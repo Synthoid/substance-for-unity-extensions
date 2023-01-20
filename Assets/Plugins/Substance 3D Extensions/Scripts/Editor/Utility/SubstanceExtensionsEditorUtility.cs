@@ -361,6 +361,27 @@ namespace SOS.SubstanceExtensionsEditor
 
         #endregion
 
+        #region Rendering
+
+        /// <summary>
+        /// Attempt to render the given substance with the editor engin.
+        /// </summary>
+        /// <param name="substance">Substance to render.</param>
+        /// <param name="forceRebuild">If true, texture assets will be regenerated even if they have not changed.</param>
+        /// <returns>True if the substance has an editor cached native graph and was successfully queued for rendering. False otherwise.</returns>
+        public static bool TryRenderInstanceAsync(SubstanceGraphSO substance, bool forceRebuild=false)
+        {
+            if(SubstanceReflectionEditorUtility.TryGetHandlerFromInstance(substance, out SubstanceNativeGraph nativeGraph))
+            {
+                SubstanceReflectionEditorUtility.SubmitAsyncRenderWork(nativeGraph, substance, forceRebuild);
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
         #region Asset Interactions
 
         /// <summary>
@@ -389,7 +410,7 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
 
-        public static bool TryUpdateSubstanceInputs(SubstanceFileSO substanceFile)
+        public static bool TryUpdateSubstanceInputs(SubstanceFileSO substanceFile, bool renderAfterUpdating=false)
         {
             if(substanceFile == null) return false;
 
@@ -434,8 +455,18 @@ namespace SOS.SubstanceExtensionsEditor
                 EditorUtility.SetDirty(substanceFile.Instances[i]);
 
                 //TODO: Tell the editor engine to render and update assets?
-                //Force the editor engine to release the native graph associated with the graph, if it exists...
-                SubstanceReflectionEditorUtility.ReleaseInstance(substanceFile.Instances[i]);
+                if(substanceFile.Instances[i].IsCachedByEditorEngine())
+                {
+                    //Force the editor engine to release the cached native graph associated with the graph...
+                    SubstanceReflectionEditorUtility.ReleaseInstance(substanceFile.Instances[i]);
+
+                    if(renderAfterUpdating)
+                    {
+                        SubstanceReflectionEditorUtility.InitializeInstance(substanceFile.Instances[i], substanceFile.Instances[i].AssetPath);
+
+                        TryRenderInstanceAsync(substanceFile.Instances[i]);
+                    }
+                }
 
                 nativeGraph.Dispose();
             }
