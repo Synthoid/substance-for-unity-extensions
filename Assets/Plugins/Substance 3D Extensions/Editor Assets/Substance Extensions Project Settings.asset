@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67b6cc3d832d2a4aafc1307d73b1d2a, type: 3}
   m_Name: Substance Extensions Project Settings
   m_EditorClassIdentifier: 
-  disableAutoImports: 0
+  disableAutoUpdates: 0

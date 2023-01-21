@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Adobe.Substance;
-using UnityEditor.Graphs;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,7 +14,30 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     public static class SubstanceExtensionsRuntimeUtility
     {
-        #region Utility
+        #region Outputs
+
+        /// <summary>
+        /// Default output identifiers used by Substances.
+        /// </summary>
+        public class OutputIdentifiers
+        {
+            public const string kAmbientOcclusion = "ambientocclusion";
+            public const string kBaseColor = "basecolor";
+            public const string kDetailMask = "detailmask";
+            public const string kDiffuse = "diffuse";
+            public const string kEmissive = "emissive";
+            public const string kHeight = "height";
+            public const string kMask = "mask";
+            public const string kMetallic = "metallic";
+            public const string kNormal = "normal";
+            public const string kOpacity = "opacity";
+            public const string kRoughness = "roughness";
+            public const string kSpecular = "specular";
+        }
+
+        #endregion
+
+        #region Plugin Loading
 
         public class FileData
         {
@@ -45,17 +67,12 @@ namespace SOS.SubstanceExtensions
         private static string cachedPluginPath = "";
         private static string cachedEnginePath = "";
 
-        #endregion
-
-        #region Plugin Loading
-
-
 #if UNITY_EDITOR
         [MenuItem("Window/SOS/Substance/Log Plugin Paths (Adobe)")]
 #endif
         public static void LogPluginPathsAdobe()
         {
-            Debug.Log($"Substance Engine and Plugin Info (Adobe)\nEngine (absolute): {PlatformUtils.GetEnginePath()}\nPlugin (absolute): {PlatformUtils.GetPluginPath()}");
+            Debug.Log($"Substance Engine and Plugin Info (Adobe)\nEngine (absolute):\n{PlatformUtils.GetEnginePath()}\nPlugin (absolute):\n{PlatformUtils.GetPluginPath()}");
         }
 
 #if UNITY_EDITOR
@@ -63,7 +80,7 @@ namespace SOS.SubstanceExtensions
 #endif
         public static void LogPluginPathsCustom()
         {
-            Debug.Log($"Substance Engine and Plugin Info (Custom)\nEngine (local): {GetEngineLocalPath()}\nPlugin (local): {GetPluginLocalPath()}\nEngine (absolute): {GetEnginePath()}\nPlugin (absolute): {GetPluginPath()}");
+            Debug.Log($"Substance Engine and Plugin Info (Custom)\nEngine (local):\n{GetEngineLocalPath()}\nPlugin (local):\n{GetPluginLocalPath()}\nEngine (absolute):\n{GetEnginePath()}\nPlugin (absolute):\n{GetPluginPath()}");
         }
 
         /// <summary>

@@ -4,6 +4,9 @@ using UnityEditor;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Handles initializing and drawing UI for substance extension project settings.
+    /// </summary>
     public static class SubstanceExtensionsProjectSettings
     {
         private const string kGitHubUrl = "https://github.com/Synthoid/substance-for-unity-extensions";
@@ -18,6 +21,11 @@ namespace SOS.SubstanceExtensionsEditor
 
         private static SubstanceExtensionsProjectSettingsAsset settingsAsset = null;
         private static Editor settingsEditor = null;
+
+        public static bool DisableAutoUpdates
+        {
+            get { return SubstanceExtensionsProjectSettingsAsset.Instance.disableAutoUpdates; }
+        }
 
         [SettingsProvider]
         public static SettingsProvider CreateExtensionsProjectSettingsProvider()
@@ -34,11 +42,17 @@ namespace SOS.SubstanceExtensionsEditor
 
         private static void OnProjectSettingsGUI(string searchString)
         {
+            float labelWidth = EditorGUIUtility.labelWidth;
+
+            EditorGUIUtility.labelWidth = SubstanceExtensionsEditorUtility.kSettingsLabelWidth;
+
             DrawLinks(searchString);
 
             EditorGUILayout.Space();
 
             DrawSettingsAssetInspector(searchString);
+
+            EditorGUIUtility.labelWidth = labelWidth;
         }
 
 

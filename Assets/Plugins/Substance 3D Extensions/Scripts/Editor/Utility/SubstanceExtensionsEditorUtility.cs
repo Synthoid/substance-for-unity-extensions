@@ -77,6 +77,7 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
         public const float kSpaceHeight = 8f;
+        public const float kSettingsLabelWidth = 256f;
 
         /// <summary>
         /// Format string used in popup search windows of input values.
