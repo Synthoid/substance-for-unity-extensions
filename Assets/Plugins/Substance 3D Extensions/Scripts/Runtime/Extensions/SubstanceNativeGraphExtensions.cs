@@ -91,9 +91,59 @@ namespace SOS.SubstanceExtensions
             return count;
         }
 
+        /// <summary>
+        /// Get data for output textures on a native graph.
+        /// </summary>
+        /// <param name="nativeGraph">Native graph to get outputs from.</param>
+        /// <returns>List of output data for the native graph.</returns>
+        public static List<SubstanceOutputTexture> GetOutputs(this SubstanceNativeGraph nativeGraph)
+        {
+            int count = nativeGraph.GetOutputCount();
+            List<SubstanceOutputTexture> outputs = new List<SubstanceOutputTexture>(count);
+
+            for(int i=0; i < count; i++)
+            {
+                SubstanceOutputDescription outputDescription = nativeGraph.GetOutputDescription(i);
+                bool isStandard = MaterialUtils.CheckIfStandardOutput(outputDescription);
+
+                outputs.Add(new SubstanceOutputTexture(outputDescription, isStandard));
+            }
+
+            return outputs;
+        }
+
+        /// <summary>
+        /// Populate a list of outputs from a native graph.
+        /// </summary>
+        /// <param name="nativeGraph">Native graph to get outputs from.</param>
+        /// <param name="outputs">List populated by native graph output data.</param>
+        /// <returns>Number of outputs contained by the native graph.</returns>
+        public static int GetOutputs(this SubstanceNativeGraph nativeGraph, List<SubstanceOutputTexture> outputs)
+        {
+            int count = nativeGraph.GetOutputCount();
+
+            outputs.Clear();
+
+            for(int i=0; i < count; i++)
+            {
+                SubstanceOutputDescription outputDescription = nativeGraph.GetOutputDescription(i);
+                bool isStandard = MaterialUtils.CheckIfStandardOutput(outputDescription);
+
+                outputs.Add(new SubstanceOutputTexture(outputDescription, isStandard));
+            }
+
+            return count;
+        }
+
         #endregion
 
         #region Set
+
+
+        public static void SetInputValues(this SubstanceNativeGraph nativeGraph, SubstanceGraphSO substanceGraph)
+        {
+            substanceGraph.Input.ForEach((input) => input.UpdateNativeHandle(nativeGraph));
+        }
 
         /// <summary>
         /// Set all native graph input values targeted in the given IList.

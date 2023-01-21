@@ -21,11 +21,10 @@ MonoBehaviour:
   GUID: 6925bda0-8100-4ef1-a8d3-f1857ec95fb5
   Index: 0
   Input:
-  - rid: 106129690724401204
-  - rid: 106129690724401205
-  - rid: 106129690724401206
-  - rid: 106129690724401207
-  - rid: 106129690724401208
+  - rid: 106129738323460164
+  - rid: 106129738323460165
+  - rid: 106129738323460166
+  - rid: 106129738323460167
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -36,7 +35,7 @@ MonoBehaviour:
       Type: 8
       Channel: baseColor
     OutputTexture: {fileID: 2800000, guid: 49b64cf6d41913c4aa0fa1589712d717, type: 3}
-    sRGB: 1
+    sRGB: 0
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
@@ -99,7 +98,7 @@ MonoBehaviour:
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://ImportTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"866856966\" type=\"8\" value=\"10,10\" />\n 
     <presetinput identifier=\"color\" uid=\"1579770764\" type=\"3\" value=\"1,1,0,1\"
-    />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0.036\"
+    />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0.121\"
     />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
@@ -108,12 +107,12 @@ MonoBehaviour:
   DefaultPreset: " <sbspreset pkgurl=\"pkg://ImportTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"866856966\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
-  RenderTextures: 0
-  OutputRemaped: 0
+  RenderTextures: 1
+  OutputRemaped: 1
   references:
     version: 2
     RefIds:
-    - rid: 106129690724401204
+    - rid: 106129738323460164
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -132,7 +131,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129690724401205
+    - rid: 106129738323460165
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -154,7 +153,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129690724401206
+    - rid: 106129738323460166
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
@@ -174,7 +173,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129690724401207
+    - rid: 106129738323460167
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 3
@@ -185,29 +184,9 @@ MonoBehaviour:
           GuiDescription: Roughness for the texture.
           Type: 0
           WidgetType: 1
-        Data: 0.036
+        Data: 0.121
         NumericalDescription:
           DefaultValue: 0.25
-          MinValue: 0
-          MaxValue: 1
-          SliderStep: 0.01
-          SliderClamp: 1
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 106129690724401208
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 4
-        Description:
-          Identifier: metallic
-          Label: Metallic
-          GuiGroup: 
-          GuiDescription: Metallic value for the texture.
-          Type: 0
-          WidgetType: 1
-        Data: 0
-        NumericalDescription:
-          DefaultValue: 0
           MinValue: 0
           MaxValue: 1
           SliderStep: 0.01

@@ -47,13 +47,14 @@ namespace SOS.SubstanceExtensionsEditor
             {
                 SubstanceFileSO sbsarFile = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(validPaths[i]);
 
-                if(!SubstanceExtensionsEditorUtility.TryUpdateSubstanceInputs(sbsarFile))
+                if(!SubstanceExtensionsEditorUtility.TryUpdateSubstanceGraphs(sbsarFile, false))
                 {
                     Debug.LogWarning(string.Format("Could not update some graph instances on substance: {0}", sbsarFile == null ? "<NULL>" : sbsarFile.name));
                 }
             }
 
             AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
 
             validPaths.Clear();
 

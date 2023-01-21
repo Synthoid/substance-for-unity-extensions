@@ -246,7 +246,7 @@ namespace SOS.SubstanceExtensions
                 //Skip if no input with matching identifier exists
                 if(targetIndex < 0)
                 {
-                    Debug.LogWarning(string.Format("[SOS - Substance Extensions] No input with identifier [{0}] in destination inputs.", source[i].Description.Identifier));
+                    Debug.LogWarning(string.Format("[SOS - Substance Extensions] No input with identifier [{0}] in destination inputs.", source[index].Description.Identifier));
                     continue;
                 }
 

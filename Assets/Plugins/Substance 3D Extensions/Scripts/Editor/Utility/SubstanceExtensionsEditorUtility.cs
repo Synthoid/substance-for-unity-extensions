@@ -410,7 +410,40 @@ namespace SOS.SubstanceExtensionsEditor
         }
 
 
-        public static bool TryUpdateSubstanceInputs(SubstanceFileSO substanceFile, bool renderAfterUpdating=false)
+        public static bool DeleteUnusedOutputTextures(SubstanceGraphSO substance, List<SubstanceOutputTexture> newOutputs)
+        {
+            bool hasUnusedTextures = false;
+
+            for(int i=0; i < substance.Output.Count; i++)
+            {
+                if(newOutputs.IndexOf((output) => { return output.Description.Identifier == substance.Output[i].Description.Identifier; }) < 0)
+                {
+                    //New outputs are missing an output from the existing outputs. Delete its texture.
+                    hasUnusedTextures = true;
+
+                    if(substance.Output[i].OutputTexture == null ||!AssetDatabase.Contains(substance.Output[i].OutputTexture))
+                    {
+                        //Skip null textures, or assets not in the asset database (runtime only substance textures for example)
+                        continue;
+                    }
+
+                    //TODO: Make a preferences option for not deleting unused texture assets...
+                    string texturePath = AssetDatabase.GetAssetPath(substance.Output[i].OutputTexture);
+
+                    Debug.LogWarning(string.Format("[SOS - Substance Extensions] Deleting unused texture asset for output [{0}]\n{1}", substance.Output[i].Description.Identifier, texturePath));
+
+                    //Delete Texture File
+                    FileUtil.DeleteFileOrDirectory(texturePath);
+                    //Delete Texture Meta File
+                    FileUtil.DeleteFileOrDirectory(texturePath + ".meta");
+                }
+            }
+
+            return hasUnusedTextures;
+        }
+
+
+        public static bool TryUpdateSubstanceGraphs(SubstanceFileSO substanceFile, bool renderAfterUpdating=false)
         {
             if(substanceFile == null) return false;
 
@@ -425,16 +458,19 @@ namespace SOS.SubstanceExtensionsEditor
             //Update all graph instances associated with the file...
             SubstanceNativeGraph nativeGraph = null;
 
+            List<ISubstanceInput> inputs = new List<ISubstanceInput>();
+            List<SubstanceOutputTexture> outputs = new List<SubstanceOutputTexture>(); //TODO: May have to move this into the loop? Seems like existing elements are not cleared...
+
             for(int i = 0; i < substanceFile.Instances.Count; i++)
             {
                 nativeGraph = Engine.OpenFile(substanceFile.Instances[i].RawData.FileContent, substanceFile.Instances[i].Index);
 
-                //Update actual inputs...
-                List<ISubstanceInput> inputs = new List<ISubstanceInput>();
+                //Update inputs...
+                nativeGraph.GetInputs(inputs);
 
-                int count = nativeGraph.GetInputs(inputs);
+                /*int count = nativeGraph.GetInputs(inputs);
 
-                /*StringBuilder expectingOutput = new StringBuilder($"Expecting: {count}\n");
+                StringBuilder expectingOutput = new StringBuilder($"Expecting: {count}\n");
 
                 for(int j=0; j < count; j++)
                 {
@@ -447,12 +483,26 @@ namespace SOS.SubstanceExtensionsEditor
 
                 substanceFile.Instances[i].Input = new List<ISubstanceInput>(inputs);
 
+                //Update outputs
+                nativeGraph.GetOutputs(outputs);
+
+                SubstanceOutputTextureExtensions.UpdateOutputList(substanceFile.Instances[i].Output, outputs);
+
+                DeleteUnusedOutputTextures(substanceFile.Instances[i], outputs);
+
+                substanceFile.Instances[i].Output = new List<SubstanceOutputTexture>(outputs);
+
+                //TODO: Need a SubstanceOutputExtensions.UpdateOutputList method that pulls existing textures from a list and assigns them to a new list.
+
                 //Update preset string...
-                substanceFile.Instances[i].RuntimeInitialize(nativeGraph, false);
+                substanceFile.Instances[i].RuntimeInitialize(nativeGraph, false); //This should be called after other graph updates as it modifies native graph values in unexpected ways.
 
                 substanceFile.Instances[i].CurrentStatePreset = nativeGraph.CreatePresetFromCurrentState();
 
+                //Set asset as dirty so changes are not lost when closing the editor.
                 EditorUtility.SetDirty(substanceFile.Instances[i]);
+
+                nativeGraph.Dispose();
 
                 //TODO: Tell the editor engine to render and update assets?
                 if(substanceFile.Instances[i].IsCachedByEditorEngine())
@@ -462,13 +512,13 @@ namespace SOS.SubstanceExtensionsEditor
 
                     if(renderAfterUpdating)
                     {
-                        SubstanceReflectionEditorUtility.InitializeInstance(substanceFile.Instances[i], substanceFile.Instances[i].AssetPath);
+                        Debug.Log("ReRender!");
+                        SubstanceReflectionEditorUtility.InitializeInstance(substanceFile.Instances[i], null);
 
-                        TryRenderInstanceAsync(substanceFile.Instances[i]);
+                        //TODO: This seems to be throwing errors currents due to output indexes not being images?
+                        TryRenderInstanceAsync(substanceFile.Instances[i], true);
                     }
                 }
-
-                nativeGraph.Dispose();
             }
 
             return success;

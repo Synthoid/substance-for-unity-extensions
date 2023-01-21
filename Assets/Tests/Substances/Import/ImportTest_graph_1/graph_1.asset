@@ -21,11 +21,10 @@ MonoBehaviour:
   GUID: 88f60aa3-532a-4060-8daf-78eb31a01ae1
   Index: 0
   Input:
-  - rid: 106129690724401199
-  - rid: 106129690724401200
-  - rid: 106129690724401201
-  - rid: 106129690724401202
-  - rid: 106129690724401203
+  - rid: 106129738323460160
+  - rid: 106129738323460161
+  - rid: 106129738323460162
+  - rid: 106129738323460163
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -36,7 +35,7 @@ MonoBehaviour:
       Type: 8
       Channel: baseColor
     OutputTexture: {fileID: 2800000, guid: d972b03afce84064bb0afb75c0853593, type: 3}
-    sRGB: 1
+    sRGB: 0
     IsVirtual: 0
     IsStandardOutput: 1
     IsAlphaAssignable: 1
@@ -100,7 +99,6 @@ MonoBehaviour:
     identifier=\"$outputsize\" uid=\"866856966\" type=\"8\" value=\"10,10\" />\n 
     <presetinput identifier=\"color\" uid=\"1579770764\" type=\"3\" value=\"1,0,0,1\"
     />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"1\"
-    />\n  <presetinput identifier=\"metallic\" uid=\"1579770482\" type=\"0\" value=\"0.5\"
     />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
@@ -117,7 +115,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 106129690724401199
+    - rid: 106129738323460160
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -136,7 +134,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129690724401200
+    - rid: 106129738323460161
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -158,7 +156,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129690724401201
+    - rid: 106129738323460162
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
@@ -178,7 +176,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129690724401202
+    - rid: 106129738323460163
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 3
@@ -192,26 +190,6 @@ MonoBehaviour:
         Data: 1
         NumericalDescription:
           DefaultValue: 0.25
-          MinValue: 0
-          MaxValue: 1
-          SliderStep: 0.01
-          SliderClamp: 1
-          EnumValueCount: 0
-          EnumValues: []
-    - rid: 106129690724401203
-      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
-      data:
-        Index: 4
-        Description:
-          Identifier: metallic
-          Label: Metallic
-          GuiGroup: 
-          GuiDescription: Metallic value for the texture.
-          Type: 0
-          WidgetType: 1
-        Data: 0.5
-        NumericalDescription:
-          DefaultValue: 0
           MinValue: 0
           MaxValue: 1
           SliderStep: 0.01
