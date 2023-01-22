@@ -8,11 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [0.2.3] - [Unreleased]
 
 ### Pending
-- Custom importer to force reimport substances when an `.sbsar` file is updated.
 - Example scene comprised entirely of runtime substance materials.
 
 ## Added
+- Custom asset post processor to automatically update `SubstanceGraphSO` assets when an `.sbsar` file is updated.
 - `SceneSubstanceGraphData` for conveniently obtaining references to `SubstanceGraphSO` assets with materials in open scenes.
+- Preferences and project settings windows for substance extensions functionality.
+- `IndentAttribute` for convenient field indenting in inspectors.
+- `GetInputs()` and `GetOutputs()` extension methods for `SubstanceNativeGraph`.
+- `SetInputValues()` extension method for `SubstanceGraphSO`.
+- `SubstanceReflectionEditorUtility` class for accessing internal functionality of the substance plugin.
+- `SubstanceExtensionsEditorGUI` and `SubstanceExtensionsEditorGUILayout` editor utility classes to handle drawing editor UI.
+- `SubstanceOutputTextureExtensions` class.
+- Several methods to `SubstanceExtensionsEditorUtility` to support asset update functionality.
+
+## Changed
+- Moved several editor inspector drawing methods from `SubstanceExtensionsEditorUtility` to new `SubstanceExtensionsEditorGUI` and `SubstanceExtensionsEditorGUILayout` classes.
 
 ## [0.2.2] - 2022-12-31
 
