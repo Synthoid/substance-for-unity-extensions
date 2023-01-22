@@ -13,8 +13,6 @@ namespace SOS.SubstanceExtensionsEditor
         private const string kKeyScene = "sos-scene-type";
         private const string kKeyInactive = "sos-include-inactive";
 
-        private static readonly string kSubstanceGraphSearchString = "t:" + typeof(SubstanceGraphSO).FullName;
-
         private static readonly GUIContent kSettingsLabel = new GUIContent("Grab Material Settings", "Controls for grabbing substance related materials in the scene.");
         private static readonly GUIContent kAllLabel = new GUIContent("All", "Populate graphs with all substances associated with materials in the scene.");
         private static readonly GUIContent kRuntimeLabel = new GUIContent("Runtime", "Populate graphs with all runtime only substances associated with materials in the scene.");

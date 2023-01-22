@@ -7,7 +7,7 @@ namespace SOS.SubstanceExtensions.Examples
     /// <summary>
     /// Example class that handles retrieving output textures from a substance and mapping them to external material instances.
     /// </summary>
-    public class EvilOrbMapper : MonoBehaviour
+    public class EvilOrbMapper : MonoBehaviour, ISubstanceProvider
     {
         private const string kNormalMap = "_BumpMap";
         private const string kMetallicRoughMap = "_MetallicGlossMap";
@@ -52,6 +52,12 @@ namespace SOS.SubstanceExtensions.Examples
         private bool RefreshMaterialsValidation()
         {
             return Application.isPlaying;
+        }
+
+
+        public SubstanceGraphSO[] GetSubstances()
+        {
+            return new SubstanceGraphSO[1] { evilOrbSubstance };
         }
 
 

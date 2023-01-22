@@ -107,8 +107,8 @@ MonoBehaviour:
   DefaultPreset: " <sbspreset pkgurl=\"pkg://ImportTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"866856966\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
-  RenderTextures: 1
-  OutputRemaped: 1
+  RenderTextures: 0
+  OutputRemaped: 0
   references:
     version: 2
     RefIds:

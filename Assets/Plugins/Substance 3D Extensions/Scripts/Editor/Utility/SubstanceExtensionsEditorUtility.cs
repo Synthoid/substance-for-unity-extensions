@@ -232,6 +232,15 @@ namespace SOS.SubstanceExtensionsEditor
             EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", "Grabbing Renderers...", 0.2f);
 
             Renderer[] renderers = GameObject.FindObjectsOfType<Renderer>(includeInactive);
+            Object[] providerObjects = GameObject.FindObjectsOfType(typeof(Component), includeInactive);
+            List<ISubstanceProvider> providerComponents = new List<ISubstanceProvider>();
+
+            for(int i=0; i < providerObjects.Length; i++)
+            {
+                if(providerObjects[i] is ISubstanceProvider) providerComponents.Add((ISubstanceProvider)providerObjects[i]);
+            }
+
+            ISubstanceProvider[] providers = providerComponents.ToArray();
 
             //Cull non-active scene content if desired...
             if(sceneType == SceneReferenceType.ActiveOnly)
@@ -247,6 +256,7 @@ namespace SOS.SubstanceExtensionsEditor
                     rootTransforms[i] = rootObjects[i].transform;
                 }
 
+                //Renderers
                 List<Renderer> newRenderers = new List<Renderer>();
 
                 float rendererDelta = 1f / (float)renderers.Length;
@@ -262,6 +272,23 @@ namespace SOS.SubstanceExtensionsEditor
                 }
 
                 if(newRenderers.Count != renderers.Length) renderers = newRenderers.ToArray();
+
+                //ISubstanceProviders
+                List<ISubstanceProvider> newProviders = new List<ISubstanceProvider>();
+
+                float providerDelta = 1f / (float)providers.Length;
+
+                for(int i = 0; i < providers.Length; i++)
+                {
+                    EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", "Culling providers from extra scenes...", providerDelta * i);
+
+                    if(rootTransforms.Contains(((Component)providers[i]).transform.root))
+                    {
+                        newProviders.Add(providers[i]);
+                    }
+                }
+
+                if(newProviders.Count != providers.Length) providers = newProviders.ToArray();
             }
 
             //Get materials...
@@ -287,11 +314,13 @@ namespace SOS.SubstanceExtensionsEditor
             //Get Substances...
             List<SubstanceGraphSO> runtimeSubstances = new List<SubstanceGraphSO>();
             List<SubstanceGraphSO> staticSubstances = new List<SubstanceGraphSO>();
+
+            //From scene materials...
             string[] searchFolders = new string[1];
 
             delta = 1f / (float)materials.Count;
 
-            for(int i = 0; i < materials.Count; i++)
+            for(int i=0; i < materials.Count; i++)
             {
                 EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", string.Format("Checking substance materials [{0}]...", materials[i].name), delta * i);
 
@@ -304,7 +333,7 @@ namespace SOS.SubstanceExtensionsEditor
 
                 string[] guids = AssetDatabase.FindAssets(kSubstanceGraphSearchString, searchFolders);
 
-                for(int j = 0; j < guids.Length; j++)
+                for(int j=0; j < guids.Length; j++)
                 {
                     SubstanceGraphSO graph = AssetDatabase.LoadAssetAtPath<SubstanceGraphSO>(AssetDatabase.GUIDToAssetPath(guids[j]));
 
@@ -322,6 +351,36 @@ namespace SOS.SubstanceExtensionsEditor
                         }
 
                         break;
+                    }
+                }
+            }
+
+            //From scene providers...
+            delta = 1f / (float)providers.Length;
+
+            for(int i=0; i < providers.Length; i++)
+            {
+                EditorUtility.DisplayProgressBar("Grabbing Scene Substances...", string.Format("Checking substance providers [{0}]...", ((Component)providers[i]).name), delta * i);
+
+                SubstanceGraphSO[] providerGraphs = providers[i].GetSubstances();
+
+                for(int j=0; j < providerGraphs.Length; j++)
+                {
+                    //Only reference runtime/static substances when desired...
+                    if((providerGraphs[j].IsRuntimeOnly && (graphTypes & SceneGraphType.Runtime) > 0))
+                    {
+                        if(!runtimeSubstances.Contains(providerGraphs[j]))
+                        {
+                            runtimeSubstances.Add(providerGraphs[j]);
+                        }
+                    }
+
+                    if((!providerGraphs[j].IsRuntimeOnly && (graphTypes & SceneGraphType.Static) > 0))
+                    {
+                        if(!staticSubstances.Contains(providerGraphs[j]))
+                        {
+                            staticSubstances.Add(providerGraphs[j]);
+                        }
                     }
                 }
             }
