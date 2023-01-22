@@ -8,17 +8,22 @@ namespace SOS.SubstanceExtensionsEditor
     /// </summary>
     public static class SubstanceExtensionsEditorPreferences
     {
-        private const string kDeleteUnusedTexturesKey = "sos-delete-unused-tex";
+        private const string kLogUpdateWarningsKey = "sos-log-update-warnings";
 
         private static readonly GUIContent kAssetUpdatesLabel = new GUIContent("Asset Updates", "Settings that affect asset update operations.");
-        private static readonly GUIContent kDeleteUnusedTexturesLabel = new GUIContent("Delete Unused Textures", "If true, delete unused graph output textures during .sbsar updates. If false, any outputs that are removed during an asset update will not delete their texture assets from the project.");
+        private static readonly GUIContent kLogUpdateWarningsLabel = new GUIContent("Log Update Warnings", "If true, log harmless warnings about the update process. ie Any inputs or outputs that were removed during .sbsar updates.");
 
         private static bool initialized = false;
-        private static bool deleteUnusedTextures = true;
+        private static bool logUpdateWarnings = true;
 
-        public static bool DeleteUnusedTextures
+        public static bool LogUpdateWarnings
         {
-            get { return deleteUnusedTextures; }
+            get
+            {
+                Initialize();
+
+                return logUpdateWarnings;
+            }
         }
 
         [InitializeOnLoadMethod]
@@ -28,7 +33,7 @@ namespace SOS.SubstanceExtensionsEditor
 
             initialized = true;
 
-            deleteUnusedTextures = EditorPrefs.GetBool(kDeleteUnusedTexturesKey, true);
+            logUpdateWarnings = EditorPrefs.GetBool(kLogUpdateWarningsKey, true);
         }
 
         [SettingsProvider]
@@ -57,7 +62,6 @@ namespace SOS.SubstanceExtensionsEditor
         private static void DrawAssetUpdatesSection()
         {
             EditorGUILayout.LabelField(kAssetUpdatesLabel, EditorStyles.boldLabel);
-            //TODO: Show warning if project settings has disabled auto updates?
 
             if(SubstanceExtensionsProjectSettings.DisableAutoUpdates)
             {
@@ -65,10 +69,10 @@ namespace SOS.SubstanceExtensionsEditor
             }
 
             EditorGUI.BeginChangeCheck();
-            deleteUnusedTextures = EditorGUILayout.Toggle(kDeleteUnusedTexturesLabel, deleteUnusedTextures);
+            logUpdateWarnings = EditorGUILayout.Toggle(kLogUpdateWarningsLabel, logUpdateWarnings);
             if(EditorGUI.EndChangeCheck())
             {
-                EditorPrefs.SetBool(kDeleteUnusedTexturesKey, deleteUnusedTextures);
+                EditorPrefs.SetBool(kLogUpdateWarningsKey, logUpdateWarnings);
             }
         }
     }

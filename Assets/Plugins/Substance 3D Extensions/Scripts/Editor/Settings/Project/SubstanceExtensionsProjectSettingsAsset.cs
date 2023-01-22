@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using SOS.SubstanceExtensions;
 
 namespace SOS.SubstanceExtensionsEditor
 {
@@ -12,6 +13,8 @@ namespace SOS.SubstanceExtensionsEditor
 
         [Tooltip("If true, .sbsar files will not automatically update their graph instances when the file is modified (ie by replacing the .sbsar file).")]
         public bool disableAutoUpdates = false;
+        [Indent, Tooltip("If true, delete unused graph output textures during .sbsar updates. If false, any outputs that are removed during an asset update will not delete their texture assets from the project.")]
+        public bool deleteUnusedTextures = true;
 
 
         private static SubstanceExtensionsProjectSettingsAsset instance = null;

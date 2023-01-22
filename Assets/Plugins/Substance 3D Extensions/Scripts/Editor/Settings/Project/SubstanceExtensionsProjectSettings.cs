@@ -18,13 +18,17 @@ namespace SOS.SubstanceExtensionsEditor
         private static readonly GUIContent kDocumentationLabel = new GUIContent("Documentation", "Click to open the online documentation for Substance for Unity Extensions.");
         //Settings
         private static readonly GUIContent kEditorSettingsLabel = new GUIContent("Editor Settings", "Settings that affect editor functionality.");
-
+        
         private static SubstanceExtensionsProjectSettingsAsset settingsAsset = null;
         private static Editor settingsEditor = null;
 
         public static bool DisableAutoUpdates
         {
             get { return SubstanceExtensionsProjectSettingsAsset.Instance.disableAutoUpdates; }
+        }
+        public static bool DeleteUnusedTextures
+        {
+            get { return SubstanceExtensionsProjectSettingsAsset.Instance.deleteUnusedTextures; }
         }
 
         [SettingsProvider]

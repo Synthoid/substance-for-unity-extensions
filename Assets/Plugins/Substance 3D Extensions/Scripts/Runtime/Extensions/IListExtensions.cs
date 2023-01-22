@@ -22,6 +22,23 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
+        /// Returns true if an element matching the given predicate is found.
+        /// </summary>
+        /// <typeparam name="T">Expected type for the list.</typeparam>
+        /// <param name="list">Elements to search through.</param>
+        /// <param name="predicate">Predicate used to determine a valid target element.</param>
+        /// <returns>True if an element matching the given predicate is found.</returns>
+        public static bool Contains<T>(this IList<T> list, System.Predicate<T> predicate)
+        {
+            for(int i = 0; i < list.Count; i++)
+            {
+                if(predicate.Invoke(list[i])) return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Returns the index of the first element that matches the given predicate, or -1 if no valid element is found.
         /// </summary>
         /// <typeparam name="T">Expected type for the list.</typeparam>

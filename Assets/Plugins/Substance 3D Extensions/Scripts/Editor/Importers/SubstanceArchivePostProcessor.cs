@@ -43,11 +43,17 @@ namespace SOS.SubstanceExtensionsEditor
             //Destroy substance editors loaded into memory to prevent serialized object errors...
             bool editorsCulled = SubstanceExtensionsEditorUtility.CullSubstanceEditors();
 
+            SubstanceUpdateResult updateResult = new SubstanceUpdateResult()
+            {
+                updatedGraphs = new List<SubstanceGraphSO>(),
+                newOutputGraphs = new List<SubstanceGraphSO>()
+            };
+
             for(int i = 0; i < validPaths.Count; i++)
             {
                 SubstanceFileSO sbsarFile = AssetDatabase.LoadAssetAtPath<SubstanceFileSO>(validPaths[i]);
 
-                if(!SubstanceExtensionsEditorUtility.TryUpdateSubstanceGraphs(sbsarFile, false))
+                if(!SubstanceExtensionsEditorUtility.TryUpdateSubstanceGraphs(sbsarFile, updateResult))
                 {
                     Debug.LogWarning(string.Format("Could not update some graph instances on substance: {0}", sbsarFile == null ? "<NULL>" : sbsarFile.name));
                 }

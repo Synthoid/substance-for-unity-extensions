@@ -17,5 +17,27 @@ namespace SOS.SubstanceExtensionsEditor
         /// Updated graphs that added output textures.
         /// </summary>
         public List<SubstanceGraphSO> newOutputGraphs;
+
+
+        public bool TryAddUpdatedGraph(SubstanceGraphSO graph)
+        {
+            if(updatedGraphs == null) newOutputGraphs = new List<SubstanceGraphSO>();
+            if(updatedGraphs.Contains(graph)) return false;
+
+            updatedGraphs.Add(graph);
+
+            return true;
+        }
+
+
+        public bool TryAddNewOutputGraph(SubstanceGraphSO graph)
+        {
+            if(newOutputGraphs == null) newOutputGraphs = new List<SubstanceGraphSO>();
+            if(newOutputGraphs.Contains(graph)) return false;
+
+            newOutputGraphs.Add(graph);
+
+            return true;
+        }
     }
 }

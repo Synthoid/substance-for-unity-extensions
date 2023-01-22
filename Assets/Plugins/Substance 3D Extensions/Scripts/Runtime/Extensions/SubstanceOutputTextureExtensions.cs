@@ -27,7 +27,7 @@ namespace SOS.SubstanceExtensions
                 //Skip if no output with matching identifier exists
                 if(targetIndex < 0)
                 {
-                    Debug.LogWarning(string.Format("[SOS - Substance Extensions] No output with identifier [{0}] in destination inputs.", source[index].Description.Identifier));
+                    Debug.LogWarning(string.Format("[SOS - Substance Extensions] No output with identifier [{0}] in destination outputs.", source[index].Description.Identifier));
                     continue;
                 }
 
@@ -37,6 +37,28 @@ namespace SOS.SubstanceExtensions
             }
 
             return count;
+        }
+
+
+        public static bool OutputIdentifiersMatch(List<SubstanceOutputTexture> a, List<SubstanceOutputTexture> b)
+        {
+            for(int i=0; i < a.Count; i++)
+            {
+                if(!b.Contains((output) => { return output.Description.Identifier == a[i].Description.Identifier; }))
+                {
+                    return false;
+                }
+            }
+
+            for(int i=0; i < b.Count; i++)
+            {
+                if(!b.Contains((output) => { return output.Description.Identifier == b[i].Description.Identifier; }))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

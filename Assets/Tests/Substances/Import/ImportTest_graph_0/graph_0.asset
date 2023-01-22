@@ -21,10 +21,10 @@ MonoBehaviour:
   GUID: 6925bda0-8100-4ef1-a8d3-f1857ec95fb5
   Index: 0
   Input:
-  - rid: 106129738323460164
-  - rid: 106129738323460165
-  - rid: 106129738323460166
-  - rid: 106129738323460167
+  - rid: 106129760931545202
+  - rid: 106129760931545203
+  - rid: 106129760931545204
+  - rid: 106129760931545205
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -98,7 +98,7 @@ MonoBehaviour:
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://ImportTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"866856966\" type=\"8\" value=\"10,10\" />\n 
     <presetinput identifier=\"color\" uid=\"1579770764\" type=\"3\" value=\"1,1,0,1\"
-    />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0.121\"
+    />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0\"
     />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 106129738323460164
+    - rid: 106129760931545202
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129738323460165
+    - rid: 106129760931545203
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -153,7 +153,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129738323460166
+    - rid: 106129760931545204
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
@@ -173,7 +173,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 106129738323460167
+    - rid: 106129760931545205
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 3
@@ -184,7 +184,7 @@ MonoBehaviour:
           GuiDescription: Roughness for the texture.
           Type: 0
           WidgetType: 1
-        Data: 0.121
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.25
           MinValue: 0
