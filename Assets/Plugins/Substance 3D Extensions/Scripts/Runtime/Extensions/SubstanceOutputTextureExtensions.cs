@@ -39,7 +39,12 @@ namespace SOS.SubstanceExtensions
             return count;
         }
 
-
+        /// <summary>
+        /// Returns true if both given lists of output data contain the same number of outputs with the same identifiers.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>True if both lists contain the same outputs (ie outputs with matching identifiers)</returns>
         public static bool OutputIdentifiersMatch(List<SubstanceOutputTexture> a, List<SubstanceOutputTexture> b)
         {
             for(int i=0; i < a.Count; i++)

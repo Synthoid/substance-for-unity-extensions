@@ -22,7 +22,7 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private string guid;
         /// <summary>
-        /// Name for the target parameter.
+        /// Identifier for the target parameter.
         /// </summary>
         [SerializeField]
         private string name;
@@ -67,7 +67,7 @@ namespace SOS.SubstanceExtensions
         #region Properties
 
         /// <summary>
-        /// [Editor Only] GUID for the <see cref="SubstanceGraphSO"/> targeted by this parameter. Primarily used for editor tooling, not used at runtime.
+        /// Unity project GUID for the <see cref="SubstanceGraphSO"/> targeted by this parameter. Primarily used for editor tooling, not used at runtime.
         /// </summary>
         public string GUID
         {

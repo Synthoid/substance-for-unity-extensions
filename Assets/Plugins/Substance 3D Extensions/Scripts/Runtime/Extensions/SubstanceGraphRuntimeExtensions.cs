@@ -93,7 +93,7 @@ namespace SOS.SubstanceExtensions
 
         /// <summary>
         /// Initialize the graph for runtime generation and create a cached native graph for use in render operations.
-        /// Note: You should call <see cref="EndRuntimeEditing(SubstanceGraphSO, SubstanceNativeGraph)"/> when you are done rendering with the returned native graph..
+        /// Note: You should call <see cref="EndRuntimeEditing(SubstanceGraphSO, SubstanceNativeGraph)"/> when you are done rendering with the returned native graph.
         /// </summary>
         /// <param name="graph">Graph to initialize for runtime.</param>
         /// <returns><see cref="SubstanceNativeGraph"/> associated with the given graph. This can be used when setting input parameters and during render operations.</returns>
@@ -212,7 +212,24 @@ namespace SOS.SubstanceExtensions
         /// Asynchronously render the graph and dispose of its native graph handle after. This can be used when a graph only needs to render once and its handle doesn't need to be kept in memory.
         /// </summary>
         /// <param name="graph">Graph to render.</param>
-        public static async void RenderAndForgetAsync(this SubstanceGraphSO graph)
+        /// <param name="callback">[Optional] Callback invoked when the render is complete.</param>
+        public static async void RenderAndForgetAsync(this SubstanceGraphSO graph, System.Action callback)
+        {
+            SubstanceNativeGraph nativeGraph = BeginRuntimeEditing(graph);
+
+            await RenderAsync(graph, nativeGraph);
+
+            EndRuntimeEditing(graph, nativeGraph);
+
+            if(callback != null) callback.Invoke();
+        }
+
+        /// <summary>
+        /// Asynchronously render the graph and dispose of its native graph handle after. This can be used when a graph only needs to render once and its handle doesn't need to be kept in memory.
+        /// </summary>
+        /// <param name="graph">Graph to render.</param>
+        /// <returns>Task for the render operation.</returns>
+        public static async Task RenderAndForgetAsync(this SubstanceGraphSO graph)
         {
             SubstanceNativeGraph nativeGraph = BeginRuntimeEditing(graph);
 
@@ -220,7 +237,6 @@ namespace SOS.SubstanceExtensions
 
             EndRuntimeEditing(graph, nativeGraph);
         }
-
 
         /*public static void SetInputs(this SubstanceGraphSO substance, SubstanceNativeGraph handler, IList<SubstanceParameterValue> values)
         {
@@ -334,7 +350,7 @@ namespace SOS.SubstanceExtensions
             return tcs.Task;
         }*/
 
-#endregion
+        #endregion
 
     }
 }

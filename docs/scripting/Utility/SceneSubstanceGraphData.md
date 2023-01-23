@@ -1,7 +1,7 @@
 # SceneSubstanceGraphData
-Handles automatically obtaining references to `SubstanceGraphSO` assets referenced in open scenes. Discovered substance graphs will be stored alphabetically in the `graphs` array. You can customize how substance references are detected by adjusting `Grab Material Settings` at the top of the asset's inspector.
+Handles automatically obtaining references to `SubstanceGraphSO` assets referenced in open scenes. To create an asset, right click in the project window and select `Create/SOS/Substance Extensions/Scene Substance Graph Data`.
 
-Substance graphs are detected by finding all `Renderer` components in the scene and validating their materials to check if they are associated with a `SubstanceGraphSO` asset.
+Discovered substance graphs will be stored alphabetically in the `graphs` array. You can customize how substance references are detected by adjusting `Grab Material Settings` at the top of the asset's inspector. Substance graphs are detected by finding all `Renderer` components in the scene and validating their materials to check if they are associated with a `SubstanceGraphSO` asset.
 
 Any `ISubstanceProvider` components in the scene will also be detected and their referenced substance graphs will be included too.
 
@@ -36,6 +36,6 @@ public class SceneSubstanceGraphdDataExample : MonoBehaviour
  
 ## Properties
 
-Property | Description
--------- | -----------
-graphs | Graphs referenced in the scene.
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| graphs | `SubstanceGraphSO[]` | Graphs referenced in the scene. |

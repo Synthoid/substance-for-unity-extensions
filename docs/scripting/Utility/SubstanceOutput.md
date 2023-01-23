@@ -32,3 +32,13 @@ public class SubstanceOutputExample : MonoBehaviour
     }
 }
 ```
+
+## Properties
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| GUID | string | Unity project GUID for the `SubstanceGraphSO` asset containing the target output. Primarily used for editor tooling, not used at runtime. |
+| Name | string | Identifier for the target output. |
+| GraphId | int | Index for the graph associated with this output. |
+| Index | int | Index for the target output. |
+| EditorAsset | `SubstanceGraphSO`  | [Editor Only] `SubstanceGraphSO` asset referenced for input parameters. |

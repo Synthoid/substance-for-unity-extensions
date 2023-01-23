@@ -19,7 +19,7 @@ namespace SOS.SubstanceExtensions
         [SerializeField]
         private string guid;
         /// <summary>
-        /// Name for the target output.
+        /// Identifier for the target output.
         /// </summary>
         [SerializeField]
         private string name;
@@ -35,7 +35,7 @@ namespace SOS.SubstanceExtensions
         private int index;
 
         /// <summary>
-        /// [Editor Only] GUID for the <see cref="SubstanceGraphSO"/> asset containing the target output. Primarily used for editor tooling, not used at runtime.
+        /// Unity project GUID for the <see cref="SubstanceGraphSO"/> asset containing the target output. Primarily used for editor tooling, not used at runtime.
         /// </summary>
         public string GUID
         {

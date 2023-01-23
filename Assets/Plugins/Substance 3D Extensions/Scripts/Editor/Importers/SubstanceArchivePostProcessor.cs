@@ -2,14 +2,13 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using Adobe.Substance;
-using Adobe.Substance.Input;
-using Adobe.Substance.Input.Description;
-using Adobe.SubstanceEditor;
 using Adobe.SubstanceEditor.Importer;
-using SOS.SubstanceExtensions;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Custom asset post processor to handle updating substance graph inputs and outputs during .sbsar updates.
+    /// </summary>
     public class SubstanceArchivePostProcessor : AssetPostprocessor
     {
         private const string kSubstanceArchiveExtension = ".sbsar";

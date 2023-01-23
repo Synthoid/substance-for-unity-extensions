@@ -11,6 +11,14 @@ These classes make referencing and working with substance values easier.
 | [SubstanceParameter](scripting/Utility/SubstanceParameter.md) | Allows quick and easy selection of Substance inputs via the inspector. |
 | [SubstanceParameterValue](scripting/Utility/SubstanceParameterValue.md) | Handles referencing a Substance input and displaying an appropriate value field in the inspector. |
 | [SubstanceOutput](scripting/Utility/SubstanceOutput.md) | Allows easy selection of Substance output textures via the inspector. |
+| [SceneSubstanceGraphData](scripting/Utility/SceneSubstanceGraphData.md) | Handles referencing substance graphs that are used in open scenes. |
+
+## Extensions
+These classes streamline substance runtime and editor functionality.
+
+| Class | Description |
+| ----- | ----------- |
+| [SubstanceGraphRuntimeExtensions](scripting/Extensions/SubstanceGraphRuntimeExtensions.md) | Contains extension methods for `SubstanceGraphSO` runtime functionality. |
 
 ## Attributes
 These attributes streamline working with substance assets in your inspectors.

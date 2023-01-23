@@ -15,72 +15,72 @@ namespace SOS.SubstanceExtensions
         /// <summary>
         /// Parameter being referenced.
         /// </summary>
-        public ISubstanceInputParameter Parameter { get; }
+        ISubstanceInputParameter Parameter { get; }
         /// <summary>
         /// Name for the input parameter associated with this value.
         /// </summary>
-        public string Name { get; }
+        string Name { get; }
         /// <summary>
         /// Index for the input parameter associated with this value.
         /// </summary>
-        public int Index { get; }
+        int Index { get; }
         /// <summary>
         /// Value type for the input parameter associated with this value.
         /// </summary>
-        public SubstanceValueType ValueType { get; }
+        SubstanceValueType ValueType { get; }
         /// <summary>
         /// Inspector widget used for the input parameter associated with this value.
         /// </summary>
-        public SubstanceWidgetType WidgetType { get; }
+        SubstanceWidgetType WidgetType { get; }
 
         /// <summary>
         /// Bool value for the target input parameter.
         /// </summary>
-        public bool BoolValue { get; set; }
+        bool BoolValue { get; set; }
         /// <summary>
         /// Int value for the target input parameter.
         /// </summary>
-        public int IntValue { get; set; }
+        int IntValue { get; set; }
         /// <summary>
         /// Int2 value for the target input parameter.
         /// </summary>
-        public Vector2Int Int2Value { get; set; }
+        Vector2Int Int2Value { get; set; }
         /// <summary>
         /// Int3 value for the target input parameter.
         /// </summary>
-        public Vector3Int Int3Value { get; set; }
+        Vector3Int Int3Value { get; set; }
         /// <summary>
         /// Int4 value for the target input parameter.
         /// </summary>
-        public Vector4Int Int4Value { get; set; }
+        Vector4Int Int4Value { get; set; }
         /// <summary>
         /// Float value for the target input parameter.
         /// </summary>
-        public float FloatValue { get; set; }
+        float FloatValue { get; set; }
         /// <summary>
         /// Float2 value for the target input parameter.
         /// </summary>
-        public Vector2 Float2Value { get; set; }
+        Vector2 Float2Value { get; set; }
         /// <summary>
         /// Float3 value for the target input parameter.
         /// </summary>
-        public Vector3 Float3Value { get; set; }
+        Vector3 Float3Value { get; set; }
         /// <summary>
         /// Float4 value for the target input parameter.
         /// </summary>
-        public Vector4 Float4Value { get; set; }
+        Vector4 Float4Value { get; set; }
         /// <summary>
         /// Color value for the target input parameter.
         /// </summary>
-        public Color ColorValue { get; set; }
+        Color ColorValue { get; set; }
         /// <summary>
         /// String value for the target input parameter.
         /// </summary>
-        public string StringValue { get; set; }
+        string StringValue { get; set; }
         /// <summary>
         /// Texture value for the target input parameter.
         /// </summary>
-        public Texture2D TextureValue { get; set; }
+        Texture2D TextureValue { get; set; }
 
         #endregion
 

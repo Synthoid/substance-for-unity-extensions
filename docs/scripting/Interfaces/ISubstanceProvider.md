@@ -3,6 +3,6 @@ Interface implemented by components and assets referencing `SubstanceGraphSO` as
 
 ## Public Methods
 
-Method | Description
------- | -----------
-GetSubstances | Get an array of all referenced `SubstanceGraphSO` assets.
+| Method | Description |
+| ------ | ----------- |
+| GetSubstances | Get an array of all referenced `SubstanceGraphSO` assets. |

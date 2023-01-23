@@ -6,6 +6,9 @@ using Adobe.SubstanceEditor;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Provides convenient access to internal substance editor functionality.
+    /// </summary>
     public static class SubstanceReflectionEditorUtility
     {
         private static Assembly substanceEditorAssembly = null;
