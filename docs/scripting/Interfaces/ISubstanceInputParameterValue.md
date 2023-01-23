@@ -1,4 +1,4 @@
-# ISubstanceInputParameter
+# ISubstanceInputParameterValue
 Interface implemented by classes containing data for substance graph inputs.
 
 ## See Also
