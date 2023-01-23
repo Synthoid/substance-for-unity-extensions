@@ -399,7 +399,7 @@ namespace SOS.SubstanceExtensionsEditor
             //Log referenced substances...
             if(!logSubstances) return substances.Count;
 
-            StringBuilder referenceOutput = new StringBuilder(string.Format("Updated Scene Substance References: [{0}]\n<color=blue>Runtime</color>: [{1}]\n", substances.Count, runtimeSubstances.Count));
+            StringBuilder referenceOutput = new StringBuilder(string.Format("Updated Scene Substance References: [{0}]\n<color=#{1}>Runtime</color>: [{1}]\n", substances.Count, SubstanceExtensionsEditorPreferences.HighlightColorHtml, runtimeSubstances.Count));
 
             runtimeSubstances.ForEach((rs) =>
             {
@@ -407,7 +407,7 @@ namespace SOS.SubstanceExtensionsEditor
             });
 
             referenceOutput.AppendLine("");
-            referenceOutput.AppendLine(string.Format("<color=blue>Static</color>: [{0}]", staticSubstances.Count));
+            referenceOutput.AppendLine(string.Format("<color=#{0}>Static</color>: [{1}]", SubstanceExtensionsEditorPreferences.HighlightColorHtml, staticSubstances.Count));
 
             staticSubstances.ForEach((rs) =>
             {
