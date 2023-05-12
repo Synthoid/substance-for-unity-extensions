@@ -506,8 +506,10 @@ namespace SOS.SubstanceExtensionsEditor
         {
             if(substanceFile == null) return false;
 
+            List<SubstanceGraphSO> Instances = substanceFile.GetGraphs();
+
             //If RawData is null, this is likely a new susbtance file, so don't continue.
-            if(substanceFile.Instances[0].RawData == null)
+            if(Instances[0].RawData == null)
             {
                 return true;
             }
@@ -520,9 +522,9 @@ namespace SOS.SubstanceExtensionsEditor
             List<ISubstanceInput> inputs = new List<ISubstanceInput>();
             List<SubstanceOutputTexture> outputs = new List<SubstanceOutputTexture>(); //TODO: May have to move this into the loop? Seems like existing elements are not cleared...
 
-            for(int i = 0; i < substanceFile.Instances.Count; i++)
+            for(int i = 0; i < Instances.Count; i++)
             {
-                nativeGraph = Engine.OpenFile(substanceFile.Instances[i].RawData.FileContent, substanceFile.Instances[i].Index);
+                nativeGraph = Engine.OpenFile(Instances[i].RawData.FileContent, Instances[i].Index);
 
                 //Update inputs...
                 nativeGraph.GetInputs(inputs);
@@ -538,56 +540,56 @@ namespace SOS.SubstanceExtensionsEditor
 
                 Debug.Log(expectingOutput.ToString());*/
 
-                SubstanceInputExtensions.UpdateInputList(substanceFile.Instances[i].Input, inputs);
+                SubstanceInputExtensions.UpdateInputList(Instances[i].Input, inputs);
 
-                substanceFile.Instances[i].Input = new List<ISubstanceInput>(inputs);
+                Instances[i].Input = new List<ISubstanceInput>(inputs);
 
                 //Update outputs
                 nativeGraph.GetOutputs(outputs);
 
-                int updateCount = SubstanceOutputTextureExtensions.UpdateOutputList(substanceFile.Instances[i].Output, outputs);
+                int updateCount = SubstanceOutputTextureExtensions.UpdateOutputList(Instances[i].Output, outputs);
 
-                if(updateCount < substanceFile.Instances[i].Input.Count || !SubstanceOutputTextureExtensions.OutputIdentifiersMatch(substanceFile.Instances[i].Output, outputs))
+                if(updateCount < Instances[i].Input.Count || !SubstanceOutputTextureExtensions.OutputIdentifiersMatch(Instances[i].Output, outputs))
                 {
-                    updateResult.TryAddNewOutputGraph(substanceFile.Instances[i]);
+                    updateResult.TryAddNewOutputGraph(Instances[i]);
 
                     //Delete textures associated with removed outputs (if desired)
                     if(SubstanceExtensionsProjectSettings.DeleteUnusedTextures)
                     {
-                        DeleteUnusedOutputTextures(substanceFile.Instances[i], outputs);
+                        DeleteUnusedOutputTextures(Instances[i], outputs);
                     }
                 }
 
-                substanceFile.Instances[i].Output = new List<SubstanceOutputTexture>(outputs);
+                Instances[i].Output = new List<SubstanceOutputTexture>(outputs);
 
                 //Update preset string...
-                substanceFile.Instances[i].RuntimeInitialize(nativeGraph, false); //This should be called after other graph updates as it modifies native graph values in unexpected ways.
+                Instances[i].RuntimeInitialize(nativeGraph, false); //This should be called after other graph updates as it modifies native graph values in unexpected ways.
 
-                substanceFile.Instances[i].CurrentStatePreset = nativeGraph.CreatePresetFromCurrentState();
+                Instances[i].CurrentStatePreset = nativeGraph.CreatePresetFromCurrentState();
 
                 //Set asset as dirty so changes are not lost when closing the editor.
-                EditorUtility.SetDirty(substanceFile.Instances[i]);
+                EditorUtility.SetDirty(Instances[i]);
 
                 nativeGraph.Dispose();
 
                 //TODO: Tell the editor engine to render and update assets?
-                if(substanceFile.Instances[i].IsCachedByEditorEngine())
+                if(Instances[i].IsCachedByEditorEngine())
                 {
                     //Force the editor engine to release the cached native graph associated with the graph...
-                    SubstanceReflectionEditorUtility.ReleaseInstance(substanceFile.Instances[i]);
+                    SubstanceReflectionEditorUtility.ReleaseInstance(Instances[i]);
                 }
 
                 //Render any graphs that need their output textures updated...
-                if(updateResult.newOutputGraphs.Contains(substanceFile.Instances[i]))
+                if(updateResult.newOutputGraphs.Contains(Instances[i]))
                 {
-                    SubstanceReflectionEditorUtility.InitializeInstance(substanceFile.Instances[i], null);
+                    SubstanceReflectionEditorUtility.InitializeInstance(Instances[i], null);
 
-                    if(SubstanceReflectionEditorUtility.TryGetHandlerFromInstance(substanceFile.Instances[i], out SubstanceNativeGraph handler))
+                    if(SubstanceReflectionEditorUtility.TryGetHandlerFromInstance(Instances[i], out SubstanceNativeGraph handler))
                     {
-                        substanceFile.Instances[i].RuntimeInitialize(handler, substanceFile.Instances[i].IsRuntimeOnly);
+                        Instances[i].RuntimeInitialize(handler, Instances[i].IsRuntimeOnly);
 
                         //TODO: This seems to be throwing errors currents due to output indexes not being images?
-                        TryRenderInstanceAsync(substanceFile.Instances[i], true);
+                        TryRenderInstanceAsync(Instances[i], true);
                     }
                 }
             }

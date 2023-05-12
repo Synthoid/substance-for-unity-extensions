@@ -32,7 +32,7 @@ namespace SOS.SubstanceExtensionsEditor
             {
                 if(substanceEditorAssembly == null)
                 {
-                    substanceEditorAssembly = typeof(NamingExtensions).Assembly;
+                    substanceEditorAssembly = typeof(SubstanceEditorTools).Assembly;
                 }
 
                 return substanceEditorAssembly;

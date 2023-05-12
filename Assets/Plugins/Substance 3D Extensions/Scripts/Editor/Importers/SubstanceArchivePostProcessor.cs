@@ -27,8 +27,8 @@ namespace SOS.SubstanceExtensionsEditor
             SubstanceImporter importer = assetImporter as SubstanceImporter;
 
             if(importer == null) return;
-            //If instancesCopy is null, the asset hasn't been imported yet so it should be a new .sbsar
-            if(importer._instancesCopy == null) return;
+            //If fileAsset is null, the asset hasn't been imported yet so it should be a new .sbsar
+            if(importer._fileAsset == null) return;
 
             validPaths.Add(assetPath);
         }

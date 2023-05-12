@@ -80,8 +80,8 @@ namespace SOS.SubstanceExtensionsEditor
                     case SubstanceInputDescNumericalInt4 int4Desc:
                         rangeMin = Vector4.zero;
                         rangeMax = Vector4.zero;
-                        rangeIntMin = new Vector4Int(int4Desc.MinValue[0], int4Desc.MinValue[1], int4Desc.MinValue[2], int4Desc.MinValue[3]);
-                        rangeIntMax = new Vector4Int(int4Desc.MaxValue[0], int4Desc.MaxValue[1], int4Desc.MaxValue[2], int4Desc.MaxValue[3]);
+                        rangeIntMin = new Vector4Int(int4Desc.MinValue0, int4Desc.MinValue1, int4Desc.MinValue2, int4Desc.MinValue3);
+                        rangeIntMax = new Vector4Int(int4Desc.MaxValue0, int4Desc.MaxValue1, int4Desc.MaxValue2, int4Desc.MaxValue3);
                         break;
                     default:
                         rangeMin = Vector4.zero;

@@ -104,9 +104,9 @@ namespace SOS.SubstanceExtensions
             for(int i=0; i < count; i++)
             {
                 SubstanceOutputDescription outputDescription = nativeGraph.GetOutputDescription(i);
-                bool isStandard = MaterialUtils.CheckIfStandardOutput(outputDescription);
+                string textureName = MaterialUtils.GetUnityTextureName(outputDescription);
 
-                outputs.Add(new SubstanceOutputTexture(outputDescription, isStandard));
+                outputs.Add(new SubstanceOutputTexture(outputDescription, textureName));
             }
 
             return outputs;
@@ -127,9 +127,9 @@ namespace SOS.SubstanceExtensions
             for(int i=0; i < count; i++)
             {
                 SubstanceOutputDescription outputDescription = nativeGraph.GetOutputDescription(i);
-                bool isStandard = MaterialUtils.CheckIfStandardOutput(outputDescription);
+                string textureName = MaterialUtils.GetUnityTextureName(outputDescription);
 
-                outputs.Add(new SubstanceOutputTexture(outputDescription, isStandard));
+                outputs.Add(new SubstanceOutputTexture(outputDescription, textureName));
             }
 
             return count;

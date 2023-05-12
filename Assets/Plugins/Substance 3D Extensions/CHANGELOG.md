@@ -5,9 +5,17 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [0.2.3] - 2022-01-22
+## [0.2.4] - Unreleased
 
-## Added
+### Unreleased
+- Support for importing graphs with their names?
+
+### Changed
+- Updated Substance API calls to match plugin version 3.7.0's code.
+
+## [0.2.3] - 2023-01-22
+
+### Added
 - Custom asset post processor to automatically update `SubstanceGraphSO` assets when an `.sbsar` file is updated.
 - `SceneSubstanceGraphData` for conveniently obtaining references to `SubstanceGraphSO` assets with materials in open scenes.
 - Preferences and project settings windows for substance extensions functionality.
@@ -19,7 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - `SubstanceOutputTextureExtensions` class.
 - Several methods to `SubstanceExtensionsEditorUtility` to support asset update functionality.
 
-## Changed
+### Changed
 - Moved several editor inspector drawing methods from `SubstanceExtensionsEditorUtility` to new `SubstanceExtensionsEditorGUI` and `SubstanceExtensionsEditorGUILayout` classes.
 
 ## [0.2.2] - 2022-12-31
