@@ -1,6 +1,6 @@
 # Substance 3D for Unity Extensions
 
-Plugin target version: 3.4.0
+Plugin target version: 3.7.0
 
 Repo containing extension methods and functionality for Adobe's Substance 3D for Unity plugin.
 
