@@ -284,7 +284,7 @@ namespace SOS.SubstanceExtensions
                 pixels[i] = new Color32(bytes[index], bytes[index + 1], bytes[index + 2], bytes[index + 3]);
             }
 
-            nativeGraph.SetInputTexture2D(inputID, pixels, texture.width, texture.height);
+            nativeGraph.SetInputTexturePixels32(inputID, pixels, texture.width, texture.height);
         }
 
 
@@ -336,7 +336,7 @@ namespace SOS.SubstanceExtensions
                 pixels[i] = new Color32(bytes[index], bytes[index + 1], bytes[index + 2], bytes[index + 3]);
             }
 
-            nativeGraph.SetInputTexture2D(inputID, pixels, texture.width, texture.height);
+            nativeGraph.SetInputTexturePixels32(inputID, pixels, texture.width, texture.height);
 
             if(callback != null) callback.Invoke();
         }
@@ -354,8 +354,34 @@ namespace SOS.SubstanceExtensions
                 nativeGraph.SetInputTexture2DNull(inputID);
                 return;
             }
+            
+            nativeGraph.SetInputTexture2D(inputID, texture);
+        }
 
-            nativeGraph.SetInputTexture2D(inputID, texture.GetPixels32(), texture.width, texture.height);
+        /// <summary>
+        /// Directly set the pixel values of a native graph's texture input.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set an input texture value on.</param>
+        /// <param name="inputID">Index for the input being set.</param>
+        /// <param name="pixelData">Pixels for the texture.</param>
+        /// <param name="width">Width of the texture.</param>
+        /// <param name="height">Height of the texture.</param>
+        public static void SetInputTexturePixels32(this SubstanceNativeGraph nativeGraph, int inputID, Color32[] pixelData, int width, int height)
+        {
+            SubstanceReflectionUtility.SetInputTexture2D_RGBA32(nativeGraph, inputID, pixelData, width, height);
+        }
+
+        /// <summary>
+        /// Directly set the pixel values of a native graph's texture input.
+        /// </summary>
+        /// <param name="nativeGraph">Graph to set an input texture value on.</param>
+        /// <param name="inputID">Index for the input being set.</param>
+        /// <param name="pixelData">Pixels for the texture.</param>
+        /// <param name="width">Width of the texture.</param>
+        /// <param name="height">Height of the texture.</param>
+        public static void SetInputTexturePixels(this SubstanceNativeGraph nativeGraph, int inputID, Color[] pixelData, int width, int height)
+        {
+            SubstanceReflectionUtility.SetInputTexture2D_RGBA64(nativeGraph, inputID, pixelData, width, height);
         }
 
         #endregion

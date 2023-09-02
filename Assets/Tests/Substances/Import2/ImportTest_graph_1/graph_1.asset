@@ -40,7 +40,7 @@ MonoBehaviour:
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
-    MaterialTextureTarget: 
+    MaterialTextureTarget: _MainTex
   - Index: 1
     VirtualOutputIndex: 5
     Description:
@@ -56,7 +56,7 @@ MonoBehaviour:
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
-    MaterialTextureTarget: 
+    MaterialTextureTarget: _BumpMap
   - Index: 2
     VirtualOutputIndex: 6
     Description:
@@ -88,7 +88,7 @@ MonoBehaviour:
     AlphaChannel: roughness
     InvertAssignedAlpha: 1
     Flags: 0
-    MaterialTextureTarget: 
+    MaterialTextureTarget: _MetallicGlossMap
   HasPhysicalSize: 0
   PhysicalSize: {x: 0, y: 0, z: 0}
   EnablePhysicalSize: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
     <presetinput identifier=\"color\" uid=\"1579770764\" type=\"3\" value=\"1,1,0,1\"
     />\n  <presetinput identifier=\"rough\" uid=\"1579770790\" type=\"0\" value=\"0.125\"
     />\n </sbspreset>\n"
-  IsRuntimeOnly: 0
+  IsRuntimeOnly: 1
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
   OutputMaterial: {fileID: 2100000, guid: f9f6a04693d28b74dbb190543106d7a9, type: 2}

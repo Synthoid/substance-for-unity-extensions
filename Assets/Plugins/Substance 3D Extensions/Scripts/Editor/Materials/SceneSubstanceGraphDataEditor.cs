@@ -145,6 +145,8 @@ namespace SOS.SubstanceExtensionsEditor
 
             ((SceneSubstanceGraphData)target).graphs = cachedGraphs.ToArray();
 
+            EditorUtility.SetDirty(target);
+
             serializedObject.ApplyModifiedProperties();
 
             cachedGraphs.Clear();

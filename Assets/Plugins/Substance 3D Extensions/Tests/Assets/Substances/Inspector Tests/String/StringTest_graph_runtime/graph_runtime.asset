@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
     Tests/String/StringTest.sbsar
-  OutputPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
-    Tests/String/StringTest_graph_runtime
   RawData: {fileID: -244192453324840774, guid: 6cb923c6e806c40439069268188dc32c, type: 3}
   Name: graph_runtime
   IsRoot: 0
@@ -38,11 +36,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 1
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _MainTex
   - Index: 1
     VirtualOutputIndex: 5
     Description:
@@ -54,11 +52,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 0
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _BumpMap
   - Index: 2
     VirtualOutputIndex: 6
     Description:
@@ -70,11 +68,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 0
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: 
   - Index: 3
     VirtualOutputIndex: 7
     Description:
@@ -86,11 +84,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: roughness
     InvertAssignedAlpha: 1
     Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
   HasPhysicalSize: 0
   PhysicalSize: {x: 0, y: 0, z: 0}
   EnablePhysicalSize: 0
@@ -106,6 +104,7 @@ MonoBehaviour:
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:

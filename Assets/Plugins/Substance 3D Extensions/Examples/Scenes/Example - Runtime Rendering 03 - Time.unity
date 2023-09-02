@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1269,7 +1269,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 48
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -1280,8 +1280,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This scene will eventually showcase how rendering with the $time attribute
-    works. As of plugin version 3.4.0 this does not work yet...
+  m_Text: 'This scene will eventually showcase how rendering with the <color=yellow>$time</color>
+    attribute works.
+
+
+    As of plugin version <color=magenta>3.8.0</color> this
+    does not work, though <color=yellow>$time</color> does seem to be an input you
+    can manually set yourself...'
 --- !u!222 &1775997052
 CanvasRenderer:
   m_ObjectHideFlags: 0

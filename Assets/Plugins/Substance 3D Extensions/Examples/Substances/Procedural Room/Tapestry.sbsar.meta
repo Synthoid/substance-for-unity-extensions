@@ -8,8 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: deffbeb7200a1cd40bf9c01206818c51, type: 2}
-  _fileAsset: {instanceID: 0}
-  _assetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Procedural
-    Room/Tapestry.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: 17ef7fdc72acb714aa0d288024c2719b, type: 3}

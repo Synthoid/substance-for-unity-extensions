@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: graph_runtime
   m_EditorClassIdentifier: 
   AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inputs/TestSubstance.sbsar
-  OutputPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inputs/TestSubstance_graph_runtime
-  RawData: {fileID: 0}
+  RawData: {fileID: -244192453324840774, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
   Name: graph_runtime
   IsRoot: 0
   FlagedForDelete: 0
@@ -115,14 +114,14 @@ MonoBehaviour:
   CurrentStatePreset: 
   IsRuntimeOnly: 1
   GenerateAllOutputs: 0
-  GenerateAllMipmaps: 0
+  GenerateAllMipmaps: 1
   OutputMaterial: {fileID: 2100000, guid: 75e8d8c2ea8114ecca7408ec9123cdef, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n
-    </sbspreset>\n"
+    identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
-  RenderTextures: 1
-  OutputRemaped: 1
+  RenderTextures: 0
+  OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:
@@ -297,6 +296,26 @@ MonoBehaviour:
         Data1: 1
         Data2: 1
         Data3: 1
+        NumericalDescription:
+          DefaultValue0: 0
+          DefaultValue1: 0
+          DefaultValue2: 0
+          DefaultValue3: 0
+          MinValue0: 0
+          MinValue1: 0
+          MinValue2: 0
+          MinValue3: 0
+          MaxValue0: 0
+          MaxValue1: 0
+          MaxValue2: 0
+          MaxValue3: 0
+          SliderStep0: 0
+          SliderStep1: 0
+          SliderStep2: 0
+          SliderStep3: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
     - rid: 5577785172088324381
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:

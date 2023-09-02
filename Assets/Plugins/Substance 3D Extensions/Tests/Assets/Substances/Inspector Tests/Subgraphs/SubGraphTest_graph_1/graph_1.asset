@@ -12,25 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
   m_Name: graph_1
   m_EditorClassIdentifier: 
-  AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
+  AssetPath: Assets/Plugins/Substance 3D Extensions/Tests/Assets/Substances/Inspector
     Tests/Subgraphs/SubGraphTest.sbsar
-  OutputPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
-    Tests/Subgraphs/SubGraphTest_graph_1
   RawData: {fileID: -244192453324840774, guid: 9307f27bb5da44530b7989023af589af, type: 3}
   Name: graph_1
   IsRoot: 1
   FlagedForDelete: 0
-  GUID: cb05dab4-a154-4565-9d63-634d414a9ad7
+  GUID: 2ced1a16-4aa7-4dfc-8671-41346bff41d2
   Index: 1
   Input:
-  - rid: 1000
-  - rid: 1001
-  - rid: 1002
-  - rid: 1003
-  - rid: 1004
-  - rid: 1005
-  - rid: 1006
-  - rid: 1007
+  - rid: 3039530690288812119
+  - rid: 3039530690288812120
+  - rid: 3039530690288812121
+  - rid: 3039530690288812122
+  - rid: 3039530690288812123
+  - rid: 3039530690288812124
+  - rid: 3039530690288812125
+  - rid: 3039530690288812126
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -43,11 +41,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 2800000, guid: 4e8db50fb7e9547af8325431e40c14da, type: 3}
     sRGB: 1
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _MainTex
   - Index: 1
     VirtualOutputIndex: 5
     Description:
@@ -59,11 +57,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 2800000, guid: 7de34ac205317484ebb7a1366ea7419b, type: 3}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 0
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _BumpMap
   - Index: 2
     VirtualOutputIndex: 6
     Description:
@@ -75,11 +73,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 0
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _RoughnessMap
   - Index: 3
     VirtualOutputIndex: 7
     Description:
@@ -91,32 +89,31 @@ MonoBehaviour:
     OutputTexture: {fileID: 2800000, guid: be8a39cca4f18451f94b47c0826641f4, type: 3}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: roughness
     InvertAssignedAlpha: 1
     Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
   HasPhysicalSize: 0
   PhysicalSize: {x: 0, y: 0, z: 0}
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://SubGraphTest\" label=\"\" >\n 
-    <presetinput identifier=\"$outputsize\" uid=\"2710140954\" type=\"8\" value=\"10,10\"
-    />\n </sbspreset>\n"
+  CurrentStatePreset: 
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
-  GenerateAllMipmaps: 0
+  GenerateAllMipmaps: 1
   OutputMaterial: {fileID: 2100000, guid: f65c2beee1c3947e7a974c75fefc3362, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://SubGraphTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"2710140954\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:
-    - rid: 1000
+    - rid: 3039530690288812119
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -135,7 +132,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1001
+    - rid: 3039530690288812120
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -157,7 +154,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1002
+    - rid: 3039530690288812121
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2
@@ -177,7 +174,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1003
+    - rid: 3039530690288812122
       type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 3
@@ -197,7 +194,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1004
+    - rid: 3039530690288812123
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 4
@@ -217,7 +214,7 @@ MonoBehaviour:
           SliderClamp: 1
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1005
+    - rid: 3039530690288812124
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 5
@@ -237,7 +234,7 @@ MonoBehaviour:
           SliderClamp: 1
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1006
+    - rid: 3039530690288812125
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 6
@@ -257,7 +254,7 @@ MonoBehaviour:
           SliderClamp: 1
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1007
+    - rid: 3039530690288812126
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 7

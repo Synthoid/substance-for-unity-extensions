@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssetPath: Assets/Plugins/Substance 3D Extensions/Examples/Substances/Procedural
     Room/WallPanels.sbsar
-  OutputPath: Assets\Plugins\Substance 3D Extensions\Examples\Substances\Procedural
-    Room\WallPanels_graph_Panels
   RawData: {fileID: -244192453324840774, guid: be3c05217567efd4198f77c2cdf1f7fc, type: 3}
   Name: graph_Panels
   IsRoot: 1
@@ -56,11 +54,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _MainTex
   - Index: 1
     VirtualOutputIndex: 6
     Description:
@@ -72,11 +70,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 0
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _BumpMap
   - Index: 2
     VirtualOutputIndex: 7
     Description:
@@ -88,11 +86,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 0
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: 
   - Index: 3
     VirtualOutputIndex: 8
     Description:
@@ -104,11 +102,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: roughness
     InvertAssignedAlpha: 1
     Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
   - Index: 4
     VirtualOutputIndex: 9
     Description:
@@ -120,19 +118,18 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _OcclusionMap
   HasPhysicalSize: 0
   PhysicalSize: {x: 0, y: 0, z: 0}
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://WallPanels\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"3637015431\" type=\"8\" value=\"10,10\" />\n
-    </sbspreset>\n"
+    identifier=\"$outputsize\" uid=\"3637015431\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   IsRuntimeOnly: 1
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -142,6 +139,7 @@ MonoBehaviour:
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:

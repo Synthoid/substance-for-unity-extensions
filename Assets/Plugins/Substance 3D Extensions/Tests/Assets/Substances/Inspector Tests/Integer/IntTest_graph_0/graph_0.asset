@@ -12,20 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
   m_Name: graph_0
   m_EditorClassIdentifier: 
-  AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
+  AssetPath: Assets/Plugins/Substance 3D Extensions/Tests/Assets/Substances/Inspector
     Tests/Integer/IntTest.sbsar
-  OutputPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
-    Tests/Integer/IntTest_graph_0
   RawData: {fileID: -244192453324840774, guid: afed3c6c5651644b3857f8888cf03661, type: 3}
   Name: graph_0
   IsRoot: 1
   FlagedForDelete: 0
-  GUID: ba59c98b-515a-4ad0-b895-83e481342d54
+  GUID: b710aff0-96cd-43bd-a6ac-3629109b2b4c
   Index: 0
   Input:
-  - rid: 1000
-  - rid: 1001
-  - rid: 1002
+  - rid: 3039530690288812262
+  - rid: 3039530690288812263
+  - rid: 3039530690288812264
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -38,11 +36,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 2800000, guid: 8aec7fe193a6d432a869b7d4e18fd278, type: 3}
     sRGB: 1
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _MainTex
   - Index: 1
     VirtualOutputIndex: 5
     Description:
@@ -54,11 +52,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 2800000, guid: 5433e919c554c4e35be770d0a3365449, type: 3}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 0
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _BumpMap
   - Index: 2
     VirtualOutputIndex: 6
     Description:
@@ -70,11 +68,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 0
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _RoughnessMap
   - Index: 3
     VirtualOutputIndex: 7
     Description:
@@ -86,31 +84,31 @@ MonoBehaviour:
     OutputTexture: {fileID: 2800000, guid: 991bb1faad7aa4b25856e13ed88774bc, type: 3}
     sRGB: 0
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: roughness
     InvertAssignedAlpha: 1
     Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
   HasPhysicalSize: 0
   PhysicalSize: {x: 0, y: 0, z: 0}
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://IntTest\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"461500834\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+  CurrentStatePreset: 
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
-  GenerateAllMipmaps: 0
+  GenerateAllMipmaps: 1
   OutputMaterial: {fileID: 2100000, guid: 741605a05506c4c43b4c3e42e3488e5b, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://IntTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"461500834\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:
-    - rid: 1000
+    - rid: 3039530690288812262
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -129,7 +127,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1001
+    - rid: 3039530690288812263
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -151,7 +149,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 1002
+    - rid: 3039530690288812264
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2

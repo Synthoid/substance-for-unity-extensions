@@ -5,13 +5,13 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [0.2.4] - Unreleased
+## [0.2.4] - 2023-09-02
 
-### Unreleased
-- Support for importing graphs with their names?
+### Added
+- Example scene showcasing how to work with `SceneSubstanceGraphData` and `ISubstanceProvider` classes.
 
 ### Changed
-- Updated Substance API calls to match plugin version 3.7.0's code.
+- Updated Substance API calls to match plugin version 3.8.0's code.
 
 ## [0.2.3] - 2023-01-22
 

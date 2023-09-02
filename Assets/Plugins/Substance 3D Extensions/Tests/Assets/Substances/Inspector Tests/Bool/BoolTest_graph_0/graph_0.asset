@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
   m_Name: graph_0
   m_EditorClassIdentifier: 
-  AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inspector
+  AssetPath: Assets/Plugins/Substance 3D Extensions/Tests/Assets/Substances/Inspector
     Tests/Bool/BoolTest.sbsar
-  RawData: {fileID: 0}
+  RawData: {fileID: -244192453324840774, guid: 49395dc7d9c6a4e9694f846350acfa48, type: 3}
   Name: graph_0
   IsRoot: 1
   FlagedForDelete: 0
-  GUID: d5cc1258-bf98-4752-920d-8d10cb034210
+  GUID: 78f8f016-f4b0-46be-8531-5a602b6b7376
   Index: 0
   Input:
-  - rid: 5577785172088324418
-  - rid: 5577785172088324419
-  - rid: 5577785172088324420
+  - rid: 3039530690288812185
+  - rid: 3039530690288812186
+  - rid: 3039530690288812187
   Output:
   - Index: 0
     VirtualOutputIndex: 4
@@ -33,7 +33,7 @@ MonoBehaviour:
       Index: 0
       Type: 8
       Channel: baseColor
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 400a024edda94422097cb6f959d73ffa, type: 3}
     sRGB: 1
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -49,7 +49,7 @@ MonoBehaviour:
       Index: 1
       Type: 8
       Channel: normal
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: b4ec79d56c94b4c3290c1d8cff88400c, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
       Index: 3
       Type: 8
       Channel: metallic
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 2069acfce720848aebe4b8ee96050b78, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -95,10 +95,11 @@ MonoBehaviour:
   Thumbnail: 
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://BoolTest\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"1996965375\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+    identifier=\"$outputsize\" uid=\"1996965375\" type=\"8\" value=\"10,10\" />\n
+    </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
-  GenerateAllMipmaps: 0
+  GenerateAllMipmaps: 1
   OutputMaterial: {fileID: 2100000, guid: 9e57a3ef21e144ff7b672eac04c57dda, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://BoolTest\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"1996965375\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
@@ -109,7 +110,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 5577785172088324418
+    - rid: 3039530690288812185
       type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 0
@@ -128,7 +129,7 @@ MonoBehaviour:
           SliderClamp: 0
           EnumValueCount: 0
           EnumValues: []
-    - rid: 5577785172088324419
+    - rid: 3039530690288812186
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 1
@@ -150,7 +151,7 @@ MonoBehaviour:
           LabelTrue: 
           EnumValueCount: 0
           EnumValues: []
-    - rid: 5577785172088324420
+    - rid: 3039530690288812187
       type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
         Index: 2

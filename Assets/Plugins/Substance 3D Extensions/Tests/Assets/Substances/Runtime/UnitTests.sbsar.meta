@@ -8,21 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: 93630a662be704abb9fdfd80a2596919, type: 2}
-  - {fileID: 11400000, guid: 226e948907b1f435d8d15252e006af5a, type: 2}
-  - {fileID: 11400000, guid: e82769c0324874627b5a1847bad204db, type: 2}
-  - {fileID: 11400000, guid: a0d37cc0f0cca4ddface12dc48598362, type: 2}
-  - {fileID: 11400000, guid: 9eb84a04f90474b77b97a8eb143c3dfe, type: 2}
-  - {fileID: 11400000, guid: 1ad795721965f45ab833a365f1c4e343, type: 2}
-  - {fileID: 11400000, guid: cec66c2b642d4467aa12d8ecdde05b0d, type: 2}
-  - {fileID: 11400000, guid: ebca6f0b368e14a9b9751182b4cc1ae2, type: 2}
-  - {fileID: 11400000, guid: 77459a70a04f24ff5b60944cb2093dab, type: 2}
-  - {fileID: 11400000, guid: feb379405cbf14f378f40a6e9a5f7431, type: 2}
-  - {fileID: 11400000, guid: 8bac72db099134d019acef8011210d85, type: 2}
-  - {fileID: 11400000, guid: 5b775521afba447289f2306fe4b5433a, type: 2}
-  - {fileID: 11400000, guid: c0552b1919c244792bf8cd979400305c, type: 2}
-  - {fileID: 11400000, guid: d1ff75acd888c4176808f971af867663, type: 2}
-  - {fileID: 11400000, guid: 6355538a048da4020bd7a772d2d117df, type: 2}
-  _fileAsset: {instanceID: 0}
-  _assetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Runtime/UnitTests.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: 5136ee6aee06046d4b5032a82d9c2824, type: 3}

@@ -8,7 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: 6df242de688014ea7b9c14933ef393f5, type: 2}
-  _fileAsset: {instanceID: 0}
-  _assetPath: Assets/Plugins/Substance Extensions/Assets/Color/ColorTest.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: 07e74fe7fe946432ebc36ca40373e5e2, type: 3}

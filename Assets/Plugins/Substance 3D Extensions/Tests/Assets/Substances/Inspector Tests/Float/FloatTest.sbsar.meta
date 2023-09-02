@@ -8,7 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: fc2b8b0f5118f418aa96de76085beb12, type: 2}
-  _fileAsset: {instanceID: 0}
-  _assetPath: Assets/Plugins/Substance Extensions/Assets/Float/FloatTest.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: 84389e37d495b4dc4a89d08e53f8bcd2, type: 3}

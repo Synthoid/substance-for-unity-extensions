@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: graph_runtime_int_enum
   m_EditorClassIdentifier: 
   AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Runtime/UnitTests.sbsar
-  OutputPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Runtime/UnitTests_graph_runtime_int_enum
   RawData: {fileID: -244192453324840774, guid: 5136ee6aee06046d4b5032a82d9c2824, type: 3}
   Name: graph_runtime_int_enum
   IsRoot: 1
@@ -36,11 +35,11 @@ MonoBehaviour:
     OutputTexture: {fileID: 0}
     sRGB: 1
     IsVirtual: 0
-    IsStandardOutput: 1
     IsAlphaAssignable: 1
     AlphaChannel: 
     InvertAssignedAlpha: 0
     Flags: 0
+    MaterialTextureTarget: _MainTex
   HasPhysicalSize: 0
   PhysicalSize: {x: 0, y: 0, z: 0}
   EnablePhysicalSize: 0
@@ -48,8 +47,7 @@ MonoBehaviour:
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://Int_Enum\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"3578507854\" type=\"8\" value=\"9,9\" />\n 
-    <presetinput identifier=\"shape\" uid=\"3096757534\" type=\"4\" value=\"2\" />\n
-    </sbspreset>\n"
+    <presetinput identifier=\"shape\" uid=\"3096757534\" type=\"4\" value=\"2\" />\n</sbspreset>\n"
   IsRuntimeOnly: 1
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
@@ -59,6 +57,7 @@ MonoBehaviour:
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:

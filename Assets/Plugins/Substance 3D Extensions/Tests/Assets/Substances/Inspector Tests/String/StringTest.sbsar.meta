@@ -8,8 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: 6a37a154125624db49bea3b90ad243db, type: 2}
-  - {fileID: 11400000, guid: 17e802490d72e412184b42eb1880c1e2, type: 2}
-  _fileAsset: {fileID: 349431513902975818, guid: 6cb923c6e806c40439069268188dc32c, type: 3}
-  _assetPath: Assets/Plugins/Substance Extensions/Assets/String/StringTest.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: 6cb923c6e806c40439069268188dc32c, type: 3}

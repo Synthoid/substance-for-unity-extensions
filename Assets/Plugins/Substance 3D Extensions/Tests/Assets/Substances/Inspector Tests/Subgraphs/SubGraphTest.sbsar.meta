@@ -8,8 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: 618113214d597425ea3395f8432aa17c, type: 2}
-  - {fileID: 11400000, guid: e772834eca949420d9798b9f706e1481, type: 2}
-  _fileAsset: {instanceID: 0}
-  _assetPath: Assets/Plugins/Substance Extensions/Assets/Subgraphs/SubGraphTest.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: 9307f27bb5da44530b7989023af589af, type: 3}

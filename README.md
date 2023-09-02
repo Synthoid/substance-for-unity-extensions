@@ -1,6 +1,6 @@
 # Substance 3D for Unity Extensions
 
-Plugin target version: 3.7.0
+Plugin target version: `3.8.0`
 
 Repo containing extension methods and functionality for Adobe's Substance 3D for Unity plugin.
 
@@ -18,4 +18,5 @@ Documentation can be found [here](docs/index.md).
  - Automatically update substance inputs and outputs when updating `.sbsar` files.
  - Streamlined code for runtime rendering support.
  - Utility classes for improving substance based workflows, both in code and inspectors.
- - Support for various unity packages, like [Timeline](docs/extensions/timeline/index.md).
+ - Support for various unity packages, including:
+   - [Timeline](docs/extensions/timeline/index.md)

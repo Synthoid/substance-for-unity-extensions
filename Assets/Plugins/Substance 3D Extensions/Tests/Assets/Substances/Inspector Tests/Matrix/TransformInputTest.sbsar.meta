@@ -8,7 +8,4 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
-  _instancesCopy:
-  - {fileID: 11400000, guid: b6518edd442dd4dc2b0dc1b4cc84b2ba, type: 2}
-  _fileAsset: {instanceID: 0}
-  _assetPath: Assets/Plugins/Substance Extensions/Assets/Matrix/TransformInputTest.sbsar
+  _fileAsset: {fileID: 6013892654665635331, guid: e0cf83c88417744fca86f9e1fab04e80, type: 3}

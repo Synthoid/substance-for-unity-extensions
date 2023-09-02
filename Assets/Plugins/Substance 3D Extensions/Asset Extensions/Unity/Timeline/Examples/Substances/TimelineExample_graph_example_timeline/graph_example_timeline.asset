@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: graph_example_timeline
   m_EditorClassIdentifier: 
   AssetPath: Assets/Plugins/Substance 3D Extensions/Asset Extensions/Unity/Timeline/Examples/Substances/TimelineExample.sbsar
-  OutputPath: Assets/Plugins/Substance 3D Extensions/Asset Extensions/Unity/Timeline/Examples/Substances/TimelineExample_graph_example_timeline
   RawData: {fileID: -244192453324840774, guid: 831788cf0d3374dd49b2b286fd75c146, type: 3}
   Name: graph_example_timeline
   IsRoot: 1
@@ -77,7 +76,7 @@ MonoBehaviour:
       Index: 2
       Type: 8
       Channel: roughness
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: d5e58c5082b539443bc7cdf48f6f4031, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -117,11 +116,11 @@ MonoBehaviour:
   GenerateAllMipmaps: 1
   OutputMaterial: {fileID: 2100000, guid: dab16bfe389b60f4e8667b15c1ef3703, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://TimelineExample\" label=\"\" >\n  <presetinput
-    identifier=\"$outputsize\" uid=\"3886396035\" type=\"8\" value=\"10,10\" />\n
-    </sbspreset>\n"
+    identifier=\"$outputsize\" uid=\"3886396035\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
   MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
+  Presets: []
   references:
     version: 2
     RefIds:

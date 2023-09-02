@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Scene Substance Graphs - Example
   m_EditorClassIdentifier: 
   graphs:
+  - {fileID: 11400000, guid: 1472600a57373594c85c296ee55c1965, type: 2}
+  - {fileID: 11400000, guid: b148cc31b97f95348b6e7afebaa0a171, type: 2}
   - {fileID: 11400000, guid: deffbeb7200a1cd40bf9c01206818c51, type: 2}
