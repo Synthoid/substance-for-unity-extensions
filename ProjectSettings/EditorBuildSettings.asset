@@ -6,6 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Tests/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Plugins/Substance 3D Extensions/Examples/Scenes/Example - Engine
+      Interactions (Scripting).unity
+    guid: d82629f1304d2bc4cbade7062e2e4d1d
   m_configObjects: {}

@@ -5,13 +5,21 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.2.5] - Unreleased
+
+### Unreleased
+- Support for importing graphs with their names?
+
+### Added
+- `SubstanceEngineManager` class for conveniently initializing and shutting down the substance engine.
+
 ## [0.2.4] - 2023-09-02
 
 ### Added
 - Example scene showcasing how to work with `SceneSubstanceGraphData` and `ISubstanceProvider` classes.
 
 ### Changed
-- Updated Substance API calls to match plugin version 3.8.0's code.
+- Updated Substance API calls to match plugin version `3.8.0`'s code.
 
 ## [0.2.3] - 2023-01-22
 
@@ -84,7 +92,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Unit tests for interacting with substance assets and runtime graphs.
 
 ### Changed
-- Updated supported plugin version to 3.4.0 release.
+- Updated supported plugin version to `3.4.0` release.
 - Renamed root "Substance Extensions" folder to "Substance 3D Extensions"
 - `SubstanceParameter` and `SubstanceOutput` now target `SubstanceGraphSO` instead of `SubstanceFileSO` assets.
 - `SubstanceParameter` and `SubstanceOutput` popup search windows now display the name of the graph being interacted with.
@@ -121,7 +129,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [0.1.0] - 2022-06-6
 
 ### Added
-- Support for Substance3D for Unity v0.0.100. For 0.0.90 and older, use [0.0.9].
+- Support for Substance3D for Unity v`0.0.100`. For `0.0.90` and older, use [0.0.9].
 
 ### Changed
 - SubstanceParameter selection now use graph names for input path labels instead of generic index numbers.
