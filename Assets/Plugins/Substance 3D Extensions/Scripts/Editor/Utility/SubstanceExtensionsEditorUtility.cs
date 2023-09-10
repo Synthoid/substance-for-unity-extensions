@@ -582,9 +582,9 @@ namespace SOS.SubstanceExtensionsEditor
                 //Render any graphs that need their output textures updated...
                 if(updateResult.newOutputGraphs.Contains(Instances[i]))
                 {
-                    SubstanceReflectionEditorUtility.InitializeInstance(Instances[i], null);
+                    SubstanceReflectionEditorUtility.InitializeInstance(Instances[i], null, out SubstanceGraphSO matchingInstance);
 
-                    if(SubstanceReflectionEditorUtility.TryGetHandlerFromInstance(Instances[i], out SubstanceNativeGraph handler))
+                    if(SubstanceReflectionEditorUtility.TryGetHandlerFromInstance(matchingInstance, out SubstanceNativeGraph handler))
                     {
                         Instances[i].RuntimeInitialize(handler, Instances[i].IsRuntimeOnly);
 

@@ -114,7 +114,7 @@ public class SubstanceTestWindow : EditorWindow
 
         if(!success)
         {
-            SubstanceReflectionEditorUtility.InitializeInstance(substance, substance.AssetPath);
+            SubstanceReflectionEditorUtility.InitializeInstance(substance, substance.AssetPath, out _);
             //InitializeInstanceInfo.Invoke(EditorEngineInstance, new object[] { substance, substance.AssetPath });
 
             //success = (bool)TryGetHandlerFromInstanceInfo.Invoke(EditorEngineInstance, parameters);

@@ -1,22 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Adobe.Substance;
+using Adobe.Substance.Runtime;
 
 namespace SOS.SubstanceExtensions.Examples
 {
     /// <summary>
-    /// Example showcasing how to interact with and listen for runtime engine events via scripting.
+    /// Example showcasing how to interact with and listen for runtime engine events while supporting Adobe's SubstanceRuntimeGraph class.
     /// </summary>
-    public class EngineInteractionsExample : MonoBehaviour
+    public class EngineInteractionsCompatibleExample : MonoBehaviour
     {
         [SerializeField, Tooltip("Substance to render after initializing the engine.")]
-        private SubstanceGraphSO substance = null;
+        private SubstanceRuntimeGraph substance = null;
         [SerializeField, Tooltip("Parameter for the target substance's hue value.")]
-        private SubstanceParameter hueParameter = new SubstanceParameter();
+        private string hueParameter = "hue";
         [SerializeField, Tooltip("Parameter for the target substance's perlin noise disorder.")]
-        private SubstanceParameter disorderParameter = new SubstanceParameter();
+        private string disorderParameter = "disorder";
         [SerializeField, Tooltip("Parameter for the target substance's pattern scale.")]
-        private SubstanceParameter scaleParameter = new SubstanceParameter();
+        private string scaleParameter = "scale";
         [Header("Controls")]
         [SerializeField, Tooltip("Button clicked to initialize the substance engine.")]
         private Button initializeButton = null;
@@ -61,13 +62,11 @@ namespace SOS.SubstanceExtensions.Examples
             //Render the target substance...
             if(substance != null)
             {
-                SubstanceNativeGraph nativeGraph = substance.BeginRuntimeEditing();
+                substance.SetInputFloat(hueParameter, Random.Range(0f, 1f));
+                substance.SetInputFloat(disorderParameter, Random.Range(0f, 1f));
+                substance.SetInputFloat(scaleParameter, Random.Range(0.1f, 0.9f));
 
-                nativeGraph.SetInputFloat(hueParameter.Index, Random.Range(0f, 1f));
-                nativeGraph.SetInputFloat(disorderParameter.Index, Random.Range(0f, 1f));
-                nativeGraph.SetInputFloat(scaleParameter.Index, Random.Range(0.1f, 0.9f));
-
-                substance.EndRuntimeEditing(nativeGraph);
+                substance.Render();
             }
         }
 
@@ -75,9 +74,6 @@ namespace SOS.SubstanceExtensions.Examples
         private void OnEnginePreShutdown()
         {
             Debug.Log("Engine PRE Shutdown!");
-
-            //Clear cached substance native graphs. This is important as any native graphs not cleared will throw errors if used again.
-            SubstanceGraphRuntimeExtensions.ClearCachedGraphs();
         }
 
 

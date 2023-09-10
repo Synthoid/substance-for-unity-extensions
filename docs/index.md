@@ -29,6 +29,13 @@ These attributes streamline working with substance assets in your inspectors.
 | [TransformMatrixAttribute](scripting/Attributes/TransformMatrixAttribute.md) | Draws a `Vector4` field with similar controls to Substance Designer's transform matrix fields. |
 | [SubstanceInputTypeFilterAttribute](scripting/Attributes/SubstanceInputTypeFilterAttribute.md) | Filters selectable inputs for `SubstanceParameter` fields. |
 
+## Engine
+These classes streamline interactions with the core Substance `Engine` class.
+
+| Class | Description |
+| ----- | ----------- |
+| [SubstanceEngineManager](scripting/Engine/SubstanceEngineManager.md) | Wraps the Substance plugin's `Engine` class and streamlines interactions with it. |
+
 ## Package Extensions
 
 Extended functionality to support various Unity packages.

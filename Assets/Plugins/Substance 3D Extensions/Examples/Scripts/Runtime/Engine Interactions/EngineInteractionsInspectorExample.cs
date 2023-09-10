@@ -5,9 +5,9 @@ using Adobe.Substance;
 namespace SOS.SubstanceExtensions.Examples
 {
     /// <summary>
-    /// Example showcasing how to interact with and listen for runtime engine events via scripting.
+    /// Example showcasing how to interact with and listen for runtime engine events via the inspector.
     /// </summary>
-    public class EngineInteractionsExample : MonoBehaviour
+    public class EngineInteractionsInspectorExample : MonoBehaviour
     {
         [SerializeField, Tooltip("Substance to render after initializing the engine.")]
         private SubstanceGraphSO substance = null;
@@ -38,7 +38,7 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
 
-        private void OnInitializeClicked()
+        public void OnInitializeClicked()
         {
             SubstanceEngineManager.Instance.InitializeEngine();
 
@@ -46,7 +46,7 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
 
-        private void OnShutdownClicked()
+        public void OnShutdownClicked()
         {
             SubstanceEngineManager.Instance.ShutdownEngine();
 
@@ -54,7 +54,7 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
 
-        private void OnEngineInitialized()
+        public void OnEngineInitialized()
         {
             Debug.Log("Engine Initialized!");
 
@@ -72,7 +72,7 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
 
-        private void OnEnginePreShutdown()
+        public void OnEnginePreShutdown()
         {
             Debug.Log("Engine PRE Shutdown!");
 
@@ -81,7 +81,7 @@ namespace SOS.SubstanceExtensions.Examples
         }
 
 
-        private void OnEnginePostShutdown()
+        public void OnEnginePostShutdown()
         {
             Debug.Log("Engine POST Shutdown!");
         }
@@ -89,13 +89,6 @@ namespace SOS.SubstanceExtensions.Examples
 
         private void Start()
         {
-            SubstanceEngineManager.Instance.onEngineInitialized.AddListener(OnEngineInitialized);
-            SubstanceEngineManager.Instance.onEnginePreShutdown.AddListener(OnEnginePreShutdown);
-            SubstanceEngineManager.Instance.onEnginePostShutdown.AddListener(OnEnginePostShutdown);
-
-            initializeButton.onClick.AddListener(OnInitializeClicked);
-            shutdownButton.onClick.AddListener(OnShutdownClicked);
-
             RefreshButtons();
         }
     }

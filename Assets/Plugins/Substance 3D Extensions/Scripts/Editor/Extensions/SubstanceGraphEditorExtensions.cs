@@ -6,6 +6,9 @@ using Adobe.SubstanceEditor;
 
 namespace SOS.SubstanceExtensionsEditor
 {
+    /// <summary>
+    /// Contains extension methods for SubstanceGraphSO editor functionality.
+    /// </summary>
     public static class SubstanceGraphEditorExtensions
     {
         /// <summary>

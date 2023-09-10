@@ -17,8 +17,8 @@ using SOS.SubstanceExtensions;
 
 public class SceneSubstanceGraphdDataExample : MonoBehaviour
 {
-    [Tooltip("Data for substances in the scene.")]
-    public SceneSubstanceGraphData substances = null;
+	[Tooltip("Data for substances in the scene.")]
+	public SceneSubstanceGraphData substances = null;
 	
 	private void Start()
 	{

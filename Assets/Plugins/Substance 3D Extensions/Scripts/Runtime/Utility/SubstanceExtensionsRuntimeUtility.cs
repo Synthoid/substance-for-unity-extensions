@@ -188,7 +188,11 @@ namespace SOS.SubstanceExtensions
         {
             if(string.IsNullOrEmpty(cachedEnginePath))
             {
+#if UNITY_EDITOR
                 cachedEnginePath = string.Format("{0}{1}", Application.dataPath, GetEngineLocalPath().Substring(6));
+#else
+                cachedEnginePath = string.Format("{0}/{1}", Application.dataPath, GetEngineLocalPath());
+#endif
             }
 
             return cachedEnginePath;
@@ -299,7 +303,11 @@ namespace SOS.SubstanceExtensions
         {
             if(string.IsNullOrEmpty(cachedPluginPath))
             {
+#if UNITY_EDITOR
                 cachedPluginPath = string.Format("{0}{1}", Application.dataPath, GetPluginLocalPath().Substring(6));
+#else
+                cachedPluginPath = string.Format("{0}/{1}", Application.dataPath, GetPluginLocalPath());
+#endif
             }
 
             return cachedPluginPath;

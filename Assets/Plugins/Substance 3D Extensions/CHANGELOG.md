@@ -5,13 +5,13 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [0.2.5] - Unreleased
-
-### Unreleased
-- Support for importing graphs with their names?
+## [0.2.5] - 2023-09-10
 
 ### Added
 - `SubstanceEngineManager` class for conveniently initializing and shutting down the substance engine.
+
+### Changed
+- Updated `SubstanceReflectionEditorUtility.InitializeInstance()` to match the new structure of its reflection target method.
 
 ## [0.2.4] - 2023-09-02
 

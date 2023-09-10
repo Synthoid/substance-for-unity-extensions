@@ -18,6 +18,7 @@ namespace SOS.SubstanceExtensionsEditor
         private static Type importerEditorType = null;
         //Properties
         private static PropertyInfo instanceInfo = null;
+        private static PropertyInfo isInitializedInfo = null;
         //Methods
         private static MethodInfo submitAsyncRenderWorkInfo = null;
         private static MethodInfo initializeInstanceInfo = null;
@@ -91,6 +92,19 @@ namespace SOS.SubstanceExtensionsEditor
             }
         }
 
+        public static PropertyInfo IsInitializedInfo
+        {
+            get
+            {
+                if(isInitializedInfo == null)
+                {
+                    isInitializedInfo = EditorEngineType.GetProperty("IsInitialized", BindingFlags.Public | BindingFlags.Instance);
+                }
+
+                return isInitializedInfo;
+            }
+        }
+
         public static MethodInfo SubmitAsyncRenderWorkInfo
         {
             get
@@ -143,6 +157,9 @@ namespace SOS.SubstanceExtensionsEditor
             }
         }
 
+        /// <summary>
+        /// Returns a reference to the editor engine instance.
+        /// </summary>
         public static object EditorEngineInstance
         {
             get
@@ -153,6 +170,17 @@ namespace SOS.SubstanceExtensionsEditor
                 }
 
                 return editorEngineInstance;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the editor engine instance has been initialized.
+        /// </summary>
+        public static bool EditorEngineIsInitialized
+        {
+            get
+            {
+                return (bool)IsInitializedInfo.GetValue(editorEngineInstance);
             }
         }
 
@@ -189,9 +217,23 @@ namespace SOS.SubstanceExtensionsEditor
         /// </summary>
         /// <param name="substanceInstance">Graph to load a native graph for.</param>
         /// <param name="instancePath">Unique path for the asset.</param>
-        public static void InitializeInstance(SubstanceGraphSO substanceInstance, string instancePath)
+        /// <param name="matchingInstance">Cached instance of the target graph that can be used to retrieve cached SubstanceNativeGraph handles.</param>
+        public static void InitializeInstance(SubstanceGraphSO substanceInstance, string instancePath, out SubstanceGraphSO matchingInstance)
         {
-            InitializeInstanceInfo.Invoke(EditorEngineInstance, new object[] { substanceInstance, instancePath });
+            SubstanceGraphSO newMatchingInstance = null;
+
+            object[] parameters = new object[]
+            {
+                substanceInstance,
+                instancePath,
+                newMatchingInstance
+            };
+
+            initializeInstanceInfo.Invoke(EditorEngineInstance, parameters);
+
+            newMatchingInstance = (SubstanceGraphSO)parameters[2];
+
+            matchingInstance = newMatchingInstance;
         }
 
         /// <summary>
