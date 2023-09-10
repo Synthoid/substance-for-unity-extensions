@@ -129,6 +129,9 @@ namespace SOS.SubstanceExtensions
             set { m_OnEnginePostShutdown = value; }
         }
 
+        /// <summary>
+        /// Initialize the substance engine. Note: This will do nothing if the engine is already initialized.
+        /// </summary>
         public void InitializeEngine()
         {
             if(IsInitialized)
@@ -157,7 +160,9 @@ namespace SOS.SubstanceExtensions
             onEngineInitialized.Invoke();
         }
 
-
+        /// <summary>
+        /// Shutdown the substance engine.  Note: This will do nothing if the engine is not currently initialized.
+        /// </summary>
         public void ShutdownEngine()
         {
             if(!IsInitialized) return;

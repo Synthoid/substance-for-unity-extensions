@@ -55,5 +55,5 @@ public class SubstanceParameterExample : MonoBehaviour
 
 | Method | Returns | Description |
 | ------ | ------- | ----------- |
-| InitializeEngine() | void | Set the input values on the graph asset to match the inputs on the given native graph. |
-| ShutdownEngine() | void | Displose all cached runtime native graphs and clear the dictionary cache. |
+| InitializeEngine() | void | Initialize the substance engine. Note: This will do nothing if the engine is already initialized. |
+| ShutdownEngine() | void | Shutdown the substance engine. Note: This will do nothing if the engine is not currently initialized. |
