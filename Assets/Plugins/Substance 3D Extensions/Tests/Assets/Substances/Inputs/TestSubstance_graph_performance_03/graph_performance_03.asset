@@ -1,0 +1,556 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: graph_performance_03
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/Plugins/Substance 3D Extensions/Tests/Assets/Substances/Inputs/TestSubstance.sbsar
+  RawData: {fileID: -244192453324840774, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
+  Name: graph_performance_03
+  IsRoot: 0
+  FlagedForDelete: 0
+  GUID: de3247e2-99d5-4351-a0cb-91afa2199699
+  Index: 0
+  Input:
+  - rid: 3039531007923978303
+  - rid: 3039531007923978304
+  - rid: 3039531007923978305
+  - rid: 3039531007923978306
+  - rid: 3039531007923978307
+  - rid: 3039531007923978308
+  - rid: 3039531007923978309
+  - rid: 3039531007923978310
+  - rid: 3039531007923978311
+  - rid: 3039531007923978312
+  - rid: 3039531007923978313
+  - rid: 3039531007923978314
+  - rid: 3039531007923978315
+  - rid: 3039531007923978316
+  - rid: 3039531007923978317
+  - rid: 3039531007923978318
+  - rid: 3039531007923978319
+  - rid: 3039531007923978320
+  - rid: 3039531007923978321
+  - rid: 3039531007923978322
+  - rid: 3039531007923978323
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 4
+    Description:
+      Identifier: basecolor
+      Label: basecolor
+      Index: 0
+      Type: 8
+      Channel: baseColor
+    OutputTexture: {fileID: 0}
+    sRGB: 1
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _MainTex
+  - Index: 1
+    VirtualOutputIndex: 5
+    Description:
+      Identifier: normal
+      Label: normal
+      Index: 1
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  - Index: 2
+    VirtualOutputIndex: 6
+    Description:
+      Identifier: roughness
+      Label: roughness
+      Index: 2
+      Type: 8
+      Channel: roughness
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _RoughnessMap
+  - Index: 3
+    VirtualOutputIndex: 7
+    Description:
+      Identifier: metallic
+      Label: metallic
+      Index: 3
+      Type: 8
+      Channel: metallic
+    OutputTexture: {fileID: 0}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: roughness
+    InvertAssignedAlpha: 1
+    Flags: 0
+    MaterialTextureTarget: _MetallicGlossMap
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  HasThumbnail: 0
+  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n 
+    <presetinput identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\"
+    />\n </sbspreset>\n"
+  IsRuntimeOnly: 1
+  GenerateAllOutputs: 0
+  GenerateAllMipmaps: 1
+  OutputMaterial: {fileID: 2100000, guid: c0867d36a2a642e4bab6ca6766647dea, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://TestSubstance\" label=\"\" >\n  <presetinput
+    identifier=\"$outputsize\" uid=\"4071982586\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
+  MaterialShader: Standard
+  RenderTextures: 0
+  OutputRemaped: 0
+  Presets: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3039531007923978303
+      type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 0
+        Description:
+          Identifier: $outputsize
+          Label: $outputsize
+          GuiGroup: 
+          GuiDescription: 
+          Type: 5
+          WidgetType: 0
+        Data: {x: 10, y: 10}
+        NumericalDescription:
+          DefaultValue: {x: 8, y: 8}
+          MinValue: {x: 0, y: 0}
+          MaxValue: {x: 1, y: 1}
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978304
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 1
+        Description:
+          Identifier: $randomseed
+          Label: $randomseed
+          GuiGroup: 
+          GuiDescription: 
+          Type: 4
+          WidgetType: 0
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978305
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 2
+        Description:
+          Identifier: inputBool
+          Label: Bool
+          GuiGroup: Test Parameters
+          GuiDescription: A test bool input parameter.
+          Type: 4
+          WidgetType: 4
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978306
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 3
+        Description:
+          Identifier: inputEnum
+          Label: Enum
+          GuiGroup: Test Parameters
+          GuiDescription: A test integer1 input parameter set up as an enum dropdown.
+          Type: 4
+          WidgetType: 5
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 5
+          EnumValues:
+          - Value: 0
+            Label: Black
+          - Value: 1
+            Label: White
+          - Value: 5
+            Label: Red
+          - Value: 15
+            Label: Blue
+          - Value: 10
+            Label: Green
+    - rid: 3039531007923978307
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 4
+        Description:
+          Identifier: inputInt
+          Label: Int1
+          GuiGroup: Test Parameters
+          GuiDescription: A test integer1 input parameter set up as a slider.
+          Type: 4
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 10
+          SliderStep: 1
+          SliderClamp: 1
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978308
+      type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 5
+        Description:
+          Identifier: inputInt2
+          Label: Int2
+          GuiGroup: Test Parameters
+          GuiDescription: A test integer2 input parameter.
+          Type: 5
+          WidgetType: 1
+        Data: {x: 1, y: 1}
+        NumericalDescription:
+          DefaultValue: {x: 1, y: 1}
+          MinValue: {x: 0, y: 0}
+          MaxValue: {x: 10, y: 10}
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978309
+      type: {class: SubstanceInputInt3, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 6
+        Description:
+          Identifier: inputInt3
+          Label: Int3
+          GuiGroup: Test Parameters
+          GuiDescription: A test integer3 input parameter.
+          Type: 6
+          WidgetType: 1
+        Data: {x: 1, y: 1, z: 1}
+        NumericalDescription:
+          DefaultValue: {x: 1, y: 1, z: 1}
+          MinValue: {x: 0, y: 0, z: 0}
+          MaxValue: {x: 10, y: 10, z: 10}
+          SliderStep: {x: 0, y: 0, z: 0}
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978310
+      type: {class: SubstanceInputInt4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 7
+        Description:
+          Identifier: inputInt4
+          Label: Int4
+          GuiGroup: Test Parameters
+          GuiDescription: A test integer4 input parameter.
+          Type: 7
+          WidgetType: 1
+        Data0: 1
+        Data1: 1
+        Data2: 1
+        Data3: 1
+        NumericalDescription:
+          DefaultValue0: 1
+          DefaultValue1: 1
+          DefaultValue2: 1
+          DefaultValue3: 1
+          MinValue0: 0
+          MinValue1: 0
+          MinValue2: 0
+          MinValue3: 0
+          MaxValue0: 10
+          MaxValue1: 10
+          MaxValue2: 10
+          MaxValue3: 10
+          SliderStep0: 0
+          SliderStep1: 0
+          SliderStep2: 0
+          SliderStep3: 0
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978311
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 8
+        Description:
+          Identifier: inputFloat1
+          Label: Float1
+          GuiGroup: Test Parameters
+          GuiDescription: A test float1 input parameter.
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978312
+      type: {class: SubstanceInputFloat2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 9
+        Description:
+          Identifier: inputFloat2
+          Label: Float2
+          GuiGroup: Test Parameters
+          GuiDescription: A test float2 input parameter.
+          Type: 1
+          WidgetType: 7
+        Data: {x: 0, y: 0}
+        NumericalDescription:
+          DefaultValue: {x: 0, y: 0}
+          MinValue: {x: 0, y: 0}
+          MaxValue: {x: 0, y: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978313
+      type: {class: SubstanceInputFloat3, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 10
+        Description:
+          Identifier: inputFloat3
+          Label: Float3
+          GuiGroup: Test Parameters
+          GuiDescription: A test float3 input parameter.
+          Type: 2
+          WidgetType: 3
+        Data: {x: 1, y: 1, z: 1}
+        NumericalDescription:
+          DefaultValue: {x: 1, y: 1, z: 1}
+          MinValue: {x: 0, y: 0, z: 0}
+          MaxValue: {x: 0, y: 0, z: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978314
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 11
+        Description:
+          Identifier: inputFloat4
+          Label: Float4
+          GuiGroup: Test Parameters
+          GuiDescription: A test float4 input parameter.
+          Type: 3
+          WidgetType: 1
+        Data: {x: 1, y: 1, z: 1, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 1, y: 1, z: 1, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 1, y: 1, z: 1, w: 1}
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978315
+      type: {class: SubstanceInputString, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 12
+        Description:
+          Identifier: inputString
+          Label: String
+          GuiGroup: Test Parameters
+          GuiDescription: A test string input parameter.
+          Type: 9
+          WidgetType: 0
+        Data: Test
+    - rid: 3039531007923978316
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 13
+        Description:
+          Identifier: color
+          Label: Base
+          GuiGroup: Colors
+          GuiDescription: 
+          Type: 3
+          WidgetType: 3
+        Data: {x: 0, y: 0, z: 0, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 0, y: 0, z: 0, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978317
+      type: {class: SubstanceInputFloat4, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 14
+        Description:
+          Identifier: textColor
+          Label: Text
+          GuiGroup: Colors
+          GuiDescription: 
+          Type: 3
+          WidgetType: 3
+        Data: {x: 1, y: 1, z: 1, w: 1}
+        NumericalDescription:
+          DefaultValue: {x: 1, y: 1, z: 1, w: 1}
+          MinValue: {x: 0, y: 0, z: 0, w: 0}
+          MaxValue: {x: 0, y: 0, z: 0, w: 0}
+          SliderStep: 0
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978318
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 15
+        Description:
+          Identifier: rough
+          Label: Base
+          GuiGroup: Rough
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978319
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 16
+        Description:
+          Identifier: textRough
+          Label: Text
+          GuiGroup: Rough
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.5
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978320
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 17
+        Description:
+          Identifier: metallic
+          Label: Base
+          GuiGroup: Metallic
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978321
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 18
+        Description:
+          Identifier: textMetallic
+          Label: Text
+          GuiGroup: Metallic
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 3039531007923978322
+      type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 19
+        Description:
+          Identifier: inputColorImage
+          Label: Test Image
+          GuiGroup: Test Parameters
+          GuiDescription: 
+          Type: 8
+          WidgetType: 6
+        Data: {fileID: 0}
+    - rid: 3039531007923978323
+      type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 20
+        Description:
+          Identifier: inputGrayscaleImage
+          Label: Test Grayscale Image
+          GuiGroup: Test Parameters
+          GuiDescription: 
+          Type: 8
+          WidgetType: 6
+        Data: {fileID: 0}

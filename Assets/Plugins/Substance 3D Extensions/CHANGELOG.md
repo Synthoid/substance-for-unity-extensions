@@ -5,6 +5,11 @@ All notable changes to the Substance3D For Unity Extensions package will be docu
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.2.6] - Unreleased
+
+### Unreleased
+- Support for importing graphs with their names?
+
 ## [0.2.5] - 2023-09-10
 
 ### Added

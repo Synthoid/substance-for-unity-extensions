@@ -161,7 +161,7 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
-        /// Shutdown the substance engine.  Note: This will do nothing if the engine is not currently initialized.
+        /// Shutdown the substance engine. Note: This will do nothing if the engine is not currently initialized.
         /// </summary>
         public void ShutdownEngine()
         {

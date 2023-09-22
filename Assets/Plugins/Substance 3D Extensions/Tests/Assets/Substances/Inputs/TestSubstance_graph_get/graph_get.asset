@@ -15,7 +15,7 @@ MonoBehaviour:
   AssetPath: Assets/Plugins/Substance Extensions/Tests/Assets/Substances/Inputs/TestSubstance.sbsar
   RawData: {fileID: -244192453324840774, guid: 3f4a63289bc3f4c129d168c64fdab6ed, type: 3}
   Name: graph_get
-  IsRoot: 1
+  IsRoot: 0
   FlagedForDelete: 0
   GUID: ee58749a-f578-4dc2-8331-54a86abc42b0
   Index: 0

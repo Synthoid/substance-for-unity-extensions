@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bdc60db348c14c4994ccea23e56c5dc, type: 3}
+  m_Name: SRG Input Value Profile - Performance
+  m_EditorClassIdentifier: 
+  values:
+  - rid: 3039531028290994176
+  - rid: 3039531028290994177
+  - rid: 3039531028290994178
+  - rid: 3039531028290994179
+  references:
+    version: 2
+    RefIds:
+    - rid: 3039531028290994176
+      type: {class: SRG_RandomColorGradient, ns: SOS.SubstanceExtensions, asm: SOS.SubstanceExtensions.Runtime}
+      data:
+        inputName: color
+        colors:
+          serializedVersion: 2
+          key0: {r: 0, g: 0, b: 0, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+    - rid: 3039531028290994177
+      type: {class: SRG_RandomStringList, ns: SOS.SubstanceExtensions, asm: SOS.SubstanceExtensions.Runtime}
+      data:
+        inputName: inputString
+        strings:
+        - Wam!
+        - Zock!
+        - Pow!
+    - rid: 3039531028290994178
+      type: {class: SRG_RandomFloatRange, ns: SOS.SubstanceExtensions, asm: SOS.SubstanceExtensions.Runtime}
+      data:
+        inputName: rough
+        min: 0
+        max: 1
+    - rid: 3039531028290994179
+      type: {class: SRG_RandomIntList, ns: SOS.SubstanceExtensions, asm: SOS.SubstanceExtensions.Runtime}
+      data:
+        inputName: inputEnum
+        ints: 0000000001000000050000000a0000000f000000

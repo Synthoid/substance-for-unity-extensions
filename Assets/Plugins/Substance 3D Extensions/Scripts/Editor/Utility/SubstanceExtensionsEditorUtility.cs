@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using SOS.SubstanceExtensions;
 using Adobe.Substance;
 using Adobe.Substance.Input;
@@ -595,6 +596,37 @@ namespace SOS.SubstanceExtensionsEditor
             }
 
             return success;
+        }
+
+        #endregion
+
+        #region TypeCache
+
+        public static List<AddMenuData> GetAddMenuData(Type baseClass, bool sort=true)
+        {
+            List<AddMenuData> menuData = new List<AddMenuData>();
+
+            GetAddMenuData(baseClass, menuData, sort);
+
+            return menuData;
+        }
+
+
+        public static void GetAddMenuData(Type baseClass, List<AddMenuData> menuData, bool sort=true)
+        {
+            List<Type> types = TypeCache.GetTypesDerivedFrom(baseClass).ToList();
+
+            for(int i=types.Count - 1; i >= 0; i--)
+            {
+                if(types[i].IsAbstract) continue;
+
+                menuData.Add(new AddMenuData(types[i]));
+            }
+
+            if(sort)
+            {
+                menuData.Sort((a, b) => { return a.PathLabel.text.CompareTo(b.PathLabel.text); });
+            }
         }
 
         #endregion
