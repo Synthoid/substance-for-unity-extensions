@@ -7,7 +7,7 @@ namespace SOS.SubstanceExtensions
     /// </summary>
     [System.Serializable]
     [AddMenu("Color/Random/Gradient")]
-    public class SubstanceRandomColorGradient : SubstanceColorValue
+    public class SubstanceRandomColorGradient : SubstanceColorInputValue
     {
         [SerializeField, Tooltip("Possible color values.")]
         protected Gradient colors = new Gradient()

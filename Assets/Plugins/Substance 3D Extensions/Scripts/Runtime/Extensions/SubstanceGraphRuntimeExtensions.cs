@@ -47,7 +47,7 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
-        /// Get the cahced native graph associated with the given graph asset.
+        /// Get the cached native graph associated with the given graph asset.
         /// </summary>
         /// <param name="graph">Graph associated with the chached native graph.</param>
         /// <param name="create">If true, graphs without a cached native graph will have a native graph generated and cached.</param>
@@ -122,7 +122,7 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
-        /// Render the graph. If the graph has not been initialized for runtime, it will be initialized as part of this operation.
+        /// Render the graph. This will resize the graph's textures if needed. If the graph has not been initialized for runtime, it will be initialized as part of this operation.
         /// </summary>
         /// <param name="graph">Graph to render.</param>
         public static void Render(this SubstanceGraphSO graph)
@@ -131,7 +131,7 @@ namespace SOS.SubstanceExtensions
         }
 
         /// <summary>
-        /// Render the graph with the given native graph handle.
+        /// Render the graph with the given native graph handle. This will resize the graph's textures if needed.
         /// </summary>
         /// <param name="graph">Graph to render.</param>
         /// <param name="nativeGraph">Native graph used for rendering.</param>
@@ -167,6 +167,54 @@ namespace SOS.SubstanceExtensions
             await renderTask;
 
             UpdateOutputTextureSizes(graph, renderTask.Result);
+        }
+
+        /// <summary>
+        /// Render the graph. If the graph has not been initialized for runtime, it will be initialized as part of this operation. Note: This will not resize the graph's textures if the $outputsize value has changed. To update textures, call <see cref="Render(SubstanceGraphSO)"/>.
+        /// </summary>
+        /// <param name="graph">Graph to render.</param>
+        public static void RenderFast(this SubstanceGraphSO graph)
+        {
+            RenderFast(graph, GetCachedNativeGraph(graph, true));
+        }
+
+        /// <summary>
+        /// Render the graph with the given native graph handle. Note: This will not resize the graph's textures if the $outputsize value has changed. To update textures, call <see cref="Render(SubstanceGraphSO, SubstanceNativeGraph)"/>.
+        /// </summary>
+        /// <param name="graph">Graph to render.</param>
+        /// <param name="nativeGraph">Native graph used for rendering.</param>
+        public static void RenderFast(this SubstanceGraphSO graph, SubstanceNativeGraph nativeGraph)
+        {
+            IntPtr renderResult = nativeGraph.Render();
+
+            graph.UpdateOutputTextures(renderResult);
+        }
+
+        /// <summary>
+        /// Asynchronously render the graph. Note: This will not resize the graph's textures if the $outputsize value has changed. To update textures, call <see cref="RenderAsync(SubstanceGraphSO)"/>.
+        /// </summary>
+        /// <param name="graph">Graph to render.</param>
+        /// <returns><see cref="Task"/> for the render operation.</returns>
+        public static Task RenderFastAsync(this SubstanceGraphSO graph)
+        {
+            return RenderFastAsync(graph, GetCachedNativeGraph(graph, true));
+        }
+
+        /// <summary>
+        /// Asynchronously render the graph using the given native graph. Note: This will not resize the graph's textures if the $outputsize value has changed. To update textures, call <see cref="RenderAsync(SubstanceGraphSO, SubstanceNativeGraph)"/>.
+        /// </summary>
+        /// <param name="graph">Graph to render.</param>
+        /// <param name="nativeGraph">Native graph used for the render operation.</param>
+        /// <returns><see cref="Task"/> for the render operation.</returns>
+        public static async Task RenderFastAsync(this SubstanceGraphSO graph, SubstanceNativeGraph nativeGraph)
+        {
+            if(nativeGraph == null) return;
+
+            Task<IntPtr> renderTask = nativeGraph.RenderAsync();
+
+            await renderTask;
+
+            graph.UpdateOutputTextures(renderTask.Result);
         }
 
         /// <summary>

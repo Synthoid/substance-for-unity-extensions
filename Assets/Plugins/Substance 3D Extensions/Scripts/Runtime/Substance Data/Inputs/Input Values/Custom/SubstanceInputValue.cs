@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Threading;
+using System.Threading.Tasks;
 using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions
@@ -14,6 +16,13 @@ namespace SOS.SubstanceExtensions
         public int ParameterIndex { get { return Parameter.Index; } }
 
         public abstract void SetInputValue(SubstanceNativeGraph graph);
+
+        public virtual Task SetInputValueAsync(SubstanceNativeGraph graph, CancellationToken cancelToke=default)
+        {
+            SetInputValue(graph);
+
+            return Task.CompletedTask;
+        }
     }
 
     /// <summary>

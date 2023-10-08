@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Adobe.Substance;
 using Adobe.Substance.Input;
+using System.Threading;
 
 namespace SOS.SubstanceExtensions
 {
@@ -296,14 +297,15 @@ namespace SOS.SubstanceExtensions
         /// <param name="inputID">Index for the input being set.</param>
         /// <param name="texture">Texture to assign.</param>
         /// <param name="callback">[Optional] Callback invoked when the operation completes.</param>
+        /// <param name="cancelToken">[Optional] CancellationToken for the operation.</param>
         /// <returns>Awaitable <see cref="Task"/> representing the set operation.</returns>
-        public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture, System.Action callback=null)
+        public static async Task SetInputTextureGPUAsync(this SubstanceNativeGraph nativeGraph, int inputID, Texture texture, System.Action callback=null, CancellationToken cancelToken=default)
         {
             if(texture == null)
             {
                 nativeGraph.SetInputTexture2DNull(inputID);
 
-                if(callback != null) callback.Invoke();
+                callback?.Invoke();
 
                 return;
             }
@@ -312,7 +314,7 @@ namespace SOS.SubstanceExtensions
             {
                 Debug.LogWarning("[Substance Extensions - SetInputTextureGPUAsync]\nOnly uncompressed texture formats are supported currently. This will be addressed in a later update.");
 
-                if(callback != null) callback.Invoke();
+                callback?.Invoke();
 
                 return;
             }
@@ -322,11 +324,23 @@ namespace SOS.SubstanceExtensions
 
             AsyncGPUReadback.Request(texture, 0, (request) =>
             {
+                if(cancelToken.IsCancellationRequested)
+                {
+                    wait = false;
+                    return;
+                }
+
                 bytes = request.GetData<byte>().ToArray();
                 wait = false;
             });
 
             while(wait) await Task.Yield();
+
+            if(cancelToken.IsCancellationRequested)
+            {
+                callback?.Invoke();
+                return;
+            }
 
             Color32[] pixels = new Color32[bytes.Length / 4];
 
@@ -338,7 +352,7 @@ namespace SOS.SubstanceExtensions
 
             nativeGraph.SetInputTexturePixels32(inputID, pixels, texture.width, texture.height);
 
-            if(callback != null) callback.Invoke();
+            callback?.Invoke();
         }
 
         /// <summary>

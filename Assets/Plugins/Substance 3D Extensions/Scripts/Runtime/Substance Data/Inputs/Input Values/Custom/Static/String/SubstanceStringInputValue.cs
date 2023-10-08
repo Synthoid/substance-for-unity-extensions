@@ -4,11 +4,11 @@ using Adobe.Substance;
 namespace SOS.SubstanceExtensions
 {
     /// <summary>
-    /// Base class for data that sets color values on a SubstanceNativeGraph input.
+    /// Base class for data that sets string values on a SubstanceNativeGraph input.
     /// </summary>
-    public abstract class SubstanceColorValue : SubstanceInputValueT<Color>
+    public abstract class SubstanceStringInputValue : SubstanceInputValueT<string>
     {
-        [SerializeField, SubstanceInputTypeFilter(SbsInputTypeFilter.Float4)]
+        [SerializeField, SubstanceInputTypeFilter(SbsInputTypeFilter.String)]
         protected SubstanceParameter parameter = new SubstanceParameter();
 
         public override SubstanceParameter Parameter
@@ -19,7 +19,7 @@ namespace SOS.SubstanceExtensions
 
         public override void SetInputValue(SubstanceNativeGraph graph)
         {
-            graph.SetInputFloat4(ParameterIndex, GetValue());
+            graph.SetInputString(ParameterIndex, GetValue());
         }
     }
 }

@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Unreleased
 - Support for importing graphs with their names?
 
+### Added
+
+- Classes for setting values on `SubstanceNativeGraph` and `SubstanceRuntimeGraph` objects.
+- `SubstanceGraphRuntimeExtensions` `RenderFast()` and `RenderFastAsync()` methods to support rendering graphs without checking that textures need to be resized.
+
+### Changed
+
+- `SubstanceNativeGraphExtensions.SetInputTextureGPUAsync()` now accepts an optional cancellation token.
+
 ## [0.2.5] - 2023-09-10
 
 ### Added

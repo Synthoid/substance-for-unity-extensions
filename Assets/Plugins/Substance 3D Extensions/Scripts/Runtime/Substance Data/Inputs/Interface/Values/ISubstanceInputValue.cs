@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Threading;
+using System.Threading.Tasks;
 using Adobe.Substance;
 
 namespace SOS.SubstanceExtensions
@@ -26,6 +28,13 @@ namespace SOS.SubstanceExtensions
         /// </summary>
         /// <param name="graph">Graph to set an input value on.</param>
         void SetInputValue(SubstanceNativeGraph graph);
+        /// <summary>
+        /// Asynchronously set the target input value on the given native graph.
+        /// </summary>
+        /// <param name="graph">Graph to set an input value on.</param>
+        /// <param name="cancelToken">[Optional] CancellationToken for the task.</param>
+        /// <returns>Task for the value set operation.</returns>
+        Task SetInputValueAsync(SubstanceNativeGraph graph, CancellationToken cancelToken=default);
     }
 
     /// <summary>

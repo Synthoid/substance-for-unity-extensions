@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Threading;
 using System.Threading.Tasks;
-using Adobe.Substance.Runtime;
 
 namespace SOS.SubstanceExtensions.Tests
 {
-    public class SRGPerformanceTest : MonoBehaviour
+    public class SubstancePerformanceTest : MonoBehaviour
     {
         [SerializeField, Tooltip("Number of times a substance is rendered before moving on to the next prefab.")]
         private int rendersPerPrefab = 3;
@@ -16,7 +15,7 @@ namespace SOS.SubstanceExtensions.Tests
         [SerializeField, Tooltip("Delay after rendering a substance before its performance game object is destroyed.")]
         private float destroyDelay = 1f;
         [SerializeField]
-        private SRGPerformanceObject[] performancePrefabs = new SRGPerformanceObject[0];
+        private SubstancePerformanceObject[] performancePrefabs = new SubstancePerformanceObject[0];
 
         private CancellationTokenSource cancelTokenSource = null;
 
@@ -36,7 +35,7 @@ namespace SOS.SubstanceExtensions.Tests
                     await Task.Yield();
                 }
 
-                SRGPerformanceObject performanceObject = Instantiate(performancePrefabs[index % performancePrefabs.Length]);
+                SubstancePerformanceObject performanceObject = Instantiate(performancePrefabs[index % performancePrefabs.Length]);
 
                 int count = 0;
 
